@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>N/NPC — OEE 工廠獲利計算機</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;900&family=Barlow+Condensed:wght@700;900&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Sans+Thai:wght@400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #1C1C1C;
+    --surface: #242424;
+    --surface2: #2C2C2C;
+    --border: rgba(255,255,255,0.08);
+    --text: #F0F0F0;
+    --muted: #888;
+    --gold: #E1A813;
+    --gold-dim: rgba(225,168,19,0.12);
+    --A: #22d3ee;
+    --P: #a78bfa;
+    --Q: #4CAF82;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans TC', 'Barlow', sans-serif;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  /* Diagonal stripe bg */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: repeating-linear-gradient(
+      -45deg, transparent, transparent 40px,
+      rgba(225,168,19,0.012) 40px, rgba(225,168,19,0.012) 41px
+    );
+    pointer-events: none; z-index: 0;
+  }
+
+  /* ── AUTH GATE ─────────────────────────────── */
+  #authGate {
+    position: fixed; inset: 0;
+    background: rgba(10,10,10,0.97);
+    backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 100;
+    padding: 1rem;
+  }
+  #authGate.hidden { display: none; }
+  .gate-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 2.5rem 2rem;
+    max-width: 400px; width: 100%;
+    text-align: center;
+    position: relative;
+    animation: fadeUp 0.5s ease both;
+  }
+  .gate-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold) 0%, rgba(225,168,19,0.2) 100%);
+  }
+  .gate-logo {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 700; font-size: 1.95rem;
+    letter-spacing: 0.05em; text-rendering: geometricPrecision;
+    color: var(--text); margin-bottom: 1.5rem;
+  }
+  .gate-logo span { color: var(--gold); }
+  .gate-title { font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; }
+  .gate-sub { font-size: 0.8rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.5rem; }
+  .gate-btn {
+    display: block; width: 100%;
+    padding: 0.9rem;
+    background: var(--gold); color: #1C1C1C;
+    border: none; border-radius: 2px;
+    font-family: 'Barlow', sans-serif; font-weight: 700;
+    font-size: 0.9rem; letter-spacing: 0.08em;
+    text-transform: uppercase; cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, box-shadow 0.2s;
+    margin-bottom: 0.75rem;
+  }
+  .gate-btn:hover { background: #F0B820; box-shadow: 0 4px 20px rgba(225,168,19,0.3); }
+  .gate-login { font-size: 0.75rem; color: var(--muted); }
+  .gate-login a { color: var(--gold); text-decoration: none; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── NAVBAR ────────────────────────────────── */
+  .navbar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(28,28,28,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 0.75rem 1.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 700; font-size: 1.22rem;
+    color: var(--text); text-decoration: none;
+    letter-spacing: 0.05em; text-rendering: geometricPrecision;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-right { display: flex; align-items: center; gap: 1rem; }
+  .nav-back {
+    font-size: 0.72rem; color: var(--muted);
+    text-decoration: none; letter-spacing: 0.05em;
+    font-family: 'Barlow', sans-serif;
+    display: flex; align-items: center; gap: 0.3rem;
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--text); }
+  .nav-tag {
+    font-size: 0.65rem; letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background: var(--gold-dim);
+    border: 1px solid rgba(225,168,19,0.25);
+    color: var(--gold);
+    padding: 0.2rem 0.6rem;
+    border-radius: 2px;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 600;
+  }
+
+  /* ── LANG SWITCHER ─────────────────────────── */
+  .lang-bar {
+    display: flex; justify-content: flex-end;
+    gap: 0.4rem; padding: 1rem 1.5rem 0;
+  }
+  .lang-btn {
+    display: flex; align-items: center; gap: 0.3rem;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 0.28rem 0.75rem;
+    font-size: 0.7rem; color: var(--muted);
+    cursor: pointer; transition: all 0.15s;
+    font-family: 'Barlow', sans-serif;
+    white-space: nowrap;
+  }
+  .lang-btn:hover { border-color: var(--gold); color: var(--text); }
+  .lang-btn.active { background: var(--gold-dim); border-color: rgba(225,168,19,0.4); color: var(--gold); font-weight: 700; }
+
+  /* ── MAIN LAYOUT ───────────────────────────── */
+  .main { max-width: 860px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; position: relative; z-index: 1; }
+
+  /* Header */
+  .calc-header { text-align: center; margin-bottom: 2.5rem; padding-top: 0.5rem; }
+  .calc-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem; letter-spacing: 0.25em;
+    color: var(--gold); text-transform: uppercase; margin-bottom: 0.75rem;
+  }
+  .calc-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 900; color: var(--text);
+    letter-spacing: -0.02em; line-height: 1.1;
+  }
+  .calc-sub { font-size: 0.82rem; color: var(--muted); margin-top: 0.5rem; }
+  .oee-formula {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 2px; padding: 0.4rem 1.2rem; margin-top: 1rem;
+    font-family: 'Space Mono', monospace; font-size: 0.75rem;
+    flex-wrap: wrap; justify-content: center;
+  }
+  .f-a { color: var(--A); font-weight: 700; }
+  .f-p { color: var(--P); font-weight: 700; }
+  .f-q { color: var(--Q); font-weight: 700; }
+  .f-sep { color: var(--muted); }
+
+  /* Cards */
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 2px; padding: 1.5rem; margin-bottom: 1.25rem;
+    position: relative;
+  }
+  .card-title {
+    font-size: 0.65rem; font-family: 'Space Mono', monospace;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 1.2rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .card-title::before {
+    content: ''; width: 3px; height: 12px;
+    background: var(--gold); border-radius: 1px;
+    display: inline-block; flex-shrink: 0;
+  }
+
+  /* Input fields */
+  .inputs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; }
+  .input-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .input-label { font-size: 0.7rem; color: var(--muted); font-family: 'Barlow', sans-serif; }
+  .input-control {
+    display: flex; align-items: center; gap: 0.5rem;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 2px; padding: 0.5rem 0.75rem;
+  }
+  .ctrl-btn {
+    background: none; border: none; color: var(--muted);
+    font-size: 1.1rem; cursor: pointer; padding: 0 0.2rem;
+    transition: color 0.15s; line-height: 1;
+  }
+  .ctrl-btn:hover { color: var(--gold); }
+  .input-display { flex: 1; text-align: center; }
+  .input-val { font-size: 1.2rem; font-weight: 700; font-family: 'Space Mono', monospace; }
+  .input-unit { font-size: 0.6rem; color: var(--muted); display: block; margin-top: -2px; }
+
+  /* Gauge */
+  .gauge-section { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; margin: 0.5rem 0 1rem; }
+  .gauge-wrap { position: relative; width: 200px; height: 110px; }
+  .gauge-svg { width: 200px; height: 110px; }
+  .gauge-label { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); text-align: center; }
+  .gauge-number { font-family: 'Space Mono', monospace; font-size: 2rem; font-weight: 700; color: var(--gold); line-height: 1; }
+  .gauge-unit { font-size: 0.65rem; color: var(--muted); }
+  .gauge-legend { display: flex; gap: 1.5rem; font-size: 0.7rem; color: var(--muted); }
+  .gauge-legend span { display: flex; align-items: center; gap: 0.3rem; }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+  /* Base OEE slider */
+  .base-oee-row {
+    display: flex; align-items: center; gap: 1rem;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 2px; padding: 0.9rem 1.1rem; margin-bottom: 1rem;
+  }
+  .base-oee-row label { font-size: 0.72rem; color: var(--muted); white-space: nowrap; min-width: 80px; font-family: 'Barlow', sans-serif; }
+  .base-val { font-family: 'Space Mono', monospace; font-size: 1rem; font-weight: 700; color: var(--gold); min-width: 40px; }
+
+  /* APQ Sliders */
+  .slider-row {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 2px; padding: 1.1rem 1.2rem; margin-bottom: 0.9rem;
+    transition: border-color 0.2s;
+  }
+  .slider-row:hover { border-color: var(--accent-color, var(--gold)); }
+  .slider-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.85rem; }
+  .slider-label-group { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+  .factor-badge {
+    font-family: 'Barlow', sans-serif; font-size: 0.75rem; font-weight: 700;
+    padding: 0.2rem 0.65rem; border-radius: 2px; color: #1C1C1C; flex-shrink: 0;
+  }
+  .slider-desc { font-size: 0.76rem; color: var(--muted); }
+  .slider-value-box {
+    font-family: 'Space Mono', monospace; font-size: 1.1rem; font-weight: 700;
+    border: 1.5px solid; border-radius: 2px;
+    padding: 0.15rem 0.7rem; min-width: 60px; text-align: center; flex-shrink: 0;
+  }
+  .styled-range {
+    -webkit-appearance: none; width: 100%; height: 3px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.08);
+    outline: none; cursor: pointer; margin-bottom: 0.35rem;
+  }
+  .styled-range::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 18px; height: 18px;
+    border-radius: 50%; background: var(--thumb-color, var(--gold));
+    box-shadow: 0 0 8px var(--thumb-color, var(--gold)); cursor: pointer;
+  }
+  .slider-track-wrap { margin-bottom: 0.5rem; }
+  .slider-minmax { display: flex; justify-content: space-between; font-size: 0.62rem; color: var(--muted); font-family: 'Space Mono', monospace; }
+  .factor-contribution { font-size: 0.72rem; color: var(--muted); }
+
+  /* Result */
+  .result-card {
+    background: linear-gradient(135deg, rgba(225,168,19,0.05) 0%, rgba(28,28,28,0) 60%);
+    border: 1px solid rgba(225,168,19,0.2);
+    border-radius: 2px; padding: 2rem; text-align: center; position: relative; overflow: hidden;
+  }
+  .result-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--gold) 0%, rgba(225,168,19,0.1) 100%);
+  }
+  .result-eyebrow { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+  .result-main { font-family: 'Space Mono', monospace; font-size: clamp(2rem, 6vw, 3.5rem); font-weight: 700; color: var(--gold); line-height: 1.1; margin: 0.25rem 0; text-shadow: 0 0 40px rgba(225,168,19,0.3); }
+  .result-sub { font-size: 0.78rem; color: var(--muted); margin-bottom: 1.5rem; }
+  .result-breakdown { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 1.25rem; }
+  .breakdown-item { background: rgba(0,0,0,0.25); border-radius: 2px; padding: 0.9rem; border: 1px solid var(--border); }
+  .breakdown-label { font-size: 0.67rem; color: var(--muted); margin-bottom: 0.3rem; }
+  .breakdown-val { font-family: 'Space Mono', monospace; font-size: 1rem; font-weight: 700; }
+  .oee-delta-display { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap; }
+  .oee-pill { display: flex; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 2px; padding: 0.35rem 1rem; font-family: 'Space Mono', monospace; font-size: 0.85rem; }
+  .arrow-right { color: var(--gold); font-size: 1rem; }
+  .zero-state { font-size: 0.85rem; color: var(--muted); font-style: italic; padding: 1rem 0; }
+  .per-percent-note { font-size: 0.72rem; color: var(--muted); margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); font-family: 'Space Mono', monospace; }
+
+  /* CTA footer */
+  .cta-strip {
+    background: var(--gold-dim); border: 1px solid rgba(225,168,19,0.2);
+    border-radius: 2px; padding: 1.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem; flex-wrap: wrap; margin-top: 1.25rem;
+  }
+  .cta-text h3 { font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 1rem; color: var(--text); margin-bottom: 0.25rem; }
+  .cta-text p { font-size: 0.78rem; color: var(--muted); }
+  .cta-btn {
+    background: var(--gold); color: #1C1C1C;
+    border: none; border-radius: 2px;
+    font-family: 'Barlow', sans-serif; font-weight: 700;
+    font-size: 0.85rem; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 0.75rem 1.5rem;
+    cursor: pointer; white-space: nowrap;
+    transition: background 0.2s; text-decoration: none;
+  }
+  .cta-btn:hover { background: #F0B820; }
+
+  /* Footer */
+  .page-footer { text-align: center; padding: 1.5rem; font-size: 0.7rem; color: #555; }
+  .page-footer a { color: var(--gold); text-decoration: none; }
+
+  @media (max-width: 520px) {
+    .result-breakdown { grid-template-columns: 1fr; }
+    .inputs-grid { grid-template-columns: 1fr 1fr; }
+    .cta-strip { flex-direction: column; text-align: center; }
+    .navbar { padding: 0.75rem 1rem; }
+    .lang-bar { padding: 1rem 1rem 0; }
+    .main { padding: 1rem 1rem 4rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Auth Gate -->
+<div id="authGate">
+  <div class="gate-card">
+    <div class="gate-logo">N<span>/</span>NPC</div>
+    <div class="gate-title">會員專屬工具</div>
+    <div class="gate-sub">
+      OEE 工廠獲利計算機為 N/NPC 會員專屬功能。<br>
+      請先完成會員註冊並驗證您的 Email。
+    </div>
+    <a href="register.html" class="gate-btn">免費註冊會員</a>
+    <div class="gate-login">已有帳號？<a href="register.html">登入</a></div>
+  </div>
+</div>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <a href="register.html" class="nav-logo">N<span style="color:var(--gold);">/</span>NPC</a>
+  <div class="nav-right">
+    <span class="nav-tag">會員專屬</span>
+    <a href="#" class="nav-back" onclick="logout()">← 登出</a>
+  </div>
+</nav>
+
+<!-- Lang Switcher -->
+<div class="lang-bar">
+  <button class="lang-btn active" onclick="setLang('zh', this)">🇹🇼 中文</button>
+  <button class="lang-btn" onclick="setLang('en', this)">🇺🇸 English</button>
+  <button class="lang-btn" onclick="setLang('th', this)">🇹🇭 ภาษาไทย</button>
+</div>
+
+<!-- Main Calculator -->
+<div class="main">
+
+  <div class="calc-header">
+    <div class="calc-eyebrow" id="t-eyebrow">OEE · Overall Equipment Effectiveness</div>
+    <h1 class="calc-title" id="t-title">工廠獲利計算機</h1>
+    <p class="calc-sub" id="t-subtitle">調整參數，即時看到 OEE 提升帶來的真實金錢價值</p>
+    <div class="oee-formula">
+      <span class="f-a">A</span>
+      <span class="f-sep" id="t-fA">可動率</span>
+      <span class="f-sep">×</span>
+      <span class="f-p">P</span>
+      <span class="f-sep" id="t-fP">性能</span>
+      <span class="f-sep">×</span>
+      <span class="f-q">Q</span>
+      <span class="f-sep" id="t-fQ">品質</span>
+      <span class="f-sep">=</span>
+      <span style="color:var(--gold);font-weight:700;">OEE</span>
+    </div>
+  </div>
+
+  <!-- Step 1 -->
+  <div class="card">
+    <div class="card-title" id="t-step1">步驟 1 — 填入您的工廠規模</div>
+    <div class="inputs-grid">
+      <div class="input-group">
+        <div class="input-label" id="t-lbl-machines">機台數量</div>
+        <div class="input-control">
+          <button class="ctrl-btn" onclick="adj('machines',-1)">−</button>
+          <div class="input-display">
+            <span class="input-val" id="v-machines">20</span>
+            <span class="input-unit" id="t-u-machines">台</span>
+          </div>
+          <button class="ctrl-btn" onclick="adj('machines',1)">+</button>
+        </div>
+      </div>
+      <div class="input-group">
+        <div class="input-label" id="t-lbl-shifts">每日班制</div>
+        <div class="input-control">
+          <button class="ctrl-btn" onclick="adj('shifts',-1)">−</button>
+          <div class="input-display">
+            <span class="input-val" id="v-shifts">2</span>
+            <span class="input-unit" id="t-u-shifts">班</span>
+          </div>
+          <button class="ctrl-btn" onclick="adj('shifts',1)">+</button>
+        </div>
+      </div>
+      <div class="input-group">
+        <div class="input-label" id="t-lbl-workers">員工人數</div>
+        <div class="input-control">
+          <button class="ctrl-btn" onclick="adj('workers',-1)">−</button>
+          <div class="input-display">
+            <span class="input-val" id="v-workers">23</span>
+            <span class="input-unit" id="t-u-workers">人</span>
+          </div>
+          <button class="ctrl-btn" onclick="adj('workers',1)">+</button>
+        </div>
+      </div>
+      <div class="input-group">
+        <div class="input-label" id="t-lbl-days">每月工作天</div>
+        <div class="input-control">
+          <button class="ctrl-btn" onclick="adj('workDays',-1)">−</button>
+          <div class="input-display">
+            <span class="input-val" id="v-workDays">26</span>
+            <span class="input-unit" id="t-u-days">天</span>
+          </div>
+          <button class="ctrl-btn" onclick="adj('workDays',1)">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="card">
+    <div class="card-title" id="t-step2">步驟 2 — 設定目前的基準 OEE</div>
+    <div class="gauge-section">
+      <div class="gauge-wrap">
+        <svg class="gauge-svg" viewBox="0 0 200 110">
+          <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="14" stroke-linecap="round"/>
+          <path id="gBase" d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#E1A813" stroke-width="14" stroke-linecap="round" stroke-dasharray="163 251.3" opacity="0.35"/>
+          <path id="gCurrent" d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#E1A813" stroke-width="5" stroke-linecap="round" stroke-dasharray="163 251.3"/>
+          <line id="gNeedle" x1="100" y1="100" x2="40" y2="100" stroke="#E1A813" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="100" cy="100" r="5" fill="#E1A813"/>
+          <text x="20" y="116" fill="#666" font-size="9" font-family="monospace">0%</text>
+          <text x="170" y="116" fill="#666" font-size="9" font-family="monospace">100%</text>
+        </svg>
+        <div class="gauge-label">
+          <div class="gauge-number"><span id="v-currentOEE">65</span><span style="font-size:1rem;">%</span></div>
+          <div class="gauge-unit" id="t-currentOEE">當前 OEE</div>
+        </div>
+      </div>
+      <div class="gauge-legend">
+        <span><span class="legend-dot" style="background:#E1A813;opacity:0.45;"></span><span id="t-baseRef">基準</span> <span id="legend-base">65</span>%</span>
+        <span><span class="legend-dot" style="background:#E1A813;"></span><span id="t-targetRef">目標</span> <span id="legend-target">65</span>%</span>
+      </div>
+    </div>
+    <div class="base-oee-row">
+      <label id="t-baseLabel">目前 OEE 基準</label>
+      <input type="range" id="baseOEE" min="30" max="90" step="1" value="65"
+        oninput="onBaseChange(this.value)"
+        style="flex:1;-webkit-appearance:none;height:3px;border-radius:2px;background:rgba(255,255,255,0.08);outline:none;cursor:pointer;"
+      >
+      <div class="base-val" id="v-baseOEE">65%</div>
+    </div>
+    <div style="font-size:0.72rem;color:var(--muted);text-align:center;" id="t-avgNote">泰國製造業平均 OEE 約 60–68%</div>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="card">
+    <div class="card-title" id="t-step3">步驟 3 — 模擬 A × P × Q 各別提升幅度</div>
+
+    <div class="slider-row" style="--accent-color:var(--A);">
+      <div class="slider-header">
+        <div class="slider-label-group">
+          <span class="factor-badge" style="background:var(--A);">A</span>
+          <span class="slider-desc" id="t-descA">可動率（IoT 智慧貼紙）</span>
+        </div>
+        <div class="slider-value-box" id="sv-A" style="border-color:var(--A);color:var(--A);">+0%</div>
+      </div>
+      <div class="slider-track-wrap">
+        <input type="range" id="deltaA" min="0" max="20" step="1" value="0"
+          oninput="onDeltaChange()" class="styled-range"
+          style="--thumb-color:var(--A);">
+        <div class="slider-minmax"><span>0%</span><span id="maxA">+20%</span></div>
+      </div>
+      <div class="factor-contribution" id="fc-A">A 貢獻月增益：<strong style="color:var(--A);">฿ 0</strong></div>
+    </div>
+
+    <div class="slider-row" style="--accent-color:var(--P);">
+      <div class="slider-header">
+        <div class="slider-label-group">
+          <span class="factor-badge" style="background:var(--P);">P</span>
+          <span class="slider-desc" id="t-descP">性能效率（MES 系統）</span>
+        </div>
+        <div class="slider-value-box" id="sv-P" style="border-color:var(--P);color:var(--P);">+0%</div>
+      </div>
+      <div class="slider-track-wrap">
+        <input type="range" id="deltaP" min="0" max="20" step="1" value="0"
+          oninput="onDeltaChange()" class="styled-range"
+          style="--thumb-color:var(--P);">
+        <div class="slider-minmax"><span>0%</span><span id="maxP">+20%</span></div>
+      </div>
+      <div class="factor-contribution" id="fc-P">P 貢獻月增益：<strong style="color:var(--P);">฿ 0</strong></div>
+    </div>
+
+    <div class="slider-row" style="--accent-color:var(--Q);">
+      <div class="slider-header">
+        <div class="slider-label-group">
+          <span class="factor-badge" style="background:var(--Q);">Q</span>
+          <span class="slider-desc" id="t-descQ">品質合格率（MES + 數據分析）</span>
+        </div>
+        <div class="slider-value-box" id="sv-Q" style="border-color:var(--Q);color:var(--Q);">+0%</div>
+      </div>
+      <div class="slider-track-wrap">
+        <input type="range" id="deltaQ" min="0" max="20" step="1" value="0"
+          oninput="onDeltaChange()" class="styled-range"
+          style="--thumb-color:var(--Q);">
+        <div class="slider-minmax"><span>0%</span><span id="maxQ">+20%</span></div>
+      </div>
+      <div class="factor-contribution" id="fc-Q">Q 貢獻月增益：<strong style="color:var(--Q);">฿ 0</strong></div>
+    </div>
+  </div>
+
+  <!-- Result -->
+  <div class="result-card">
+    <div class="result-eyebrow" id="t-resultEyebrow">每月新增獲利試算結果</div>
+    <div id="zeroState" class="zero-state" id="t-zeroState">← 請滑動上方 A / P / Q 滑桿來試算</div>
+    <div id="resultContent" style="display:none;">
+      <div class="oee-delta-display">
+        <div class="oee-pill" id="pill-base">65%</div>
+        <span class="arrow-right">▶</span>
+        <div class="oee-pill" style="border-color:var(--gold);">
+          <span style="color:var(--gold);font-weight:700;" id="pill-target">65%</span>
+        </div>
+        <div style="font-size:0.8rem;color:var(--gold);font-family:monospace;" id="pill-delta">↑ +0%</div>
+      </div>
+      <div class="result-main" id="result-total">฿ 0</div>
+      <div class="result-sub" id="t-resultSub">/ 每月額外創造的價值（營收增益 + 成本節省）</div>
+      <div class="result-breakdown">
+        <div class="breakdown-item">
+          <div class="breakdown-label" id="t-revenueLabel">📈 每月營收增益</div>
+          <div class="breakdown-val" style="color:var(--A);" id="result-revenue">฿ 0</div>
+        </div>
+        <div class="breakdown-item">
+          <div class="breakdown-label" id="t-costLabel">💸 每月成本節省</div>
+          <div class="breakdown-val" style="color:var(--Q);" id="result-cost">฿ 0</div>
+        </div>
+        <div class="breakdown-item">
+          <div class="breakdown-label" id="t-capacityLabel">🏭 月產能總值</div>
+          <div class="breakdown-val" style="color:var(--muted);" id="result-capacity">฿ 0</div>
+        </div>
+        <div class="breakdown-item">
+          <div class="breakdown-label" id="t-workerLabel">👷 月薪人力成本</div>
+          <div class="breakdown-val" style="color:var(--muted);" id="result-worker">฿ 0</div>
+        </div>
+      </div>
+      <div class="per-percent-note" id="result-perPercent"></div>
+    </div>
+  </div>
+
+  <!-- CTA Strip -->
+  <div class="cta-strip">
+    <div class="cta-text">
+      <h3 id="t-ctaTitle">準備好開始數位轉型了嗎？</h3>
+      <p id="t-ctaSub">N/NPC 顧問團隊提供 IoT + MES 客製化解決方案，協助您工廠提升 OEE。</p>
+    </div>
+    <a href="https://your-website.com/contact" class="cta-btn" id="t-ctaBtn">預約顧問諮詢 →</a>
+  </div>
+
+</div>
+
+<div class="page-footer">
+  © 2025 N/NPC Smart Manufacturing Solutions · <a href="register.html">官方網站</a> · <a href="#">聯絡我們</a>
+</div>
+
+<script>
+// ─── State ───────────────────────────────────────────
+const state = {
+  machines: 20, shifts: 2, workers: 23, workDays: 26,
+  baseOEE: 65, deltaA: 0, deltaP: 0, deltaQ: 0,
+  lang: 'zh'
+};
+const LIMITS = { machines:[1,200], shifts:[1,3], workers:[1,500], workDays:[1,31] };
+const HOURLY = 2500;
+
+// ─── Auth Gate ───────────────────────────────────────
+(function checkAuth() {
+  const params = new URLSearchParams(window.location.search);
+  const verified = params.get('verified') === '1'
+    || sessionStorage.getItem('nnpc_verified') === '1';
+  if (verified) {
+    sessionStorage.setItem('nnpc_verified', '1');
+    document.getElementById('authGate').classList.add('hidden');
+  }
+  // Gate stays visible if not verified
+})();
+
+function logout() {
+  sessionStorage.removeItem('nnpc_verified');
+  document.getElementById('authGate').classList.remove('hidden');
+}
+
+// ─── i18n ────────────────────────────────────────────
+const T = {
+  zh: {
+    eyebrow:'OEE · Overall Equipment Effectiveness', title:'工廠獲利計算機',
+    subtitle:'調整參數，即時看到 OEE 提升帶來的真實金錢價值',
+    fA:'可動率', fP:'性能', fQ:'品質',
+    step1:'步驟 1 — 填入您的工廠規模',
+    step2:'步驟 2 — 設定目前的基準 OEE',
+    step3:'步驟 3 — 模擬 A × P × Q 各別提升幅度',
+    lMachines:'機台數量', uMachines:'台',
+    lShifts:'每日班制', uShifts:'班',
+    lWorkers:'員工人數', uWorkers:'人',
+    lDays:'每月工作天', uDays:'天',
+    currentOEE:'當前 OEE', baseLabel:'目前 OEE 基準',
+    avgNote:'泰國製造業平均 OEE 約 60–68%',
+    baseRef:'基準', targetRef:'目標',
+    descA:'可動率（IoT 智慧貼紙）', descP:'性能效率（MES 系統）', descQ:'品質合格率（MES + 數據分析）',
+    fcA:'A 貢獻月增益：', fcP:'P 貢獻月增益：', fcQ:'Q 貢獻月增益：',
+    resultEyebrow:'每月新增獲利試算結果',
+    zeroState:'← 請滑動上方 A / P / Q 滑桿來試算',
+    resultSub:'/ 每月額外創造的價值（營收增益 + 成本節省）',
+    revenueLabel:'📈 每月營收增益', costLabel:'💸 每月成本節省',
+    capacityLabel:'🏭 月產能總值', workerLabel:'👷 月薪人力成本',
+    perPercent:(v)=>`★ 依您的工廠規模，OEE 每提升 1% ≈ ${v} / 月`,
+    ctaTitle:'準備好開始數位轉型了嗎？',
+    ctaSub:'N/NPC 顧問團隊提供 IoT + MES 客製化解決方案，協助您工廠提升 OEE。',
+    ctaBtn:'預約顧問諮詢 →',
+  },
+  en: {
+    eyebrow:'OEE · Overall Equipment Effectiveness', title:'Factory Profit Calculator',
+    subtitle:'Adjust parameters to see the real monetary value of OEE improvement',
+    fA:'Availability', fP:'Performance', fQ:'Quality',
+    step1:'Step 1 — Enter Your Factory Scale',
+    step2:'Step 2 — Set Your Baseline OEE',
+    step3:'Step 3 — Simulate A × P × Q Improvements',
+    lMachines:'Machines', uMachines:'units',
+    lShifts:'Daily Shifts', uShifts:'shifts',
+    lWorkers:'Workers', uWorkers:'people',
+    lDays:'Working Days/Mo', uDays:'days',
+    currentOEE:'Current OEE', baseLabel:'Baseline OEE',
+    avgNote:'Thai manufacturing average OEE is approx. 60–68%',
+    baseRef:'Baseline', targetRef:'Target',
+    descA:'Availability (IoT Smart Sensor)', descP:'Performance (MES System)', descQ:'Quality Rate (MES + Analytics)',
+    fcA:'A monthly contribution: ', fcP:'P monthly contribution: ', fcQ:'Q monthly contribution: ',
+    resultEyebrow:'Monthly Profit Gain Estimate',
+    zeroState:'← Slide the A / P / Q sliders above to calculate',
+    resultSub:'/ additional value created monthly (revenue + cost savings)',
+    revenueLabel:'📈 Monthly Revenue Gain', costLabel:'💸 Monthly Cost Savings',
+    capacityLabel:'🏭 Monthly Gross Capacity', workerLabel:'👷 Monthly Labor Cost',
+    perPercent:(v)=>`★ For your factory, every 1% OEE gain ≈ ${v} / month`,
+    ctaTitle:'Ready to Start Your Digital Transformation?',
+    ctaSub:'N/NPC provides customized IoT + MES solutions to improve your factory OEE.',
+    ctaBtn:'Book a Consultation →',
+  },
+  th: {
+    eyebrow:'OEE · ประสิทธิผลโดยรวมของเครื่องจักร', title:'เครื่องคำนวณกำไรโรงงาน',
+    subtitle:'ปรับพารามิเตอร์เพื่อดูมูลค่าที่แท้จริงจากการพัฒนา OEE',
+    fA:'ความพร้อม', fP:'ประสิทธิภาพ', fQ:'คุณภาพ',
+    step1:'ขั้นตอน 1 — กรอกข้อมูลโรงงาน',
+    step2:'ขั้นตอน 2 — ตั้งค่า OEE พื้นฐาน',
+    step3:'ขั้นตอน 3 — จำลองการเพิ่มขึ้นของ A × P × Q',
+    lMachines:'จำนวนเครื่องจักร', uMachines:'เครื่อง',
+    lShifts:'กะต่อวัน', uShifts:'กะ',
+    lWorkers:'จำนวนพนักงาน', uWorkers:'คน',
+    lDays:'วันทำงาน/เดือน', uDays:'วัน',
+    currentOEE:'OEE ปัจจุบัน', baseLabel:'OEE พื้นฐาน',
+    avgNote:'ค่าเฉลี่ย OEE อุตสาหกรรมไทย ประมาณ 60–68%',
+    baseRef:'พื้นฐาน', targetRef:'เป้าหมาย',
+    descA:'ความพร้อมใช้งาน (IoT Sensor)', descP:'ประสิทธิภาพการผลิต (MES)', descQ:'อัตราของดี (MES + Data)',
+    fcA:'A มีส่วนช่วยรายเดือน: ', fcP:'P มีส่วนช่วยรายเดือน: ', fcQ:'Q มีส่วนช่วยรายเดือน: ',
+    resultEyebrow:'ผลประมาณการกำไรที่เพิ่มขึ้นต่อเดือน',
+    zeroState:'← เลื่อนแถบ A / P / Q ด้านบนเพื่อคำนวณ',
+    resultSub:'/ มูลค่าเพิ่มต่อเดือน (รายได้ + ประหยัดต้นทุน)',
+    revenueLabel:'📈 รายได้เพิ่มต่อเดือน', costLabel:'💸 ต้นทุนที่ประหยัดได้/เดือน',
+    capacityLabel:'🏭 กำลังการผลิตรวม/เดือน', workerLabel:'👷 ต้นทุนแรงงาน/เดือน',
+    perPercent:(v)=>`★ OEE เพิ่มขึ้น 1% ≈ ${v} / เดือน`,
+    ctaTitle:'พร้อมเริ่มการเปลี่ยนแปลงดิจิทัลแล้วหรือยัง?',
+    ctaSub:'ทีมที่ปรึกษา N/NPC ให้บริการโซลูชัน IoT + MES เพื่อพัฒนา OEE โรงงานของคุณ',
+    ctaBtn:'นัดหมายที่ปรึกษา →',
+  }
+};
+
+function setLang(lang, btn) {
+  state.lang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const t = T[lang];
+  const fontFamily = lang === 'th'
+    ? "'Noto Sans Thai','Noto Sans TC',sans-serif"
+    : "'Noto Sans TC','Barlow',sans-serif";
+  document.body.style.fontFamily = fontFamily;
+
+  setText('t-eyebrow', t.eyebrow);
+  setText('t-title', t.title);
+  setText('t-subtitle', t.subtitle);
+  setText('t-fA', t.fA); setText('t-fP', t.fP); setText('t-fQ', t.fQ);
+  setText('t-step1', t.step1); setText('t-step2', t.step2); setText('t-step3', t.step3);
+  setText('t-lbl-machines', t.lMachines); setText('t-u-machines', t.uMachines);
+  setText('t-lbl-shifts', t.lShifts); setText('t-u-shifts', t.uShifts);
+  setText('t-lbl-workers', t.lWorkers); setText('t-u-workers', t.uWorkers);
+  setText('t-lbl-days', t.lDays); setText('t-u-days', t.uDays);
+  setText('t-currentOEE', t.currentOEE); setText('t-baseLabel', t.baseLabel);
+  setText('t-avgNote', t.avgNote);
+  setText('t-baseRef', t.baseRef); setText('t-targetRef', t.targetRef);
+  setText('t-descA', t.descA); setText('t-descP', t.descP); setText('t-descQ', t.descQ);
+  setText('t-resultEyebrow', t.resultEyebrow);
+  setText('zeroState', t.zeroState);
+  setText('t-resultSub', t.resultSub);
+  setText('t-revenueLabel', t.revenueLabel); setText('t-costLabel', t.costLabel);
+  setText('t-capacityLabel', t.capacityLabel); setText('t-workerLabel', t.workerLabel);
+  setText('t-ctaTitle', t.ctaTitle); setText('t-ctaSub', t.ctaSub); setText('t-ctaBtn', t.ctaBtn);
+  recalc();
+}
+
+function setText(id, val) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = val;
+}
+
+// ─── Inputs ─────────────────────────────────────────
+function adj(key, delta) {
+  const [min, max] = LIMITS[key];
+  state[key] = Math.min(max, Math.max(min, state[key] + delta));
+  document.getElementById('v-' + key).textContent = state[key];
+  recalc();
+}
+
+function onBaseChange(val) {
+  state.baseOEE = +val;
+  document.getElementById('v-baseOEE').textContent = val + '%';
+  document.getElementById('legend-base').textContent = val;
+  onDeltaChange();
+}
+
+function onDeltaChange() {
+  state.deltaA = +document.getElementById('deltaA').value;
+  state.deltaP = +document.getElementById('deltaP').value;
+  state.deltaQ = +document.getElementById('deltaQ').value;
+
+  // Clamp sliders so total doesn't exceed room
+  const room = 100 - state.baseOEE;
+  const maxA = Math.max(0, Math.min(20, room - state.deltaP - state.deltaQ));
+  const maxP = Math.max(0, Math.min(20, room - state.deltaA - state.deltaQ));
+  const maxQ = Math.max(0, Math.min(20, room - state.deltaA - state.deltaP));
+
+  document.getElementById('deltaA').max = maxA;
+  document.getElementById('deltaP').max = maxP;
+  document.getElementById('deltaQ').max = maxQ;
+  document.getElementById('maxA').textContent = '+' + maxA + '%';
+  document.getElementById('maxP').textContent = '+' + maxP + '%';
+  document.getElementById('maxQ').textContent = '+' + maxQ + '%';
+
+  // Re-read after clamp
+  state.deltaA = Math.min(state.deltaA, maxA);
+  state.deltaP = Math.min(state.deltaP, maxP);
+  state.deltaQ = Math.min(state.deltaQ, maxQ);
+  document.getElementById('deltaA').value = state.deltaA;
+  document.getElementById('deltaP').value = state.deltaP;
+  document.getElementById('deltaQ').value = state.deltaQ;
+
+  document.getElementById('sv-A').textContent = '+' + state.deltaA + '%';
+  document.getElementById('sv-P').textContent = '+' + state.deltaP + '%';
+  document.getElementById('sv-Q').textContent = '+' + state.deltaQ + '%';
+
+  recalc();
+}
+
+// ─── Calculation & Render ───────────────────────────
+function fmt(n) { return '฿ ' + Math.round(n).toLocaleString('th-TH'); }
+
+function recalc() {
+  const { machines, shifts, workers, workDays, baseOEE, deltaA, deltaP, deltaQ, lang } = state;
+  const t = T[lang];
+  const dailyHours = shifts * 8;
+  const monthlyHours = dailyHours * workDays;
+  const gross = machines * HOURLY * monthlyHours;
+  const totalDelta = Math.min(deltaA + deltaP + deltaQ, 100 - baseOEE);
+  const currentOEE = baseOEE + totalDelta;
+  const revenueGain = gross * (totalDelta / 100);
+  const costSavings = revenueGain * 0.48;
+  const totalGain = revenueGain + costSavings;
+  const perOne = gross * 0.01 * 1.48;
+  const workerCost = workers * 12000;
+
+  // Gauge
+  const dashTotal = 251.3;
+  document.getElementById('gBase').setAttribute('stroke-dasharray', `${baseOEE * 2.513} ${dashTotal}`);
+  document.getElementById('gCurrent').setAttribute('stroke-dasharray', `${currentOEE * 2.513} ${dashTotal}`);
+  const angle = (currentOEE / 100) * 180 - 90;
+  const rad = angle * Math.PI / 180;
+  const x2 = 100 + 60 * Math.cos(rad);
+  const y2 = 100 + 60 * Math.sin(rad);
+  document.getElementById('gNeedle').setAttribute('x2', x2);
+  document.getElementById('gNeedle').setAttribute('y2', y2);
+  document.getElementById('v-currentOEE').textContent = currentOEE;
+  document.getElementById('legend-base').textContent = baseOEE;
+  document.getElementById('legend-target').textContent = currentOEE;
+
+  // Factor contributions
+  document.getElementById('fc-A').innerHTML = t.fcA + `<strong style="color:var(--A)">${fmt(gross*(deltaA/100)*1.48)}</strong>`;
+  document.getElementById('fc-P').innerHTML = t.fcP + `<strong style="color:var(--P)">${fmt(gross*(deltaP/100)*1.48)}</strong>`;
+  document.getElementById('fc-Q').innerHTML = t.fcQ + `<strong style="color:var(--Q)">${fmt(gross*(deltaQ/100)*1.48)}</strong>`;
+
+  // Worker cost
+  document.getElementById('result-capacity').textContent = fmt(gross);
+  document.getElementById('result-worker').textContent = fmt(workerCost);
+
+  // Result panel
+  const zero = document.getElementById('zeroState');
+  const content = document.getElementById('resultContent');
+  if (totalDelta === 0) {
+    zero.style.display = 'block';
+    content.style.display = 'none';
+  } else {
+    zero.style.display = 'none';
+    content.style.display = 'block';
+    document.getElementById('pill-base').textContent = baseOEE + '%';
+    document.getElementById('pill-target').textContent = currentOEE + '%';
+    document.getElementById('pill-delta').textContent = '↑ +' + totalDelta + '%';
+    document.getElementById('result-total').textContent = fmt(totalGain);
+    document.getElementById('result-revenue').textContent = fmt(revenueGain);
+    document.getElementById('result-cost').textContent = fmt(costSavings);
+    document.getElementById('result-perPercent').textContent = t.perPercent(fmt(perOne));
+  }
+}
+
+// Init
+recalc();
+</script>
+</body>
+</html>
