@@ -471,7 +471,7 @@ const CONFIG = {
   REGISTER_ENDPOINT: '/api/oee/register',
   RESEND_ENDPOINT: '/api/oee/resend-verification',
   VERIFY_ENDPOINT: '/api/oee/verify',
-  API_OPTIONAL_FOR_PREVIEW: true,
+  API_OPTIONAL_FOR_PREVIEW: location.protocol === 'file:',
   OEE_TOOL_URL: 'oee-calculator.html',
   LOGIN_URL: 'oee-calculator.html',
   WEBSITE_URL: '/',
