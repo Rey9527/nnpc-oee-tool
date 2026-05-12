@@ -413,7 +413,7 @@
         <div class="checkbox-row">
           <input type="checkbox" id="privacy">
           <label for="privacy" id="t-privacy">
-            我已閱讀並同意 <a href="/privacy-policy">隱私權政策</a> 及 <a href="/terms">服務條款</a>，並同意 N/NPC 以上述資料與我聯繫。
+            我已閱讀並同意 <a href="privacy-policy.html">隱私權政策</a> 及 <a href="terms.html">服務條款</a>，並同意 N/NPC 以上述資料與我聯繫。
           </label>
         </div>
         <span class="field-error" id="privacyErr"></span>
@@ -460,7 +460,7 @@
     © 2025 N/NPC Smart Manufacturing Solutions<br>
     <a href="/" id="t-footerWeb">官方網站</a> ·
     <a href="/contact" id="t-footerContact">聯絡我們</a> ·
-    <a href="/privacy-policy" id="t-footerPrivacy">隱私權政策</a>
+    <a href="privacy-policy.html" id="t-footerPrivacy">隱私權政策</a>
   </div>
   </div>
 </div>
@@ -476,8 +476,8 @@ const CONFIG = {
   LOGIN_URL: 'oee-calculator.html',
   WEBSITE_URL: '/',
   CONTACT_URL: '/contact',
-  PRIVACY_URL: '/privacy-policy',
-  TERMS_URL: '/terms',
+  PRIVACY_URL: 'privacy-policy.html',
+  TERMS_URL: 'terms.html',
 };
 // ──────────────────────────────────────────────────────────────────────────
 
@@ -505,7 +505,7 @@ const T = {
     lCountry: '所在國家 <span class="req">*</span>',
     namePh: '您的姓名', companyPh: '您的公司全名', jobPh: '例如：生產部經理',
     selectDefault: '請選擇國家', selectOther: '其他 Other',
-    privacy: '我已閱讀並同意 <a href="/privacy-policy" id="privacyLinkZh">隱私權政策</a> 及 <a href="/terms" id="termsLinkZh">服務條款</a>，並同意 N/NPC 以上述資料與我聯繫。',
+    privacy: '我已閱讀並同意 <a href="privacy-policy.html" id="privacyLinkZh">隱私權政策</a> 及 <a href="terms.html" id="termsLinkZh">服務條款</a>，並同意 N/NPC 以上述資料與我聯繫。',
     submitBtn: '寄送 OEE 工具連結 →',
     loginHint: '已有帳號？', loginLink: '直接登入',
     errName: '請輸入姓名', errPhone: '請輸入電話號碼', errCompany: '請輸入公司名稱',
@@ -552,7 +552,7 @@ const T = {
     lCountry: 'Country <span class="req">*</span>',
     namePh: 'Your full name', companyPh: 'Your company name', jobPh: 'e.g. Production Manager',
     selectDefault: 'Select country', selectOther: 'Other',
-    privacy: 'I have read and agree to the <a href="/privacy-policy" id="privacyLinkEn">Privacy Policy</a> and <a href="/terms" id="termsLinkEn">Terms of Service</a>, and consent to N/NPC contacting me.',
+    privacy: 'I have read and agree to the <a href="privacy-policy.html" id="privacyLinkEn">Privacy Policy</a> and <a href="terms.html" id="termsLinkEn">Terms of Service</a>, and consent to N/NPC contacting me.',
     submitBtn: 'Send OEE Tool Link →',
     loginHint: 'Already have an account?', loginLink: 'Sign In',
     errName: 'Please enter your name', errPhone: 'Please enter your phone number', errCompany: 'Please enter your company name',
@@ -599,7 +599,7 @@ const T = {
     lCountry: 'ประเทศ <span class="req">*</span>',
     namePh: 'ชื่อ-นามสกุลของคุณ', companyPh: 'ชื่อบริษัทของคุณ', jobPh: 'เช่น ผู้จัดการฝ่ายผลิต',
     selectDefault: 'เลือกประเทศ', selectOther: 'อื่นๆ',
-    privacy: 'ฉันได้อ่านและยอมรับ <a href="/privacy-policy" id="privacyLinkTh">นโยบายความเป็นส่วนตัว</a> และ <a href="/terms" id="termsLinkTh">ข้อกำหนดการใช้บริการ</a> และยินยอมให้ N/NPC ติดต่อฉัน',
+    privacy: 'ฉันได้อ่านและยอมรับ <a href="privacy-policy.html" id="privacyLinkTh">นโยบายความเป็นส่วนตัว</a> และ <a href="terms.html" id="termsLinkTh">ข้อกำหนดการใช้บริการ</a> และยินยอมให้ N/NPC ติดต่อฉัน',
     submitBtn: 'ส่งลิงก์เครื่องมือ OEE →',
     loginHint: 'มีบัญชีอยู่แล้ว?', loginLink: 'เข้าสู่ระบบ',
     errName: 'กรุณากรอกชื่อ', errPhone: 'กรุณากรอกหมายเลขโทรศัพท์', errCompany: 'กรุณากรอกชื่อบริษัท',
@@ -713,8 +713,8 @@ function setLinks() {
   setLink('t-footerWeb', CONFIG.WEBSITE_URL);
   setLink('t-footerContact', CONFIG.CONTACT_URL);
   setLink('t-footerPrivacy', CONFIG.PRIVACY_URL);
-  document.querySelectorAll('a[href="/privacy-policy"]').forEach(el => { el.href = CONFIG.PRIVACY_URL; });
-  document.querySelectorAll('a[href="/terms"]').forEach(el => { el.href = CONFIG.TERMS_URL; });
+  document.querySelectorAll('a[href="privacy-policy.html"]').forEach(el => { el.href = CONFIG.PRIVACY_URL; });
+  document.querySelectorAll('a[href="terms.html"]').forEach(el => { el.href = CONFIG.TERMS_URL; });
 }
 
 // ─── Init ─────────────────────────────────────────────────────────────────
