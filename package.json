@@ -4,6 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "vercel dev",
-    "check": "node -c api/_lib/oee-common.js && node -c api/oee/register.js && node -c api/oee/resend-verification.js && node -c api/oee/verify.js"
+    "check": "node -c lib/oee-common.js && node -c api/oee/register.js && node -c api/oee/resend-verification.js && node -c api/oee/verify.js"
   }
 }

@@ -631,6 +631,8 @@ let currentLang = 'zh';
 let lastEmail = '';
 
 function detectLang() {
+  const saved = localStorage.getItem('nnpc_lang');
+  if (saved && T[saved]) return saved;
   const nav = navigator.language || navigator.userLanguage || '';
   const lang = nav.toLowerCase();
   if (lang.startsWith('th')) return 'th';
@@ -641,6 +643,7 @@ function detectLang() {
 function setLang(lang, btn) {
   currentLang = lang;
   const t = T[lang];
+  localStorage.setItem('nnpc_lang', lang);
 
   // Update html lang + body class
   document.documentElement.lang = t.htmlLang;

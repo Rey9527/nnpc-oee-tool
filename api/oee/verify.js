@@ -5,7 +5,7 @@ const {
   markMemberVerified,
   readBody,
   verifySignedToken,
-} = require('../_lib/oee-common');
+} = require('../../lib/oee-common');
 
 module.exports = async function handler(req, res) {
   if (handleOptions(req, res)) return;

@@ -5,55 +5,109 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>N/NPC Terms of Service</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Sans+Thai:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root { --bg:#1C1C1C; --surface:#242424; --text:#F4F4F4; --muted:#B6B6B6; --gold:#E1A813; --border:rgba(255,255,255,0.1); }
   * { box-sizing: border-box; }
   body { margin:0; background:var(--bg); color:var(--text); font-family:'Noto Sans TC','Barlow',sans-serif; line-height:1.75; padding:32px 18px; }
+  body.thai { font-family:'Noto Sans Thai','Barlow',sans-serif; }
   main { max-width:860px; margin:0 auto; background:var(--surface); border:1px solid var(--border); padding:34px; border-radius:2px; }
   a { color:var(--gold); text-decoration:none; }
-  .brand { font-family:'Barlow',sans-serif; font-weight:700; letter-spacing:.05em; font-size:1.35rem; margin-bottom:20px; }
+  .topbar { display:flex; justify-content:space-between; gap:1rem; align-items:center; margin-bottom:24px; }
+  .brand { font-family:'Barlow',sans-serif; font-weight:700; letter-spacing:.05em; font-size:1.35rem; }
   .brand span { color:var(--gold); }
-  h1 { font-size:1.8rem; margin:0 0 10px; }
-  h2 { font-size:1.1rem; margin:28px 0 8px; color:var(--gold); }
+  .lang-bar { display:flex; gap:.35rem; flex-wrap:wrap; justify-content:flex-end; }
+  .lang-btn { background:#2C2C2C; border:1px solid var(--border); color:var(--muted); padding:.36rem .7rem; border-radius:2px; cursor:pointer; font:600 .82rem 'Barlow',sans-serif; }
+  .lang-btn.active { color:var(--gold); border-color:rgba(225,168,19,.42); background:rgba(225,168,19,.12); }
+  h1 { font-size:1.85rem; margin:0 0 10px; }
+  h2 { font-size:1.12rem; margin:28px 0 8px; color:var(--gold); }
   p, li { color:var(--muted); font-size:1rem; }
   ul { padding-left:1.2rem; }
-  .meta { color:#8f8f8f; font-size:.92rem; margin-bottom:28px; }
+  .meta { color:#9C9C9C; font-size:.94rem; margin-bottom:28px; }
   .back { display:inline-block; margin-top:28px; font-weight:700; }
+  @media (max-width:560px) { main { padding:24px 18px; } .topbar { align-items:flex-start; flex-direction:column; } .lang-bar { justify-content:flex-start; } }
 </style>
 </head>
 <body>
 <main>
-  <div class="brand">N<span>/</span>NPC</div>
-  <h1>服務條款 Terms of Service</h1>
-  <p class="meta">Last updated: 2026-05-13</p>
+  <div class="topbar">
+    <div class="brand">N<span>/</span>NPC</div>
+    <div class="lang-bar">
+      <button class="lang-btn" onclick="setLang('zh')">中文</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('th')">ไทย</button>
+    </div>
+  </div>
 
-  <p>使用 N/NPC OEE 工具，即表示您同意以下服務條款。本工具提供初步試算與商業評估參考，實際改善效益仍需依現場條件評估。</p>
-
-  <h2>工具用途</h2>
-  <ul>
-    <li>OEE 工具用於估算設備效率改善可能帶來的產值或損失改善。</li>
-    <li>計算結果僅供參考，不構成保證收益、財務承諾或正式顧問報告。</li>
-    <li>若需正式改善方案，建議與 N/NPC 團隊進一步討論現場資料。</li>
-  </ul>
-
-  <h2>會員與工具連結</h2>
-  <ul>
-    <li>您需提供正確 Email 以接收 OEE 工具連結。</li>
-    <li>請勿將工具連結用於濫發、攻擊、逆向工程或未授權商業用途。</li>
-    <li>N/NPC 可在偵測到異常使用時限制或終止工具存取。</li>
-  </ul>
-
-  <h2>資料正確性</h2>
-  <p>您輸入的工廠規模、OEE、工時、人員等數值會影響試算結果。請依實際狀況輸入，以取得更有意義的估算。</p>
-
-  <h2>責任限制</h2>
-  <p>N/NPC 會努力提供穩定、清楚且有用的工具，但不保證工具永不中斷或所有結果完全符合每一個工廠現場狀況。</p>
-
-  <h2>條款更新</h2>
-  <p>N/NPC 可依服務需求更新本條款。更新後的條款會公布於本頁。</p>
-
-  <a class="back" href="register.html">← 返回 OEE 工具註冊頁</a>
+  <h1 id="title"></h1>
+  <p class="meta" id="meta"></p>
+  <div id="content"></div>
+  <a class="back" href="register.html" id="back"></a>
 </main>
+
+<script>
+const T = {
+  zh: {
+    htmlLang:'zh-TW', bodyClass:'',
+    title:'服務條款',
+    meta:'最後更新：2026-05-13',
+    back:'← 返回 OEE 工具註冊頁',
+    content: `
+      <p>使用 N/NPC OEE 工具，即表示您同意以下服務條款。本工具提供初步試算與商業評估參考，實際改善效益仍需依現場條件評估。</p>
+      <h2>工具用途</h2><ul><li>OEE 工具用於估算設備效率改善可能帶來的產值或損失改善。</li><li>計算結果僅供參考，不構成保證收益、財務承諾或正式顧問報告。</li><li>若需正式改善方案，建議與 N/NPC 團隊進一步討論現場資料。</li></ul>
+      <h2>會員與工具連結</h2><ul><li>您需提供正確 Email 以接收 OEE 工具連結。</li><li>請勿將工具連結用於濫發、攻擊、逆向工程或未授權商業用途。</li><li>N/NPC 可在偵測到異常使用時限制或終止工具存取。</li></ul>
+      <h2>資料正確性</h2><p>您輸入的工廠規模、OEE、工時、人員等數值會影響試算結果。請依實際狀況輸入，以取得更有意義的估算。</p>
+      <h2>責任限制</h2><p>N/NPC 會努力提供穩定、清楚且有用的工具，但不保證工具永不中斷或所有結果完全符合每一個工廠現場狀況。</p>
+      <h2>條款更新</h2><p>N/NPC 可依服務需求更新本條款。更新後的條款會公布於本頁。</p>`
+  },
+  en: {
+    htmlLang:'en', bodyClass:'',
+    title:'Terms of Service',
+    meta:'Last updated: 2026-05-13',
+    back:'← Back to OEE tool registration',
+    content: `
+      <p>By using the N/NPC OEE tool, you agree to these terms. The tool provides preliminary calculations and business evaluation references. Actual improvement results depend on site conditions.</p>
+      <h2>Tool Purpose</h2><ul><li>The OEE tool estimates potential output value or loss reduction from equipment efficiency improvements.</li><li>Results are for reference only and are not guaranteed financial returns, commitments, or a formal consulting report.</li><li>For a formal improvement plan, please discuss site data with the N/NPC team.</li></ul>
+      <h2>Member Access and Tool Links</h2><ul><li>You must provide a valid Email to receive the OEE tool link.</li><li>Do not use the tool link for spam, attacks, reverse engineering, or unauthorized commercial use.</li><li>N/NPC may limit or terminate access if abnormal usage is detected.</li></ul>
+      <h2>Data Accuracy</h2><p>The factory scale, OEE, working hours, and personnel values you enter affect the results. Please use realistic values for a more meaningful estimate.</p>
+      <h2>Limitation of Liability</h2><p>N/NPC aims to provide a stable, clear, and useful tool, but does not guarantee uninterrupted operation or that every result exactly matches every factory site.</p>
+      <h2>Updates</h2><p>N/NPC may update these terms as needed. Updated terms will be posted on this page.</p>`
+  },
+  th: {
+    htmlLang:'th', bodyClass:'thai',
+    title:'ข้อกำหนดการใช้บริการ',
+    meta:'อัปเดตล่าสุด: 2026-05-13',
+    back:'← กลับไปหน้าลงทะเบียนเครื่องมือ OEE',
+    content: `
+      <p>เมื่อใช้เครื่องมือ OEE ของ N/NPC ถือว่าคุณยอมรับข้อกำหนดนี้ เครื่องมือนี้ใช้สำหรับการคำนวณเบื้องต้นและการประเมินทางธุรกิจ ผลลัพธ์จริงขึ้นอยู่กับสภาพหน้างาน</p>
+      <h2>วัตถุประสงค์ของเครื่องมือ</h2><ul><li>เครื่องมือ OEE ใช้ประเมินมูลค่าการผลิตหรือการลดความสูญเสียจากการปรับปรุงประสิทธิภาพเครื่องจักร</li><li>ผลลัพธ์เป็นข้อมูลอ้างอิงเท่านั้น ไม่ใช่การรับประกันผลตอบแทนหรือรายงานที่ปรึกษาอย่างเป็นทางการ</li><li>หากต้องการแผนปรับปรุงอย่างเป็นทางการ กรุณาหารือข้อมูลหน้างานกับทีม N/NPC</li></ul>
+      <h2>สมาชิกและลิงก์เครื่องมือ</h2><ul><li>คุณต้องให้ Email ที่ถูกต้องเพื่อรับลิงก์เครื่องมือ OEE</li><li>ห้ามใช้ลิงก์เพื่อสแปม โจมตีระบบ ทำวิศวกรรมย้อนกลับ หรือใช้งานเชิงพาณิชย์โดยไม่ได้รับอนุญาต</li><li>N/NPC อาจจำกัดหรือยกเลิกสิทธิ์เข้าถึงหากพบการใช้งานผิดปกติ</li></ul>
+      <h2>ความถูกต้องของข้อมูล</h2><p>จำนวนเครื่องจักร ค่า OEE ชั่วโมงทำงาน และจำนวนพนักงานที่คุณกรอกมีผลต่อผลลัพธ์ กรุณาใช้ข้อมูลใกล้เคียงความจริงเพื่อให้ได้การประเมินที่มีประโยชน์</p>
+      <h2>ข้อจำกัดความรับผิด</h2><p>N/NPC พยายามให้บริการเครื่องมือที่เสถียร ชัดเจน และมีประโยชน์ แต่ไม่รับประกันว่าระบบจะไม่หยุดชะงักหรือผลลัพธ์จะตรงกับทุกสภาพโรงงานเสมอ</p>
+      <h2>การอัปเดตข้อกำหนด</h2><p>N/NPC อาจปรับปรุงข้อกำหนดนี้ตามความจำเป็น และจะแสดงฉบับล่าสุดในหน้านี้</p>`
+  }
+};
+
+function detectLang() {
+  const saved = localStorage.getItem('nnpc_lang');
+  if (saved && T[saved]) return saved;
+  const lang = (navigator.language || '').toLowerCase();
+  if (lang.startsWith('th')) return 'th';
+  if (lang.startsWith('zh')) return 'zh';
+  return 'en';
+}
+function setLang(lang) {
+  const t = T[lang] || T.en;
+  localStorage.setItem('nnpc_lang', lang);
+  document.documentElement.lang = t.htmlLang;
+  document.body.className = t.bodyClass;
+  document.getElementById('title').textContent = t.title;
+  document.getElementById('meta').textContent = t.meta;
+  document.getElementById('content').innerHTML = t.content;
+  document.getElementById('back').textContent = t.back;
+  document.querySelectorAll('.lang-btn').forEach((btn, i) => btn.classList.toggle('active', ['zh','en','th'][i] === lang));
+}
+setLang(detectLang());
+</script>
 </body>
 </html>
