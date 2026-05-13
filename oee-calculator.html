@@ -217,7 +217,17 @@
   }
   .ctrl-btn:hover { color: var(--gold); }
   .input-display { flex: 1; text-align: center; }
-  .input-val { font-size: 1.2rem; font-weight: 700; font-family: 'Space Mono', monospace; }
+  .input-val {
+    width: 100%; min-width: 64px;
+    background: rgba(0,0,0,0.18); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 2px; color: var(--text);
+    font-size: 1.2rem; font-weight: 700; font-family: 'Space Mono', monospace;
+    text-align: center; padding: 0.22rem 0.35rem; outline: none;
+  }
+  .input-val:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(225,168,19,0.12); }
+  .input-val::-webkit-outer-spin-button,
+  .input-val::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .input-val[type=number] { -moz-appearance: textfield; }
   .input-unit { font-size: 0.6rem; color: var(--muted); display: block; margin-top: -2px; }
 
   /* Gauge */
@@ -393,7 +403,7 @@
         <div class="input-control">
           <button class="ctrl-btn" onclick="adj('machines',-1)">−</button>
           <div class="input-display">
-            <span class="input-val" id="v-machines">20</span>
+            <input class="input-val" id="v-machines" type="number" inputmode="numeric" min="1" max="200" value="20" onchange="setMetric('machines', this.value)" onkeydown="commitMetric(event, 'machines')">
             <span class="input-unit" id="t-u-machines">台</span>
           </div>
           <button class="ctrl-btn" onclick="adj('machines',1)">+</button>
@@ -404,7 +414,7 @@
         <div class="input-control">
           <button class="ctrl-btn" onclick="adj('shifts',-1)">−</button>
           <div class="input-display">
-            <span class="input-val" id="v-shifts">2</span>
+            <input class="input-val" id="v-shifts" type="number" inputmode="numeric" min="1" max="3" value="2" onchange="setMetric('shifts', this.value)" onkeydown="commitMetric(event, 'shifts')">
             <span class="input-unit" id="t-u-shifts">班</span>
           </div>
           <button class="ctrl-btn" onclick="adj('shifts',1)">+</button>
@@ -415,7 +425,7 @@
         <div class="input-control">
           <button class="ctrl-btn" onclick="adj('workers',-1)">−</button>
           <div class="input-display">
-            <span class="input-val" id="v-workers">23</span>
+            <input class="input-val" id="v-workers" type="number" inputmode="numeric" min="1" max="500" value="23" onchange="setMetric('workers', this.value)" onkeydown="commitMetric(event, 'workers')">
             <span class="input-unit" id="t-u-workers">人</span>
           </div>
           <button class="ctrl-btn" onclick="adj('workers',1)">+</button>
@@ -426,7 +436,7 @@
         <div class="input-control">
           <button class="ctrl-btn" onclick="adj('workDays',-1)">−</button>
           <div class="input-display">
-            <span class="input-val" id="v-workDays">26</span>
+            <input class="input-val" id="v-workDays" type="number" inputmode="numeric" min="1" max="31" value="26" onchange="setMetric('workDays', this.value)" onkeydown="commitMetric(event, 'workDays')">
             <span class="input-unit" id="t-u-days">天</span>
           </div>
           <button class="ctrl-btn" onclick="adj('workDays',1)">+</button>
@@ -728,8 +738,25 @@ function setText(id, val) {
 function adj(key, delta) {
   const [min, max] = LIMITS[key];
   state[key] = Math.min(max, Math.max(min, state[key] + delta));
-  document.getElementById('v-' + key).textContent = state[key];
+  document.getElementById('v-' + key).value = state[key];
   recalc();
+}
+
+function setMetric(key, rawValue) {
+  const [min, max] = LIMITS[key];
+  const parsed = Number.parseInt(rawValue, 10);
+  const next = Number.isFinite(parsed) ? parsed : state[key];
+  state[key] = Math.min(max, Math.max(min, next));
+  document.getElementById('v-' + key).value = state[key];
+  recalc();
+}
+
+function commitMetric(event, key) {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    setMetric(key, event.currentTarget.value);
+    event.currentTarget.blur();
+  }
 }
 
 function onBaseChange(val) {
