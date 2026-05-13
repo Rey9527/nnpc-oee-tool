@@ -811,11 +811,11 @@ function recalc() {
   const gross = machines * HOURLY * monthlyHours;
   const totalDelta = Math.min(deltaA + deltaP + deltaQ, 100 - baseOEE);
   const currentOEE = baseOEE + totalDelta;
-  const revenueGain = gross * (totalDelta / 100);
-  const costSavings = revenueGain * 0.48;
-  const totalGain = revenueGain + costSavings;
-  const perOne = gross * 0.01 * 1.48;
   const workerCost = workers * 12000;
+  const revenueGain = gross * (totalDelta / 100);
+  const costSavings = workerCost * (totalDelta / 100);
+  const totalGain = revenueGain + costSavings;
+  const perOne = (gross + workerCost) * 0.01;
 
   // Gauge
   const dashTotal = 251.3;
@@ -832,9 +832,9 @@ function recalc() {
   document.getElementById('legend-target').textContent = currentOEE;
 
   // Factor contributions
-  document.getElementById('fc-A').innerHTML = t.fcA + `<strong style="color:var(--A)">${fmt(gross*(deltaA/100)*1.48)}</strong>`;
-  document.getElementById('fc-P').innerHTML = t.fcP + `<strong style="color:var(--P)">${fmt(gross*(deltaP/100)*1.48)}</strong>`;
-  document.getElementById('fc-Q').innerHTML = t.fcQ + `<strong style="color:var(--Q)">${fmt(gross*(deltaQ/100)*1.48)}</strong>`;
+  document.getElementById('fc-A').innerHTML = t.fcA + `<strong style="color:var(--A)">${fmt((gross + workerCost)*(deltaA/100))}</strong>`;
+  document.getElementById('fc-P').innerHTML = t.fcP + `<strong style="color:var(--P)">${fmt((gross + workerCost)*(deltaP/100))}</strong>`;
+  document.getElementById('fc-Q').innerHTML = t.fcQ + `<strong style="color:var(--Q)">${fmt((gross + workerCost)*(deltaQ/100))}</strong>`;
 
   // Worker cost
   document.getElementById('result-capacity').textContent = fmt(gross);
