@@ -1,0 +1,10 @@
+{
+  "rewrites": [
+    { "source": "/oee", "destination": "/register.html" },
+    { "source": "/oee/", "destination": "/register.html" },
+    { "source": "/oee/register.html", "destination": "/register.html" },
+    { "source": "/oee/oee-calculator.html", "destination": "/oee-calculator.html" },
+    { "source": "/oee/privacy-policy.html", "destination": "/privacy-policy.html" },
+    { "source": "/oee/terms.html", "destination": "/terms.html" }
+  ]
+}
