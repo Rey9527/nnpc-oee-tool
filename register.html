@@ -166,17 +166,20 @@
   .card-sub { font-size: 1.04rem; color: var(--muted); margin-bottom: 1.2rem; line-height: 1.7; }
   .mode-tabs {
     display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;
-    background: rgba(0,0,0,0.18); border: 1px solid var(--border);
-    padding: 0.35rem; margin-bottom: 1.15rem; border-radius: 2px;
+    background: rgba(0,0,0,0.26); border: 1px solid rgba(255,255,255,0.18);
+    padding: 0.45rem; margin-bottom: 1.35rem; border-radius: 2px;
   }
   .mode-tab {
     border: 1px solid transparent; background: transparent; color: var(--muted);
-    padding: 0.7rem 0.55rem; font-family: inherit; font-size: 1rem; font-weight: 700; cursor: pointer;
+    padding: 0.9rem 0.7rem; font-family: inherit; font-size: 1.08rem; font-weight: 800; cursor: pointer;
     border-radius: 2px; transition: color 0.15s, background 0.15s, border-color 0.15s;
+    line-height: 1.25;
   }
   .mode-tab.active {
-    background: var(--gold-dim); border-color: rgba(225,168,19,0.36); color: var(--gold);
+    background: var(--gold); border-color: var(--gold); color: #1C1C1C;
+    box-shadow: 0 8px 24px rgba(225,168,19,0.18);
   }
+  .mode-tab:not(.active):hover { border-color: rgba(225,168,19,0.45); color: var(--text); }
   .mode-helper { display: none; }
   .mode-helper.show { display: block; }
 
@@ -362,8 +365,8 @@
     <!-- Form -->
     <div id="formScreen">
       <div class="mode-tabs" role="tablist" aria-label="Member access mode">
-        <button type="button" class="mode-tab active" id="registerTab" onclick="setMode('register')" role="tab" aria-selected="true">免費註冊</button>
-        <button type="button" class="mode-tab" id="loginTab" onclick="setMode('login')" role="tab" aria-selected="false">會員登入</button>
+        <button type="button" class="mode-tab active" id="registerTab" onclick="setMode('register')" role="tab" aria-selected="true">新會員註冊</button>
+        <button type="button" class="mode-tab" id="loginTab" onclick="setMode('login')" role="tab" aria-selected="false">已是會員登入</button>
       </div>
       <div class="card-title" id="t-cardTitle">建立您的會員帳號</div>
       <div class="card-sub" id="t-cardSub">填寫以下資料，我們將寄送驗證信至您的 Email。<br>驗證完成後即可使用 OEE 工廠獲利計算機。</div>
@@ -516,8 +519,8 @@ const T = {
     lockTitle: 'OEE 工具已準備好',
     lockSub: '工具就在這裡。留下基本會員資料，我們會把專屬工具連結寄到您的信箱。',
     lockArrow: '往右留下 Email →',
-    registerTab: '免費註冊',
-    loginTab: '會員登入',
+    registerTab: '新會員註冊',
+    loginTab: '已是會員登入',
     cardTitle: '取得 OEE 工具連結',
     cardSub: '只要 3 個欄位。我們會把 OEE 工廠獲利計算機的專屬連結寄到您的 Email。',
     infoNote: '請使用可收信的 Email。點擊信中的工具連結後，即可開啟完整 OEE 計算機。',
@@ -571,8 +574,8 @@ const T = {
     lockTitle: 'Your OEE tool is ready',
     lockSub: 'The tool is right here. Leave your basic member details and we will send the access link to your inbox.',
     lockArrow: 'Leave your Email on the right →',
-    registerTab: 'Free Registration',
-    loginTab: 'Member Login',
+    registerTab: 'New Member Registration',
+    loginTab: 'Existing Member Login',
     cardTitle: 'Get Your OEE Tool Link',
     cardSub: 'Only 3 fields. We will send the dedicated OEE Factory Profit Calculator link to your Email.',
     infoNote: 'Use an Email you can access. Click the tool link in your inbox to open the full OEE calculator.',
@@ -626,8 +629,8 @@ const T = {
     lockTitle: 'เครื่องมือ OEE พร้อมใช้งาน',
     lockSub: 'เครื่องมืออยู่ตรงนี้แล้ว กรอกข้อมูลสมาชิกพื้นฐาน แล้วเราจะส่งลิงก์เครื่องมือไปที่ Email ของคุณ',
     lockArrow: 'กรอก Email ด้านขวา →',
-    registerTab: 'สมัครฟรี',
-    loginTab: 'เข้าสู่ระบบสมาชิก',
+    registerTab: 'สมัครสมาชิกใหม่',
+    loginTab: 'สมาชิกเดิมเข้าสู่ระบบ',
     cardTitle: 'รับลิงก์เครื่องมือ OEE',
     cardSub: 'กรอกเพียง 3 ช่อง เราจะส่งลิงก์เครื่องคำนวณกำไรโรงงาน OEE ไปที่ Email ของคุณ',
     infoNote: 'กรุณาใช้ Email ที่เปิดอ่านได้ คลิกลิงก์ใน Email เพื่อเปิดเครื่องคำนวณ OEE แบบเต็ม',
