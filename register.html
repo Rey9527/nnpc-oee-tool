@@ -164,6 +164,21 @@
   }
   .card-title { font-family: inherit; font-weight: 700; font-size: 1.42rem; margin-bottom: 0.3rem; color: var(--text); }
   .card-sub { font-size: 1.04rem; color: var(--muted); margin-bottom: 1.2rem; line-height: 1.7; }
+  .mode-tabs {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;
+    background: rgba(0,0,0,0.18); border: 1px solid var(--border);
+    padding: 0.35rem; margin-bottom: 1.15rem; border-radius: 2px;
+  }
+  .mode-tab {
+    border: 1px solid transparent; background: transparent; color: var(--muted);
+    padding: 0.7rem 0.55rem; font-family: inherit; font-size: 1rem; font-weight: 700; cursor: pointer;
+    border-radius: 2px; transition: color 0.15s, background 0.15s, border-color 0.15s;
+  }
+  .mode-tab.active {
+    background: var(--gold-dim); border-color: rgba(225,168,19,0.36); color: var(--gold);
+  }
+  .mode-helper { display: none; }
+  .mode-helper.show { display: block; }
 
   /* Form */
   .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
@@ -346,6 +361,10 @@
 
     <!-- Form -->
     <div id="formScreen">
+      <div class="mode-tabs" role="tablist" aria-label="Member access mode">
+        <button type="button" class="mode-tab active" id="registerTab" onclick="setMode('register')" role="tab" aria-selected="true">免費註冊</button>
+        <button type="button" class="mode-tab" id="loginTab" onclick="setMode('login')" role="tab" aria-selected="false">會員登入</button>
+      </div>
       <div class="card-title" id="t-cardTitle">建立您的會員帳號</div>
       <div class="card-sub" id="t-cardSub">填寫以下資料，我們將寄送驗證信至您的 Email。<br>驗證完成後即可使用 OEE 工廠獲利計算機。</div>
       <div class="info-note" id="t-infoNote">此註冊僅供 N/NPC 會員使用。送出後請至信箱完成 Email 驗證，系統將自動開通 OEE 工具使用權限。</div>
@@ -425,7 +444,8 @@
         </button>
       </form>
 
-      <div class="login-hint"><span id="t-loginHint">已有帳號？</span> <a href="oee-calculator.html" id="t-loginLink">直接登入</a></div>
+      <div class="login-hint mode-helper show" id="registerHelper"><span id="t-loginHint">已有帳號？</span> <a href="#" id="t-loginLink" onclick="setMode('login'); return false;">直接登入</a></div>
+      <div class="login-hint mode-helper" id="loginHelper"><span id="t-registerHint">還不是會員？</span> <a href="#" id="t-registerLink" onclick="setMode('register'); return false;">免費註冊</a></div>
     </div>
 
     <!-- Success screen -->
@@ -496,9 +516,14 @@ const T = {
     lockTitle: 'OEE 工具已準備好',
     lockSub: '工具就在這裡。留下基本會員資料，我們會把專屬工具連結寄到您的信箱。',
     lockArrow: '往右留下 Email →',
+    registerTab: '免費註冊',
+    loginTab: '會員登入',
     cardTitle: '取得 OEE 工具連結',
     cardSub: '只要 3 個欄位。我們會把 OEE 工廠獲利計算機的專屬連結寄到您的 Email。',
     infoNote: '請使用可收信的 Email。點擊信中的工具連結後，即可開啟完整 OEE 計算機。',
+    loginCardTitle: '會員登入',
+    loginCardSub: '輸入您註冊過的 Email，我們會重新寄送 OEE 工具連結給您。',
+    loginInfoNote: '不用密碼。請到信箱點擊最新工具連結，即可回到 OEE 計算機。',
     lName: '姓名 <span class="req">*</span>',
     lPhone: '電話號碼 <span class="req">*</span>',
     lCompany: '公司名稱 <span class="req">*</span>',
@@ -508,12 +533,15 @@ const T = {
     selectDefault: '請選擇國家', selectOther: '其他 Other',
     privacy: '我已閱讀並同意 <a href="privacy-policy.html" id="privacyLinkZh">隱私權政策</a> 及 <a href="terms.html" id="termsLinkZh">服務條款</a>，並同意 N/NPC 以上述資料與我聯繫。',
     submitBtn: '寄送 OEE 工具連結 →',
+    loginSubmitBtn: '寄送登入工具連結 →',
     loginHint: '已有帳號？', loginLink: '直接登入',
+    registerHint: '還不是會員？', registerLink: '免費註冊',
     errName: '請輸入姓名', errPhone: '請輸入電話號碼', errCompany: '請輸入公司名稱',
     errEmail: '請輸入有效的 Email', errJob: '請輸入職稱', errCountry: '請選擇所在國家', errPrivacy: '請勾選同意條款',
     errGeneric: '發生錯誤，請稍後再試。',
     errNetwork: '目前無法連線至會員系統，請稍後再試或聯絡 N/NPC。',
     resendOk: '驗證信已重新寄出。',
+    loginNotFound: '查無此會員 Email，請先免費註冊。',
     successTitle: '工具連結已寄出！',
     successSub1: '我們已將 OEE 工具連結寄送至',
     successSub2: '請前往信箱點擊連結，即可開啟完整 OEE 工廠獲利計算機。',
@@ -543,9 +571,14 @@ const T = {
     lockTitle: 'Your OEE tool is ready',
     lockSub: 'The tool is right here. Leave your basic member details and we will send the access link to your inbox.',
     lockArrow: 'Leave your Email on the right →',
+    registerTab: 'Free Registration',
+    loginTab: 'Member Login',
     cardTitle: 'Get Your OEE Tool Link',
     cardSub: 'Only 3 fields. We will send the dedicated OEE Factory Profit Calculator link to your Email.',
     infoNote: 'Use an Email you can access. Click the tool link in your inbox to open the full OEE calculator.',
+    loginCardTitle: 'Member Login',
+    loginCardSub: 'Enter the Email you registered with. We will send a fresh OEE tool link to your inbox.',
+    loginInfoNote: 'No password needed. Open the latest tool link in your inbox to return to the OEE calculator.',
     lName: 'Full Name <span class="req">*</span>',
     lPhone: 'Phone Number <span class="req">*</span>',
     lCompany: 'Company Name <span class="req">*</span>',
@@ -555,12 +588,15 @@ const T = {
     selectDefault: 'Select country', selectOther: 'Other',
     privacy: 'I have read and agree to the <a href="privacy-policy.html" id="privacyLinkEn">Privacy Policy</a> and <a href="terms.html" id="termsLinkEn">Terms of Service</a>, and consent to N/NPC contacting me.',
     submitBtn: 'Send OEE Tool Link →',
+    loginSubmitBtn: 'Send Login Tool Link →',
     loginHint: 'Already have an account?', loginLink: 'Sign In',
+    registerHint: 'Not a member yet?', registerLink: 'Free Registration',
     errName: 'Please enter your name', errPhone: 'Please enter your phone number', errCompany: 'Please enter your company name',
     errEmail: 'Please enter a valid Email', errJob: 'Please enter your job title', errCountry: 'Please select your country', errPrivacy: 'Please agree to the terms',
     errGeneric: 'An error occurred. Please try again.',
     errNetwork: 'We cannot connect to the member system right now. Please try again later or contact N/NPC.',
     resendOk: 'Verification Email resent.',
+    loginNotFound: 'No member was found for this Email. Please register first.',
     successTitle: 'Tool Link Sent!',
     successSub1: 'We sent the OEE tool link to',
     successSub2: 'Open your inbox and click the link to launch the full OEE Factory Profit Calculator.',
@@ -590,9 +626,14 @@ const T = {
     lockTitle: 'เครื่องมือ OEE พร้อมใช้งาน',
     lockSub: 'เครื่องมืออยู่ตรงนี้แล้ว กรอกข้อมูลสมาชิกพื้นฐาน แล้วเราจะส่งลิงก์เครื่องมือไปที่ Email ของคุณ',
     lockArrow: 'กรอก Email ด้านขวา →',
+    registerTab: 'สมัครฟรี',
+    loginTab: 'เข้าสู่ระบบสมาชิก',
     cardTitle: 'รับลิงก์เครื่องมือ OEE',
     cardSub: 'กรอกเพียง 3 ช่อง เราจะส่งลิงก์เครื่องคำนวณกำไรโรงงาน OEE ไปที่ Email ของคุณ',
     infoNote: 'กรุณาใช้ Email ที่เปิดอ่านได้ คลิกลิงก์ใน Email เพื่อเปิดเครื่องคำนวณ OEE แบบเต็ม',
+    loginCardTitle: 'เข้าสู่ระบบสมาชิก',
+    loginCardSub: 'กรอก Email ที่เคยลงทะเบียน เราจะส่งลิงก์เครื่องมือ OEE ใหม่ไปให้คุณ',
+    loginInfoNote: 'ไม่ต้องใช้รหัสผ่าน เปิดลิงก์เครื่องมือล่าสุดใน Email เพื่อกลับเข้าเครื่องคำนวณ OEE',
     lName: 'ชื่อ-นามสกุล <span class="req">*</span>',
     lPhone: 'หมายเลขโทรศัพท์ <span class="req">*</span>',
     lCompany: 'ชื่อบริษัท <span class="req">*</span>',
@@ -602,12 +643,15 @@ const T = {
     selectDefault: 'เลือกประเทศ', selectOther: 'อื่นๆ',
     privacy: 'ฉันได้อ่านและยอมรับ <a href="privacy-policy.html" id="privacyLinkTh">นโยบายความเป็นส่วนตัว</a> และ <a href="terms.html" id="termsLinkTh">ข้อกำหนดการใช้บริการ</a> และยินยอมให้ N/NPC ติดต่อฉัน',
     submitBtn: 'ส่งลิงก์เครื่องมือ OEE →',
+    loginSubmitBtn: 'ส่งลิงก์เข้าสู่ระบบ →',
     loginHint: 'มีบัญชีอยู่แล้ว?', loginLink: 'เข้าสู่ระบบ',
+    registerHint: 'ยังไม่ได้เป็นสมาชิก?', registerLink: 'สมัครฟรี',
     errName: 'กรุณากรอกชื่อ', errPhone: 'กรุณากรอกหมายเลขโทรศัพท์', errCompany: 'กรุณากรอกชื่อบริษัท',
     errEmail: 'กรุณากรอก Email ที่ถูกต้อง', errJob: 'กรุณากรอกตำแหน่งงาน', errCountry: 'กรุณาเลือกประเทศ', errPrivacy: 'กรุณายอมรับข้อกำหนด',
     errGeneric: 'เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง',
     errNetwork: 'ไม่สามารถเชื่อมต่อระบบสมาชิกได้ในขณะนี้ กรุณาลองใหม่ภายหลังหรือติดต่อ N/NPC',
     resendOk: 'ส่ง Email ยืนยันอีกครั้งแล้ว',
+    loginNotFound: 'ไม่พบสมาชิกจาก Email นี้ กรุณาสมัครสมาชิกก่อน',
     successTitle: 'ส่งลิงก์เครื่องมือแล้ว!',
     successSub1: 'เราได้ส่งลิงก์เครื่องมือ OEE ไปที่',
     successSub2: 'กรุณาเปิด Email แล้วคลิกลิงก์เพื่อใช้เครื่องคำนวณกำไรโรงงาน OEE แบบเต็ม',
@@ -630,6 +674,7 @@ const T = {
 // ─── Lang detection & switching ───────────────────────────────────────────
 let currentLang = 'zh';
 let lastEmail = '';
+let currentMode = 'register';
 
 function detectLang() {
   const saved = localStorage.getItem('nnpc_lang');
@@ -670,9 +715,8 @@ function setLang(lang, btn) {
   setHTML('t-lockTitle', t.lockTitle);
   setHTML('t-lockSub', t.lockSub);
   setHTML('t-lockArrow', t.lockArrow);
-  setHTML('t-cardTitle', t.cardTitle);
-  setHTML('t-cardSub', t.cardSub);
-  setHTML('t-infoNote', t.infoNote);
+  setHTML('registerTab', t.registerTab);
+  setHTML('loginTab', t.loginTab);
   setHTML('t-lName', t.lName);
   setHTML('t-lPhone', t.lPhone);
   setHTML('t-lCompany', t.lCompany);
@@ -684,9 +728,10 @@ function setLang(lang, btn) {
   setHTML('t-selectDefault', t.selectDefault);
   setHTML('t-selectOther', t.selectOther);
   setHTML('t-privacy', t.privacy);
-  setHTML('t-submitBtn', t.submitBtn);
   setHTML('t-loginHint', t.loginHint);
   setHTML('t-loginLink', t.loginLink);
+  setHTML('t-registerHint', t.registerHint);
+  setHTML('t-registerLink', t.registerLink);
   setHTML('t-successTitle', t.successTitle);
   setHTML('t-successSub1', t.successSub1);
   setHTML('t-successSub2', t.successSub2);
@@ -701,6 +746,7 @@ function setLang(lang, btn) {
   setHTML('t-footerContact', t.footerContact);
   setHTML('t-footerPrivacy', t.footerPrivacy);
   setLinks();
+  setMode(currentMode, false);
 
   // Clear validation errors (they'll re-show in correct lang on next submit)
   document.querySelectorAll('.field-error').forEach(el => el.classList.remove('show'));
@@ -712,13 +758,43 @@ function setAttr(id, attr, val) { const el = document.getElementById(id); if (el
 function setLink(id, url) { const el = document.getElementById(id); if (el) el.href = url; }
 
 function setLinks() {
-  setLink('t-loginLink', CONFIG.LOGIN_URL);
   setLink('t-enterBtn', CONFIG.OEE_TOOL_URL);
   setLink('t-footerWeb', CONFIG.WEBSITE_URL);
   setLink('t-footerContact', CONFIG.CONTACT_URL);
   setLink('t-footerPrivacy', CONFIG.PRIVACY_URL);
   document.querySelectorAll('a[href="privacy-policy.html"]').forEach(el => { el.href = CONFIG.PRIVACY_URL; });
   document.querySelectorAll('a[href="terms.html"]').forEach(el => { el.href = CONFIG.TERMS_URL; });
+}
+
+function setMode(mode, clearErrors = true) {
+  currentMode = mode === 'login' ? 'login' : 'register';
+  const t = T[currentLang];
+  const isLogin = currentMode === 'login';
+
+  document.getElementById('registerTab').classList.toggle('active', !isLogin);
+  document.getElementById('loginTab').classList.toggle('active', isLogin);
+  document.getElementById('registerTab').setAttribute('aria-selected', String(!isLogin));
+  document.getElementById('loginTab').setAttribute('aria-selected', String(isLogin));
+
+  setHTML('t-cardTitle', isLogin ? t.loginCardTitle : t.cardTitle);
+  setHTML('t-cardSub', isLogin ? t.loginCardSub : t.cardSub);
+  setHTML('t-infoNote', isLogin ? t.loginInfoNote : t.infoNote);
+  setHTML('t-submitBtn', isLogin ? t.loginSubmitBtn : t.submitBtn);
+
+  ['name', 'company'].forEach(id => {
+    const field = document.getElementById(id).closest('.field');
+    field.style.display = isLogin ? 'none' : '';
+  });
+  document.querySelector('.checkbox-row').style.display = isLogin ? 'none' : '';
+  document.getElementById('privacyErr').style.display = isLogin ? 'none' : '';
+  document.getElementById('registerHelper').classList.toggle('show', !isLogin);
+  document.getElementById('loginHelper').classList.toggle('show', isLogin);
+
+  if (clearErrors) {
+    document.getElementById('errorBanner').classList.remove('show');
+    document.querySelectorAll('.field-error').forEach(el => el.classList.remove('show'));
+    document.querySelectorAll('.field input, .field select').forEach(el => el.classList.remove('error'));
+  }
 }
 
 // ─── Init ─────────────────────────────────────────────────────────────────
@@ -739,27 +815,33 @@ window.addEventListener('DOMContentLoaded', () => {
 // ─── Form submit ──────────────────────────────────────────────────────────
 document.getElementById('registerForm').addEventListener('submit', async (e) => {
   e.preventDefault();
-  if (!validate()) return;
+  if (currentMode === 'login') {
+    if (!validateLogin()) return;
+  } else if (!validate()) return;
 
   const btn = document.getElementById('submitBtn');
   btn.classList.add('loading');
   btn.disabled = true;
   document.getElementById('errorBanner').classList.remove('show');
 
-  const data = {
-    name: v('name'), phone: v('phone'), company: v('company'),
-    email: v('email'), jobTitle: v('jobTitle'), country: v('country') || detectCountry(),
-    language: currentLang,
-    source: 'official-site-oee-registration',
-    pageUrl: window.location.href.split('?')[0],
-    website: v('website'),
-    registeredAt: new Date().toISOString(),
-  };
-  lastEmail = data.email;
-
   try {
-    const result = await registerMember(data);
-    showLinkSent(result.email || data.email);
+    if (currentMode === 'login') {
+      const result = await loginMember(v('email'));
+      showLinkSent(result.email || v('email'));
+    } else {
+      const data = {
+        name: v('name'), phone: v('phone'), company: v('company'),
+        email: v('email'), jobTitle: v('jobTitle'), country: v('country') || detectCountry(),
+        language: currentLang,
+        source: 'official-site-oee-registration',
+        pageUrl: window.location.href.split('?')[0],
+        website: v('website'),
+        registeredAt: new Date().toISOString(),
+      };
+      lastEmail = data.email;
+      const result = await registerMember(data);
+      showLinkSent(result.email || data.email);
+    }
   } catch (err) {
     console.error(err);
     showError(err.message || T[currentLang].errNetwork);
@@ -779,6 +861,28 @@ async function registerMember(data) {
     if (CONFIG.API_OPTIONAL_FOR_PREVIEW) {
       console.warn('Member API unavailable; showing the link-sent screen for local preview.', err);
       return { ok: true, email: data.email, offline: true };
+    }
+    throw err;
+  }
+}
+
+async function loginMember(email) {
+  lastEmail = email;
+  try {
+    const result = await postJSON(CONFIG.RESEND_ENDPOINT, {
+      email,
+      language: currentLang,
+      pageUrl: window.location.href.split('?')[0],
+    });
+    if (!result.ok) throw new Error(result.message || T[currentLang].errGeneric);
+    return result;
+  } catch (err) {
+    if (/member not found/i.test(err.message)) {
+      throw new Error(T[currentLang].loginNotFound);
+    }
+    if (CONFIG.API_OPTIONAL_FOR_PREVIEW) {
+      console.warn('Member API unavailable; showing the link-sent screen for local preview.', err);
+      return { ok: true, email, offline: true };
     }
     throw err;
   }
@@ -884,6 +988,22 @@ function validate() {
     ok = false;
   } else {
     privErr.classList.remove('show');
+  }
+  return ok;
+}
+
+function validateLogin() {
+  const t = T[currentLang];
+  const email = document.getElementById('email');
+  const emailErr = document.getElementById('emailErr');
+  const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('email'));
+  if (!ok) {
+    email.classList.add('error');
+    emailErr.textContent = t.errEmail;
+    emailErr.classList.add('show');
+  } else {
+    email.classList.remove('error');
+    emailErr.classList.remove('show');
   }
   return ok;
 }
