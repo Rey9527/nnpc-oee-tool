@@ -810,8 +810,8 @@ window.addEventListener('DOMContentLoaded', () => {
   const params = new URLSearchParams(window.location.search);
   if (params.get('verified') === '1') {
     showVerifiedScreen();
-  } else if (params.get('token')) {
-    verifyToken(params.get('token'));
+  } else if (params.get('t') || params.get('token')) {
+    verifyToken(params.get('t') || params.get('token'));
   }
 });
 
