@@ -3,13 +3,147 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="refresh" content="0; url=register.html">
-<title>N/NPC OEE Tool</title>
-<script>
-  window.location.replace('register.html');
-</script>
+<title>N/NPC | Smart Manufacturing & Enterprise AI Consulting</title>
+<meta name="description" content="N/NPC connects MES, IoT, OEE, AI prediction, enterprise process platforms, and RTLS into practical operating systems for factories and enterprises.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700;800;900&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
 </head>
-<body>
-  <a href="register.html">前往 N/NPC OEE 工具</a>
+<body data-page="home">
+<header class="site-header">
+  <div class="shell nav">
+    <a class="brand" href="/">
+      <span class="brand-main">N<span>/</span>NPC</span>
+      <span class="brand-sub" data-i18n="brandSub">智慧製造與企業 AI 顧問</span>
+    </a>
+    <nav class="nav-links">
+      <div class="dropdown">
+        <button class="dropdown-btn" data-i18n="navSolutions">解決方案</button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="/solutions/factory-performance-mes/"><strong data-i18n="solution1">工廠績效與 MES</strong><span data-i18n="solution1Sub">MES、OEE、IoT 現場數據與產線可視化</span></a>
+          <a class="dropdown-item" href="/solutions/ai-prediction-optimization/"><strong data-i18n="solution2">AI 預測與最佳化</strong><span data-i18n="solution2Sub">PROFET AI、AI 預防維護、良率與需求預測</span></a>
+          <a class="dropdown-item" href="/solutions/enterprise-process-platforms/"><strong data-i18n="solution3">企業流程數位化</strong><span data-i18n="solution3Sub">CRM、BizForm、KM 與跨部門流程</span></a>
+          <a class="dropdown-item" href="/solutions/rtls-connectivity/"><strong data-i18n="solution4">RTLS 即時定位與通訊</strong><span data-i18n="solution4Sub">Orion Go、LoRaWAN、BLE/BLT 與即時追蹤</span></a>
+        </div>
+      </div>
+      <a class="nav-link" href="/industries/" data-i18n="navIndustries">適用產業</a>
+      <a class="nav-link" href="/oee" data-i18n="navOee">OEE 工具</a>
+      <a class="nav-link" href="/about/" data-i18n="navAbout">關於 N/NPC</a>
+      <a class="nav-link" href="/contact/" data-i18n="navContact">聯絡我們</a>
+    </nav>
+    <div class="nav-actions">
+      <div class="lang-bar">
+        <button class="lang-btn" data-lang="zh">中</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="th">ไทย</button>
+      </div>
+      <a class="btn primary" href="/contact/" data-i18n="navCta">預約診斷</a>
+      <button class="menu-toggle">Menu</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="shell hero-grid">
+      <div>
+        <div class="eyebrow" data-i18n="eyebrow">N/NPC Smart Operations</div>
+        <h1 data-i18n="title">訂單很多，不代表工廠真的有賺錢。</h1>
+        <p class="hero-copy" data-i18n="subtitle">N/NPC 協助製造業與企業從 MES、IoT 現場數據、OEE 分析，到 AI 預測、CRM、BizForm、KM 與 RTLS 即時定位，建立看得見、算得清、能持續改善的營運系統。</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="/oee" data-i18n="primary">試算 OEE 漏利</a>
+          <a class="btn secondary" href="/solutions/" data-i18n="secondary">看解決方案</a>
+        </div>
+        <div class="trust-row">
+          <div class="trust-item"><strong data-i18n="trust1N">MES + IoT</strong><span data-i18n="trust1T">把現場資料接起來</span></div>
+          <div class="trust-item"><strong data-i18n="trust2N">AI</strong><span data-i18n="trust2T">預測異常與最佳化決策</span></div>
+          <div class="trust-item"><strong data-i18n="trust3N">RTLS</strong><span data-i18n="trust3T">掌握人、料、設備位置</span></div>
+        </div>
+      </div>
+      <div class="ops-visual" aria-label="Operations dashboard visual">
+        <div class="visual-top"><span>N/NPC OS</span><span data-i18n="visualTag">Live Operations View</span></div>
+        <div class="visual-grid">
+          <div class="metric"><label data-i18n="metric1">訂單毛利</label><strong>18.5%</strong><small data-i18n="metric1Sub">接單時看起來很好</small><div class="flow-line"><span style="--w:82%"></span></div></div>
+          <div class="metric"><label data-i18n="metric2">換線等待</label><strong>126m</strong><small data-i18n="metric2Sub">真正進產線才出現</small><div class="flow-line"><span style="--w:56%"></span></div></div>
+          <div class="metric"><label data-i18n="metric3">重工損失</label><strong>฿42k</strong><small data-i18n="metric3Sub">沒有算進報價</small><div class="flow-line"><span style="--w:48%"></span></div></div>
+          <div class="metric"><label data-i18n="metric4">真實獲利</label><strong>6.2%</strong><small data-i18n="metric4Sub">需要現場數據才看得清楚</small><div class="flow-line"><span style="--w:32%"></span></div></div>
+          <div class="order-card">
+            <strong data-i18n="orderTitle">一張訂單從業務到產線，利潤常在中間消失。</strong>
+            <p data-i18n="orderText">N/NPC 的角色不是單賣系統，而是協助你把現場、流程、AI 與管理決策串起來。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <div class="section-head">
+        <div class="eyebrow">Hidden Loss</div>
+        <h2 data-i18n="lossTitle">看不見的損失，通常不會自己說話。</h2>
+        <p data-i18n="lossSub">工廠主常看到訂單很多、現場很忙、報表都有，但真正虧在哪裡，要進到產線數據才會清楚。</p>
+      </div>
+      <div class="loss-grid">
+        <div class="loss-item"><strong data-i18n="loss1">接單時有毛利，生產時被換線吃掉</strong><p data-i18n="loss1p">小批量、多變更、急單插單，會讓原本好看的訂單變薄。</p></div>
+        <div class="loss-item"><strong data-i18n="loss2">機台沒有壞，產量就是上不去</strong><p data-i18n="loss2p">等待材料、等待人員、等待確認，常常比故障更傷。</p></div>
+        <div class="loss-item"><strong data-i18n="loss3">良率看起來還可以，重工沒有人算</strong><p data-i18n="loss3p">報廢、返修與重測，如果沒有被量化，就會藏在日常裡。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <div class="section-head">
+        <div class="eyebrow">Solutions</div>
+        <h2 data-i18n="solutionsTitle">N/NPC 把解決方案放回營運問題裡。</h2>
+        <p data-i18n="solutionsSub">我們依現場需求選擇與整合原廠技術，主角是你的營運改善，不是產品型錄。</p>
+      </div>
+      <div class="cards">
+        <article class="card"><div class="card-kicker">01</div><h3 data-i18n="solution1">工廠績效與 MES</h3><p data-i18n="solution1Sub">MES、OEE、IoT 現場數據與產線可視化</p><a href="/solutions/factory-performance-mes/" data-i18n="learn">了解更多</a></article>
+        <article class="card"><div class="card-kicker">02</div><h3 data-i18n="solution2">AI 預測與最佳化</h3><p data-i18n="solution2Sub">PROFET AI、AI 預防維護、良率與需求預測</p><a href="/solutions/ai-prediction-optimization/" data-i18n="learn">了解更多</a></article>
+        <article class="card"><div class="card-kicker">03</div><h3 data-i18n="solution3">企業流程數位化</h3><p data-i18n="solution3Sub">CRM、BizForm、KM 與跨部門流程</p><a href="/solutions/enterprise-process-platforms/" data-i18n="learn">了解更多</a></article>
+        <article class="card"><div class="card-kicker">04</div><h3 data-i18n="solution4">RTLS 即時定位與通訊</h3><p data-i18n="solution4Sub">Orion Go、LoRaWAN、BLE/BLT 與即時追蹤</p><a href="/solutions/rtls-connectivity/" data-i18n="learn">了解更多</a></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell split">
+      <div class="section-head">
+        <div class="eyebrow">Implementation</div>
+        <h2 data-i18n="methodTitle">導入不是先買系統，而是先看清楚錢漏在哪裡。</h2>
+        <p data-i18n="methodSub">第一版診斷會從 OEE、流程斷點、資料可用性與改善優先順序開始。</p>
+      </div>
+      <div class="process">
+        <div class="process-step"><span>01</span><div><strong data-i18n="step1">看現場</strong><p data-i18n="step1p">確認產線、流程、資料來源與真正決策者在乎的數字。</p></div></div>
+        <div class="process-step"><span>02</span><div><strong data-i18n="step2">算損失</strong><p data-i18n="step2p">把等待、重工、效率、位置、流程延遲轉成可討論的金額。</p></div></div>
+        <div class="process-step"><span>03</span><div><strong data-i18n="step3">選方案</strong><p data-i18n="step3p">依需求導入 MES、IoT、AI、CRM、RTLS 或混合方案。</p></div></div>
+        <div class="process-step"><span>04</span><div><strong data-i18n="step4">持續改善</strong><p data-i18n="step4p">用報表、預警與顧問節奏，把改善變成日常管理。</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell cta-band">
+      <div>
+        <h2 data-i18n="ctaTitle">先讓老闆看見一張訂單進產線後的真實利潤。</h2>
+        <p data-i18n="ctaText">從 OEE 工具開始，或直接預約 N/NPC 進行產線與流程診斷。</p>
+      </div>
+      <a class="btn primary" href="/oee" data-i18n="primary">試算 OEE 漏利</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="shell footer-grid">
+    <div><strong>N<span style="color:var(--gold);">/</span>NPC</strong><br><span data-i18n="footerTag">N/NPC 協助製造業與企業把現場、流程與 AI 串成可改善的營運系統。</span></div>
+    <div class="footer-links">
+      <a href="/privacy-policy.html" data-i18n="privacy">隱私權政策</a>
+      <a href="/terms.html" data-i18n="terms">服務條款</a>
+      <a href="/contact/" data-i18n="navContact">聯絡我們</a>
+    </div>
+  </div>
+</footer>
+<script src="assets/site.js"></script>
 </body>
 </html>
