@@ -9,19 +9,20 @@
 <style>
   :root {
     --bg: #1C1C1C; --surface: #242424; --surface2: #2C2C2C;
-    --border: rgba(255,255,255,0.10); --text: #F4F4F4; --muted: #B6B6B6; --muted-soft: #969696;
+    --border: rgba(255,255,255,0.14); --text: #F7F7F7; --muted: #D0D0D0; --muted-soft: #B8B8B8;
     --gold: #E1A813; --gold-dim: rgba(225,168,19,0.15);
     --error: #E05252; --success: #4CAF82;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     background: var(--bg); color: var(--text);
-    font-family: 'Noto Sans TC', 'Barlow', sans-serif;
+    font-family: 'Noto Sans TC', 'Noto Sans Thai', 'Barlow', sans-serif;
+    font-size: 16px;
     min-height: 100vh; display: flex; flex-direction: column;
     align-items: center; justify-content: flex-start;
     padding: 2rem 1rem; position: relative; overflow-x: hidden;
   }
-  body.thai { font-family: 'Noto Sans Thai', 'Barlow', sans-serif; }
+  body.thai { font-family: 'Noto Sans Thai', 'Noto Sans TC', 'Barlow', sans-serif; }
   body::before {
     content: ''; position: fixed; inset: 0;
     background-image: repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(225,168,19,0.012) 40px,rgba(225,168,19,0.012) 41px);
@@ -43,7 +44,7 @@
     display: flex; align-items: center; gap: 0.3rem;
     background: var(--surface2); border: 1px solid var(--border);
     border-radius: 2px; padding: 0.28rem 0.7rem;
-    font-size: 0.78rem; color: var(--muted); cursor: pointer;
+    font-size: 0.92rem; color: var(--muted); cursor: pointer;
     transition: all 0.15s; font-family: inherit; white-space: nowrap;
   }
   .lang-btn:hover { border-color: var(--gold); color: var(--text); }
@@ -68,7 +69,7 @@
     text-rendering: geometricPrecision;
   }
   .logo-slash { color: var(--gold); display: inline-block; transform: skewX(-8deg); margin: 0 0.03em; }
-  .logo-tagline { font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-top: 0.5rem; font-family: 'Barlow', sans-serif; }
+  .logo-tagline { font-size: 0.92rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-top: 0.5rem; font-family: inherit; }
 
   .access-layout {
     display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(360px, 0.88fr);
@@ -96,47 +97,47 @@
   .preview-tag {
     color: var(--gold); background: var(--gold-dim);
     border: 1px solid rgba(225,168,19,0.25);
-    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+    font-size: 0.9rem; letter-spacing: 0.04em; text-transform: uppercase;
     padding: 0.22rem 0.55rem; border-radius: 2px; font-family: 'Barlow', sans-serif;
   }
   .preview-body {
     padding: 1.35rem; filter: blur(0.7px); opacity: 0.86; user-select: none; pointer-events: none;
   }
   .preview-eyebrow {
-    color: var(--gold); font-family: monospace; font-size: 0.76rem;
-    letter-spacing: 0.14em; text-transform: uppercase; text-align: center; margin-bottom: 0.7rem;
+    color: var(--gold); font-family: inherit; font-size: 0.92rem; font-weight: 700;
+    letter-spacing: 0.04em; text-transform: uppercase; text-align: center; margin-bottom: 0.7rem;
   }
   .preview-title {
     font-family: 'Barlow Condensed', sans-serif; font-size: 2.35rem;
     text-align: center; line-height: 1; margin-bottom: 0.45rem;
   }
-  .preview-sub { text-align: center; color: var(--muted); font-size: 0.94rem; margin-bottom: 1.25rem; line-height: 1.55; }
+  .preview-sub { text-align: center; color: var(--muted); font-size: 1rem; margin-bottom: 1.25rem; line-height: 1.65; }
   .preview-formula {
     width: fit-content; max-width: 100%; margin: 0 auto 1.25rem; padding: 0.45rem 1rem;
-    background: var(--surface2); border: 1px solid var(--border); font-family: monospace;
-    color: var(--muted); font-size: 0.86rem;
+    background: var(--surface2); border: 1px solid var(--border); font-family: inherit;
+    color: var(--muted); font-size: 0.95rem;
   }
   .preview-panel {
     background: var(--surface); border: 1px solid var(--border); padding: 1.05rem;
     margin-bottom: 1rem; border-radius: 2px;
   }
   .preview-panel-title {
-    color: var(--muted); font-family: monospace; font-size: 0.78rem;
-    letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.9rem;
+    color: var(--muted); font-family: inherit; font-size: 0.92rem; font-weight: 700;
+    letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 0.9rem;
   }
   .preview-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
   .preview-control {
     background: var(--surface2); border: 1px solid var(--border); padding: 0.75rem;
     display: flex; justify-content: space-between; align-items: center; min-height: 58px;
   }
-  .preview-control small { color: var(--muted); display: block; font-size: 0.78rem; }
-  .preview-control strong { font-family: monospace; font-size: 1.12rem; }
+  .preview-control small { color: var(--muted); display: block; font-size: 0.9rem; }
+  .preview-control strong { font-family: 'Barlow', sans-serif; font-size: 1.18rem; }
   .preview-result {
     text-align: center; background: rgba(225,168,19,0.1);
     border: 1px solid rgba(225,168,19,0.24); padding: 1.3rem;
   }
-  .preview-result small { color: var(--muted); display: block; margin-bottom: 0.35rem; font-size: 0.88rem; }
-  .preview-result strong { color: var(--gold); font-family: monospace; font-size: 2rem; }
+  .preview-result small { color: var(--muted); display: block; margin-bottom: 0.35rem; font-size: 0.96rem; }
+  .preview-result strong { color: var(--gold); font-family: 'Barlow', sans-serif; font-size: 2rem; }
   .lock-layer {
     position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
     padding: 1.4rem; background: linear-gradient(180deg, rgba(28,28,28,0.08), rgba(28,28,28,0.82));
@@ -147,9 +148,9 @@
     text-align: center; border-radius: 2px; box-shadow: 0 18px 60px rgba(0,0,0,0.38);
   }
   .lock-icon { font-size: 1.75rem; color: var(--gold); margin-bottom: 0.55rem; }
-  .lock-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.45rem; }
-  .lock-sub { color: var(--muted); font-size: 0.95rem; line-height: 1.65; }
-  .lock-arrow { color: var(--gold); margin-top: 0.9rem; font-weight: 700; font-size: 0.92rem; }
+  .lock-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.45rem; }
+  .lock-sub { color: var(--muted); font-size: 1.02rem; line-height: 1.7; }
+  .lock-arrow { color: var(--gold); margin-top: 0.9rem; font-weight: 700; font-size: 1rem; }
 
   /* Card */
   .card {
@@ -161,18 +162,18 @@
     background: linear-gradient(90deg, var(--gold) 0%, rgba(225,168,19,0.2) 100%);
     border-radius: 2px 2px 0 0;
   }
-  .card-title { font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 1.3rem; margin-bottom: 0.3rem; color: var(--text); }
-  .card-sub { font-size: 0.95rem; color: var(--muted); margin-bottom: 1.2rem; line-height: 1.65; }
+  .card-title { font-family: inherit; font-weight: 700; font-size: 1.42rem; margin-bottom: 0.3rem; color: var(--text); }
+  .card-sub { font-size: 1.04rem; color: var(--muted); margin-bottom: 1.2rem; line-height: 1.7; }
 
   /* Form */
   .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
   .form-grid .full { grid-column: 1 / -1; }
   .field { display: flex; flex-direction: column; gap: 0.4rem; }
-  .field label { font-size: 0.82rem; font-weight: 600; color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; font-family: 'Barlow', sans-serif; }
+  .field label { font-size: 0.95rem; font-weight: 700; color: var(--muted); letter-spacing: 0; text-transform: none; font-family: inherit; }
   .field label span.req { color: var(--gold); margin-left: 2px; }
   .field input, .field select {
     background: var(--surface2); border: 1px solid var(--border); border-radius: 2px;
-    padding: 0.82rem 0.95rem; color: var(--text); font-size: 1rem;
+    padding: 0.92rem 1rem; color: var(--text); font-size: 1.05rem;
     font-family: inherit; outline: none;
     transition: border-color 0.2s, box-shadow 0.2s; width: 100%;
     appearance: none; -webkit-appearance: none;
@@ -184,22 +185,22 @@
   .select-wrap::after { content: '▾'; position: absolute; right: 0.9rem; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 0.9rem; pointer-events: none; }
   .select-wrap select { padding-right: 2rem; cursor: pointer; }
   .select-wrap select option { background: #2C2C2C; color: var(--text); }
-  .field-error { font-size: 0.82rem; color: var(--error); display: none; }
+  .field-error { font-size: 0.95rem; color: #FF7A7A; display: none; }
   .field-error.show { display: block; }
   .hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
   /* Checkbox */
   .checkbox-row { display: flex; align-items: flex-start; gap: 0.75rem; margin-top: 1.25rem; }
   .checkbox-row input[type="checkbox"] { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; accent-color: var(--gold); cursor: pointer; }
-  .checkbox-row label { font-size: 0.88rem; color: var(--muted); line-height: 1.6; cursor: pointer; }
+  .checkbox-row label { font-size: 0.98rem; color: var(--muted); line-height: 1.7; cursor: pointer; }
   .checkbox-row label a { color: var(--gold); text-decoration: none; }
 
   /* Button */
   .btn-submit {
     width: 100%; margin-top: 1.5rem; padding: 1rem;
     background: var(--gold); color: #1C1C1C; border: none; border-radius: 2px;
-    font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 0.95rem;
-    letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer;
+    font-family: inherit; font-weight: 700; font-size: 1.04rem;
+    letter-spacing: 0.02em; text-transform: none; cursor: pointer;
     transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
   }
   .btn-submit:hover { background: #F0B820; box-shadow: 0 4px 20px rgba(225,168,19,0.3); }
@@ -217,14 +218,14 @@
   /* Error banner */
   .error-banner {
     background: rgba(224,82,82,0.1); border: 1px solid rgba(224,82,82,0.3);
-    border-radius: 2px; padding: 0.8rem 1rem; font-size: 0.9rem;
-    color: #E05252; margin-bottom: 1rem; display: none;
+    border-radius: 2px; padding: 0.9rem 1rem; font-size: 1rem;
+    color: #FF7A7A; margin-bottom: 1rem; display: none;
   }
   .error-banner.show { display: block; }
   .info-note {
     background: rgba(225,168,19,0.08); border: 1px solid rgba(225,168,19,0.22);
     color: #D7C891; border-radius: 2px; padding: 0.85rem 1rem;
-    font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.25rem;
+    font-size: 1rem; line-height: 1.7; margin-bottom: 1.25rem;
   }
   .field.optional { display: none; }
 
@@ -232,11 +233,11 @@
   .success-screen { display: none; text-align: center; padding: 1.5rem 0; animation: fadeUp 0.5s ease both; }
   .success-screen.show { display: block; }
   .success-icon { width: 64px; height: 64px; border-radius: 50%; background: rgba(76,175,130,0.12); border: 2px solid var(--success); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 1.8rem; }
-  .success-title { font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 1.3rem; color: var(--text); margin-bottom: 0.5rem; }
-  .success-sub { font-size: 0.94rem; color: var(--muted); line-height: 1.7; }
+  .success-title { font-family: inherit; font-weight: 700; font-size: 1.36rem; color: var(--text); margin-bottom: 0.5rem; }
+  .success-sub { font-size: 1.02rem; color: var(--muted); line-height: 1.75; }
   .success-email-highlight { color: var(--gold); font-weight: 600; }
-  .resend-link { display: none; margin-top: 1.5rem; font-size: 0.9rem; color: var(--muted); }
-  .resend-link button { background: none; border: none; color: var(--gold); cursor: pointer; font-size: 0.9rem; text-decoration: underline; font-family: inherit; }
+  .resend-link { display: none; margin-top: 1.5rem; font-size: 1rem; color: var(--muted); }
+  .resend-link button { background: none; border: none; color: var(--gold); cursor: pointer; font-size: 1rem; text-decoration: underline; font-family: inherit; }
 
   /* Verified screen */
   .verified-screen { display: none; text-align: center; padding: 1rem 0; animation: fadeUp 0.5s ease both; }
@@ -244,24 +245,24 @@
   .verified-badge {
     display: inline-flex; align-items: center; gap: 0.4rem;
     background: rgba(76,175,130,0.1); border: 1px solid rgba(76,175,130,0.3);
-    border-radius: 100px; padding: 0.35rem 1rem; font-size: 0.86rem;
+    border-radius: 100px; padding: 0.4rem 1rem; font-size: 0.96rem;
     color: var(--success); margin-bottom: 1.5rem; letter-spacing: 0.05em;
-    font-family: 'Barlow', sans-serif; font-weight: 600; text-transform: uppercase;
+    font-family: inherit; font-weight: 700; text-transform: none;
   }
   .btn-enter {
     display: inline-flex; align-items: center; gap: 0.5rem;
     margin-top: 1.5rem; padding: 1rem 2rem;
     background: var(--gold); color: #1C1C1C; border: none; border-radius: 2px;
-    font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 0.95rem;
-    letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer;
+    font-family: inherit; font-weight: 700; font-size: 1.04rem;
+    letter-spacing: 0.02em; text-transform: none; cursor: pointer;
     text-decoration: none; transition: background 0.2s, box-shadow 0.2s;
   }
   .btn-enter:hover { background: #F0B820; box-shadow: 0 4px 20px rgba(225,168,19,0.3); }
 
   /* Login hint + footer */
-  .login-hint { text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--muted); }
+  .login-hint { text-align: center; margin-top: 1.5rem; font-size: 1rem; color: var(--muted); }
   .login-hint a { color: var(--gold); text-decoration: none; font-weight: 600; }
-  .page-footer { grid-column: 1 / -1; text-align: center; margin-top: 0.75rem; font-size: 0.86rem; color: var(--muted); line-height: 1.8; }
+  .page-footer { grid-column: 1 / -1; text-align: center; margin-top: 0.75rem; font-size: 0.98rem; color: var(--muted); line-height: 1.8; }
   .page-footer a { color: var(--gold); text-decoration: none; }
 
   @media (max-width: 480px) {
@@ -435,7 +436,7 @@
         <span id="t-successSub1">我們已將驗證連結寄送至</span><br>
         <span class="success-email-highlight" id="sentEmailDisplay"></span><br><br>
         <span id="t-successSub2">請前往您的信箱點擊驗證連結，完成後即可使用 OEE 計算機。</span><br><br>
-        <small style="color:#555;" id="t-successSub3">若未收到，請檢查垃圾郵件資料夾。</small>
+        <small style="color:#C8C8C8;font-size:0.98rem;line-height:1.7;" id="t-successSub3">若未收到，請檢查垃圾郵件資料夾。</small>
       </div>
       <div class="resend-link">
         <span id="t-resendHint">沒有收到？</span>
