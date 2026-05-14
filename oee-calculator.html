@@ -353,17 +353,18 @@
       OEE 工廠獲利計算機為 N/NPC 會員專屬功能。<br>
       請先完成會員註冊並驗證您的 Email。
     </div>
-    <a href="register.html" class="gate-btn">免費註冊會員</a>
-    <div class="gate-login">已有帳號？<a href="register.html">登入</a></div>
+    <a href="/oee/register.html" class="gate-btn">免費註冊會員</a>
+    <div class="gate-login">已有帳號？<a href="/oee/register.html">登入</a></div>
   </div>
 </div>
 
 <!-- Navbar -->
 <nav class="navbar">
-  <a href="register.html" class="nav-logo">N<span style="color:var(--gold);">/</span>NPC</a>
+  <a href="https://www.nnpc.ai/" class="nav-logo">N<span style="color:var(--gold);">/</span>NPC</a>
   <div class="nav-right">
     <span class="nav-tag">會員專屬</span>
-    <a href="#" class="nav-back" onclick="logout()">← 登出</a>
+    <a href="https://www.nnpc.ai/" class="nav-back" id="t-homeLink">← 返回官網</a>
+    <a href="#" class="nav-back" id="t-logout" onclick="logout()">← 登出</a>
   </div>
 </nav>
 
@@ -580,13 +581,13 @@
       <h3 id="t-ctaTitle">準備好開始數位轉型了嗎？</h3>
       <p id="t-ctaSub">N/NPC 顧問團隊提供 IoT + MES 客製化解決方案，協助您工廠提升 OEE。</p>
     </div>
-    <a href="https://your-website.com/contact" class="cta-btn" id="t-ctaBtn">預約顧問諮詢 →</a>
+    <a href="https://www.nnpc.ai/contact/" class="cta-btn" id="t-ctaBtn">預約顧問諮詢 →</a>
   </div>
 
 </div>
 
 <div class="page-footer">
-  © 2025 N/NPC Smart Manufacturing Solutions · <a href="register.html">官方網站</a> · <a href="#">聯絡我們</a>
+  © 2025 N/NPC Smart Manufacturing Solutions · <a href="https://www.nnpc.ai/">官方網站</a> · <a href="https://www.nnpc.ai/contact/">聯絡我們</a>
 </div>
 
 <script>
@@ -619,6 +620,7 @@ function logout() {
 // ─── i18n ────────────────────────────────────────────
 const T = {
   zh: {
+    homeLink:'← 返回官網', logout:'← 登出',
     eyebrow:'OEE · Overall Equipment Effectiveness', title:'工廠獲利計算機',
     subtitle:'調整參數，即時看到 OEE 提升帶來的真實金錢價值',
     fA:'可動率', fP:'性能', fQ:'品質',
@@ -645,6 +647,7 @@ const T = {
     ctaBtn:'預約顧問諮詢 →',
   },
   en: {
+    homeLink:'← Back to Website', logout:'← Sign Out',
     eyebrow:'OEE · Overall Equipment Effectiveness', title:'Factory Profit Calculator',
     subtitle:'Adjust parameters to see the real monetary value of OEE improvement',
     fA:'Availability', fP:'Performance', fQ:'Quality',
@@ -671,6 +674,7 @@ const T = {
     ctaBtn:'Book a Consultation →',
   },
   th: {
+    homeLink:'← กลับเว็บไซต์หลัก', logout:'← ออกจากระบบ',
     eyebrow:'OEE · ประสิทธิผลโดยรวมของเครื่องจักร', title:'เครื่องคำนวณกำไรโรงงาน',
     subtitle:'ปรับพารามิเตอร์เพื่อดูมูลค่าที่แท้จริงจากการพัฒนา OEE',
     fA:'ความพร้อม', fP:'ประสิทธิภาพ', fQ:'คุณภาพ',
@@ -709,6 +713,8 @@ function setLang(lang, btn) {
   document.body.style.fontFamily = fontFamily;
 
   setText('t-eyebrow', t.eyebrow);
+  setText('t-homeLink', t.homeLink);
+  setText('t-logout', t.logout);
   setText('t-title', t.title);
   setText('t-subtitle', t.subtitle);
   setText('t-fA', t.fA); setText('t-fP', t.fP); setText('t-fQ', t.fQ);
