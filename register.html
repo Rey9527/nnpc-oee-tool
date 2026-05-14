@@ -36,6 +36,15 @@
   }
 
   /* Lang bar */
+  .home-link {
+    position: fixed; top: 1rem; left: 1rem; z-index: 10;
+    display: inline-flex; align-items: center; min-height: 38px;
+    border: 1px solid var(--border); background: var(--surface2);
+    color: var(--muted); padding: 0.28rem 0.7rem;
+    border-radius: 2px; font-size: 0.92rem; font-weight: 700;
+    text-decoration: none; transition: all 0.15s;
+  }
+  .home-link:hover { border-color: var(--gold); color: var(--text); }
   .lang-bar {
     position: fixed; top: 1rem; right: 1rem;
     display: flex; gap: 0.35rem; z-index: 10;
@@ -63,6 +72,7 @@
   /* Logo */
   .logo-wrap { text-align: center; margin: 1.5rem 0 2rem; }
   .logo-text {
+    display: inline-block; text-decoration: none;
     font-family: 'Barlow', sans-serif;
     font-weight: 700; font-size: 2.75rem;
     letter-spacing: 0.04em; color: var(--text); line-height: 1;
@@ -292,6 +302,7 @@
     .form-grid .full { grid-column: 1; }
     .card { padding: 1.75rem 1.25rem; }
     body { padding-top: 4.5rem; }
+    .home-link { top: 0.5rem; left: 0.5rem; min-height: 34px; padding: 0.26rem 0.52rem; font-size: 0.82rem; }
     .lang-bar { top: 0.5rem; right: 0.5rem; left: 0.5rem; justify-content: center; }
     .lang-btn { padding: 0.32rem 0.58rem; }
     .logo-wrap { margin-bottom: 1.75rem; }
@@ -299,6 +310,8 @@
 </style>
 </head>
 <body>
+
+<a class="home-link" href="/" id="t-homeLink">← 返回官網</a>
 
 <!-- Language Switcher -->
 <div class="lang-bar">
@@ -310,7 +323,7 @@
 <div class="page-wrap">
 
   <div class="logo-wrap">
-    <div class="logo-text">N<span class="logo-slash">/</span>NPC</div>
+    <a class="logo-text" href="/" aria-label="N/NPC Home">N<span class="logo-slash">/</span>NPC</a>
     <div class="logo-tagline" id="t-tagline">Smart Manufacturing Solutions</div>
   </div>
 
@@ -509,6 +522,7 @@ const CONFIG = {
 const T = {
   zh: {
     htmlLang: 'zh-TW', bodyClass: '',
+    homeLink: '← 返回官網',
     tagline: 'Smart Manufacturing Solutions',
     previewTag: '會員專屬',
     previewTitle: '工廠獲利計算機',
@@ -564,6 +578,7 @@ const T = {
   },
   en: {
     htmlLang: 'en', bodyClass: '',
+    homeLink: '← Back to Website',
     tagline: 'Smart Manufacturing Solutions',
     previewTag: 'Member Only',
     previewTitle: 'Factory Profit Calculator',
@@ -619,6 +634,7 @@ const T = {
   },
   th: {
     htmlLang: 'th', bodyClass: 'thai',
+    homeLink: '← กลับเว็บไซต์หลัก',
     tagline: 'โซลูชันการผลิตอัจฉริยะ',
     previewTag: 'สำหรับสมาชิก',
     previewTitle: 'เครื่องคำนวณกำไรโรงงาน',
@@ -708,6 +724,7 @@ function setLang(lang, btn) {
   }
 
   // Update all text
+  setHTML('t-homeLink', t.homeLink);
   setHTML('t-tagline', t.tagline);
   setHTML('t-previewTag', t.previewTag);
   setHTML('t-previewTitle', t.previewTitle);
@@ -761,6 +778,7 @@ function setAttr(id, attr, val) { const el = document.getElementById(id); if (el
 function setLink(id, url) { const el = document.getElementById(id); if (el) el.href = url; }
 
 function setLinks() {
+  setLink('t-homeLink', CONFIG.WEBSITE_URL);
   setLink('t-enterBtn', CONFIG.OEE_TOOL_URL);
   setLink('t-footerWeb', CONFIG.WEBSITE_URL);
   setLink('t-footerContact', CONFIG.CONTACT_URL);
