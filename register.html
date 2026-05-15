@@ -533,6 +533,7 @@ const T = {
     lockTitle: 'OEE 工具已準備好',
     lockSub: '工具就在這裡。留下基本會員資料，我們會把專屬工具連結寄到您的信箱。',
     lockArrow: '往右留下 Email →',
+    lockArrowMobile: '往下留下 Email ↓',
     registerTab: '新會員註冊',
     loginTab: '已是會員登入',
     cardTitle: '取得 OEE 工具連結',
@@ -589,6 +590,7 @@ const T = {
     lockTitle: 'Your OEE tool is ready',
     lockSub: 'The tool is right here. Leave your basic member details and we will send the access link to your inbox.',
     lockArrow: 'Leave your Email on the right →',
+    lockArrowMobile: 'Scroll down and leave your Email ↓',
     registerTab: 'New Member Registration',
     loginTab: 'Existing Member Login',
     cardTitle: 'Get Your OEE Tool Link',
@@ -645,6 +647,7 @@ const T = {
     lockTitle: 'เครื่องมือ OEE พร้อมใช้งาน',
     lockSub: 'เครื่องมืออยู่ตรงนี้แล้ว กรอกข้อมูลสมาชิกพื้นฐาน แล้วเราจะส่งลิงก์เครื่องมือไปที่ Email ของคุณ',
     lockArrow: 'กรอก Email ด้านขวา →',
+    lockArrowMobile: 'เลื่อนลงแล้วกรอก Email ↓',
     registerTab: 'สมัครสมาชิกใหม่',
     loginTab: 'สมาชิกเดิมเข้าสู่ระบบ',
     cardTitle: 'รับลิงก์เครื่องมือ OEE',
@@ -734,7 +737,7 @@ function setLang(lang, btn) {
   setHTML('t-previewResultLabel', t.previewResultLabel);
   setHTML('t-lockTitle', t.lockTitle);
   setHTML('t-lockSub', t.lockSub);
-  setHTML('t-lockArrow', t.lockArrow);
+  setHTML('t-lockArrow', getLockArrowText(t));
   setHTML('registerTab', t.registerTab);
   setHTML('loginTab', t.loginTab);
   setHTML('t-lName', t.lName);
@@ -774,6 +777,7 @@ function setLang(lang, btn) {
 
 function setHTML(id, val) { const el = document.getElementById(id); if (el) el.innerHTML = val; }
 function setAttr(id, attr, val) { const el = document.getElementById(id); if (el) el.setAttribute(attr, val); }
+function getLockArrowText(t) { return window.matchMedia('(max-width: 900px)').matches ? t.lockArrowMobile : t.lockArrow; }
 
 function setLink(id, url) { const el = document.getElementById(id); if (el) el.href = url; }
 
@@ -832,6 +836,11 @@ window.addEventListener('DOMContentLoaded', () => {
   } else if (params.get('t') || params.get('token')) {
     verifyToken(params.get('t') || params.get('token'));
   }
+});
+
+window.addEventListener('resize', () => {
+  const t = T[currentLang];
+  setHTML('t-lockArrow', getLockArrowText(t));
 });
 
 // ─── Form submit ──────────────────────────────────────────────────────────
