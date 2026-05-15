@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>N/NPC — OEE 工廠獲利計算機</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;900&family=Barlow+Condensed:wght@700;900&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Sans+Thai:wght@400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;900&family=Barlow+Condensed:wght@700;900&family=League+Gothic&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Sans+Thai:wght@400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #1C1C1C;
@@ -70,9 +70,9 @@
     background: linear-gradient(90deg, var(--gold) 0%, rgba(225,168,19,0.2) 100%);
   }
   .gate-logo {
-    font-family: 'Barlow', sans-serif;
-    font-weight: 700; font-size: 1.95rem;
-    letter-spacing: 0.05em; text-rendering: geometricPrecision;
+    font-family: 'League Gothic', 'Barlow Condensed', 'Barlow', sans-serif;
+    font-weight: 400; font-size: 2.75rem;
+    letter-spacing: 0.035em; line-height: 0.88; text-rendering: geometricPrecision;
     color: var(--text); margin-bottom: 1.5rem;
   }
   .gate-logo span { color: var(--gold); }
@@ -109,10 +109,10 @@
     display: flex; align-items: center; justify-content: space-between;
   }
   .nav-logo {
-    font-family: 'Barlow', sans-serif;
-    font-weight: 700; font-size: 1.22rem;
+    font-family: 'League Gothic', 'Barlow Condensed', 'Barlow', sans-serif;
+    font-weight: 400; font-size: 1.95rem;
     color: var(--text); text-decoration: none;
-    letter-spacing: 0.05em; text-rendering: geometricPrecision;
+    letter-spacing: 0.035em; line-height: 0.88; text-rendering: geometricPrecision;
   }
   .nav-logo span { color: var(--gold); }
   .nav-right { display: flex; align-items: center; gap: 1rem; }
@@ -166,10 +166,11 @@
     color: var(--gold); text-transform: uppercase; margin-bottom: 0.75rem;
   }
   .calc-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: clamp(1.8rem, 5vw, 2.8rem);
-    font-weight: 900; color: var(--text);
-    letter-spacing: 0; line-height: 1.1;
+    font-family: 'League Gothic', 'Barlow Condensed', 'Noto Sans TC', 'Noto Sans Thai', sans-serif;
+    font-size: clamp(2.35rem, 6vw, 3.8rem);
+    font-weight: 400; color: var(--text);
+    letter-spacing: 0.01em; line-height: 0.98;
+    text-rendering: geometricPrecision;
   }
   .calc-sub { font-size: 1.05rem; color: var(--muted); margin-top: 0.5rem; line-height: 1.65; }
   .oee-formula {
