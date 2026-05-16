@@ -502,6 +502,7 @@
   </div>
 </div>
 
+<script src="assets/member-auth.js"></script>
 <script>
 // ─── CONFIG ───────────────────────────────────────────────────────────────
 const CONFIG = {
@@ -1116,6 +1117,10 @@ async function verifyToken(token) {
   try {
     const result = await postJSON(CONFIG.VERIFY_ENDPOINT, { token });
     if (!result.ok) throw new Error(result.message || getText(currentLang).errGeneric);
+    if (result.email) {
+      sessionStorage.setItem('nnpc_member_email', result.email);
+      localStorage.setItem('nnpc_member_email', result.email);
+    }
     showVerifiedScreen();
   } catch (err) {
     console.error(err);
@@ -1147,12 +1152,13 @@ function showVerifiedScreen() {
   document.getElementById('formScreen').style.display = 'none';
   document.getElementById('successScreen').classList.remove('show');
   document.getElementById('verifiedScreen').classList.add('show');
-  sessionStorage.setItem('nnpc_verified', '1');
+  window.NNPCMemberAuth?.grant(sessionStorage.getItem('nnpc_member_email') || '');
   setLink('t-enterBtn', getEnterUrl());
 }
 
 function showLinkSent(email) {
   sessionStorage.setItem('nnpc_member_email', email);
+  localStorage.setItem('nnpc_member_email', email);
   document.getElementById('formScreen').style.display = 'none';
   document.getElementById('sentEmailDisplay').textContent = email;
   document.getElementById('successScreen').classList.add('show');

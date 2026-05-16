@@ -173,10 +173,11 @@ window.NNPC_PAGE = {
 };
 </script>
 <script src="../../../assets/site.js"></script>
+<script src="../../../assets/member-auth.js"></script>
 <script>
 window.addEventListener('DOMContentLoaded', () => {
-  const verified = sessionStorage.getItem('nnpc_verified') === '1';
-  document.body.classList.toggle('member-verified', verified);
+  const verified = window.NNPCMemberAuth?.isVerified();
+  document.body.classList.toggle('member-verified', Boolean(verified));
 });
 </script>
 </body>

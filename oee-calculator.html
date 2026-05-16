@@ -591,6 +591,7 @@
   © 2025 N/NPC Smart Manufacturing Solutions · <a href="https://www.nnpc.ai/index.html">官方網站</a> · <a href="https://www.nnpc.ai/contact/">聯絡我們</a>
 </div>
 
+<script src="assets/member-auth.js"></script>
 <script>
 // ─── State ───────────────────────────────────────────
 const state = {
@@ -605,16 +606,16 @@ const HOURLY = 2500;
 (function checkAuth() {
   const params = new URLSearchParams(window.location.search);
   const verified = params.get('verified') === '1'
-    || sessionStorage.getItem('nnpc_verified') === '1';
+    || window.NNPCMemberAuth?.isVerified();
   if (verified) {
-    sessionStorage.setItem('nnpc_verified', '1');
+    window.NNPCMemberAuth?.grant(localStorage.getItem('nnpc_member_email') || '');
     document.getElementById('authGate').classList.add('hidden');
   }
   // Gate stays visible if not verified
 })();
 
 function logout() {
-  sessionStorage.removeItem('nnpc_verified');
+  window.NNPCMemberAuth?.clear();
   document.getElementById('authGate').classList.remove('hidden');
 }
 
