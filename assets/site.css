@@ -37,8 +37,8 @@ body {
   background: var(--bg);
   color: var(--white);
   font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.75;
+  font-size: 18px;
+  line-height: 1.8;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -57,9 +57,9 @@ ul { list-style: none; }
 .eyebrow {
   display: inline-block;
   font-family: var(--font-head);
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.20em;
   text-transform: uppercase;
   color: var(--yellow);
   margin-bottom: 14px;
@@ -72,8 +72,8 @@ ul { list-style: none; }
   gap: 8px;
   font-family: var(--font-head);
   font-weight: 700;
-  font-size: 13px;
-  letter-spacing: 0.08em;
+  font-size: 15px;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   padding: 13px 28px;
   border-radius: var(--radius);
@@ -112,9 +112,9 @@ ul { list-style: none; }
   color: var(--white);
 }
 .section-head p {
-  font-size: 16px;
+  font-size: 18px;
   color: var(--white-60);
-  line-height: 1.8;
+  line-height: 1.85;
   font-weight: 300;
 }
 
@@ -149,7 +149,7 @@ ul { list-style: none; }
 }
 .brand-main span { color: var(--yellow); }
 .brand-sub {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--white-35);
   letter-spacing: 0.04em;
   display: none;
@@ -168,9 +168,9 @@ ul { list-style: none; }
 
 .nav-link {
   font-family: var(--font-head);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--white-60);
   padding: 6px 12px;
@@ -183,9 +183,9 @@ ul { list-style: none; }
 .dropdown { position: relative; }
 .dropdown-btn {
   font-family: var(--font-head);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--white-60);
   background: none;
@@ -222,8 +222,8 @@ ul { list-style: none; }
   transition: background var(--ease);
 }
 .dropdown-item:hover { background: var(--bg-hover); }
-.dropdown-item strong { font-size: 13px; font-weight: 700; color: var(--white); margin-bottom: 3px; }
-.dropdown-item span { font-size: 12px; color: var(--white-60); line-height: 1.5; }
+.dropdown-item strong { font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 3px; }
+.dropdown-item span { font-size: 13px; color: var(--white-60); line-height: 1.5; }
 
 /* Nav actions */
 .nav-actions { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
@@ -242,7 +242,7 @@ ul { list-style: none; }
   border: none;
   color: var(--white-60);
   font-family: var(--font-head);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.06em;
   padding: 4px 8px;
@@ -259,7 +259,7 @@ ul { list-style: none; }
   border: 1px solid var(--line-em);
   color: var(--white-60);
   font-family: var(--font-head);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -324,9 +324,9 @@ ul { list-style: none; }
   margin-bottom: 24px;
 }
 .hero-copy {
-  font-size: 16px;
+  font-size: 18px;
   color: var(--white-60);
-  line-height: 1.85;
+  line-height: 1.9;
   font-weight: 300;
   max-width: 520px;
   margin-bottom: 36px;
@@ -351,12 +351,12 @@ ul { list-style: none; }
 .trust-item:last-child { border-right: none; margin-right: 0; }
 .trust-item strong {
   font-family: var(--font-head);
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 800;
   color: var(--yellow);
   letter-spacing: 0.04em;
 }
-.trust-item span { font-size: 12px; color: var(--white-60); line-height: 1.4; }
+.trust-item span { font-size: 14px; color: var(--white-60); line-height: 1.4; }
 
 /* Ops visual panel */
 .ops-visual {
@@ -372,7 +372,7 @@ ul { list-style: none; }
   padding: 12px 20px;
   border-bottom: 1px solid var(--line);
   font-family: var(--font-head);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -384,7 +384,7 @@ ul { list-style: none; }
 
 .metric { display: flex; flex-direction: column; gap: 4px; }
 .metric label {
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--muted);
@@ -396,7 +396,7 @@ ul { list-style: none; }
   color: var(--white);
   line-height: 1;
 }
-.metric small { font-size: 12px; color: var(--white-35); }
+.metric small { font-size: 14px; color: var(--white-35); }
 
 .flow-line {
   height: 3px;
@@ -428,7 +428,7 @@ ul { list-style: none; }
   margin-bottom: 6px;
   line-height: 1.4;
 }
-.order-card p { font-size: 12px; color: var(--white-60); line-height: 1.7; }
+.order-card p { font-size: 14px; color: var(--white-60); line-height: 1.7; }
 
 /* ── HIDDEN LOSS SECTION ──────────────────────────────────── */
 .loss-grid {
@@ -452,13 +452,13 @@ ul { list-style: none; }
 .loss-item strong {
   display: block;
   font-family: var(--font-head);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--white);
   margin-bottom: 10px;
   line-height: 1.4;
 }
-.loss-item p { font-size: 13px; color: var(--white-60); line-height: 1.75; }
+.loss-item p { font-size: 15px; color: var(--white-60); line-height: 1.75; }
 
 /* Signal cards */
 .signal-grid {
@@ -491,7 +491,7 @@ ul { list-style: none; }
 .signal-card > span {
   display: inline-block;
   font-family: var(--font-head);
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.2em;
   color: var(--yellow);
@@ -499,16 +499,16 @@ ul { list-style: none; }
 }
 .signal-card h3 {
   font-family: var(--font-head);
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--white);
   line-height: 1.4;
   margin-bottom: 10px;
 }
-.signal-card p { font-size: 13px; color: var(--white-60); line-height: 1.75; margin-bottom: 16px; }
+.signal-card p { font-size: 15px; color: var(--white-60); line-height: 1.75; margin-bottom: 16px; }
 .signal-card ul { display: flex; flex-direction: column; gap: 6px; }
 .signal-card li {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--white-35);
   padding-left: 14px;
   position: relative;
@@ -519,7 +519,7 @@ ul { list-style: none; }
   position: absolute;
   left: 0;
   color: var(--yellow);
-  font-size: 10px;
+  font-size: 12px;
 }
 
 /* ── SOLUTIONS CARDS ──────────────────────────────────────── */
@@ -559,25 +559,25 @@ ul { list-style: none; }
 
 .card-kicker {
   font-family: var(--font-head);
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.2em;
   color: var(--yellow);
 }
 .card h3 {
   font-family: var(--font-head);
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--white);
   line-height: 1.35;
 }
-.card p { font-size: 13px; color: var(--white-60); line-height: 1.7; flex: 1; }
+.card p { font-size: 15px; color: var(--white-60); line-height: 1.7; flex: 1; }
 .card a {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   font-family: var(--font-head);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -622,7 +622,7 @@ ul { list-style: none; }
 }
 .process-step span {
   font-family: var(--font-head);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.16em;
   color: var(--yellow);
@@ -632,12 +632,12 @@ ul { list-style: none; }
 .process-step strong {
   display: block;
   font-family: var(--font-head);
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 700;
   color: var(--white);
   margin-bottom: 6px;
 }
-.process-step p { font-size: 13px; color: var(--white-60); line-height: 1.75; }
+.process-step p { font-size: 15px; color: var(--white-60); line-height: 1.75; }
 
 /* ── CTA BAND ─────────────────────────────────────────────── */
 .cta-band {
@@ -672,7 +672,7 @@ ul { list-style: none; }
   letter-spacing: -0.01em;
   margin-bottom: 10px;
 }
-.cta-band p { font-size: 14px; color: var(--white-60); max-width: 480px; }
+.cta-band p { font-size: 16px; color: var(--white-60); max-width: 480px; }
 
 /* ── FOOTER ───────────────────────────────────────────────── */
 .site-footer {
@@ -688,13 +688,13 @@ ul { list-style: none; }
 }
 .site-footer strong {
   font-family: var(--font-head);
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 900;
   letter-spacing: 0.04em;
 }
 .site-footer span {
   display: block;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--white-60);
   margin-top: 6px;
   line-height: 1.6;
@@ -702,7 +702,7 @@ ul { list-style: none; }
 }
 .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
 .footer-links a {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--white-35);
   letter-spacing: 0.04em;
   transition: color var(--ease);
@@ -791,7 +791,7 @@ ul { list-style: none; }
   color: var(--white-60);
 }
 .contact-detail strong {
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -810,7 +810,7 @@ ul { list-style: none; }
 .form-row { margin-bottom: 20px; }
 .form-label {
   display: block;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -872,12 +872,12 @@ textarea.form-input { min-height: 120px; resize: vertical; }
 .industry-card:hover { border-color: var(--line-em); background: var(--bg-hover); }
 .industry-card h3 {
   font-family: var(--font-head);
-  font-size: 17px;
+  font-size: 19px;
   font-weight: 700;
   color: var(--white);
   margin-bottom: 10px;
 }
-.industry-card p { font-size: 13px; color: var(--white-60); line-height: 1.8; }
+.industry-card p { font-size: 15px; color: var(--white-60); line-height: 1.8; }
 
 /* ── SOLUTION DETAIL PAGES ────────────────────────────────── */
 [data-page="solutions"] main { padding-top: 64px; }
@@ -917,12 +917,12 @@ textarea.form-input { min-height: 120px; resize: vertical; }
 }
 .feature-item h4 {
   font-family: var(--font-head);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--white);
   margin-bottom: 8px;
 }
-.feature-item p { font-size: 13px; color: var(--white-60); line-height: 1.75; }
+.feature-item p { font-size: 15px; color: var(--white-60); line-height: 1.75; }
 
 /* ── UTILITIES ────────────────────────────────────────────── */
 .text-yellow  { color: var(--yellow); }
