@@ -23,6 +23,7 @@ module.exports = async function handler(req, res) {
       email,
       name: member.fields[process.env.AIRTABLE_FIELD_NAME || 'Name-Surname'] || '',
       language: data.language,
+      returnTo: data.returnTo,
     });
 
     return json(res, 200, { ok: true, email });

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>N/NPC | Smart Tag Case Analysis</title>
+<meta name="description" content="Member-only Smart Tag case analysis for machine health, vibration sensing, DecayRate, PHM, virtual metrology, and parameter optimization.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700;800;900&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/site.css">
+<style>
+  .member-content { display: none; }
+  .member-verified .member-content { display: block; }
+  .member-verified .member-gate { display: none; }
+  .member-gate { border: 1px solid rgba(225,168,19,0.34); background: var(--gold-soft); padding: 2rem; }
+  .case-flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.7rem; margin-top: 1rem; }
+  .case-flow span { background: var(--panel); border: 1px solid var(--line); padding: 0.85rem; color: var(--muted); font-weight: 700; text-align: center; }
+  .case-note { color: var(--soft); font-size: 0.95rem; margin-top: 0.8rem; }
+  @media (max-width: 820px) { .case-flow { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body data-page="smartCase">
+<header class="site-header">
+  <div class="shell nav">
+    <a class="brand" href="/"><span class="brand-main">N<span>/</span>NPC</span><span class="brand-sub" data-i18n="brandSub"></span></a>
+    <nav class="nav-links">
+      <div class="dropdown"><button class="dropdown-btn" data-i18n="navSolutions"></button><div class="dropdown-menu">
+        <a class="dropdown-item" href="/solutions/factory-performance-mes/"><strong data-i18n="solution1"></strong><span data-i18n="solution1Sub"></span></a>
+        <a class="dropdown-item" href="/solutions/ai-prediction-optimization/"><strong data-i18n="solution2"></strong><span data-i18n="solution2Sub"></span></a>
+        <a class="dropdown-item" href="/solutions/enterprise-process-platforms/"><strong data-i18n="solution3"></strong><span data-i18n="solution3Sub"></span></a>
+        <a class="dropdown-item" href="/solutions/rtls-connectivity/"><strong data-i18n="solution4"></strong><span data-i18n="solution4Sub"></span></a>
+      </div></div>
+      <a class="nav-link" href="/industries/" data-i18n="navIndustries"></a>
+      <a class="nav-link" href="/oee/register.html" data-i18n="navOee"></a>
+      <a class="nav-link" href="/about/" data-i18n="navAbout"></a>
+      <a class="nav-link" href="/contact/" data-i18n="navContact"></a>
+    </nav>
+    <div class="nav-actions">
+      <div class="lang-bar"><button class="lang-btn" data-lang="zh">中</button><button class="lang-btn" data-lang="en">EN</button><button class="lang-btn" data-lang="th">ไทย</button></div>
+      <a class="btn primary" href="/contact/" data-i18n="navCta"></a>
+      <button class="menu-toggle">Menu</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="page-hero">
+    <div class="shell">
+      <div class="eyebrow">Member Case Analysis</div>
+      <h1 data-i18n="title">Smart Tag 機台健康案例分析</h1>
+      <p data-i18n="intro">從高精密製程到食品設備，拆解 Smart Tag 如何用震動、溫度、濕度與 DecayRate 判讀，協助工廠把設備健康變成可管理的訊號。</p>
+      <div class="pill-list"><span class="pill">Smart Tag</span><span class="pill">DecayRate</span><span class="pill">PHM</span><span class="pill">Virtual Metrology</span><span class="pill">Parameter Optimization</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <div class="member-gate" id="memberGate">
+        <div class="eyebrow" data-i18n="gateEyebrow">會員限定</div>
+        <h2 data-i18n="gateTitle">請先完成會員驗證，即可閱讀完整案例分析。</h2>
+        <p data-i18n="gateText">這份內容包含導入判斷、場景拆解與試點建議，適合正在評估 Smart Tag 或 AIoT 機台健康方案的管理者。</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="/oee/register.html?return=/solutions/ai-prediction-optimization/smart-tag-case-analysis/" data-i18n="gateBtn">註冊 / 登入會員</a>
+          <a class="btn secondary" href="/solutions/ai-prediction-optimization/" data-i18n="backBtn">返回 AI 解決方案</a>
+        </div>
+      </div>
+
+      <div class="member-content">
+        <div class="detail-grid">
+          <aside class="side-panel">
+            <h3 data-i18n="sideTitle">分析重點</h3>
+            <ul>
+              <li data-i18n="side1">哪些機台值得先貼 Smart Tag</li>
+              <li data-i18n="side2">如何從震動訊號建立健康基線</li>
+              <li data-i18n="side3">如何判斷最佳型態與問題型態</li>
+              <li data-i18n="side4">如何把 PHM、虛擬量測與參數最佳化串起來</li>
+            </ul>
+          </aside>
+
+          <div>
+            <div class="content-block">
+              <h2 data-i18n="b1t">案例 1：半導體、封測與 PCB 高精密設備</h2>
+              <p data-i18n="b1p">這類設備停機成本高、製程容忍度低，適合先挑選會影響良率或交期的關鍵機台。Smart Tag 可從震動、溫度、濕度資料建立健康基線，觀察機台狀態是否逐步偏離穩定型態。</p>
+              <div class="evidence-list">
+                <div class="evidence-item"><strong data-i18n="b1s1">錫膏印刷與品質關聯</strong><p data-i18n="b1s1p">在 PCB 或高精度印刷製程中，震動變化可能與印刷穩定度、偏移、磨耗或後續檢測結果形成關聯，可作為虛擬量測與品質預警的候選題目。</p></div>
+                <div class="evidence-item"><strong data-i18n="b1s2">不是先取代機台資料，而是補上黑盒訊號</strong><p data-i18n="b1s2p">許多設備資料封閉或介面難接，非破壞式貼附可先取得機台外部行為訊號，降低試點門檻。</p></div>
+              </div>
+            </div>
+
+            <div class="content-block">
+              <h2 data-i18n="b2t">案例 2：食品廠攪拌槽與搗碎機</h2>
+              <p data-i18n="b2p">食品設備常有連續運轉、清洗、批次切換與負載變化。透過震動型態比對，可以協助判斷設備是否逐漸偏離正常狀態，讓維護不只靠固定週期或師傅經驗。</p>
+              <div class="outcome-grid">
+                <div class="outcome"><strong data-i18n="b2o1">異常前兆</strong><p data-i18n="b2o1p">馬達、軸承、刀具或攪拌結構的磨耗，可能先反映在震動型態。</p></div>
+                <div class="outcome"><strong data-i18n="b2o2">批次穩定</strong><p data-i18n="b2o2p">同一配方或批次若運轉型態差異過大，可作為製程檢討訊號。</p></div>
+                <div class="outcome"><strong data-i18n="b2o3">維護節奏</strong><p data-i18n="b2o3p">從定期保養走向狀態式保養，減少過早維護或太晚維修。</p></div>
+              </div>
+            </div>
+
+            <div class="content-block">
+              <h2 data-i18n="b3t">資料流：從貼紙到 AI 判讀</h2>
+              <p data-i18n="b3p">好的 Smart Tag 試點不是只把資料收上來，而是先定義「什麼叫正常」、「什麼叫正在衰退」、「哪個判斷會觸發行動」。</p>
+              <div class="case-flow">
+                <span data-i18n="flow1">貼附感測器</span>
+                <span data-i18n="flow2">震動/溫溼度</span>
+                <span data-i18n="flow3">邊緣特徵工程</span>
+                <span data-i18n="flow4">DecayRate / AI</span>
+                <span data-i18n="flow5">維護或製程決策</span>
+              </div>
+              <p class="case-note" data-i18n="b3note">N/NPC 建議先用 1 到 3 台關鍵設備做 6 到 8 週資料採集，建立基線後再決定是否擴大。</p>
+            </div>
+
+            <div class="content-block">
+              <h2 data-i18n="b4t">適合先導入的判斷條件</h2>
+              <ul>
+                <li data-i18n="b4l1">設備停機會直接影響交期、良率或重大損失。</li>
+                <li data-i18n="b4l2">機台資料難以從 PLC、SCADA 或原廠介面取得。</li>
+                <li data-i18n="b4l3">現場已知道有異常，但缺少可量化的提前訊號。</li>
+                <li data-i18n="b4l4">同型設備多，適合用健康基線比較不同機台狀態。</li>
+              </ul>
+            </div>
+
+            <div class="cta-band">
+              <div><h2 data-i18n="ctaTitle">想評估哪台設備最適合先做 Smart Tag 試點？</h2><p data-i18n="ctaText">提供機台類型、停機成本、目前維護方式與近期異常紀錄，N/NPC 可協助判斷試點優先順序。</p></div>
+              <a class="btn primary" href="/contact/" data-i18n="navCta">預約診斷</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer"><div class="shell footer-grid"><div><strong>N<span style="color:var(--gold);">/</span>NPC</strong><br><span data-i18n="footerTag"></span></div><div class="footer-links"><a href="/privacy-policy.html" data-i18n="privacy"></a><a href="/terms.html" data-i18n="terms"></a><a href="/contact/" data-i18n="navContact"></a></div></div></footer>
+
+<script>
+window.NNPC_PAGE = {
+  smartCase: {
+    zh: {
+      title:'Smart Tag 機台健康案例分析', intro:'從高精密製程到食品設備，拆解 Smart Tag 如何用震動、溫度、濕度與 DecayRate 判讀，協助工廠把設備健康變成可管理的訊號。',
+      gateEyebrow:'會員限定', gateTitle:'請先完成會員驗證，即可閱讀完整案例分析。', gateText:'這份內容包含導入判斷、場景拆解與試點建議，適合正在評估 Smart Tag 或 AIoT 機台健康方案的管理者。', gateBtn:'註冊 / 登入會員', backBtn:'返回 AI 解決方案',
+      sideTitle:'分析重點', side1:'哪些機台值得先貼 Smart Tag', side2:'如何從震動訊號建立健康基線', side3:'如何判斷最佳型態與問題型態', side4:'如何把 PHM、虛擬量測與參數最佳化串起來',
+      b1t:'案例 1：半導體、封測與 PCB 高精密設備', b1p:'這類設備停機成本高、製程容忍度低，適合先挑選會影響良率或交期的關鍵機台。Smart Tag 可從震動、溫度、濕度資料建立健康基線，觀察機台狀態是否逐步偏離穩定型態。',
+      b1s1:'錫膏印刷與品質關聯', b1s1p:'在 PCB 或高精度印刷製程中，震動變化可能與印刷穩定度、偏移、磨耗或後續檢測結果形成關聯，可作為虛擬量測與品質預警的候選題目。', b1s2:'不是先取代機台資料，而是補上黑盒訊號', b1s2p:'許多設備資料封閉或介面難接，非破壞式貼附可先取得機台外部行為訊號，降低試點門檻。',
+      b2t:'案例 2：食品廠攪拌槽與搗碎機', b2p:'食品設備常有連續運轉、清洗、批次切換與負載變化。透過震動型態比對，可以協助判斷設備是否逐漸偏離正常狀態，讓維護不只靠固定週期或師傅經驗。', b2o1:'異常前兆', b2o1p:'馬達、軸承、刀具或攪拌結構的磨耗，可能先反映在震動型態。', b2o2:'批次穩定', b2o2p:'同一配方或批次若運轉型態差異過大，可作為製程檢討訊號。', b2o3:'維護節奏', b2o3p:'從定期保養走向狀態式保養，減少過早維護或太晚維修。',
+      b3t:'資料流：從貼紙到 AI 判讀', b3p:'好的 Smart Tag 試點不是只把資料收上來，而是先定義「什麼叫正常」、「什麼叫正在衰退」、「哪個判斷會觸發行動」。', flow1:'貼附感測器', flow2:'震動/溫溼度', flow3:'邊緣特徵工程', flow4:'DecayRate / AI', flow5:'維護或製程決策', b3note:'N/NPC 建議先用 1 到 3 台關鍵設備做 6 到 8 週資料採集，建立基線後再決定是否擴大。',
+      b4t:'適合先導入的判斷條件', b4l1:'設備停機會直接影響交期、良率或重大損失。', b4l2:'機台資料難以從 PLC、SCADA 或原廠介面取得。', b4l3:'現場已知道有異常，但缺少可量化的提前訊號。', b4l4:'同型設備多，適合用健康基線比較不同機台狀態。',
+      ctaTitle:'想評估哪台設備最適合先做 Smart Tag 試點？', ctaText:'提供機台類型、停機成本、目前維護方式與近期異常紀錄，N/NPC 可協助判斷試點優先順序。'
+    },
+    en: {
+      title:'Smart Tag Machine Health Case Analysis', intro:'From high-precision processes to food equipment, this member-only analysis shows how Smart Tag turns vibration, temperature, humidity, and DecayRate into manageable machine-health signals.',
+      gateEyebrow:'Members Only', gateTitle:'Please verify your membership to read the full case analysis.', gateText:'This content includes adoption criteria, scenario breakdowns, and pilot recommendations for managers evaluating Smart Tag or AIoT machine-health solutions.', gateBtn:'Register / Member Login', backBtn:'Back to AI Solutions',
+      sideTitle:'Analysis Focus', side1:'Which machines should receive Smart Tag first', side2:'How to build health baselines from vibration signals', side3:'How to identify best patterns and problem patterns', side4:'How to connect PHM, virtual metrology, and parameter optimization',
+      b1t:'Case 1: Semiconductor, OSAT, and PCB high-precision equipment', b1p:'These machines have high downtime cost and tight process tolerance. Start from critical machines that affect yield or delivery. Smart Tag can build health baselines from vibration, temperature, and humidity data, then detect gradual deviation from stable operating patterns.',
+      b1s1:'Solder-paste printing and quality correlation', b1s1p:'In PCB or high-precision printing processes, vibration changes may correlate with printing stability, offset, wear, or downstream inspection results, making them candidates for virtual metrology and quality warning.', b1s2:'Not replacing machine data first, but adding signals from black-box equipment', b1s2p:'Many machines have closed data or hard-to-connect interfaces. Non-destructive attachment collects external behavior signals first and lowers the pilot barrier.',
+      b2t:'Case 2: Food mixing tanks and crushers', b2p:'Food equipment often involves continuous running, cleaning, batch changes, and load variation. Vibration pattern comparison helps judge whether equipment is gradually leaving normal state, so maintenance does not rely only on calendars or veteran intuition.', b2o1:'Early abnormal signs', b2o1p:'Wear in motors, bearings, blades, or mixing structures may appear first in vibration patterns.', b2o2:'Batch stability', b2o2p:'If the same recipe or batch shows large operating-pattern differences, it can become a process review signal.', b2o3:'Maintenance cadence', b2o3p:'Move from calendar maintenance toward condition-based maintenance, reducing both too-early service and too-late repair.',
+      b3t:'Data Flow: From Tag to AI Judgment', b3p:'A good Smart Tag pilot is not just collecting data. It first defines what normal means, what decay looks like, and which judgment triggers action.', flow1:'Attached sensor', flow2:'Vibration / temp / humidity', flow3:'Edge feature engineering', flow4:'DecayRate / AI', flow5:'Maintenance or process decision', b3note:'N/NPC recommends starting with 1 to 3 critical machines for 6 to 8 weeks of data collection, then deciding whether to scale after baselines are built.',
+      b4t:'Best-fit conditions for the first pilot', b4l1:'Downtime directly affects delivery, yield, or major loss.', b4l2:'Machine data is hard to obtain from PLC, SCADA, or vendor interfaces.', b4l3:'The site senses abnormality but lacks measurable early signals.', b4l4:'There are multiple similar machines suitable for health-baseline comparison.',
+      ctaTitle:'Which equipment should become your first Smart Tag pilot?', ctaText:'Share machine type, downtime cost, current maintenance method, and recent abnormal history. N/NPC can help prioritize the pilot.'
+    },
+    th: {
+      title:'Smart Tag Machine Health Case Analysis', intro:'จาก process ความแม่นยำสูงถึงอุปกรณ์อาหาร วิเคราะห์ว่า Smart Tag ใช้ vibration, temperature, humidity และ DecayRate เปลี่ยน machine health ให้เป็นสัญญาณที่บริหารได้อย่างไร',
+      gateEyebrow:'สำหรับสมาชิก', gateTitle:'กรุณายืนยันสมาชิกก่อนอ่าน case analysis ฉบับเต็ม', gateText:'เนื้อหานี้มี adoption criteria, scenario breakdown และ pilot recommendation สำหรับผู้บริหารที่ประเมิน Smart Tag หรือ AIoT machine-health solutions', gateBtn:'สมัคร / เข้าสู่ระบบสมาชิก', backBtn:'กลับไป AI Solutions',
+      sideTitle:'จุดวิเคราะห์', side1:'เครื่องจักรใดควรติด Smart Tag ก่อน', side2:'สร้าง health baseline จาก vibration signal อย่างไร', side3:'แยก best pattern และ problem pattern อย่างไร', side4:'เชื่อม PHM, virtual metrology และ parameter optimization อย่างไร',
+      b1t:'Case 1: Semiconductor, OSAT และ PCB high-precision equipment', b1p:'เครื่องจักรกลุ่มนี้ downtime แพงและ process tolerance ต่ำ ควรเริ่มจาก critical machine ที่กระทบ yield หรือ delivery Smart Tag ใช้ vibration, temperature และ humidity data สร้าง health baseline แล้วดูว่าเครื่องค่อย ๆ เบี่ยงจาก stable pattern หรือไม่',
+      b1s1:'Solder-paste printing และ quality correlation', b1s1p:'ใน PCB หรือ high-precision printing process การเปลี่ยนของ vibration อาจสัมพันธ์กับ printing stability, offset, wear หรือ downstream inspection result จึงเหมาะเป็นหัวข้อ virtual metrology และ quality warning', b1s2:'ไม่ใช่แทนที่ machine data ทันที แต่เติม signal ให้ black-box equipment', b1s2p:'หลายเครื่องมี data ปิดหรือ interface ต่อได้ยาก non-destructive attachment ช่วยเก็บ external behavior signal ก่อนและลด barrier ของ pilot',
+      b2t:'Case 2: Food mixing tanks และ crushers', b2p:'อุปกรณ์อาหารมักมี continuous running, cleaning, batch change และ load variation การเปรียบเทียบ vibration pattern ช่วยดูว่าเครื่องค่อย ๆ ออกจาก normal state หรือไม่ ทำให้ maintenance ไม่ต้องพึ่ง fixed schedule หรือประสบการณ์อย่างเดียว', b2o1:'early abnormal signs', b2o1p:'การสึกหรอของ motor, bearing, blade หรือ mixing structure อาจสะท้อนใน vibration pattern ก่อน', b2o2:'batch stability', b2o2p:'ถ้า recipe หรือ batch เดียวกันมี operating pattern ต่างกันมาก อาจเป็น process review signal', b2o3:'maintenance cadence', b2o3p:'เปลี่ยนจาก calendar maintenance เป็น condition-based maintenance ลดการซ่อมเร็วเกินไปหรือช้าเกินไป',
+      b3t:'Data Flow: จาก Tag ถึง AI Judgment', b3p:'Smart Tag pilot ที่ดีไม่ใช่แค่เก็บ data แต่ต้องนิยามก่อนว่าอะไรคือ normal, decay หน้าตาแบบไหน และ judgment ใดจะ trigger action', flow1:'Attached sensor', flow2:'Vibration / temp / humidity', flow3:'Edge feature engineering', flow4:'DecayRate / AI', flow5:'Maintenance หรือ process decision', b3note:'N/NPC แนะนำเริ่มจาก critical machine 1 ถึง 3 เครื่อง เก็บ data 6 ถึง 8 สัปดาห์ สร้าง baseline แล้วค่อยตัดสินใจ scale',
+      b4t:'เงื่อนไขที่เหมาะกับ pilot แรก', b4l1:'Downtime กระทบ delivery, yield หรือ loss โดยตรง', b4l2:'Machine data เอาจาก PLC, SCADA หรือ vendor interface ได้ยาก', b4l3:'หน้างานรู้สึกว่ามี abnormal แต่ยังไม่มี early signal ที่วัดได้', b4l4:'มีเครื่องรุ่นใกล้กันหลายเครื่อง เหมาะกับ health-baseline comparison',
+      ctaTitle:'เครื่องไหนควรเป็น Smart Tag pilot ตัวแรก?', ctaText:'ส่ง machine type, downtime cost, maintenance method และ abnormal history ล่าสุดมาให้ N/NPC ช่วยจัดลำดับ pilot'
+    }
+  }
+};
+</script>
+<script src="../../../assets/site.js"></script>
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+  const verified = sessionStorage.getItem('nnpc_verified') === '1';
+  document.body.classList.toggle('member-verified', verified);
+});
+</script>
+</body>
+</html>

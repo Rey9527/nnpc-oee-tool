@@ -20,7 +20,7 @@ module.exports = async function handler(req, res) {
     }
 
     await createMember({ ...data, email });
-    await sendToolLink({ email, name: data.name, language: data.language });
+    await sendToolLink({ email, name: data.name, language: data.language, returnTo: data.returnTo });
 
     return json(res, 200, { ok: true, email });
   } catch (err) {
