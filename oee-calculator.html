@@ -8,14 +8,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;900&family=Barlow+Condensed:wght@700;900&family=League+Gothic&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Sans+Thai:wght@400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #1C1C1C;
-    --surface: #242424;
-    --surface2: #2C2C2C;
+    --bg: #001220;
+    --surface: #061b2a;
+    --surface2: #0b2638;
     --border: rgba(255,255,255,0.14);
-    --text: #F7F7F7;
-    --muted: #CFCFCF;
-    --gold: #E1A813;
-    --gold-dim: rgba(225,168,19,0.12);
+    --text: #FFFFFF;
+    --muted: #E3EBF2;
+    --gold: #FF3B30;
+    --gold-dim: rgba(255,59,48,0.12);
     --A: #22d3ee;
     --P: #a78bfa;
     --Q: #4CAF82;
@@ -38,7 +38,7 @@
     position: fixed; inset: 0;
     background-image: repeating-linear-gradient(
       -45deg, transparent, transparent 40px,
-      rgba(225,168,19,0.012) 40px, rgba(225,168,19,0.012) 41px
+      rgba(255,59,48,0.012) 40px, rgba(255,59,48,0.012) 41px
     );
     pointer-events: none; z-index: 0;
   }
@@ -46,7 +46,7 @@
   /* ── AUTH GATE ─────────────────────────────── */
   #authGate {
     position: fixed; inset: 0;
-    background: rgba(10,10,10,0.97);
+    background: rgba(0,18,32,0.97);
     backdrop-filter: blur(8px);
     display: flex; align-items: center; justify-content: center;
     z-index: 100;
@@ -67,7 +67,7 @@
     content: '';
     position: absolute; top: 0; left: 0; right: 0;
     height: 3px;
-    background: linear-gradient(90deg, var(--gold) 0%, rgba(225,168,19,0.2) 100%);
+    background: linear-gradient(90deg, var(--gold) 0%, rgba(255,59,48,0.2) 100%);
   }
   .gate-logo {
     font-family: 'League Gothic', 'Barlow Condensed', 'Barlow', sans-serif;
@@ -81,7 +81,7 @@
   .gate-btn {
     display: block; width: 100%;
     padding: 0.9rem;
-    background: var(--gold); color: #1C1C1C;
+    background: var(--gold); color: #001220;
     border: none; border-radius: 2px;
     font-family: inherit; font-weight: 700;
     font-size: 1rem; letter-spacing: 0.02em;
@@ -90,7 +90,7 @@
     transition: background 0.2s, box-shadow 0.2s;
     margin-bottom: 0.75rem;
   }
-  .gate-btn:hover { background: #F0B820; box-shadow: 0 4px 20px rgba(225,168,19,0.3); }
+  .gate-btn:hover { background: #FF625A; box-shadow: 0 4px 20px rgba(255,59,48,0.3); }
   .gate-login { font-size: 0.98rem; color: var(--muted); }
   .gate-login a { color: var(--gold); text-decoration: none; }
 
@@ -102,7 +102,7 @@
   /* ── NAVBAR ────────────────────────────────── */
   .navbar {
     position: sticky; top: 0; z-index: 50;
-    background: rgba(28,28,28,0.95);
+    background: rgba(0,18,32,0.95);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border);
     padding: 0.75rem 1.5rem;
@@ -128,7 +128,7 @@
     font-size: 0.92rem; letter-spacing: 0.04em;
     text-transform: uppercase;
     background: var(--gold-dim);
-    border: 1px solid rgba(225,168,19,0.25);
+    border: 1px solid rgba(255,59,48,0.25);
     color: var(--gold);
     padding: 0.2rem 0.6rem;
     border-radius: 2px;
@@ -153,7 +153,7 @@
     white-space: nowrap;
   }
   .lang-btn:hover { border-color: var(--gold); color: var(--text); }
-  .lang-btn.active { background: var(--gold-dim); border-color: rgba(225,168,19,0.4); color: var(--gold); font-weight: 700; }
+  .lang-btn.active { background: var(--gold-dim); border-color: rgba(255,59,48,0.4); color: var(--gold); font-weight: 700; }
 
   /* ── MAIN LAYOUT ───────────────────────────── */
   .main { max-width: 860px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; position: relative; z-index: 1; }
@@ -226,7 +226,7 @@
     font-size: 1.24rem; font-weight: 700; font-family: 'Barlow', 'Noto Sans TC', sans-serif;
     text-align: center; padding: 0.22rem 0.35rem; outline: none;
   }
-  .input-val:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(225,168,19,0.12); }
+  .input-val:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(255,59,48,0.12); }
   .input-val::-webkit-outer-spin-button,
   .input-val::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
   .input-val[type=number] { -moz-appearance: textfield; }
@@ -263,7 +263,7 @@
   .slider-label-group { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
   .factor-badge {
     font-family: inherit; font-size: 0.95rem; font-weight: 700;
-    padding: 0.2rem 0.65rem; border-radius: 2px; color: #1C1C1C; flex-shrink: 0;
+    padding: 0.2rem 0.65rem; border-radius: 2px; color: #001220; flex-shrink: 0;
   }
   .slider-desc { font-size: 1rem; color: var(--muted); line-height: 1.55; }
   .slider-value-box {
@@ -288,16 +288,16 @@
 
   /* Result */
   .result-card {
-    background: linear-gradient(135deg, rgba(225,168,19,0.05) 0%, rgba(28,28,28,0) 60%);
-    border: 1px solid rgba(225,168,19,0.2);
+    background: linear-gradient(135deg, rgba(255,59,48,0.05) 0%, rgba(0,18,32,0) 60%);
+    border: 1px solid rgba(255,59,48,0.2);
     border-radius: 2px; padding: 2rem; text-align: center; position: relative; overflow: hidden;
   }
   .result-card::before {
     content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-    background: linear-gradient(90deg, var(--gold) 0%, rgba(225,168,19,0.1) 100%);
+    background: linear-gradient(90deg, var(--gold) 0%, rgba(255,59,48,0.1) 100%);
   }
   .result-eyebrow { font-family: inherit; font-size: 0.96rem; letter-spacing: 0.04em; text-transform: none; color: var(--muted); margin-bottom: 0.5rem; font-weight: 700; }
-  .result-main { font-family: 'Space Mono', monospace; font-size: clamp(2rem, 6vw, 3.5rem); font-weight: 700; color: var(--gold); line-height: 1.1; margin: 0.25rem 0; text-shadow: 0 0 40px rgba(225,168,19,0.3); }
+  .result-main { font-family: 'Space Mono', monospace; font-size: clamp(2rem, 6vw, 3.5rem); font-weight: 700; color: var(--gold); line-height: 1.1; margin: 0.25rem 0; text-shadow: 0 0 40px rgba(255,59,48,0.3); }
   .result-sub { font-size: 1rem; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.6; }
   .result-breakdown { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 1.25rem; }
   .breakdown-item { background: rgba(0,0,0,0.25); border-radius: 2px; padding: 0.9rem; border: 1px solid var(--border); }
@@ -311,7 +311,7 @@
 
   /* CTA footer */
   .cta-strip {
-    background: var(--gold-dim); border: 1px solid rgba(225,168,19,0.2);
+    background: var(--gold-dim); border: 1px solid rgba(255,59,48,0.2);
     border-radius: 2px; padding: 1.5rem;
     display: flex; align-items: center; justify-content: space-between;
     gap: 1rem; flex-wrap: wrap; margin-top: 1.25rem;
@@ -319,7 +319,7 @@
   .cta-text h3 { font-family: inherit; font-weight: 700; font-size: 1.12rem; color: var(--text); margin-bottom: 0.25rem; }
   .cta-text p { font-size: 1rem; color: var(--muted); line-height: 1.6; }
   .cta-btn {
-    background: var(--gold); color: #1C1C1C;
+    background: var(--gold); color: #001220;
     border: none; border-radius: 2px;
     font-family: inherit; font-weight: 700;
     font-size: 1rem; letter-spacing: 0.02em;
@@ -327,7 +327,7 @@
     cursor: pointer; white-space: nowrap;
     transition: background 0.2s; text-decoration: none;
   }
-  .cta-btn:hover { background: #F0B820; }
+  .cta-btn:hover { background: #FF625A; }
 
   /* Footer */
   .page-footer { text-align: center; padding: 1.5rem; font-size: 0.95rem; color: #BDBDBD; line-height: 1.7; }
@@ -455,10 +455,10 @@
       <div class="gauge-wrap">
         <svg class="gauge-svg" viewBox="0 0 200 110">
           <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="14" stroke-linecap="round"/>
-          <path id="gBase" d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#E1A813" stroke-width="14" stroke-linecap="round" stroke-dasharray="163 251.3" opacity="0.35"/>
-          <path id="gCurrent" d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#E1A813" stroke-width="5" stroke-linecap="round" stroke-dasharray="163 251.3"/>
-          <line id="gNeedle" x1="100" y1="100" x2="40" y2="100" stroke="#E1A813" stroke-width="2" stroke-linecap="round"/>
-          <circle cx="100" cy="100" r="5" fill="#E1A813"/>
+          <path id="gBase" d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#FF3B30" stroke-width="14" stroke-linecap="round" stroke-dasharray="163 251.3" opacity="0.35"/>
+          <path id="gCurrent" d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#FF3B30" stroke-width="5" stroke-linecap="round" stroke-dasharray="163 251.3"/>
+          <line id="gNeedle" x1="100" y1="100" x2="40" y2="100" stroke="#FF3B30" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="100" cy="100" r="5" fill="#FF3B30"/>
           <text x="20" y="116" fill="#BDBDBD" font-size="10" font-family="Arial, sans-serif">0%</text>
           <text x="170" y="116" fill="#BDBDBD" font-size="10" font-family="Arial, sans-serif">100%</text>
         </svg>
@@ -468,8 +468,8 @@
         </div>
       </div>
       <div class="gauge-legend">
-        <span><span class="legend-dot" style="background:#E1A813;opacity:0.45;"></span><span id="t-baseRef">基準</span> <span id="legend-base">65</span>%</span>
-        <span><span class="legend-dot" style="background:#E1A813;"></span><span id="t-targetRef">目標</span> <span id="legend-target">65</span>%</span>
+        <span><span class="legend-dot" style="background:#FF3B30;opacity:0.45;"></span><span id="t-baseRef">基準</span> <span id="legend-base">65</span>%</span>
+        <span><span class="legend-dot" style="background:#FF3B30;"></span><span id="t-targetRef">目標</span> <span id="legend-target">65</span>%</span>
       </div>
     </div>
     <div class="base-oee-row">
