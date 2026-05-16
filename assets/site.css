@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=League+Gothic&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Khand:wght@700&family=League+Gothic&display=swap');
 
 :root {
   --bg: #1c1c1c;
@@ -14,6 +14,7 @@
   --green: #4caf82;
   --violet: #a78bfa;
   --danger: #ff7a7a;
+  --brand-logo: 'Khand', 'Barlow Condensed', 'Barlow', sans-serif;
   --brand-display: 'League Gothic', 'Barlow Condensed', 'Barlow', sans-serif;
 }
 
@@ -40,10 +41,10 @@ a { color: inherit; text-decoration: none; }
 .nav { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 .brand { display: inline-flex; flex-direction: column; line-height: 1; gap: 0.25rem; }
 .brand-main {
-  font-family: var(--brand-display);
-  font-weight: 400;
+  font-family: var(--brand-logo);
+  font-weight: 700;
   font-size: 2.45rem;
-  letter-spacing: 0.035em;
+  letter-spacing: 0.015em;
   color: var(--text);
   line-height: 0.82;
   text-rendering: geometricPrecision;
