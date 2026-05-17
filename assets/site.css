@@ -392,6 +392,173 @@ h1 {
   font-size: 0.96rem;
   margin-top: 1rem;
 }
+.insight-report {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 2rem;
+  align-items: start;
+}
+.insight-paper {
+  background: #f4f0e7;
+  color: #222;
+  border: 1px solid rgba(255,255,255,0.16);
+  box-shadow: 0 20px 70px rgba(0,0,0,0.32);
+}
+.insight-cover {
+  padding: 2.4rem 2.4rem 1.7rem;
+  border-bottom: 1px solid rgba(28,28,28,0.16);
+}
+.insight-label {
+  color: #7a5a00;
+  font-weight: 900;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  font-size: 0.92rem;
+}
+.insight-title {
+  color: #161616;
+  font-size: clamp(2rem, 4vw, 3.35rem);
+  line-height: 1.08;
+  margin: 0.75rem 0 1rem;
+  font-weight: 900;
+}
+.insight-deck {
+  color: #454545;
+  font-size: 1.13rem;
+  max-width: 780px;
+}
+.insight-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.4rem;
+}
+.insight-meta span {
+  border: 1px solid rgba(28,28,28,0.18);
+  background: rgba(255,255,255,0.45);
+  padding: 0.38rem 0.62rem;
+  color: #393939;
+  font-weight: 800;
+}
+.insight-body { padding: 2.2rem 2.4rem 2.5rem; }
+.insight-section {
+  border-top: 2px solid rgba(28,28,28,0.16);
+  padding-top: 1.3rem;
+  margin-top: 1.7rem;
+}
+.insight-section:first-child {
+  border-top: 0;
+  padding-top: 0;
+  margin-top: 0;
+}
+.insight-section h2 {
+  color: #171717;
+  font-size: 1.65rem;
+  line-height: 1.22;
+  margin-bottom: 0.8rem;
+}
+.insight-section h3 {
+  color: #171717;
+  font-size: 1.25rem;
+  margin-bottom: 0.45rem;
+}
+.insight-section p,
+.insight-section li {
+  color: #3d3d3d;
+  font-size: 1.04rem;
+}
+.insight-lead {
+  color: #303030;
+  font-size: 1.18rem;
+  line-height: 1.8;
+  border-left: 5px solid var(--gold);
+  padding-left: 1rem;
+}
+.insight-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.85rem;
+  margin-top: 1.2rem;
+}
+.insight-box {
+  background: #fffaf0;
+  border: 1px solid rgba(28,28,28,0.12);
+  padding: 1rem;
+}
+.insight-box strong {
+  display: block;
+  color: #171717;
+  font-size: 1.08rem;
+  margin-bottom: 0.35rem;
+}
+.insight-box p { margin: 0; font-size: 0.98rem; }
+.insight-finding {
+  background: rgba(28,28,28,0.045);
+  border-left: 4px solid var(--gold);
+  padding: 0.85rem 1rem;
+  margin-top: 0.7rem;
+}
+.insight-finding strong {
+  color: #171717;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+.insight-quote {
+  background: #1f1f1f;
+  color: #f7f7f7;
+  padding: 1.35rem;
+  margin-top: 1.2rem;
+  border-left: 6px solid var(--gold);
+}
+.insight-quote p {
+  color: #ededed;
+  font-size: 1.12rem;
+  margin: 0;
+}
+.insight-aside {
+  position: sticky;
+  top: 96px;
+  display: grid;
+  gap: 1rem;
+}
+.insight-aside-box {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 1rem;
+}
+.insight-aside-box h3 {
+  color: var(--gold);
+  font-size: 1.05rem;
+  margin-bottom: 0.55rem;
+}
+.insight-aside-box ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--muted);
+}
+.insight-aside-box li { margin: 0.35rem 0; }
+.insight-cta {
+  background: #171717;
+  color: #f7f7f7;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1.2rem;
+  align-items: center;
+  margin-top: 1.6rem;
+}
+.insight-cta h2 {
+  color: #fff;
+  margin-bottom: 0.35rem;
+}
+.insight-cta p {
+  color: #d6d6d6;
+  margin: 0;
+}
+.insight-cta .btn {
+  min-width: 116px;
+  flex: 0 0 auto;
+}
 
 .contact-grid { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 1.5rem; }
 .contact-box { background: var(--panel); border: 1px solid var(--line); padding: 1.35rem; }
@@ -428,6 +595,9 @@ h1 {
   .cards { grid-template-columns: repeat(2, 1fr); }
   .case-grid { grid-template-columns: 1fr 1fr; }
   .case-library-head { grid-template-columns: 1fr; }
+  .insight-report { grid-template-columns: 1fr; }
+  .insight-aside { position: static; }
+  .insight-grid { grid-template-columns: 1fr; }
   .loss-grid { grid-template-columns: 1fr 1fr; }
   .signal-grid, .outcome-grid, .solution-path { grid-template-columns: 1fr 1fr; }
   .side-panel { position: static; }
@@ -446,4 +616,7 @@ h1 {
   .legal-shell { padding: 24px 18px; }
   .legal-topbar { align-items: flex-start; flex-direction: column; }
   .legal-lang-bar { justify-content: flex-start; }
+  .insight-cover, .insight-body { padding: 1.35rem; }
+  .insight-cta { flex-direction: column; align-items: flex-start; }
+  .insight-cta .btn { width: 100%; }
 }
