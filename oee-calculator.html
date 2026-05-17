@@ -13,7 +13,7 @@
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'Noto Sans TC', 'Noto Sans Thai', 'Barlow', sans-serif;
+    font-family: var(--body-font);
     font-size: 16px;
     min-height: 100vh;
     position: relative;
@@ -57,12 +57,12 @@
     background: linear-gradient(90deg, var(--gold) 0%, rgba(225,168,19,0.2) 100%);
   }
   .gate-logo {
-    font-family: 'League Gothic', 'Barlow Condensed', 'Barlow', sans-serif;
-    font-weight: 400; font-size: 2.75rem;
-    letter-spacing: 0.035em; line-height: 0.88; text-rendering: geometricPrecision;
+    font-family: var(--brand-logo);
+    font-weight: 700; font-size: 2.75rem;
+    letter-spacing: 0.015em; line-height: 0.88; text-rendering: geometricPrecision;
     color: var(--text); margin-bottom: 1.5rem;
   }
-  .gate-logo span { color: var(--gold); }
+  .gate-logo span { color: var(--gold); display: inline-block; transform: skewX(-8deg); margin: 0 0.03em; }
   .gate-title { font-family: inherit; font-weight: 700; font-size: 1.2rem; margin-bottom: 0.5rem; }
   .gate-sub { font-size: 1rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
   .gate-btn {
@@ -96,12 +96,12 @@
     display: flex; align-items: center; justify-content: space-between;
   }
   .nav-logo {
-    font-family: 'League Gothic', 'Barlow Condensed', 'Barlow', sans-serif;
-    font-weight: 400; font-size: 1.95rem;
+    font-family: var(--brand-logo);
+    font-weight: 700; font-size: 1.95rem;
     color: var(--text); text-decoration: none;
-    letter-spacing: 0.035em; line-height: 0.88; text-rendering: geometricPrecision;
+    letter-spacing: 0.015em; line-height: 0.88; text-rendering: geometricPrecision;
   }
-  .nav-logo span { color: var(--gold); }
+  .nav-logo span { color: var(--gold); display: inline-block; transform: skewX(-8deg); margin: 0 0.03em; }
   .nav-right { display: flex; align-items: center; gap: 1rem; }
   .nav-back {
     font-size: 0.95rem; color: var(--muted);
@@ -153,7 +153,7 @@
     color: var(--gold); text-transform: uppercase; margin-bottom: 0.75rem;
   }
   .calc-title {
-    font-family: 'League Gothic', 'Barlow Condensed', 'Noto Sans TC', 'Noto Sans Thai', sans-serif;
+    font-family: var(--brand-display), 'Noto Sans TC', 'Noto Sans Thai', sans-serif;
     font-size: clamp(2.35rem, 6vw, 3.8rem);
     font-weight: 400; color: var(--text);
     letter-spacing: 0.01em; line-height: 0.98;
@@ -696,10 +696,7 @@ function setLang(lang, btn) {
   document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   const t = T[lang];
-  const fontFamily = lang === 'th'
-    ? "'Noto Sans Thai','Noto Sans TC',sans-serif"
-    : "'Noto Sans TC','Barlow',sans-serif";
-  document.body.style.fontFamily = fontFamily;
+  document.body.classList.toggle('thai', lang === 'th');
 
   setText('t-eyebrow', t.eyebrow);
   setText('t-homeLink', t.homeLink);
