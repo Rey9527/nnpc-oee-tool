@@ -310,6 +310,42 @@ h1 {
 .pill { border: 1px solid var(--line); background: var(--panel-2); color: var(--muted); padding: 0.42rem 0.7rem; font-weight: 700; }
 .cta-band { background: var(--gold-soft); border: 1px solid rgba(225,168,19,0.28); padding: 2rem; display: flex; justify-content: space-between; gap: 1.5rem; align-items: center; }
 .cta-band p { color: var(--muted); margin: 0; max-width: 680px; }
+.photo-panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 0.7rem;
+}
+.photo-panel img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+.photo-panel figcaption {
+  color: var(--soft);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  margin-top: 0.65rem;
+}
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.85rem;
+}
+.photo-grid .photo-panel {
+  height: 100%;
+}
+.content-block .photo-panel {
+  margin: 1rem 0 1.15rem;
+}
+.report-paper .photo-panel {
+  background: #fffaf0;
+  border-color: rgba(28,28,28,0.14);
+  margin-top: 1.2rem;
+}
+.report-paper .photo-panel figcaption {
+  color: #454545;
+}
 
 .page-hero { padding: 4rem 0 2.5rem; }
 .page-hero h1 { max-width: 900px; }
@@ -595,7 +631,7 @@ h1 {
   .dropdown.open .dropdown-menu { display: grid; }
   .dropdown:hover .dropdown-menu { display: none; }
   .dropdown.open:hover .dropdown-menu { display: grid; }
-  .hero-grid, .split, .detail-grid, .contact-grid { grid-template-columns: 1fr; }
+  .hero-grid, .split, .detail-grid, .contact-grid, .photo-grid { grid-template-columns: 1fr; }
   .ops-visual { min-height: auto; }
   .cards { grid-template-columns: repeat(2, 1fr); }
   .case-grid { grid-template-columns: 1fr 1fr; }
