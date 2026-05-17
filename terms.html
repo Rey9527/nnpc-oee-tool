@@ -6,43 +6,25 @@
 <title>N/NPC Terms of Service</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Sans+Thai:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-  :root { --bg:#1C1C1C; --surface:#242424; --text:#F7F7F7; --muted:#D0D0D0; --gold:#E1A813; --border:rgba(255,255,255,0.14); }
-  * { box-sizing: border-box; }
-  body { margin:0; background:var(--bg); color:var(--text); font-family:'Noto Sans TC','Noto Sans Thai','Barlow',sans-serif; font-size:16px; line-height:1.8; padding:32px 18px; }
-  body.thai { font-family:'Noto Sans Thai','Noto Sans TC','Barlow',sans-serif; }
-  main { max-width:860px; margin:0 auto; background:var(--surface); border:1px solid var(--border); padding:34px; border-radius:2px; }
-  a { color:var(--gold); text-decoration:none; }
-  .topbar { display:flex; justify-content:space-between; gap:1rem; align-items:center; margin-bottom:24px; }
-  .brand { font-family:'Barlow',sans-serif; font-weight:700; letter-spacing:.05em; font-size:1.35rem; }
-  .brand span { color:var(--gold); }
-  .lang-bar { display:flex; gap:.35rem; flex-wrap:wrap; justify-content:flex-end; }
-  .lang-btn { background:#2C2C2C; border:1px solid var(--border); color:var(--muted); padding:.45rem .8rem; border-radius:2px; cursor:pointer; font:700 .95rem 'Noto Sans TC','Barlow',sans-serif; }
-  .lang-btn.active { color:var(--gold); border-color:rgba(225,168,19,.42); background:rgba(225,168,19,.12); }
-  h1 { font-size:2rem; margin:0 0 10px; }
-  h2 { font-size:1.25rem; margin:30px 0 10px; color:var(--gold); }
-  p, li { color:var(--muted); font-size:1.05rem; }
-  ul { padding-left:1.2rem; }
-  .meta { color:#C2C2C2; font-size:1rem; margin-bottom:28px; }
-  .back { display:inline-block; margin-top:28px; font-weight:700; }
-  @media (max-width:560px) { main { padding:24px 18px; } .topbar { align-items:flex-start; flex-direction:column; } .lang-bar { justify-content:flex-start; } }
-</style>
+<link rel="stylesheet" href="assets/site.css">
 </head>
-<body>
-<main>
-  <div class="topbar">
-    <div class="brand">N<span>/</span>NPC</div>
-    <div class="lang-bar">
-      <button class="lang-btn" onclick="setLang('zh')">中文</button>
-      <button class="lang-btn" onclick="setLang('en')">EN</button>
-      <button class="lang-btn" onclick="setLang('th')">ไทย</button>
+<body class="legal-page">
+<main class="legal-shell">
+  <div class="legal-topbar">
+    <div class="legal-brand">N<span>/</span>NPC</div>
+    <div class="legal-lang-bar">
+      <button class="legal-lang-btn lang-btn" onclick="setLang('zh')">中文</button>
+      <button class="legal-lang-btn lang-btn" onclick="setLang('en')">EN</button>
+      <button class="legal-lang-btn lang-btn" onclick="setLang('th')">ไทย</button>
     </div>
   </div>
 
   <h1 id="title"></h1>
-  <p class="meta" id="meta"></p>
+  <p class="legal-meta" id="meta"></p>
   <div id="content"></div>
-  <a class="back" href="register.html" id="back"></a>
+  <div class="legal-actions">
+    <a class="legal-back" href="/oee/register.html" id="back"></a>
+  </div>
 </main>
 
 <script>
@@ -51,7 +33,7 @@ const T = {
     htmlLang:'zh-TW', bodyClass:'',
     title:'服務條款',
     meta:'最後更新：2026-05-13',
-    back:'← 返回 OEE 工具註冊頁',
+    back:'← 回到會員登入 / 註冊頁',
     content: `
       <p>使用 N/NPC OEE 工具，即表示您同意以下服務條款。本工具提供初步試算與商業評估參考，實際改善效益仍需依現場條件評估。</p>
       <h2>工具用途</h2><ul><li>OEE 工具用於估算設備效率改善可能帶來的產值或損失改善。</li><li>計算結果僅供參考，不構成保證收益、財務承諾或正式顧問報告。</li><li>若需正式改善方案，建議與 N/NPC 團隊進一步討論現場資料。</li></ul>
@@ -64,7 +46,7 @@ const T = {
     htmlLang:'en', bodyClass:'',
     title:'Terms of Service',
     meta:'Last updated: 2026-05-13',
-    back:'← Back to OEE tool registration',
+    back:'← Back to member login / registration',
     content: `
       <p>By using the N/NPC OEE tool, you agree to these terms. The tool provides preliminary calculations and business evaluation references. Actual improvement results depend on site conditions.</p>
       <h2>Tool Purpose</h2><ul><li>The OEE tool estimates potential output value or loss reduction from equipment efficiency improvements.</li><li>Results are for reference only and are not guaranteed financial returns, commitments, or a formal consulting report.</li><li>For a formal improvement plan, please discuss site data with the N/NPC team.</li></ul>
@@ -77,7 +59,7 @@ const T = {
     htmlLang:'th', bodyClass:'thai',
     title:'ข้อกำหนดการใช้บริการ',
     meta:'อัปเดตล่าสุด: 2026-05-13',
-    back:'← กลับไปหน้าลงทะเบียนเครื่องมือ OEE',
+    back:'← กลับไปหน้าเข้าสู่ระบบ / สมัครสมาชิก',
     content: `
       <p>เมื่อใช้เครื่องมือ OEE ของ N/NPC ถือว่าคุณยอมรับข้อกำหนดนี้ เครื่องมือนี้ใช้สำหรับการคำนวณเบื้องต้นและการประเมินทางธุรกิจ ผลลัพธ์จริงขึ้นอยู่กับสภาพหน้างาน</p>
       <h2>วัตถุประสงค์ของเครื่องมือ</h2><ul><li>เครื่องมือ OEE ใช้ประเมินมูลค่าการผลิตหรือการลดความสูญเสียจากการปรับปรุงประสิทธิภาพเครื่องจักร</li><li>ผลลัพธ์เป็นข้อมูลอ้างอิงเท่านั้น ไม่ใช่การรับประกันผลตอบแทนหรือรายงานที่ปรึกษาอย่างเป็นทางการ</li><li>หากต้องการแผนปรับปรุงอย่างเป็นทางการ กรุณาหารือข้อมูลหน้างานกับทีม N/NPC</li></ul>
@@ -100,11 +82,12 @@ function setLang(lang) {
   const t = T[lang] || T.en;
   localStorage.setItem('nnpc_lang', lang);
   document.documentElement.lang = t.htmlLang;
-  document.body.className = t.bodyClass;
+  document.body.className = ['legal-page', t.bodyClass].filter(Boolean).join(' ');
   document.getElementById('title').textContent = t.title;
   document.getElementById('meta').textContent = t.meta;
   document.getElementById('content').innerHTML = t.content;
   document.getElementById('back').textContent = t.back;
+  document.getElementById('back').href = location.protocol === 'file:' ? 'register.html' : '/oee/register.html';
   document.querySelectorAll('.lang-btn').forEach((btn, i) => btn.classList.toggle('active', ['zh','en','th'][i] === lang));
 }
 setLang(detectLang());

@@ -6,43 +6,25 @@
 <title>N/NPC Privacy Policy</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Sans+Thai:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-  :root { --bg:#1C1C1C; --surface:#242424; --text:#F7F7F7; --muted:#D0D0D0; --gold:#E1A813; --border:rgba(255,255,255,0.14); }
-  * { box-sizing: border-box; }
-  body { margin:0; background:var(--bg); color:var(--text); font-family:'Noto Sans TC','Noto Sans Thai','Barlow',sans-serif; font-size:16px; line-height:1.8; padding:32px 18px; }
-  body.thai { font-family:'Noto Sans Thai','Noto Sans TC','Barlow',sans-serif; }
-  main { max-width:860px; margin:0 auto; background:var(--surface); border:1px solid var(--border); padding:34px; border-radius:2px; }
-  a { color:var(--gold); text-decoration:none; }
-  .topbar { display:flex; justify-content:space-between; gap:1rem; align-items:center; margin-bottom:24px; }
-  .brand { font-family:'Barlow',sans-serif; font-weight:700; letter-spacing:.05em; font-size:1.35rem; }
-  .brand span { color:var(--gold); }
-  .lang-bar { display:flex; gap:.35rem; flex-wrap:wrap; justify-content:flex-end; }
-  .lang-btn { background:#2C2C2C; border:1px solid var(--border); color:var(--muted); padding:.45rem .8rem; border-radius:2px; cursor:pointer; font:700 .95rem 'Noto Sans TC','Barlow',sans-serif; }
-  .lang-btn.active { color:var(--gold); border-color:rgba(225,168,19,.42); background:rgba(225,168,19,.12); }
-  h1 { font-size:2rem; margin:0 0 10px; }
-  h2 { font-size:1.25rem; margin:30px 0 10px; color:var(--gold); }
-  p, li { color:var(--muted); font-size:1.05rem; }
-  ul { padding-left:1.2rem; }
-  .meta { color:#C2C2C2; font-size:1rem; margin-bottom:28px; }
-  .back { display:inline-block; margin-top:28px; font-weight:700; }
-  @media (max-width:560px) { main { padding:24px 18px; } .topbar { align-items:flex-start; flex-direction:column; } .lang-bar { justify-content:flex-start; } }
-</style>
+<link rel="stylesheet" href="assets/site.css">
 </head>
-<body>
-<main>
-  <div class="topbar">
-    <div class="brand">N<span>/</span>NPC</div>
-    <div class="lang-bar">
-      <button class="lang-btn" onclick="setLang('zh')">中文</button>
-      <button class="lang-btn" onclick="setLang('en')">EN</button>
-      <button class="lang-btn" onclick="setLang('th')">ไทย</button>
+<body class="legal-page">
+<main class="legal-shell">
+  <div class="legal-topbar">
+    <div class="legal-brand">N<span>/</span>NPC</div>
+    <div class="legal-lang-bar">
+      <button class="legal-lang-btn lang-btn" onclick="setLang('zh')">中文</button>
+      <button class="legal-lang-btn lang-btn" onclick="setLang('en')">EN</button>
+      <button class="legal-lang-btn lang-btn" onclick="setLang('th')">ไทย</button>
     </div>
   </div>
 
   <h1 id="title"></h1>
-  <p class="meta" id="meta"></p>
+  <p class="legal-meta" id="meta"></p>
   <div id="content"></div>
-  <a class="back" href="register.html" id="back"></a>
+  <div class="legal-actions">
+    <a class="legal-back" href="/oee/register.html" id="back"></a>
+  </div>
 </main>
 
 <script>
@@ -51,7 +33,7 @@ const T = {
     htmlLang:'zh-TW', bodyClass:'',
     title:'隱私權政策',
     meta:'最後更新：2026-05-13',
-    back:'← 返回 OEE 工具註冊頁',
+    back:'← 回到會員登入 / 註冊頁',
     content: `
       <p>N/NPC 會保護您在使用 OEE 工具與會員註冊流程中提供的資料。本政策說明我們收集哪些資料、如何使用，以及您可以如何聯絡我們。</p>
       <h2>我們收集的資料</h2>
@@ -67,7 +49,7 @@ const T = {
     htmlLang:'en', bodyClass:'',
     title:'Privacy Policy',
     meta:'Last updated: 2026-05-13',
-    back:'← Back to OEE tool registration',
+    back:'← Back to member login / registration',
     content: `
       <p>N/NPC protects the information you provide when registering for and using the OEE tool. This policy explains what we collect, how we use it, and how you can contact us.</p>
       <h2>Information We Collect</h2>
@@ -83,7 +65,7 @@ const T = {
     htmlLang:'th', bodyClass:'thai',
     title:'นโยบายความเป็นส่วนตัว',
     meta:'อัปเดตล่าสุด: 2026-05-13',
-    back:'← กลับไปหน้าลงทะเบียนเครื่องมือ OEE',
+    back:'← กลับไปหน้าเข้าสู่ระบบ / สมัครสมาชิก',
     content: `
       <p>N/NPC ให้ความสำคัญกับการปกป้องข้อมูลที่คุณให้ไว้เมื่อสมัครและใช้งานเครื่องมือ OEE นโยบายนี้อธิบายว่าเราเก็บข้อมูลอะไร ใช้อย่างไร และคุณสามารถติดต่อเราได้อย่างไร</p>
       <h2>ข้อมูลที่เราเก็บ</h2>
@@ -109,11 +91,12 @@ function setLang(lang) {
   const t = T[lang] || T.en;
   localStorage.setItem('nnpc_lang', lang);
   document.documentElement.lang = t.htmlLang;
-  document.body.className = t.bodyClass;
+  document.body.className = ['legal-page', t.bodyClass].filter(Boolean).join(' ');
   document.getElementById('title').textContent = t.title;
   document.getElementById('meta').textContent = t.meta;
   document.getElementById('content').innerHTML = t.content;
   document.getElementById('back').textContent = t.back;
+  document.getElementById('back').href = location.protocol === 'file:' ? 'register.html' : '/oee/register.html';
   document.querySelectorAll('.lang-btn').forEach((btn, i) => btn.classList.toggle('active', ['zh','en','th'][i] === lang));
 }
 setLang(detectLang());
