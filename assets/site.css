@@ -36,6 +36,9 @@ body {
   font-size: 16px; line-height: 1.7; min-height: 100vh;
 }
 body.thai { font-family: 'Noto Sans Thai', 'Noto Sans TC', 'Barlow', sans-serif; }
+body.thai *:not(.brand-main):not(.brand-main *):not(.legal-brand):not(.legal-brand *) {
+  font-family: 'Noto Sans Thai', 'Noto Sans TC', sans-serif;
+}
 body::before {
   content: ''; position: fixed; inset: 0; pointer-events: none; z-index: -1;
   background-image: repeating-linear-gradient(-45deg, transparent, transparent 42px, rgba(225,168,19,0.015) 42px, rgba(225,168,19,0.015) 43px);
