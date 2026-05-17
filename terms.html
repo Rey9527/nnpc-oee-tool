@@ -22,9 +22,12 @@
 
   <h1 id="title"></h1>
   <p class="legal-meta" id="meta"></p>
+  <div class="legal-actions legal-actions-top">
+    <a class="legal-back" href="/oee/register.html"></a>
+  </div>
   <div id="content"></div>
   <div class="legal-actions">
-    <a class="legal-back" href="/oee/register.html" id="back"></a>
+    <a class="legal-back" href="/oee/register.html"></a>
   </div>
 </main>
 
@@ -87,8 +90,10 @@ function setLang(lang) {
   document.getElementById('title').textContent = t.title;
   document.getElementById('meta').textContent = t.meta;
   document.getElementById('content').innerHTML = t.content;
-  document.getElementById('back').textContent = t.back;
-  document.getElementById('back').href = location.protocol === 'file:' ? 'register.html' : '/oee/register.html';
+  document.querySelectorAll('.legal-back').forEach((link) => {
+    link.textContent = t.back;
+    link.href = location.protocol === 'file:' ? 'register.html' : '/oee/register.html';
+  });
   document.querySelectorAll('.lang-btn').forEach((btn, i) => btn.classList.toggle('active', ['zh','en','th'][i] === lang));
 }
 setLang(detectLang());
