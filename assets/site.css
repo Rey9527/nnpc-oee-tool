@@ -214,6 +214,54 @@ a { color: inherit; text-decoration: none; }
 }
 
 .hero { padding: 5.4rem 0 3rem; }
+.immersive-hero {
+  position: relative;
+  isolation: isolate;
+  min-height: calc(100vh - 76px);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  border-top: 0;
+}
+.immersive-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: inherit;
+  transform: scale(1.02);
+}
+.immersive-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.74) 42%, rgba(10,10,10,0.46) 100%),
+    linear-gradient(0deg, rgba(28,28,28,0.98) 0%, rgba(28,28,28,0.18) 34%, rgba(28,28,28,0.58) 100%);
+}
+.home-immersive {
+  background-image: url('/assets/images/factory-lamination-line.jpg');
+  background-position: center 48%;
+}
+.about-immersive {
+  background-image: url('/assets/images/factory-lamination-line.jpg');
+  background-position: center 45%;
+}
+.immersive-hero .shell {
+  position: relative;
+  z-index: 1;
+}
+.immersive-hero .page-hero h1,
+.immersive-hero h1 {
+  text-shadow: 0 14px 48px rgba(0,0,0,0.62);
+}
+.immersive-hero .hero-copy,
+.immersive-hero p {
+  text-shadow: 0 8px 28px rgba(0,0,0,0.72);
+}
 .hero-grid { display: grid; grid-template-columns: minmax(0, 1.04fr) minmax(390px, 0.96fr); gap: 2rem; align-items: center; }
 .eyebrow { color: var(--gold); font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; font-size: 0.95rem; }
 h1, h2, h3, p { margin-top: 0; }
@@ -345,6 +393,39 @@ h1 {
 }
 .report-paper .photo-panel figcaption {
   color: #454545;
+}
+.immersive-report {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 560px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border-bottom: 0;
+  background-size: cover;
+  background-position: center;
+}
+.immersive-report::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: inherit;
+  transform: scale(1.02);
+}
+.immersive-report::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(0deg, rgba(244,240,231,0.98) 0%, rgba(244,240,231,0.88) 26%, rgba(244,240,231,0.18) 72%),
+    linear-gradient(90deg, rgba(23,23,23,0.76) 0%, rgba(23,23,23,0.28) 52%, rgba(23,23,23,0.08) 100%);
+}
+.smart-report-cover {
+  background-image: url('/assets/images/smart-tag-vibration-dashboard.jpg');
+  background-position: center 52%;
 }
 
 .page-hero { padding: 4rem 0 2.5rem; }
@@ -632,6 +713,15 @@ h1 {
   .dropdown:hover .dropdown-menu { display: none; }
   .dropdown.open:hover .dropdown-menu { display: grid; }
   .hero-grid, .split, .detail-grid, .contact-grid, .photo-grid { grid-template-columns: 1fr; }
+  .immersive-hero {
+    min-height: auto;
+    padding: 4.5rem 0 3rem;
+  }
+  .immersive-hero::after {
+    background:
+      linear-gradient(0deg, rgba(28,28,28,0.98) 0%, rgba(28,28,28,0.5) 46%, rgba(28,28,28,0.74) 100%),
+      linear-gradient(90deg, rgba(10,10,10,0.9), rgba(10,10,10,0.58));
+  }
   .ops-visual { min-height: auto; }
   .cards { grid-template-columns: repeat(2, 1fr); }
   .case-grid { grid-template-columns: 1fr 1fr; }
@@ -650,6 +740,8 @@ h1 {
   .brand-sub { display: none; }
   .lang-btn { padding: 0.38rem 0.48rem; font-size: 0.82rem; }
   .hero { padding-top: 3.4rem; }
+  .home-immersive, .about-immersive { background-position: center; }
+  .immersive-report { min-height: 460px; }
   .trust-row, .cards, .case-grid, .loss-grid, .signal-grid, .outcome-grid, .solution-path, .visual-grid { grid-template-columns: 1fr; }
   .cta-band { flex-direction: column; align-items: flex-start; }
   .nav-actions .btn { display: none; }
