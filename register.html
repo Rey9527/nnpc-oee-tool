@@ -7,288 +7,308 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;900&family=Barlow+Condensed:wght@700;900&family=League+Gothic&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Sans+Thai:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #0B0C10; --surface: #13141A; --surface2: #16171E;
-  --border: rgba(255,255,255,0.10); --text: #FFFFFF;
-  --muted: rgba(255,255,255,0.62); --muted-soft: rgba(255,255,255,0.38);
-  --gold: #FACC15; --gold-dim: rgba(250,204,21,0.12);
-  --error: #E05252; --success: #4CAF82;
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  background: var(--bg); color: var(--text);
-  font-family: 'Noto Sans TC', 'Noto Sans Thai', 'Barlow', sans-serif;
-  font-size: 18px; min-height: 100vh; display: flex; flex-direction: column;
-  align-items: center; justify-content: flex-start;
-  padding: 2rem 1rem; position: relative; overflow-x: hidden;
-}
-body.thai { font-family: 'Noto Sans Thai', 'Noto Sans TC', 'Barlow', sans-serif; }
-body::before {
-  content: ''; position: fixed; inset: 0;
-  background-image: repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(250,204,21,0.015) 40px,rgba(250,204,21,0.015) 41px);
-  pointer-events: none; z-index: 0;
-}
-body::after {
-  content: ''; position: fixed; top: -200px; left: 50%; transform: translateX(-50%);
-  width: 600px; height: 400px;
-  background: radial-gradient(ellipse, rgba(250,204,21,0.07) 0%, transparent 70%);
-  pointer-events: none; z-index: 0;
-}
-.home-link {
-  position: fixed; top: 1rem; left: 1rem; z-index: 10;
-  display: inline-flex; align-items: center; min-height: 38px;
-  border: 1px solid var(--border); background: var(--surface2);
-  color: var(--muted); padding: 0.28rem 0.7rem;
-  border-radius: 2px; font-size: 1rem; font-weight: 700;
-  text-decoration: none; transition: all 0.15s;
-}
-.home-link:hover { border-color: var(--gold); color: var(--text); }
-.lang-bar { position: fixed; top: 1rem; right: 1rem; display: flex; gap: 0.35rem; z-index: 10; }
-.lang-btn {
-  display: flex; align-items: center; gap: 0.3rem;
-  background: var(--surface2); border: 1px solid var(--border);
-  border-radius: 2px; padding: 0.35rem 0.8rem;
-  font-size: 1rem; color: var(--muted); cursor: pointer;
-  transition: all 0.15s; font-family: inherit; white-space: nowrap;
-}
-.lang-btn:hover { border-color: var(--gold); color: var(--text); }
-.lang-btn.active { background: var(--gold-dim); border-color: rgba(250,204,21,0.40); color: var(--gold); font-weight: 700; }
-.page-wrap {
-  width: 100%; max-width: 1080px; position: relative; z-index: 1;
-  animation: fadeUp 0.6s ease both;
-}
-@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
-.logo-wrap { text-align: center; margin: 1.5rem 0 2rem; }
-.logo-text {
-  display: inline-block; text-decoration: none;
-  font-family: 'League Gothic', 'Barlow Condensed', 'Barlow', sans-serif;
-  font-weight: 400; font-size: 3.75rem;
-  letter-spacing: 0.035em; color: var(--text); line-height: 0.86;
-  text-rendering: geometricPrecision;
-}
-.logo-slash { color: var(--gold); display: inline-block; transform: skewX(-8deg); margin: 0 0.03em; }
-.logo-tagline { font-size: 1rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-top: 0.5rem; font-family: inherit; }
-.access-layout {
-  display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(360px, 0.88fr);
-  gap: 1.25rem; align-items: stretch;
-}
-.tool-preview {
-  background: var(--surface); border: 1px solid var(--border); border-radius: 2px;
-  position: relative; overflow: hidden; min-height: 620px;
-}
-.tool-preview::before {
-  content: ''; position: absolute; inset: 0;
-  background-image: repeating-linear-gradient(-45deg, transparent, transparent 36px, rgba(250,204,21,0.018) 36px, rgba(250,204,21,0.018) 37px);
-  pointer-events: none;
-}
-.preview-nav {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0.8rem 1rem; border-bottom: 1px solid var(--border);
-  background: rgba(11,12,16,0.92);
-}
-.preview-brand {
-  font-family: 'League Gothic', 'Barlow Condensed', 'Barlow', sans-serif; font-weight: 400;
-  font-size: 1.85rem; letter-spacing: 0.035em; line-height: 0.88; text-rendering: geometricPrecision;
-}
-.preview-brand span { color: var(--gold); }
-.preview-tag {
-  color: var(--gold); background: var(--gold-dim);
-  border: 1px solid rgba(250,204,21,0.28);
-  font-size: 0.95rem; letter-spacing: 0.04em; text-transform: uppercase;
-  padding: 0.22rem 0.55rem; border-radius: 2px; font-family: 'Barlow', sans-serif;
-}
-.preview-body {
-  padding: 1.35rem; filter: blur(0.7px); opacity: 0.86; user-select: none; pointer-events: none;
-}
-.preview-eyebrow {
-  color: var(--gold); font-family: inherit; font-size: 1rem; font-weight: 700;
-  letter-spacing: 0.04em; text-transform: uppercase; text-align: center; margin-bottom: 0.7rem;
-}
-.preview-title {
-  font-family: 'League Gothic', 'Barlow Condensed', 'Noto Sans TC', 'Noto Sans Thai', sans-serif; font-size: 3rem;
-  font-weight: 400; text-align: center; line-height: 0.95; margin-bottom: 0.45rem;
-}
-.preview-sub { text-align: center; color: var(--muted); font-size: 1.05rem; margin-bottom: 1.25rem; line-height: 1.65; }
-.preview-formula {
-  width: fit-content; max-width: 100%; margin: 0 auto 1.25rem; padding: 0.45rem 1rem;
-  background: var(--surface2); border: 1px solid var(--border); font-family: inherit;
-  color: var(--muted); font-size: 1rem;
-}
-.preview-panel {
-  background: var(--surface); border: 1px solid var(--border); padding: 1.05rem;
-  margin-bottom: 1rem; border-radius: 2px;
-}
-.preview-panel-title {
-  color: var(--muted); font-family: inherit; font-size: 1rem; font-weight: 700;
-  letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 0.9rem;
-}
-.preview-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
-.preview-control {
-  background: var(--surface2); border: 1px solid var(--border); padding: 0.75rem;
-  display: flex; justify-content: space-between; align-items: center; min-height: 58px;
-}
-.preview-control small { color: var(--muted); display: block; font-size: 1rem; }
-.preview-control strong { font-family: 'Barlow', sans-serif; font-size: 1.25rem; }
-.preview-result {
-  text-align: center; background: rgba(250,204,21,0.08);
-  border: 1px solid rgba(250,204,21,0.22); padding: 1.3rem;
-}
-.preview-result small { color: var(--muted); display: block; margin-bottom: 0.35rem; font-size: 1rem; }
-.preview-result strong { color: var(--gold); font-family: 'Barlow', sans-serif; font-size: 2.1rem; }
-.lock-layer {
-  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-  padding: 1.4rem; background: linear-gradient(180deg, rgba(11,12,16,0.06), rgba(11,12,16,0.82));
-}
-.lock-box {
-  width: min(420px, 100%); background: rgba(19,20,26,0.96);
-  border: 1px solid rgba(250,204,21,0.28); padding: 1.55rem;
-  text-align: center; border-radius: 2px; box-shadow: 0 18px 60px rgba(0,0,0,0.5);
-}
-.lock-icon { font-size: 1.75rem; color: var(--gold); margin-bottom: 0.55rem; }
-.lock-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.45rem; }
-.lock-sub { color: var(--muted); font-size: 1.02rem; line-height: 1.7; }
-.lock-arrow { color: var(--gold); margin-top: 0.9rem; font-weight: 700; font-size: 1rem; }
-.card {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 2px; padding: 2rem; position: relative;
-}
-.card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: linear-gradient(90deg, var(--gold) 0%, rgba(250,204,21,0.15) 100%);
-  border-radius: 2px 2px 0 0;
-}
-.card-title { font-family: inherit; font-weight: 700; font-size: 1.55rem; margin-bottom: 0.3rem; color: var(--text); }
-.card-sub { font-size: 1.1rem; color: var(--muted); margin-bottom: 1.2rem; line-height: 1.75; }
-.mode-tabs {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;
-  background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.12);
-  padding: 0.45rem; margin-bottom: 1.35rem; border-radius: 2px;
-}
-.mode-tab {
-  border: 1px solid transparent; background: transparent; color: var(--muted);
-  padding: 0.9rem 0.7rem; font-family: inherit; font-size: 1.12rem; font-weight: 800; cursor: pointer;
-  border-radius: 2px; transition: color 0.15s, background 0.15s, border-color 0.15s; line-height: 1.25;
-}
-.mode-tab.active {
-  background: var(--gold); border-color: var(--gold); color: #0B0C10;
-  box-shadow: 0 8px 24px rgba(250,204,21,0.20);
-}
-.mode-tab:not(.active):hover { border-color: rgba(250,204,21,0.45); color: var(--text); }
-.mode-helper { display: none; }
-.mode-helper.show { display: block; }
-.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.form-grid .full { grid-column: 1 / -1; }
-.field { display: flex; flex-direction: column; gap: 0.4rem; }
-.field label { font-size: 1rem; font-weight: 700; color: var(--muted); letter-spacing: 0; text-transform: none; font-family: inherit; }
-.field label span.req { color: var(--gold); margin-left: 2px; }
-.field input, .field select {
-  background: var(--surface2); border: 1px solid var(--border); border-radius: 2px;
-  padding: 0.95rem 1rem; color: var(--text); font-size: 1.05rem;
-  font-family: inherit; outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s; width: 100%;
-  appearance: none; -webkit-appearance: none;
-}
-.field input::placeholder { color: var(--muted-soft); }
-.field input:focus, .field select:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(250,204,21,0.12); }
-.field input.error, .field select.error { border-color: var(--error); }
-.select-wrap { position: relative; }
-.select-wrap::after { content: '▾'; position: absolute; right: 0.9rem; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 0.9rem; pointer-events: none; }
-.select-wrap select { padding-right: 2rem; cursor: pointer; }
-.select-wrap select option { background: #16171E; color: var(--text); }
-.field-error { font-size: 1rem; color: #FF7A7A; display: none; }
-.field-error.show { display: block; }
-.hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-.checkbox-row { display: flex; align-items: flex-start; gap: 0.75rem; margin-top: 1.25rem; }
-.checkbox-row input[type="checkbox"] { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; accent-color: var(--gold); cursor: pointer; }
-.checkbox-row label { font-size: 1rem; color: var(--muted); line-height: 1.75; cursor: pointer; }
-.checkbox-row label a { color: var(--gold); text-decoration: none; }
-.btn-submit {
-  width: 100%; margin-top: 1.5rem; padding: 1.1rem;
-  background: var(--gold); color: #0B0C10; border: none; border-radius: 2px;
-  font-family: inherit; font-weight: 700; font-size: 1.1rem;
-  letter-spacing: 0.02em; text-transform: none; cursor: pointer;
-  transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
-}
-.btn-submit:hover { background: #c9a010; box-shadow: 0 4px 20px rgba(250,204,21,0.28); }
-.btn-submit:active { transform: scale(0.99); }
-.btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
-.btn-submit .btn-spinner {
-  display: none; width: 18px; height: 18px;
-  border: 2px solid rgba(0,0,0,0.2); border-top-color: #0B0C10;
-  border-radius: 50%; animation: spin 0.6s linear infinite; margin: 0 auto;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-.btn-submit.loading .btn-text { display: none; }
-.btn-submit.loading .btn-spinner { display: block; }
-.error-banner {
-  background: rgba(224,82,82,0.1); border: 1px solid rgba(224,82,82,0.3);
-  border-radius: 2px; padding: 0.9rem 1rem; font-size: 1rem;
-  color: #FF7A7A; margin-bottom: 1rem; display: none;
-}
-.error-banner.show { display: block; }
-.info-note {
-  background: rgba(250,204,21,0.07); border: 1px solid rgba(250,204,21,0.18);
-  color: rgba(255,255,255,0.65); border-radius: 2px; padding: 0.9rem 1rem;
-  font-size: 1rem; line-height: 1.75; margin-bottom: 1.25rem;
-}
-.field.optional { display: none; }
-.success-screen { display: none; text-align: center; padding: 1.5rem 0; animation: fadeUp 0.5s ease both; }
-.success-screen.show { display: block; }
-.success-icon {
-  width: 64px; height: 64px; border-radius: 50%;
-  background: rgba(76,175,130,0.12); border: 2px solid var(--success);
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 1.5rem; font-size: 1.8rem;
-}
-.success-title { font-family: inherit; font-weight: 700; font-size: 1.45rem; color: var(--text); margin-bottom: 0.5rem; }
-.success-sub { font-size: 1.05rem; color: var(--muted); line-height: 1.8; }
-.success-email-highlight { color: var(--gold); font-weight: 600; }
-.resend-link { display: none; margin-top: 1.5rem; font-size: 1rem; color: var(--muted); }
-.resend-link button { background: none; border: none; color: var(--gold); cursor: pointer; font-size: 1rem; text-decoration: underline; font-family: inherit; }
-.verified-screen { display: none; text-align: center; padding: 1rem 0; animation: fadeUp 0.5s ease both; }
-.verified-screen.show { display: block; }
-.verified-badge {
-  display: inline-flex; align-items: center; gap: 0.4rem;
-  background: rgba(76,175,130,0.1); border: 1px solid rgba(76,175,130,0.3);
-  border-radius: 100px; padding: 0.45rem 1.1rem; font-size: 1rem;
-  color: var(--success); margin-bottom: 1.5rem; letter-spacing: 0.05em;
-  font-family: inherit; font-weight: 700; text-transform: none;
-}
-.btn-enter {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  margin-top: 1.5rem; padding: 1.1rem 2.2rem;
-  background: var(--gold); color: #0B0C10; border: none; border-radius: 2px;
-  font-family: inherit; font-weight: 700; font-size: 1.1rem;
-  letter-spacing: 0.02em; text-transform: none; cursor: pointer;
-  text-decoration: none; transition: background 0.2s, box-shadow 0.2s;
-}
-.btn-enter:hover { background: #c9a010; box-shadow: 0 4px 20px rgba(250,204,21,0.28); }
-.login-hint { text-align: center; margin-top: 1.5rem; font-size: 1.05rem; color: var(--muted); }
-.login-hint a { color: var(--gold); text-decoration: none; font-weight: 600; }
-.page-footer { grid-column: 1 / -1; text-align: center; margin-top: 0.75rem; font-size: 1rem; color: var(--muted); line-height: 1.8; }
-.page-footer a { color: var(--gold); text-decoration: none; }
-::selection { background: var(--gold); color: #0B0C10; }
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.14); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #c9a010; }
-@media (max-width: 480px) {
-  .access-layout { grid-template-columns: 1fr; }
-  .tool-preview { min-height: 520px; }
-  .preview-body { padding: 1rem; filter: blur(0.5px); opacity: 0.88; }
-  .preview-title { font-size: 1.95rem; }
-  .form-grid { grid-template-columns: 1fr; }
-  .form-grid .full { grid-column: 1; }
-  .card { padding: 1.75rem 1.25rem; }
-  body { padding-top: 4.5rem; }
-  .home-link { top: 0.5rem; left: 0.5rem; min-height: 34px; padding: 0.26rem 0.52rem; font-size: 0.9rem; }
-  .lang-bar { top: 0.5rem; right: 0.5rem; left: 0.5rem; justify-content: center; }
-  .lang-btn { padding: 0.32rem 0.58rem; }
-  .logo-wrap { margin-bottom: 1.75rem; }
-}
+  :root {
+    --bg: #1C1C1C; --surface: #242424; --surface2: #2C2C2C;
+    --border: rgba(255,255,255,0.14); --text: #F7F7F7; --muted: #D0D0D0; --muted-soft: #B8B8B8;
+    --gold: #E1A813; --gold-dim: rgba(225,168,19,0.15);
+    --error: #E05252; --success: #4CAF82;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: 'Noto Sans TC', 'Noto Sans Thai', 'Barlow', sans-serif;
+    font-size: 16px;
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: flex-start;
+    padding: 2rem 1rem; position: relative; overflow-x: hidden;
+  }
+  body.thai { font-family: 'Noto Sans Thai', 'Noto Sans TC', 'Barlow', sans-serif; }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image: repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(225,168,19,0.012) 40px,rgba(225,168,19,0.012) 41px);
+    pointer-events: none; z-index: 0;
+  }
+  body::after {
+    content: ''; position: fixed; top: -200px; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 400px;
+    background: radial-gradient(ellipse, rgba(225,168,19,0.08) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+
+  /* Lang bar */
+  .home-link {
+    position: fixed; top: 1rem; left: 1rem; z-index: 10;
+    display: inline-flex; align-items: center; min-height: 38px;
+    border: 1px solid var(--border); background: var(--surface2);
+    color: var(--muted); padding: 0.28rem 0.7rem;
+    border-radius: 2px; font-size: 0.92rem; font-weight: 700;
+    text-decoration: none; transition: all 0.15s;
+  }
+  .home-link:hover { border-color: var(--gold); color: var(--text); }
+  .lang-bar {
+    position: fixed; top: 1rem; right: 1rem;
+    display: flex; gap: 0.35rem; z-index: 10;
+  }
+  .lang-btn {
+    display: flex; align-items: center; gap: 0.3rem;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 2px; padding: 0.28rem 0.7rem;
+    font-size: 0.92rem; color: var(--muted); cursor: pointer;
+    transition: all 0.15s; font-family: inherit; white-space: nowrap;
+  }
+  .lang-btn:hover { border-color: var(--gold); color: var(--text); }
+  .lang-btn.active { background: var(--gold-dim); border-color: rgba(225,168,19,0.4); color: var(--gold); font-weight: 700; }
+
+  .page-wrap {
+    width: 100%; max-width: 1080px;
+    position: relative; z-index: 1;
+    animation: fadeUp 0.6s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Logo */
+  .logo-wrap { text-align: center; margin: 1.5rem 0 2rem; }
+  .logo-text {
+    display: inline-block; text-decoration: none;
+    font-family: 'League Gothic', 'Barlow Condensed', 'Barlow', sans-serif;
+    font-weight: 400; font-size: 3.75rem;
+    letter-spacing: 0.035em; color: var(--text); line-height: 0.86;
+    text-rendering: geometricPrecision;
+  }
+  .logo-slash { color: var(--gold); display: inline-block; transform: skewX(-8deg); margin: 0 0.03em; }
+  .logo-tagline { font-size: 0.92rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-top: 0.5rem; font-family: inherit; }
+
+  .access-layout {
+    display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(360px, 0.88fr);
+    gap: 1.25rem; align-items: stretch;
+  }
+  .tool-preview {
+    background: #202020; border: 1px solid var(--border); border-radius: 2px;
+    position: relative; overflow: hidden; min-height: 620px;
+  }
+  .tool-preview::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(-45deg, transparent, transparent 36px, rgba(225,168,19,0.018) 36px, rgba(225,168,19,0.018) 37px);
+    pointer-events: none;
+  }
+  .preview-nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.8rem 1rem; border-bottom: 1px solid var(--border);
+    background: rgba(28,28,28,0.92);
+  }
+  .preview-brand {
+    font-family: 'League Gothic', 'Barlow Condensed', 'Barlow', sans-serif; font-weight: 400;
+    font-size: 1.85rem; letter-spacing: 0.035em; line-height: 0.88; text-rendering: geometricPrecision;
+  }
+  .preview-brand span { color: var(--gold); }
+  .preview-tag {
+    color: var(--gold); background: var(--gold-dim);
+    border: 1px solid rgba(225,168,19,0.25);
+    font-size: 0.9rem; letter-spacing: 0.04em; text-transform: uppercase;
+    padding: 0.22rem 0.55rem; border-radius: 2px; font-family: 'Barlow', sans-serif;
+  }
+  .preview-body {
+    padding: 1.35rem; filter: blur(0.7px); opacity: 0.86; user-select: none; pointer-events: none;
+  }
+  .preview-eyebrow {
+    color: var(--gold); font-family: inherit; font-size: 0.92rem; font-weight: 700;
+    letter-spacing: 0.04em; text-transform: uppercase; text-align: center; margin-bottom: 0.7rem;
+  }
+  .preview-title {
+    font-family: 'League Gothic', 'Barlow Condensed', 'Noto Sans TC', 'Noto Sans Thai', sans-serif; font-size: 3rem;
+    font-weight: 400; text-align: center; line-height: 0.95; margin-bottom: 0.45rem;
+  }
+  .preview-sub { text-align: center; color: var(--muted); font-size: 1rem; margin-bottom: 1.25rem; line-height: 1.65; }
+  .preview-formula {
+    width: fit-content; max-width: 100%; margin: 0 auto 1.25rem; padding: 0.45rem 1rem;
+    background: var(--surface2); border: 1px solid var(--border); font-family: inherit;
+    color: var(--muted); font-size: 0.95rem;
+  }
+  .preview-panel {
+    background: var(--surface); border: 1px solid var(--border); padding: 1.05rem;
+    margin-bottom: 1rem; border-radius: 2px;
+  }
+  .preview-panel-title {
+    color: var(--muted); font-family: inherit; font-size: 0.92rem; font-weight: 700;
+    letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 0.9rem;
+  }
+  .preview-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+  .preview-control {
+    background: var(--surface2); border: 1px solid var(--border); padding: 0.75rem;
+    display: flex; justify-content: space-between; align-items: center; min-height: 58px;
+  }
+  .preview-control small { color: var(--muted); display: block; font-size: 0.9rem; }
+  .preview-control strong { font-family: 'Barlow', sans-serif; font-size: 1.18rem; }
+  .preview-result {
+    text-align: center; background: rgba(225,168,19,0.1);
+    border: 1px solid rgba(225,168,19,0.24); padding: 1.3rem;
+  }
+  .preview-result small { color: var(--muted); display: block; margin-bottom: 0.35rem; font-size: 0.96rem; }
+  .preview-result strong { color: var(--gold); font-family: 'Barlow', sans-serif; font-size: 2rem; }
+  .lock-layer {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    padding: 1.4rem; background: linear-gradient(180deg, rgba(28,28,28,0.08), rgba(28,28,28,0.82));
+  }
+  .lock-box {
+    width: min(420px, 100%); background: rgba(36,36,36,0.94);
+    border: 1px solid rgba(225,168,19,0.34); padding: 1.55rem;
+    text-align: center; border-radius: 2px; box-shadow: 0 18px 60px rgba(0,0,0,0.38);
+  }
+  .lock-icon { font-size: 1.75rem; color: var(--gold); margin-bottom: 0.55rem; }
+  .lock-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.45rem; }
+  .lock-sub { color: var(--muted); font-size: 1.02rem; line-height: 1.7; }
+  .lock-arrow { color: var(--gold); margin-top: 0.9rem; font-weight: 700; font-size: 1rem; }
+
+  /* Card */
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 2px; padding: 2rem; position: relative;
+  }
+  .card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--gold) 0%, rgba(225,168,19,0.2) 100%);
+    border-radius: 2px 2px 0 0;
+  }
+  .card-title { font-family: inherit; font-weight: 700; font-size: 1.42rem; margin-bottom: 0.3rem; color: var(--text); }
+  .card-sub { font-size: 1.04rem; color: var(--muted); margin-bottom: 1.2rem; line-height: 1.7; }
+  .mode-tabs {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;
+    background: rgba(0,0,0,0.26); border: 1px solid rgba(255,255,255,0.18);
+    padding: 0.45rem; margin-bottom: 1.35rem; border-radius: 2px;
+  }
+  .mode-tab {
+    border: 1px solid transparent; background: transparent; color: var(--muted);
+    padding: 0.9rem 0.7rem; font-family: inherit; font-size: 1.08rem; font-weight: 800; cursor: pointer;
+    border-radius: 2px; transition: color 0.15s, background 0.15s, border-color 0.15s;
+    line-height: 1.25;
+  }
+  .mode-tab.active {
+    background: var(--gold); border-color: var(--gold); color: #1C1C1C;
+    box-shadow: 0 8px 24px rgba(225,168,19,0.18);
+  }
+  .mode-tab:not(.active):hover { border-color: rgba(225,168,19,0.45); color: var(--text); }
+  .mode-helper { display: none; }
+  .mode-helper.show { display: block; }
+
+  /* Form */
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-grid .full { grid-column: 1 / -1; }
+  .field { display: flex; flex-direction: column; gap: 0.4rem; }
+  .field label { font-size: 0.95rem; font-weight: 700; color: var(--muted); letter-spacing: 0; text-transform: none; font-family: inherit; }
+  .field label span.req { color: var(--gold); margin-left: 2px; }
+  .field input, .field select {
+    background: var(--surface2); border: 1px solid var(--border); border-radius: 2px;
+    padding: 0.92rem 1rem; color: var(--text); font-size: 1.05rem;
+    font-family: inherit; outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s; width: 100%;
+    appearance: none; -webkit-appearance: none;
+  }
+  .field input::placeholder { color: var(--muted-soft); }
+  .field input:focus, .field select:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(225,168,19,0.1); }
+  .field input.error, .field select.error { border-color: var(--error); }
+  .select-wrap { position: relative; }
+  .select-wrap::after { content: '▾'; position: absolute; right: 0.9rem; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 0.9rem; pointer-events: none; }
+  .select-wrap select { padding-right: 2rem; cursor: pointer; }
+  .select-wrap select option { background: #2C2C2C; color: var(--text); }
+  .field-error { font-size: 0.95rem; color: #FF7A7A; display: none; }
+  .field-error.show { display: block; }
+  .hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+  /* Checkbox */
+  .checkbox-row { display: flex; align-items: flex-start; gap: 0.75rem; margin-top: 1.25rem; }
+  .checkbox-row input[type="checkbox"] { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; accent-color: var(--gold); cursor: pointer; }
+  .checkbox-row label { font-size: 0.98rem; color: var(--muted); line-height: 1.7; cursor: pointer; }
+  .checkbox-row label a { color: var(--gold); text-decoration: none; }
+
+  /* Button */
+  .btn-submit {
+    width: 100%; margin-top: 1.5rem; padding: 1rem;
+    background: var(--gold); color: #1C1C1C; border: none; border-radius: 2px;
+    font-family: inherit; font-weight: 700; font-size: 1.04rem;
+    letter-spacing: 0.02em; text-transform: none; cursor: pointer;
+    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+  }
+  .btn-submit:hover { background: #F0B820; box-shadow: 0 4px 20px rgba(225,168,19,0.3); }
+  .btn-submit:active { transform: scale(0.99); }
+  .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn-submit .btn-spinner {
+    display: none; width: 18px; height: 18px;
+    border: 2px solid rgba(0,0,0,0.2); border-top-color: #1C1C1C;
+    border-radius: 50%; animation: spin 0.6s linear infinite; margin: 0 auto;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .btn-submit.loading .btn-text { display: none; }
+  .btn-submit.loading .btn-spinner { display: block; }
+
+  /* Error banner */
+  .error-banner {
+    background: rgba(224,82,82,0.1); border: 1px solid rgba(224,82,82,0.3);
+    border-radius: 2px; padding: 0.9rem 1rem; font-size: 1rem;
+    color: #FF7A7A; margin-bottom: 1rem; display: none;
+  }
+  .error-banner.show { display: block; }
+  .info-note {
+    background: rgba(225,168,19,0.08); border: 1px solid rgba(225,168,19,0.22);
+    color: #D7C891; border-radius: 2px; padding: 0.85rem 1rem;
+    font-size: 1rem; line-height: 1.7; margin-bottom: 1.25rem;
+  }
+  .field.optional { display: none; }
+
+  /* Success screen */
+  .success-screen { display: none; text-align: center; padding: 1.5rem 0; animation: fadeUp 0.5s ease both; }
+  .success-screen.show { display: block; }
+  .success-icon { width: 64px; height: 64px; border-radius: 50%; background: rgba(76,175,130,0.12); border: 2px solid var(--success); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 1.8rem; }
+  .success-title { font-family: inherit; font-weight: 700; font-size: 1.36rem; color: var(--text); margin-bottom: 0.5rem; }
+  .success-sub { font-size: 1.02rem; color: var(--muted); line-height: 1.75; }
+  .success-email-highlight { color: var(--gold); font-weight: 600; }
+  .resend-link { display: none; margin-top: 1.5rem; font-size: 1rem; color: var(--muted); }
+  .resend-link button { background: none; border: none; color: var(--gold); cursor: pointer; font-size: 1rem; text-decoration: underline; font-family: inherit; }
+
+  /* Verified screen */
+  .verified-screen { display: none; text-align: center; padding: 1rem 0; animation: fadeUp 0.5s ease both; }
+  .verified-screen.show { display: block; }
+  .verified-badge {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    background: rgba(76,175,130,0.1); border: 1px solid rgba(76,175,130,0.3);
+    border-radius: 100px; padding: 0.4rem 1rem; font-size: 0.96rem;
+    color: var(--success); margin-bottom: 1.5rem; letter-spacing: 0.05em;
+    font-family: inherit; font-weight: 700; text-transform: none;
+  }
+  .btn-enter {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    margin-top: 1.5rem; padding: 1rem 2rem;
+    background: var(--gold); color: #1C1C1C; border: none; border-radius: 2px;
+    font-family: inherit; font-weight: 700; font-size: 1.04rem;
+    letter-spacing: 0.02em; text-transform: none; cursor: pointer;
+    text-decoration: none; transition: background 0.2s, box-shadow 0.2s;
+  }
+  .btn-enter:hover { background: #F0B820; box-shadow: 0 4px 20px rgba(225,168,19,0.3); }
+
+  /* Login hint + footer */
+  .login-hint { text-align: center; margin-top: 1.5rem; font-size: 1rem; color: var(--muted); }
+  .login-hint a { color: var(--gold); text-decoration: none; font-weight: 600; }
+  .page-footer { grid-column: 1 / -1; text-align: center; margin-top: 0.75rem; font-size: 0.98rem; color: var(--muted); line-height: 1.8; }
+  .page-footer a { color: var(--gold); text-decoration: none; }
+
+  @media (max-width: 480px) {
+    .access-layout { grid-template-columns: 1fr; }
+    .tool-preview { min-height: 520px; }
+    .preview-body { padding: 1rem; filter: blur(0.5px); opacity: 0.88; }
+    .preview-title { font-size: 1.95rem; }
+    .form-grid { grid-template-columns: 1fr; }
+    .form-grid .full { grid-column: 1; }
+    .card { padding: 1.75rem 1.25rem; }
+    body { padding-top: 4.5rem; }
+    .home-link { top: 0.5rem; left: 0.5rem; min-height: 34px; padding: 0.26rem 0.52rem; font-size: 0.82rem; }
+    .lang-bar { top: 0.5rem; right: 0.5rem; left: 0.5rem; justify-content: center; }
+    .lang-btn { padding: 0.32rem 0.58rem; }
+    .logo-wrap { margin-bottom: 1.75rem; }
+  }
 </style>
 </head>
-
 <body>
 
 <a class="home-link" href="https://www.nnpc.ai/index.html" id="t-homeLink">← 返回官網</a>
@@ -301,168 +321,184 @@ body::after {
 </div>
 
 <div class="page-wrap">
+
   <div class="logo-wrap">
     <a class="logo-text" href="https://www.nnpc.ai/index.html" id="brandHomeLink" aria-label="N/NPC Home">N<span class="logo-slash">/</span>NPC</a>
     <div class="logo-tagline" id="t-tagline">Smart Manufacturing Solutions</div>
   </div>
 
   <div class="access-layout">
+  <section class="tool-preview" aria-label="OEE tool preview">
+    <div class="preview-nav">
+      <div class="preview-brand">N<span>/</span>NPC</div>
+      <div class="preview-tag" id="t-previewTag">會員專屬</div>
+    </div>
+    <div class="preview-body">
+      <div class="preview-eyebrow">OEE · Overall Equipment Effectiveness</div>
+      <div class="preview-title" id="t-previewTitle">工廠獲利計算機</div>
+      <div class="preview-sub" id="t-previewSub">調整參數，即時看到 OEE 提升帶來的真實金錢價值</div>
+      <div class="preview-formula"><span style="color:#22d3ee;">A</span> 可動率 × <span style="color:#a78bfa;">P</span> 性能 × <span style="color:#4CAF82;">Q</span> 品質</div>
 
-    <section class="tool-preview" aria-label="OEE tool preview">
-      <div class="preview-nav">
-        <div class="preview-brand">N<span>/</span>NPC</div>
-        <div class="preview-tag" id="t-previewTag">會員專屬</div>
-      </div>
-      <div class="preview-body">
-        <div class="preview-eyebrow">OEE · Overall Equipment Effectiveness</div>
-        <div class="preview-title" id="t-previewTitle">工廠獲利計算機</div>
-        <div class="preview-sub" id="t-previewSub">調整參數，即時看到 OEE 提升帶來的真實金錢價值</div>
-        <div class="preview-formula"><span style="color:#22d3ee;">A</span> 可動率 × <span style="color:#a78bfa;">P</span> 性能 × <span style="color:#4CAF82;">Q</span> 品質</div>
-        <div class="preview-panel">
-          <div class="preview-panel-title" id="t-previewStep1">步驟 1 — 工廠規模</div>
-          <div class="preview-grid">
-            <div class="preview-control"><span><small>Machines</small><strong>20</strong></span><small>台</small></div>
-            <div class="preview-control"><span><small>Shifts</small><strong>2</strong></span><small>班</small></div>
-            <div class="preview-control"><span><small>Workers</small><strong>23</strong></span><small>人</small></div>
-            <div class="preview-control"><span><small>Days</small><strong>26</strong></span><small>天</small></div>
-          </div>
-        </div>
-        <div class="preview-panel">
-          <div class="preview-panel-title" id="t-previewStep2">步驟 2 — 模擬改善</div>
-          <div class="preview-grid">
-            <div class="preview-control"><span><small>Current OEE</small><strong>65%</strong></span></div>
-            <div class="preview-control"><span><small>Target OEE</small><strong>78%</strong></span></div>
-          </div>
-        </div>
-        <div class="preview-result">
-          <small id="t-previewResultLabel">預估每月新增產值</small>
-          <strong>฿ 1,872,000</strong>
-        </div>
-      </div>
-      <div class="lock-layer">
-        <div class="lock-box">
-          <div class="lock-icon">LOCK</div>
-          <div class="lock-title" id="t-lockTitle">OEE 工具已準備好</div>
-          <div class="lock-sub" id="t-lockSub">留下基本會員資料，下一秒就能開始操作完整計算機。</div>
-          <div class="lock-arrow" id="t-lockArrow">往右註冊解鎖 →</div>
-        </div>
-      </div>
-    </section>
-
-    <div class="card">
-      <div class="error-banner" id="errorBanner"></div>
-
-      <!-- Form -->
-      <div id="formScreen">
-        <div class="mode-tabs" role="tablist" aria-label="Member access mode">
-          <button type="button" class="mode-tab active" id="registerTab" onclick="setMode('register')" role="tab" aria-selected="true">新會員註冊</button>
-          <button type="button" class="mode-tab" id="loginTab" onclick="setMode('login')" role="tab" aria-selected="false">已是會員登入</button>
-        </div>
-        <div class="card-title" id="t-cardTitle">建立您的會員帳號</div>
-        <div class="card-sub" id="t-cardSub">填寫以下資料，我們將寄送驗證信至您的 Email。<br>驗證完成後即可使用 OEE 工廠獲利計算機。</div>
-        <div class="info-note" id="t-infoNote">此註冊僅供 N/NPC 會員使用。送出後請至信箱完成 Email 驗證，系統將自動開通 OEE 工具使用權限。</div>
-        <form id="registerForm" novalidate>
-          <div class="form-grid">
-            <div class="field">
-              <label id="t-lName">姓名 <span class="req">*</span></label>
-              <input type="text" id="name" name="name" autocomplete="name" required>
-              <span class="field-error" id="nameErr"></span>
-            </div>
-            <div class="field optional">
-              <label id="t-lPhone">電話號碼 <span class="req">*</span></label>
-              <input type="tel" id="phone" name="phone" placeholder="+66 xx-xxxx-xxxx" autocomplete="tel">
-              <span class="field-error" id="phoneErr"></span>
-            </div>
-            <div class="field full">
-              <label id="t-lCompany">公司名稱 <span class="req">*</span></label>
-              <input type="text" id="company" name="company" autocomplete="organization" required>
-              <span class="field-error" id="companyErr"></span>
-            </div>
-            <div class="field full">
-              <label>Email <span class="req">*</span></label>
-              <input type="email" id="email" name="email" placeholder="name@company.com" autocomplete="email" required>
-              <span class="field-error" id="emailErr"></span>
-            </div>
-            <div class="field optional">
-              <label id="t-lJob">職稱 / 部門 <span class="req">*</span></label>
-              <input type="text" id="jobTitle" name="jobTitle">
-              <span class="field-error" id="jobErr"></span>
-            </div>
-            <div class="field optional">
-              <label id="t-lCountry">所在國家 <span class="req">*</span></label>
-              <div class="select-wrap">
-                <select id="country" name="country">
-                  <option value="" id="t-selectDefault">請選擇國家</option>
-                  <option value="TH">🇹🇭 Thailand</option>
-                  <option value="TW">🇹🇼 Taiwan</option>
-                  <option value="VN">🇻🇳 Vietnam</option>
-                  <option value="MY">🇲🇾 Malaysia</option>
-                  <option value="ID">🇮🇩 Indonesia</option>
-                  <option value="PH">🇵🇭 Philippines</option>
-                  <option value="SG">🇸🇬 Singapore</option>
-                  <option value="CN">🇨🇳 China</option>
-                  <option value="JP">🇯🇵 Japan</option>
-                  <option value="KR">🇰🇷 Korea</option>
-                  <option value="OTHER" id="t-selectOther">其他 Other</option>
-                </select>
-              </div>
-              <span class="field-error" id="countryErr"></span>
-            </div>
-          </div>
-          <div class="hp-field" aria-hidden="true">
-            <label for="website">Website</label>
-            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
-          </div>
-          <div class="checkbox-row">
-            <input type="checkbox" id="privacy">
-            <label for="privacy" id="t-privacy">
-              我已閱讀並同意 <a href="privacy-policy.html">隱私權政策</a> 及 <a href="terms.html">服務條款</a>，並同意 N/NPC 以上述資料與我聯繫。
-            </label>
-          </div>
-          <span class="field-error" id="privacyErr"></span>
-          <button type="submit" class="btn-submit" id="submitBtn">
-            <span class="btn-text" id="t-submitBtn">送出並接收驗證信 →</span>
-            <span class="btn-spinner"></span>
-          </button>
-        </form>
-        <div class="login-hint mode-helper show" id="registerHelper"><span id="t-loginHint">已有帳號？</span> <a href="#" id="t-loginLink" onclick="setMode('login'); return false;">直接登入</a></div>
-        <div class="login-hint mode-helper" id="loginHelper"><span id="t-registerHint">還不是會員？</span> <a href="#" id="t-registerLink" onclick="setMode('register'); return false;">免費註冊</a></div>
-      </div>
-
-      <!-- Success screen -->
-      <div class="success-screen" id="successScreen">
-        <div class="success-icon">✓</div>
-        <div class="success-title" id="t-successTitle">驗證信已寄出！</div>
-        <div class="success-sub">
-          <span id="t-successSub1">我們已將驗證連結寄送至</span><br>
-          <span class="success-email-highlight" id="sentEmailDisplay"></span><br><br>
-          <span id="t-successSub2">請前往您的信箱點擊驗證連結，完成後即可使用 OEE 計算機。</span><br><br>
-          <small style="color:rgba(255,255,255,0.45);font-size:0.98rem;line-height:1.7;" id="t-successSub3">若未收到，請檢查垃圾郵件資料夾。</small>
-        </div>
-        <div class="resend-link">
-          <span id="t-resendHint">沒有收到？</span>
-          <button type="button" onclick="resendEmail()" id="t-resendBtn">重新寄送</button>
+      <div class="preview-panel">
+        <div class="preview-panel-title" id="t-previewStep1">步驟 1 — 工廠規模</div>
+        <div class="preview-grid">
+          <div class="preview-control"><span><small>Machines</small><strong>20</strong></span><small>台</small></div>
+          <div class="preview-control"><span><small>Shifts</small><strong>2</strong></span><small>班</small></div>
+          <div class="preview-control"><span><small>Workers</small><strong>23</strong></span><small>人</small></div>
+          <div class="preview-control"><span><small>Days</small><strong>26</strong></span><small>天</small></div>
         </div>
       </div>
 
-      <!-- Verified screen -->
-      <div class="verified-screen" id="verifiedScreen">
-        <div class="verified-badge" id="t-verifiedBadge">✓ Email 驗證成功</div>
-        <div class="success-title" id="t-verifiedTitle">歡迎加入 N/NPC！</div>
-        <div class="success-sub" style="margin-top:0.5rem;" id="t-verifiedSub">
-          您的帳號已通過驗證。立即使用 OEE 工廠獲利計算機，找出您工廠的隱性損失。
+      <div class="preview-panel">
+        <div class="preview-panel-title" id="t-previewStep2">步驟 2 — 模擬改善</div>
+        <div class="preview-grid">
+          <div class="preview-control"><span><small>Current OEE</small><strong>65%</strong></span></div>
+          <div class="preview-control"><span><small>Target OEE</small><strong>78%</strong></span></div>
         </div>
-        <a href="oee-calculator.html" class="btn-enter" id="t-enterBtn">進入 OEE 計算機 →</a>
+      </div>
+
+      <div class="preview-result">
+        <small id="t-previewResultLabel">預估每月新增產值</small>
+        <strong>฿ 1,872,000</strong>
+      </div>
+    </div>
+    <div class="lock-layer">
+      <div class="lock-box">
+        <div class="lock-icon">LOCK</div>
+        <div class="lock-title" id="t-lockTitle">OEE 工具已準備好</div>
+        <div class="lock-sub" id="t-lockSub">留下基本會員資料，下一秒就能開始操作完整計算機。</div>
+        <div class="lock-arrow" id="t-lockArrow">往右註冊解鎖 →</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="card">
+    <div class="error-banner" id="errorBanner"></div>
+
+    <!-- Form -->
+    <div id="formScreen">
+      <div class="mode-tabs" role="tablist" aria-label="Member access mode">
+        <button type="button" class="mode-tab active" id="registerTab" onclick="setMode('register')" role="tab" aria-selected="true">新會員註冊</button>
+        <button type="button" class="mode-tab" id="loginTab" onclick="setMode('login')" role="tab" aria-selected="false">已是會員登入</button>
+      </div>
+      <div class="card-title" id="t-cardTitle">建立您的會員帳號</div>
+      <div class="card-sub" id="t-cardSub">填寫以下資料，我們將寄送驗證信至您的 Email。<br>驗證完成後即可使用 OEE 工廠獲利計算機。</div>
+      <div class="info-note" id="t-infoNote">此註冊僅供 N/NPC 會員使用。送出後請至信箱完成 Email 驗證，系統將自動開通 OEE 工具使用權限。</div>
+
+      <form id="registerForm" novalidate>
+        <div class="form-grid">
+
+          <div class="field">
+            <label id="t-lName">姓名 <span class="req">*</span></label>
+            <input type="text" id="name" name="name" autocomplete="name" required>
+            <span class="field-error" id="nameErr"></span>
+          </div>
+
+          <div class="field optional">
+            <label id="t-lPhone">電話號碼 <span class="req">*</span></label>
+            <input type="tel" id="phone" name="phone" placeholder="+66 xx-xxxx-xxxx" autocomplete="tel">
+            <span class="field-error" id="phoneErr"></span>
+          </div>
+
+          <div class="field full">
+            <label id="t-lCompany">公司名稱 <span class="req">*</span></label>
+            <input type="text" id="company" name="company" autocomplete="organization" required>
+            <span class="field-error" id="companyErr"></span>
+          </div>
+
+          <div class="field full">
+            <label>Email <span class="req">*</span></label>
+            <input type="email" id="email" name="email" placeholder="name@company.com" autocomplete="email" required>
+            <span class="field-error" id="emailErr"></span>
+          </div>
+
+          <div class="field optional">
+            <label id="t-lJob">職稱 / 部門 <span class="req">*</span></label>
+            <input type="text" id="jobTitle" name="jobTitle">
+            <span class="field-error" id="jobErr"></span>
+          </div>
+
+          <div class="field optional">
+            <label id="t-lCountry">所在國家 <span class="req">*</span></label>
+            <div class="select-wrap">
+              <select id="country" name="country">
+                <option value="" id="t-selectDefault">請選擇國家</option>
+                <option value="TH">🇹🇭 Thailand</option>
+                <option value="TW">🇹🇼 Taiwan</option>
+                <option value="VN">🇻🇳 Vietnam</option>
+                <option value="MY">🇲🇾 Malaysia</option>
+                <option value="ID">🇮🇩 Indonesia</option>
+                <option value="PH">🇵🇭 Philippines</option>
+                <option value="SG">🇸🇬 Singapore</option>
+                <option value="CN">🇨🇳 China</option>
+                <option value="JP">🇯🇵 Japan</option>
+                <option value="KR">🇰🇷 Korea</option>
+                <option value="OTHER" id="t-selectOther">其他 Other</option>
+              </select>
+            </div>
+            <span class="field-error" id="countryErr"></span>
+          </div>
+
+        </div>
+
+        <div class="hp-field" aria-hidden="true">
+          <label for="website">Website</label>
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div class="checkbox-row">
+          <input type="checkbox" id="privacy">
+          <label for="privacy" id="t-privacy">
+            我已閱讀並同意 <a href="privacy-policy.html">隱私權政策</a> 及 <a href="terms.html">服務條款</a>，並同意 N/NPC 以上述資料與我聯繫。
+          </label>
+        </div>
+        <span class="field-error" id="privacyErr"></span>
+
+        <button type="submit" class="btn-submit" id="submitBtn">
+          <span class="btn-text" id="t-submitBtn">送出並接收驗證信 →</span>
+          <span class="btn-spinner"></span>
+        </button>
+      </form>
+
+      <div class="login-hint mode-helper show" id="registerHelper"><span id="t-loginHint">已有帳號？</span> <a href="#" id="t-loginLink" onclick="setMode('login'); return false;">直接登入</a></div>
+      <div class="login-hint mode-helper" id="loginHelper"><span id="t-registerHint">還不是會員？</span> <a href="#" id="t-registerLink" onclick="setMode('register'); return false;">免費註冊</a></div>
+    </div>
+
+    <!-- Success screen -->
+    <div class="success-screen" id="successScreen">
+      <div class="success-icon">✓</div>
+      <div class="success-title" id="t-successTitle">驗證信已寄出！</div>
+      <div class="success-sub">
+        <span id="t-successSub1">我們已將驗證連結寄送至</span><br>
+        <span class="success-email-highlight" id="sentEmailDisplay"></span><br><br>
+        <span id="t-successSub2">請前往您的信箱點擊驗證連結，完成後即可使用 OEE 計算機。</span><br><br>
+        <small style="color:#C8C8C8;font-size:0.98rem;line-height:1.7;" id="t-successSub3">若未收到，請檢查垃圾郵件資料夾。</small>
+      </div>
+      <div class="resend-link">
+        <span id="t-resendHint">沒有收到？</span>
+        <button type="button" onclick="resendEmail()" id="t-resendBtn">重新寄送</button>
       </div>
     </div>
 
-    <div class="page-footer">
-      © 2025 N/NPC Smart Manufacturing Solutions<br>
-      <a href="/" id="t-footerWeb">官方網站</a> ·
-      <a href="/contact" id="t-footerContact">聯絡我們</a> ·
-      <a href="privacy-policy.html" id="t-footerPrivacy">隱私權政策</a>
+    <!-- Verified screen -->
+    <div class="verified-screen" id="verifiedScreen">
+      <div class="verified-badge" id="t-verifiedBadge">✓ Email 驗證成功</div>
+      <div class="success-title" id="t-verifiedTitle">歡迎加入 N/NPC！</div>
+      <div class="success-sub" style="margin-top:0.5rem;" id="t-verifiedSub">
+        您的帳號已通過驗證。立即使用 OEE 工廠獲利計算機，找出您工廠的隱性損失。
+      </div>
+      <a href="oee-calculator.html" class="btn-enter" id="t-enterBtn">
+        進入 OEE 計算機 →
+      </a>
     </div>
+  </div>
 
+  <div class="page-footer">
+    © 2025 N/NPC Smart Manufacturing Solutions<br>
+    <a href="/" id="t-footerWeb">官方網站</a> ·
+    <a href="/contact" id="t-footerContact">聯絡我們</a> ·
+    <a href="privacy-policy.html" id="t-footerPrivacy">隱私權政策</a>
+  </div>
   </div>
 </div>
 
@@ -481,6 +517,7 @@ const CONFIG = {
   PRIVACY_URL: 'privacy-policy.html',
   TERMS_URL: 'terms.html',
 };
+// ──────────────────────────────────────────────────────────────────────────
 
 // ─── i18n ─────────────────────────────────────────────────────────────────
 const T = {
@@ -496,28 +533,36 @@ const T = {
     previewResultLabel: '預估每月新增產值',
     lockTitle: 'OEE 工具已準備好',
     lockSub: '工具就在這裡。留下基本會員資料，我們會把專屬工具連結寄到您的信箱。',
-    lockArrow: '往右留下 Email →', lockArrowMobile: '往下留下 Email ↓',
-    registerTab: '新會員註冊', loginTab: '已是會員登入',
+    lockArrow: '往右留下 Email →',
+    lockArrowMobile: '往下留下 Email ↓',
+    registerTab: '新會員註冊',
+    loginTab: '已是會員登入',
     cardTitle: '取得 OEE 工具連結',
     cardSub: '只要 3 個欄位。我們會把 OEE 工廠獲利計算機的專屬連結寄到您的 Email。',
     infoNote: '請使用可收信的 Email。點擊信中的工具連結後，即可開啟完整 OEE 計算機。',
     loginCardTitle: '會員登入',
     loginCardSub: '輸入您註冊過的 Email，我們會重新寄送 OEE 工具連結給您。',
     loginInfoNote: '不用密碼。請到信箱點擊最新工具連結，即可回到 OEE 計算機。',
-    lName: '姓名 <span class="req">*</span>', lPhone: '電話號碼 <span class="req">*</span>',
-    lCompany: '公司名稱 <span class="req">*</span>', lJob: '職稱 / 部門 <span class="req">*</span>',
+    lName: '姓名 <span class="req">*</span>',
+    lPhone: '電話號碼 <span class="req">*</span>',
+    lCompany: '公司名稱 <span class="req">*</span>',
+    lJob: '職稱 / 部門 <span class="req">*</span>',
     lCountry: '所在國家 <span class="req">*</span>',
     namePh: '您的姓名', companyPh: '您的公司全名', jobPh: '例如：生產部經理',
     selectDefault: '請選擇國家', selectOther: '其他 Other',
     privacy: '我已閱讀並同意 <a href="privacy-policy.html" id="privacyLinkZh">隱私權政策</a> 及 <a href="terms.html" id="termsLinkZh">服務條款</a>，並同意 N/NPC 以上述資料與我聯繫。',
-    submitBtn: '寄送 OEE 工具連結 →', loginSubmitBtn: '寄送登入工具連結 →',
+    submitBtn: '寄送 OEE 工具連結 →',
+    loginSubmitBtn: '寄送登入工具連結 →',
     loginHint: '已有帳號？', loginLink: '直接登入',
     registerHint: '還不是會員？', registerLink: '免費註冊',
     errName: '請輸入姓名', errPhone: '請輸入電話號碼', errCompany: '請輸入公司名稱',
     errEmail: '請輸入有效的 Email', errJob: '請輸入職稱', errCountry: '請選擇所在國家', errPrivacy: '請勾選同意條款',
-    errGeneric: '發生錯誤，請稍後再試。', errNetwork: '目前無法連線至會員系統，請稍後再試或聯絡 N/NPC。',
-    resendOk: '驗證信已重新寄出。', loginNotFound: '查無此會員 Email，請先免費註冊。',
-    successTitle: '工具連結已寄出！', successSub1: '我們已將 OEE 工具連結寄送至',
+    errGeneric: '發生錯誤，請稍後再試。',
+    errNetwork: '目前無法連線至會員系統，請稍後再試或聯絡 N/NPC。',
+    resendOk: '驗證信已重新寄出。',
+    loginNotFound: '查無此會員 Email，請先免費註冊。',
+    successTitle: '工具連結已寄出！',
+    successSub1: '我們已將 OEE 工具連結寄送至',
     successSub2: '請前往信箱點擊連結，即可開啟完整 OEE 工廠獲利計算機。',
     successSub3: '若未收到，請檢查垃圾郵件或促銷郵件資料夾。',
     resendHint: '沒有收到？', resendBtn: '重新寄送',
@@ -530,43 +575,54 @@ const T = {
     emailBody: '感謝您申請 N/NPC OEE 工具。請點擊下方按鈕開啟 OEE 工廠獲利計算機。',
     emailVerifyBtn: '開啟 OEE 工具 →',
     emailExpiry: '此工具連結將在 24 小時後失效。若您並未申請此連結，請忽略此封信件。',
-    emailCopyLink: '或直接複製此連結：', emailUnsubscribe: '取消訂閱',
+    emailCopyLink: '或直接複製此連結：',
+    emailUnsubscribe: '取消訂閱',
   },
   en: {
     htmlLang: 'en', bodyClass: '',
     homeLink: '← Back to Website',
     tagline: 'Smart Manufacturing Solutions',
-    previewTag: 'Member Only', previewTitle: 'Factory Profit Calculator',
+    previewTag: 'Member Only',
+    previewTitle: 'Factory Profit Calculator',
     previewSub: 'Adjust OEE inputs and see the financial impact instantly.',
-    previewStep1: 'Step 1 — Factory scale', previewStep2: 'Step 2 — Improvement simulation',
+    previewStep1: 'Step 1 — Factory scale',
+    previewStep2: 'Step 2 — Improvement simulation',
     previewResultLabel: 'Estimated added monthly output',
     lockTitle: 'Your OEE tool is ready',
     lockSub: 'The tool is right here. Leave your basic member details and we will send the access link to your inbox.',
-    lockArrow: 'Leave your Email on the right →', lockArrowMobile: 'Scroll down and leave your Email ↓',
-    registerTab: 'New Member Registration', loginTab: 'Existing Member Login',
+    lockArrow: 'Leave your Email on the right →',
+    lockArrowMobile: 'Scroll down and leave your Email ↓',
+    registerTab: 'New Member Registration',
+    loginTab: 'Existing Member Login',
     cardTitle: 'Get Your OEE Tool Link',
     cardSub: 'Only 3 fields. We will send the dedicated OEE Factory Profit Calculator link to your Email.',
     infoNote: 'Use an Email you can access. Click the tool link in your inbox to open the full OEE calculator.',
     loginCardTitle: 'Member Login',
     loginCardSub: 'Enter the Email you registered with. We will send a fresh OEE tool link to your inbox.',
     loginInfoNote: 'No password needed. Open the latest tool link in your inbox to return to the OEE calculator.',
-    lName: 'Full Name <span class="req">*</span>', lPhone: 'Phone Number <span class="req">*</span>',
-    lCompany: 'Company Name <span class="req">*</span>', lJob: 'Job Title / Department <span class="req">*</span>',
+    lName: 'Full Name <span class="req">*</span>',
+    lPhone: 'Phone Number <span class="req">*</span>',
+    lCompany: 'Company Name <span class="req">*</span>',
+    lJob: 'Job Title / Department <span class="req">*</span>',
     lCountry: 'Country <span class="req">*</span>',
     namePh: 'Your full name', companyPh: 'Your company name', jobPh: 'e.g. Production Manager',
     selectDefault: 'Select country', selectOther: 'Other',
     privacy: 'I have read and agree to the <a href="privacy-policy.html" id="privacyLinkEn">Privacy Policy</a> and <a href="terms.html" id="termsLinkEn">Terms of Service</a>, and consent to N/NPC contacting me.',
-    submitBtn: 'Send OEE Tool Link →', loginSubmitBtn: 'Send Login Tool Link →',
+    submitBtn: 'Send OEE Tool Link →',
+    loginSubmitBtn: 'Send Login Tool Link →',
     loginHint: 'Already have an account?', loginLink: 'Sign In',
     registerHint: 'Not a member yet?', registerLink: 'Free Registration',
     errName: 'Please enter your name', errPhone: 'Please enter your phone number', errCompany: 'Please enter your company name',
     errEmail: 'Please enter a valid Email', errJob: 'Please enter your job title', errCountry: 'Please select your country', errPrivacy: 'Please agree to the terms',
-    errGeneric: 'An error occurred. Please try again.', errNetwork: 'We cannot connect to the member system right now. Please try again later or contact N/NPC.',
-    resendOk: 'Verification Email resent.', loginNotFound: 'No member was found for this Email. Please register first.',
-    successTitle: 'Tool Link Sent!', successSub1: 'We sent the OEE tool link to',
+    errGeneric: 'An error occurred. Please try again.',
+    errNetwork: 'We cannot connect to the member system right now. Please try again later or contact N/NPC.',
+    resendOk: 'Verification Email resent.',
+    loginNotFound: 'No member was found for this Email. Please register first.',
+    successTitle: 'Tool Link Sent!',
+    successSub1: 'We sent the OEE tool link to',
     successSub2: 'Open your inbox and click the link to launch the full OEE Factory Profit Calculator.',
     successSub3: 'If you do not see it, check spam or promotions.',
-    resendHint: "Didn't receive it?", resendBtn: 'Resend Email',
+    resendHint: 'Didn\'t receive it?', resendBtn: 'Resend Email',
     verifiedBadge: '✓ Tool Link Verified', verifiedTitle: 'Welcome to N/NPC!',
     verifiedSub: 'Your tool access is active. You can now use the OEE Factory Profit Calculator.',
     enterBtn: 'Enter OEE Calculator →',
@@ -576,40 +632,51 @@ const T = {
     emailBody: 'Thank you for requesting the N/NPC OEE tool. Click the button below to open the OEE Factory Profit Calculator.',
     emailVerifyBtn: 'Open OEE Tool →',
     emailExpiry: 'This tool link expires in 24 hours. If you did not request it, please ignore this email.',
-    emailCopyLink: 'Or copy this link:', emailUnsubscribe: 'Unsubscribe',
+    emailCopyLink: 'Or copy this link:',
+    emailUnsubscribe: 'Unsubscribe',
   },
   th: {
     htmlLang: 'th', bodyClass: 'thai',
     homeLink: '← กลับเว็บไซต์หลัก',
     tagline: 'โซลูชันการผลิตอัจฉริยะ',
-    previewTag: 'สำหรับสมาชิก', previewTitle: 'เครื่องคำนวณกำไรโรงงาน',
+    previewTag: 'สำหรับสมาชิก',
+    previewTitle: 'เครื่องคำนวณกำไรโรงงาน',
     previewSub: 'ปรับค่า OEE แล้วเห็นผลกระทบทางการเงินได้ทันที',
-    previewStep1: 'ขั้นตอน 1 — ขนาดโรงงาน', previewStep2: 'ขั้นตอน 2 — จำลองการปรับปรุง',
+    previewStep1: 'ขั้นตอน 1 — ขนาดโรงงาน',
+    previewStep2: 'ขั้นตอน 2 — จำลองการปรับปรุง',
     previewResultLabel: 'มูลค่าเพิ่มต่อเดือนโดยประมาณ',
     lockTitle: 'เครื่องมือ OEE พร้อมใช้งาน',
     lockSub: 'เครื่องมืออยู่ตรงนี้แล้ว กรอกข้อมูลสมาชิกพื้นฐาน แล้วเราจะส่งลิงก์เครื่องมือไปที่ Email ของคุณ',
-    lockArrow: 'กรอก Email ด้านขวา →', lockArrowMobile: 'เลื่อนลงแล้วกรอก Email ↓',
-    registerTab: 'สมัครสมาชิกใหม่', loginTab: 'สมาชิกเดิมเข้าสู่ระบบ',
+    lockArrow: 'กรอก Email ด้านขวา →',
+    lockArrowMobile: 'เลื่อนลงแล้วกรอก Email ↓',
+    registerTab: 'สมัครสมาชิกใหม่',
+    loginTab: 'สมาชิกเดิมเข้าสู่ระบบ',
     cardTitle: 'รับลิงก์เครื่องมือ OEE',
     cardSub: 'กรอกเพียง 3 ช่อง เราจะส่งลิงก์เครื่องคำนวณกำไรโรงงาน OEE ไปที่ Email ของคุณ',
     infoNote: 'กรุณาใช้ Email ที่เปิดอ่านได้ คลิกลิงก์ใน Email เพื่อเปิดเครื่องคำนวณ OEE แบบเต็ม',
     loginCardTitle: 'เข้าสู่ระบบสมาชิก',
     loginCardSub: 'กรอก Email ที่เคยลงทะเบียน เราจะส่งลิงก์เครื่องมือ OEE ใหม่ไปให้คุณ',
     loginInfoNote: 'ไม่ต้องใช้รหัสผ่าน เปิดลิงก์เครื่องมือล่าสุดใน Email เพื่อกลับเข้าเครื่องคำนวณ OEE',
-    lName: 'ชื่อ-นามสกุล <span class="req">*</span>', lPhone: 'หมายเลขโทรศัพท์ <span class="req">*</span>',
-    lCompany: 'ชื่อบริษัท <span class="req">*</span>', lJob: 'ตำแหน่ง / แผนก <span class="req">*</span>',
+    lName: 'ชื่อ-นามสกุล <span class="req">*</span>',
+    lPhone: 'หมายเลขโทรศัพท์ <span class="req">*</span>',
+    lCompany: 'ชื่อบริษัท <span class="req">*</span>',
+    lJob: 'ตำแหน่ง / แผนก <span class="req">*</span>',
     lCountry: 'ประเทศ <span class="req">*</span>',
     namePh: 'ชื่อ-นามสกุลของคุณ', companyPh: 'ชื่อบริษัทของคุณ', jobPh: 'เช่น ผู้จัดการฝ่ายผลิต',
     selectDefault: 'เลือกประเทศ', selectOther: 'อื่นๆ',
     privacy: 'ฉันได้อ่านและยอมรับ <a href="privacy-policy.html" id="privacyLinkTh">นโยบายความเป็นส่วนตัว</a> และ <a href="terms.html" id="termsLinkTh">ข้อกำหนดการใช้บริการ</a> และยินยอมให้ N/NPC ติดต่อฉัน',
-    submitBtn: 'ส่งลิงก์เครื่องมือ OEE →', loginSubmitBtn: 'ส่งลิงก์เข้าสู่ระบบ →',
+    submitBtn: 'ส่งลิงก์เครื่องมือ OEE →',
+    loginSubmitBtn: 'ส่งลิงก์เข้าสู่ระบบ →',
     loginHint: 'มีบัญชีอยู่แล้ว?', loginLink: 'เข้าสู่ระบบ',
     registerHint: 'ยังไม่ได้เป็นสมาชิก?', registerLink: 'สมัครฟรี',
     errName: 'กรุณากรอกชื่อ', errPhone: 'กรุณากรอกหมายเลขโทรศัพท์', errCompany: 'กรุณากรอกชื่อบริษัท',
     errEmail: 'กรุณากรอก Email ที่ถูกต้อง', errJob: 'กรุณากรอกตำแหน่งงาน', errCountry: 'กรุณาเลือกประเทศ', errPrivacy: 'กรุณายอมรับข้อกำหนด',
-    errGeneric: 'เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง', errNetwork: 'ไม่สามารถเชื่อมต่อระบบสมาชิกได้ในขณะนี้ กรุณาลองใหม่ภายหลังหรือติดต่อ N/NPC',
-    resendOk: 'ส่ง Email ยืนยันอีกครั้งแล้ว', loginNotFound: 'ไม่พบสมาชิกจาก Email นี้ กรุณาสมัครสมาชิกก่อน',
-    successTitle: 'ส่งลิงก์เครื่องมือแล้ว!', successSub1: 'เราได้ส่งลิงก์เครื่องมือ OEE ไปที่',
+    errGeneric: 'เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง',
+    errNetwork: 'ไม่สามารถเชื่อมต่อระบบสมาชิกได้ในขณะนี้ กรุณาลองใหม่ภายหลังหรือติดต่อ N/NPC',
+    resendOk: 'ส่ง Email ยืนยันอีกครั้งแล้ว',
+    loginNotFound: 'ไม่พบสมาชิกจาก Email นี้ กรุณาสมัครสมาชิกก่อน',
+    successTitle: 'ส่งลิงก์เครื่องมือแล้ว!',
+    successSub1: 'เราได้ส่งลิงก์เครื่องมือ OEE ไปที่',
     successSub2: 'กรุณาเปิด Email แล้วคลิกลิงก์เพื่อใช้เครื่องคำนวณกำไรโรงงาน OEE แบบเต็ม',
     successSub3: 'หากไม่พบ Email กรุณาตรวจสอบในสแปมหรือโปรโมชัน',
     resendHint: 'ไม่ได้รับ Email?', resendBtn: 'ส่งใหม่อีกครั้ง',
@@ -622,14 +689,111 @@ const T = {
     emailBody: 'ขอบคุณที่ขอใช้เครื่องมือ OEE ของ N/NPC กรุณาคลิกปุ่มด้านล่างเพื่อเปิดเครื่องคำนวณกำไรโรงงาน OEE',
     emailVerifyBtn: 'เปิดเครื่องมือ OEE →',
     emailExpiry: 'ลิงก์เครื่องมือนี้จะหมดอายุใน 24 ชั่วโมง หากคุณไม่ได้ขอใช้ กรุณาเพิกเฉยต่ออีเมลนี้',
-    emailCopyLink: 'หรือคัดลอกลิงก์นี้:', emailUnsubscribe: 'ยกเลิกการสมัคร',
+    emailCopyLink: 'หรือคัดลอกลิงก์นี้:',
+    emailUnsubscribe: 'ยกเลิกการสมัคร',
   },
 };
 
 const MEMBER_CONTENT_COPY = {
-  zh:{ previewTag:'會員專屬內容',previewEyebrow:'Smart Tag · Machine Health Case Analysis',previewTitle:'Smart Tag 案例分析',previewSub:'從高精密設備到食品設備，拆解 AIoT 機台健康導入判斷。',previewFormula:'<span style="color:#22d3ee;">震動</span> × <span style="color:#a78bfa;">溫溼度</span> × <span style="color:#4CAF82;">DecayRate</span>',previewControls:['Sensors','Signal','Baseline','Decay'],previewUnits:['點位','AI','週','率'],previewScores:['12','3-axis','6-8','PHM'],previewCompare:['Healthy Pattern','Problem Pattern'],previewCompareValues:['Stable','Warning'],previewResultValue:'Case Analysis',previewStep1:'案例 1 — 半導體 / 封測 / PCB',previewStep2:'案例 2 — 食品攪拌槽與搗碎機',previewResultLabel:'會員內容深度分析',lockTitle:'會員案例分析已準備好',lockSub:'內容就在這裡。完成會員驗證後，即可閱讀完整 Smart Tag 案例分析。',lockArrow:'往右留下 Email →',lockArrowMobile:'往下留下 Email ↓',cardTitle:'取得會員案例分析連結',cardSub:'留下基本資料，我們會把 Smart Tag 會員案例分析連結寄到您的 Email。',infoNote:'請使用可收信的 Email。點擊信中的會員內容連結後，即可開啟完整案例分析。',loginCardSub:'輸入您註冊過的 Email，我們會重新寄送 Smart Tag 會員案例分析連結給您。',loginInfoNote:'不用密碼。請到信箱點擊最新會員內容連結，即可回到案例分析頁。',submitBtn:'寄送會員內容連結 →',loginSubmitBtn:'寄送會員內容連結 →',successTitle:'會員內容連結已寄出！',successSub1:'我們已將 Smart Tag 案例分析連結寄送至',successSub2:'請前往信箱點擊連結，即可開啟完整會員案例分析。',verifiedBadge:'✓ 會員內容連結驗證成功',verifiedSub:'您的會員內容權限已開通。立即閱讀 Smart Tag 機台健康案例分析。',enterBtn:'閱讀 Smart Tag 案例分析 →' },
-  en:{ previewTag:'Member Content',previewEyebrow:'Smart Tag · Machine Health Case Analysis',previewTitle:'Smart Tag Case Analysis',previewSub:'Break down AIoT machine-health adoption from high-precision equipment to food machinery.',previewFormula:'<span style="color:#22d3ee;">Vibration</span> × <span style="color:#a78bfa;">Temp/Humidity</span> × <span style="color:#4CAF82;">DecayRate</span>',previewControls:['Sensors','Signal','Baseline','Decay'],previewUnits:['points','AI','weeks','rate'],previewScores:['12','3-axis','6-8','PHM'],previewCompare:['Healthy Pattern','Problem Pattern'],previewCompareValues:['Stable','Warning'],previewResultValue:'Case Analysis',previewStep1:'Case 1 — Semiconductor / OSAT / PCB',previewStep2:'Case 2 — Food mixing tanks and crushers',previewResultLabel:'Member-only deep analysis',lockTitle:'Member case analysis is ready',lockSub:'The content is right here. Verify your membership to read the full Smart Tag case analysis.',lockArrow:'Leave your Email on the right →',lockArrowMobile:'Scroll down and leave your Email ↓',cardTitle:'Get Member Case Analysis Link',cardSub:'Leave your basic details and we will send the Smart Tag member case-analysis link to your Email.',infoNote:'Use an Email you can access. Click the member content link in your inbox to open the full case analysis.',loginCardSub:'Enter the Email you registered with. We will send a fresh Smart Tag member case-analysis link.',loginInfoNote:'No password needed. Open the latest member content link in your inbox to return to the case analysis.',submitBtn:'Send Member Content Link →',loginSubmitBtn:'Send Member Content Link →',successTitle:'Member Content Link Sent!',successSub1:'We sent the Smart Tag case analysis link to',successSub2:'Open your inbox and click the link to launch the full member case analysis.',verifiedBadge:'✓ Member Content Link Verified',verifiedSub:'Your member content access is active. You can now read the Smart Tag machine-health case analysis.',enterBtn:'Read Smart Tag Case Analysis →' },
-  th:{ previewTag:'เนื้อหาสำหรับสมาชิก',previewEyebrow:'Smart Tag · Machine Health Case Analysis',previewTitle:'Smart Tag Case Analysis',previewSub:'วิเคราะห์การนำ AIoT machine health ไปใช้ ตั้งแต่อุปกรณ์ความแม่นยำสูงถึงเครื่องจักรอาหาร',previewFormula:'<span style="color:#22d3ee;">Vibration</span> × <span style="color:#a78bfa;">Temp/Humidity</span> × <span style="color:#4CAF82;">DecayRate</span>',previewControls:['Sensors','Signal','Baseline','Decay'],previewUnits:['points','AI','weeks','rate'],previewScores:['12','3-axis','6-8','PHM'],previewCompare:['Healthy Pattern','Problem Pattern'],previewCompareValues:['Stable','Warning'],previewResultValue:'Case Analysis',previewStep1:'Case 1 — Semiconductor / OSAT / PCB',previewStep2:'Case 2 — Food mixing tanks and crushers',previewResultLabel:'บทวิเคราะห์เชิงลึกสำหรับสมาชิก',lockTitle:'Case analysis สำหรับสมาชิกพร้อมแล้ว',lockSub:'เนื้อหาอยู่ตรงนี้แล้ว ยืนยันสมาชิกเพื่ออ่าน Smart Tag case analysis ฉบับเต็ม',lockArrow:'กรอก Email ด้านขวา →',lockArrowMobile:'เลื่อนลงแล้วกรอก Email ↓',cardTitle:'รับลิงก์ Member Case Analysis',cardSub:'กรอกข้อมูลพื้นฐาน แล้วเราจะส่งลิงก์ Smart Tag case analysis สำหรับสมาชิกไปที่ Email ของคุณ',infoNote:'กรุณาใช้ Email ที่เปิดอ่านได้ คลิกลิงก์ member content ใน Email เพื่อเปิด case analysis ฉบับเต็ม',loginCardSub:'กรอก Email ที่เคยลงทะเบียน เราจะส่งลิงก์ Smart Tag case analysis สำหรับสมาชิกใหม่ให้คุณ',loginInfoNote:'ไม่ต้องใช้รหัสผ่าน เปิดลิงก์ member content ล่าสุดใน Email เพื่อกลับไปยัง case analysis',submitBtn:'ส่งลิงก์ Member Content →',loginSubmitBtn:'ส่งลิงก์ Member Content →',successTitle:'ส่งลิงก์ Member Content แล้ว!',successSub1:'เราได้ส่งลิงก์ Smart Tag case analysis ไปที่',successSub2:'กรุณาเปิด Email แล้วคลิกลิงก์เพื่ออ่าน case analysis ฉบับเต็ม',verifiedBadge:'✓ ยืนยันลิงก์ Member Content แล้ว',verifiedSub:'สิทธิ์อ่านเนื้อหาสำหรับสมาชิกเปิดแล้ว สามารถอ่าน Smart Tag machine-health case analysis ได้ทันที',enterBtn:'อ่าน Smart Tag Case Analysis →' },
+  zh: {
+    previewTag: '會員專屬內容',
+    previewEyebrow: 'Smart Tag · Machine Health Case Analysis',
+    previewTitle: 'Smart Tag 案例分析',
+    previewSub: '從高精密設備到食品設備，拆解 AIoT 機台健康導入判斷。',
+    previewFormula: '<span style="color:#22d3ee;">震動</span> × <span style="color:#a78bfa;">溫溼度</span> × <span style="color:#4CAF82;">DecayRate</span>',
+    previewControls: ['Sensors', 'Signal', 'Baseline', 'Decay'],
+    previewUnits: ['點位', 'AI', '週', '率'],
+    previewScores: ['12', '3-axis', '6-8', 'PHM'],
+    previewCompare: ['Healthy Pattern', 'Problem Pattern'],
+    previewCompareValues: ['Stable', 'Warning'],
+    previewResultValue: 'Case Analysis',
+    previewStep1: '案例 1 — 半導體 / 封測 / PCB',
+    previewStep2: '案例 2 — 食品攪拌槽與搗碎機',
+    previewResultLabel: '會員內容深度分析',
+    lockTitle: '會員案例分析已準備好',
+    lockSub: '內容就在這裡。完成會員驗證後，即可閱讀完整 Smart Tag 案例分析。',
+    lockArrow: '往右留下 Email →',
+    lockArrowMobile: '往下留下 Email ↓',
+    cardTitle: '取得會員案例分析連結',
+    cardSub: '留下基本資料，我們會把 Smart Tag 會員案例分析連結寄到您的 Email。',
+    infoNote: '請使用可收信的 Email。點擊信中的會員內容連結後，即可開啟完整案例分析。',
+    loginCardSub: '輸入您註冊過的 Email，我們會重新寄送 Smart Tag 會員案例分析連結給您。',
+    loginInfoNote: '不用密碼。請到信箱點擊最新會員內容連結，即可回到案例分析頁。',
+    submitBtn: '寄送會員內容連結 →',
+    loginSubmitBtn: '寄送會員內容連結 →',
+    successTitle: '會員內容連結已寄出！',
+    successSub1: '我們已將 Smart Tag 案例分析連結寄送至',
+    successSub2: '請前往信箱點擊連結，即可開啟完整會員案例分析。',
+    verifiedBadge: '✓ 會員內容連結驗證成功',
+    verifiedSub: '您的會員內容權限已開通。立即閱讀 Smart Tag 機台健康案例分析。',
+    enterBtn: '閱讀 Smart Tag 案例分析 →',
+  },
+  en: {
+    previewTag: 'Member Content',
+    previewEyebrow: 'Smart Tag · Machine Health Case Analysis',
+    previewTitle: 'Smart Tag Case Analysis',
+    previewSub: 'Break down AIoT machine-health adoption from high-precision equipment to food machinery.',
+    previewFormula: '<span style="color:#22d3ee;">Vibration</span> × <span style="color:#a78bfa;">Temp/Humidity</span> × <span style="color:#4CAF82;">DecayRate</span>',
+    previewControls: ['Sensors', 'Signal', 'Baseline', 'Decay'],
+    previewUnits: ['points', 'AI', 'weeks', 'rate'],
+    previewScores: ['12', '3-axis', '6-8', 'PHM'],
+    previewCompare: ['Healthy Pattern', 'Problem Pattern'],
+    previewCompareValues: ['Stable', 'Warning'],
+    previewResultValue: 'Case Analysis',
+    previewStep1: 'Case 1 — Semiconductor / OSAT / PCB',
+    previewStep2: 'Case 2 — Food mixing tanks and crushers',
+    previewResultLabel: 'Member-only deep analysis',
+    lockTitle: 'Member case analysis is ready',
+    lockSub: 'The content is right here. Verify your membership to read the full Smart Tag case analysis.',
+    lockArrow: 'Leave your Email on the right →',
+    lockArrowMobile: 'Scroll down and leave your Email ↓',
+    cardTitle: 'Get Member Case Analysis Link',
+    cardSub: 'Leave your basic details and we will send the Smart Tag member case-analysis link to your Email.',
+    infoNote: 'Use an Email you can access. Click the member content link in your inbox to open the full case analysis.',
+    loginCardSub: 'Enter the Email you registered with. We will send a fresh Smart Tag member case-analysis link.',
+    loginInfoNote: 'No password needed. Open the latest member content link in your inbox to return to the case analysis.',
+    submitBtn: 'Send Member Content Link →',
+    loginSubmitBtn: 'Send Member Content Link →',
+    successTitle: 'Member Content Link Sent!',
+    successSub1: 'We sent the Smart Tag case analysis link to',
+    successSub2: 'Open your inbox and click the link to launch the full member case analysis.',
+    verifiedBadge: '✓ Member Content Link Verified',
+    verifiedSub: 'Your member content access is active. You can now read the Smart Tag machine-health case analysis.',
+    enterBtn: 'Read Smart Tag Case Analysis →',
+  },
+  th: {
+    previewTag: 'เนื้อหาสำหรับสมาชิก',
+    previewEyebrow: 'Smart Tag · Machine Health Case Analysis',
+    previewTitle: 'Smart Tag Case Analysis',
+    previewSub: 'วิเคราะห์การนำ AIoT machine health ไปใช้ ตั้งแต่อุปกรณ์ความแม่นยำสูงถึงเครื่องจักรอาหาร',
+    previewFormula: '<span style="color:#22d3ee;">Vibration</span> × <span style="color:#a78bfa;">Temp/Humidity</span> × <span style="color:#4CAF82;">DecayRate</span>',
+    previewControls: ['Sensors', 'Signal', 'Baseline', 'Decay'],
+    previewUnits: ['points', 'AI', 'weeks', 'rate'],
+    previewScores: ['12', '3-axis', '6-8', 'PHM'],
+    previewCompare: ['Healthy Pattern', 'Problem Pattern'],
+    previewCompareValues: ['Stable', 'Warning'],
+    previewResultValue: 'Case Analysis',
+    previewStep1: 'Case 1 — Semiconductor / OSAT / PCB',
+    previewStep2: 'Case 2 — Food mixing tanks and crushers',
+    previewResultLabel: 'บทวิเคราะห์เชิงลึกสำหรับสมาชิก',
+    lockTitle: 'Case analysis สำหรับสมาชิกพร้อมแล้ว',
+    lockSub: 'เนื้อหาอยู่ตรงนี้แล้ว ยืนยันสมาชิกเพื่ออ่าน Smart Tag case analysis ฉบับเต็ม',
+    lockArrow: 'กรอก Email ด้านขวา →',
+    lockArrowMobile: 'เลื่อนลงแล้วกรอก Email ↓',
+    cardTitle: 'รับลิงก์ Member Case Analysis',
+    cardSub: 'กรอกข้อมูลพื้นฐาน แล้วเราจะส่งลิงก์ Smart Tag case analysis สำหรับสมาชิกไปที่ Email ของคุณ',
+    infoNote: 'กรุณาใช้ Email ที่เปิดอ่านได้ คลิกลิงก์ member content ใน Email เพื่อเปิด case analysis ฉบับเต็ม',
+    loginCardSub: 'กรอก Email ที่เคยลงทะเบียน เราจะส่งลิงก์ Smart Tag case analysis สำหรับสมาชิกใหม่ให้คุณ',
+    loginInfoNote: 'ไม่ต้องใช้รหัสผ่าน เปิดลิงก์ member content ล่าสุดใน Email เพื่อกลับไปยัง case analysis',
+    submitBtn: 'ส่งลิงก์ Member Content →',
+    loginSubmitBtn: 'ส่งลิงก์ Member Content →',
+    successTitle: 'ส่งลิงก์ Member Content แล้ว!',
+    successSub1: 'เราได้ส่งลิงก์ Smart Tag case analysis ไปที่',
+    successSub2: 'กรุณาเปิด Email แล้วคลิกลิงก์เพื่ออ่าน case analysis ฉบับเต็ม',
+    verifiedBadge: '✓ ยืนยันลิงก์ Member Content แล้ว',
+    verifiedSub: 'สิทธิ์อ่านเนื้อหาสำหรับสมาชิกเปิดแล้ว สามารถอ่าน Smart Tag machine-health case analysis ได้ทันที',
+    enterBtn: 'อ่าน Smart Tag Case Analysis →',
+  },
 };
 
 // ─── Lang detection & switching ───────────────────────────────────────────
@@ -651,51 +815,107 @@ function setLang(lang, btn) {
   currentLang = lang;
   const t = getText(lang);
   localStorage.setItem('nnpc_lang', lang);
+
+  // Update html lang + body class
   document.documentElement.lang = t.htmlLang;
   document.body.className = [t.bodyClass, isMemberContentMode() ? 'member-content-mode' : ''].filter(Boolean).join(' ');
+
+  // Update lang buttons
   document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
-  else { const btns = document.querySelectorAll('.lang-btn'); const map = { zh: 0, en: 1, th: 2 }; if (btns[map[lang]]) btns[map[lang]].classList.add('active'); }
-  setHTML('t-homeLink', t.homeLink); setHTML('t-tagline', t.tagline);
-  setHTML('t-previewTag', t.previewTag); setHTML('t-previewTitle', t.previewTitle); setHTML('t-previewSub', t.previewSub);
-  setHTML('t-previewStep1', t.previewStep1); setHTML('t-previewStep2', t.previewStep2); setHTML('t-previewResultLabel', t.previewResultLabel);
-  setHTML('t-lockTitle', t.lockTitle); setHTML('t-lockSub', t.lockSub); setHTML('t-lockArrow', getLockArrowText(t));
-  setHTML('registerTab', t.registerTab); setHTML('loginTab', t.loginTab);
-  setHTML('t-lName', t.lName); setHTML('t-lPhone', t.lPhone); setHTML('t-lCompany', t.lCompany); setHTML('t-lJob', t.lJob); setHTML('t-lCountry', t.lCountry);
-  setAttr('name', 'placeholder', t.namePh); setAttr('company', 'placeholder', t.companyPh); setAttr('jobTitle', 'placeholder', t.jobPh);
-  setHTML('t-selectDefault', t.selectDefault); setHTML('t-selectOther', t.selectOther);
-  setHTML('t-privacy', t.privacy); setHTML('t-loginHint', t.loginHint); setHTML('t-loginLink', t.loginLink);
-  setHTML('t-registerHint', t.registerHint); setHTML('t-registerLink', t.registerLink);
-  setHTML('t-successTitle', t.successTitle); setHTML('t-successSub1', t.successSub1); setHTML('t-successSub2', t.successSub2); setHTML('t-successSub3', t.successSub3);
-  setHTML('t-resendHint', t.resendHint); setHTML('t-resendBtn', t.resendBtn);
-  setHTML('t-verifiedBadge', t.verifiedBadge); setHTML('t-verifiedTitle', t.verifiedTitle); setHTML('t-verifiedSub', t.verifiedSub); setHTML('t-enterBtn', t.enterBtn);
-  setHTML('t-footerWeb', t.footerWeb); setHTML('t-footerContact', t.footerContact); setHTML('t-footerPrivacy', t.footerPrivacy);
-  setLinks(); setPreviewContext(t); setMode(currentMode, false);
+  else {
+    const btns = document.querySelectorAll('.lang-btn');
+    const map = { zh: 0, en: 1, th: 2 };
+    if (btns[map[lang]]) btns[map[lang]].classList.add('active');
+  }
+
+  // Update all text
+  setHTML('t-homeLink', t.homeLink);
+  setHTML('t-tagline', t.tagline);
+  setHTML('t-previewTag', t.previewTag);
+  setHTML('t-previewTitle', t.previewTitle);
+  setHTML('t-previewSub', t.previewSub);
+  setHTML('t-previewStep1', t.previewStep1);
+  setHTML('t-previewStep2', t.previewStep2);
+  setHTML('t-previewResultLabel', t.previewResultLabel);
+  setHTML('t-lockTitle', t.lockTitle);
+  setHTML('t-lockSub', t.lockSub);
+  setHTML('t-lockArrow', getLockArrowText(t));
+  setHTML('registerTab', t.registerTab);
+  setHTML('loginTab', t.loginTab);
+  setHTML('t-lName', t.lName);
+  setHTML('t-lPhone', t.lPhone);
+  setHTML('t-lCompany', t.lCompany);
+  setHTML('t-lJob', t.lJob);
+  setHTML('t-lCountry', t.lCountry);
+  setAttr('name', 'placeholder', t.namePh);
+  setAttr('company', 'placeholder', t.companyPh);
+  setAttr('jobTitle', 'placeholder', t.jobPh);
+  setHTML('t-selectDefault', t.selectDefault);
+  setHTML('t-selectOther', t.selectOther);
+  setHTML('t-privacy', t.privacy);
+  setHTML('t-loginHint', t.loginHint);
+  setHTML('t-loginLink', t.loginLink);
+  setHTML('t-registerHint', t.registerHint);
+  setHTML('t-registerLink', t.registerLink);
+  setHTML('t-successTitle', t.successTitle);
+  setHTML('t-successSub1', t.successSub1);
+  setHTML('t-successSub2', t.successSub2);
+  setHTML('t-successSub3', t.successSub3);
+  setHTML('t-resendHint', t.resendHint);
+  setHTML('t-resendBtn', t.resendBtn);
+  setHTML('t-verifiedBadge', t.verifiedBadge);
+  setHTML('t-verifiedTitle', t.verifiedTitle);
+  setHTML('t-verifiedSub', t.verifiedSub);
+  setHTML('t-enterBtn', t.enterBtn);
+  setHTML('t-footerWeb', t.footerWeb);
+  setHTML('t-footerContact', t.footerContact);
+  setHTML('t-footerPrivacy', t.footerPrivacy);
+  setLinks();
+  setPreviewContext(t);
+  setMode(currentMode, false);
+
+  // Clear validation errors (they'll re-show in correct lang on next submit)
   document.querySelectorAll('.field-error').forEach(el => el.classList.remove('show'));
 }
 
 function setHTML(id, val) { const el = document.getElementById(id); if (el) el.innerHTML = val; }
 function setAttr(id, attr, val) { const el = document.getElementById(id); if (el) el.setAttribute(attr, val); }
 function getLockArrowText(t) { return window.matchMedia('(max-width: 900px)').matches ? t.lockArrowMobile : t.lockArrow; }
+
 function setLink(id, url) { const el = document.getElementById(id); if (el) el.href = url; }
 
 function setPreviewContext(t) {
-  const defaults = { previewEyebrow:'OEE · Overall Equipment Effectiveness', previewFormula:'<span style="color:#22d3ee;">A</span> 可動率 × <span style="color:#a78bfa;">P</span> 性能 × <span style="color:#4CAF82;">Q</span> 品質', previewControls:['Machines','Shifts','Workers','Days'], previewUnits:['台','班','人','天'], previewScores:['20','2','23','26'], previewCompare:['Current OEE','Target OEE'], previewCompareValues:['65%','78%'], previewResultValue:'฿ 1,872,000' };
+  const defaults = {
+    previewEyebrow: 'OEE · Overall Equipment Effectiveness',
+    previewFormula: '<span style="color:#22d3ee;">A</span> 可動率 × <span style="color:#a78bfa;">P</span> 性能 × <span style="color:#4CAF82;">Q</span> 品質',
+    previewControls: ['Machines', 'Shifts', 'Workers', 'Days'],
+    previewUnits: ['台', '班', '人', '天'],
+    previewScores: ['20', '2', '23', '26'],
+    previewCompare: ['Current OEE', 'Target OEE'],
+    previewCompareValues: ['65%', '78%'],
+    previewResultValue: '฿ 1,872,000',
+  };
   const copy = { ...defaults, ...t };
-  const eyebrow = document.querySelector('.preview-eyebrow'); const formula = document.querySelector('.preview-formula'); const result = document.querySelector('.preview-result strong');
+  const eyebrow = document.querySelector('.preview-eyebrow');
+  const formula = document.querySelector('.preview-formula');
+  const result = document.querySelector('.preview-result strong');
   if (eyebrow) eyebrow.textContent = copy.previewEyebrow;
   if (formula) formula.innerHTML = copy.previewFormula;
   const panels = document.querySelectorAll('.preview-panel');
   panels[0]?.querySelectorAll('.preview-control').forEach((el, i) => {
-    const label = el.querySelector('span small'); const value = el.querySelector('strong'); const unit = el.querySelector('span + small');
-    if (label) label.textContent = copy.previewControls[i]||defaults.previewControls[i];
-    if (value) value.textContent = copy.previewScores[i]||defaults.previewScores[i];
-    if (unit) unit.textContent = copy.previewUnits[i]||defaults.previewUnits[i];
+    const label = el.querySelector('span small');
+    const value = el.querySelector('strong');
+    const unit = el.querySelector('span + small');
+    if (label) label.textContent = copy.previewControls[i] || defaults.previewControls[i];
+    if (value) value.textContent = copy.previewScores[i] || defaults.previewScores[i];
+    if (unit) unit.textContent = copy.previewUnits[i] || defaults.previewUnits[i];
   });
   panels[1]?.querySelectorAll('.preview-control').forEach((el, i) => {
-    const label = el.querySelector('span small'); const value = el.querySelector('strong');
-    if (label) label.textContent = copy.previewCompare[i]||defaults.previewCompare[i];
-    if (value) value.textContent = copy.previewCompareValues[i]||defaults.previewCompareValues[i];
+    const label = el.querySelector('span small');
+    const value = el.querySelector('strong');
+    if (label) label.textContent = copy.previewCompare[i] || defaults.previewCompare[i];
+    if (value) value.textContent = copy.previewCompareValues[i] || defaults.previewCompareValues[i];
   });
   if (result) result.textContent = copy.previewResultValue;
 }
@@ -703,25 +923,47 @@ function setPreviewContext(t) {
 function safeReturnPath(value) {
   const text = String(value || '').trim();
   if (!text || !text.startsWith('/') || text.startsWith('//')) return '';
-  try { const url = new URL(text, window.location.origin); return `${url.pathname}${url.search}${url.hash}`; } catch (err) { return ''; }
+  try {
+    const url = new URL(text, window.location.origin);
+    return `${url.pathname}${url.search}${url.hash}`;
+  } catch (err) {
+    return '';
+  }
 }
 
 function getReturnTo() {
   const params = new URLSearchParams(window.location.search);
   const fromUrl = safeReturnPath(params.get('return'));
   if (fromUrl) sessionStorage.setItem('nnpc_return_to', fromUrl);
-  if (params.get('t') || params.get('token') || params.get('verified') === '1') { return fromUrl || safeReturnPath(sessionStorage.getItem('nnpc_return_to')); }
+  if (params.get('t') || params.get('token') || params.get('verified') === '1') {
+    return fromUrl || safeReturnPath(sessionStorage.getItem('nnpc_return_to'));
+  }
   return fromUrl;
 }
 
-function isMemberContentMode() { const returnTo = getReturnTo(); return returnTo && !returnTo.startsWith('/oee'); }
-function getText(lang) { return { ...T[lang], ...(isMemberContentMode() ? MEMBER_CONTENT_COPY[lang] : {}) }; }
-function getEnterUrl() { return getReturnTo() || CONFIG.OEE_TOOL_URL; }
+function isMemberContentMode() {
+  const returnTo = getReturnTo();
+  return returnTo && !returnTo.startsWith('/oee');
+}
+
+function getText(lang) {
+  return {
+    ...T[lang],
+    ...(isMemberContentMode() ? MEMBER_CONTENT_COPY[lang] : {}),
+  };
+}
+
+function getEnterUrl() {
+  return getReturnTo() || CONFIG.OEE_TOOL_URL;
+}
 
 function setLinks() {
-  setLink('t-homeLink', CONFIG.WEBSITE_URL); setLink('brandHomeLink', CONFIG.WEBSITE_URL);
-  setLink('t-enterBtn', getEnterUrl()); setLink('t-footerWeb', CONFIG.WEBSITE_URL);
-  setLink('t-footerContact', CONFIG.CONTACT_URL); setLink('t-footerPrivacy', CONFIG.PRIVACY_URL);
+  setLink('t-homeLink', CONFIG.WEBSITE_URL);
+  setLink('brandHomeLink', CONFIG.WEBSITE_URL);
+  setLink('t-enterBtn', getEnterUrl());
+  setLink('t-footerWeb', CONFIG.WEBSITE_URL);
+  setLink('t-footerContact', CONFIG.CONTACT_URL);
+  setLink('t-footerPrivacy', CONFIG.PRIVACY_URL);
   document.querySelectorAll('a[href="privacy-policy.html"]').forEach(el => { el.href = CONFIG.PRIVACY_URL; });
   document.querySelectorAll('a[href="terms.html"]').forEach(el => { el.href = CONFIG.TERMS_URL; });
 }
@@ -730,19 +972,26 @@ function setMode(mode, clearErrors = true) {
   currentMode = mode === 'login' ? 'login' : 'register';
   const t = getText(currentLang);
   const isLogin = currentMode === 'login';
+
   document.getElementById('registerTab').classList.toggle('active', !isLogin);
   document.getElementById('loginTab').classList.toggle('active', isLogin);
   document.getElementById('registerTab').setAttribute('aria-selected', String(!isLogin));
   document.getElementById('loginTab').setAttribute('aria-selected', String(isLogin));
+
   setHTML('t-cardTitle', isLogin ? t.loginCardTitle : t.cardTitle);
   setHTML('t-cardSub', isLogin ? t.loginCardSub : t.cardSub);
   setHTML('t-infoNote', isLogin ? t.loginInfoNote : t.infoNote);
   setHTML('t-submitBtn', isLogin ? t.loginSubmitBtn : t.submitBtn);
-  ['name', 'company'].forEach(id => { const field = document.getElementById(id).closest('.field'); field.style.display = isLogin ? 'none' : ''; });
+
+  ['name', 'company'].forEach(id => {
+    const field = document.getElementById(id).closest('.field');
+    field.style.display = isLogin ? 'none' : '';
+  });
   document.querySelector('.checkbox-row').style.display = isLogin ? 'none' : '';
   document.getElementById('privacyErr').style.display = isLogin ? 'none' : '';
   document.getElementById('registerHelper').classList.toggle('show', !isLogin);
   document.getElementById('loginHelper').classList.toggle('show', isLogin);
+
   if (clearErrors) {
     document.getElementById('errorBanner').classList.remove('show');
     document.querySelectorAll('.field-error').forEach(el => el.classList.remove('show'));
@@ -750,104 +999,234 @@ function setMode(mode, clearErrors = true) {
   }
 }
 
-// ─── Init ──────────────────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', () => {
-  const lang = detectLang();
-  setLang(lang, null);
+// ─── Init ─────────────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  // Auto-detect language
+  setLang(detectLang(), null);
+  setLinks();
 
+  // Check if coming from verification email
   const params = new URLSearchParams(window.location.search);
-  const token = params.get('t') || params.get('token');
-  if (token) { verifyToken(token); return; }
   if (params.get('verified') === '1') {
-    document.getElementById('formScreen').style.display = 'none';
-    document.getElementById('verifiedScreen').classList.add('show');
-    const link = document.getElementById('t-enterBtn'); if (link) link.href = getEnterUrl();
-    return;
+    showVerifiedScreen();
+  } else if (params.get('t') || params.get('token')) {
+    verifyToken(params.get('t') || params.get('token'));
   }
-
-  document.getElementById('registerForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    if (!validateForm()) return;
-    await submitForm();
-  });
 });
 
-function validateForm() {
-  const t = getText(currentLang); const isLogin = currentMode === 'login'; let ok = true;
-  const show = (id, msg) => { const el = document.getElementById(id); el.textContent = msg; el.classList.add('show'); const field = document.getElementById(id.replace('Err','')); if(field) field.classList.add('error'); ok = false; };
-  const clear = (id) => { const el = document.getElementById(id); el.classList.remove('show'); const field = document.getElementById(id.replace('Err','')); if(field) field.classList.remove('error'); };
-  if (!isLogin) {
-    const name = document.getElementById('name').value.trim(); if (!name) show('nameErr', t.errName); else clear('nameErr');
-    const company = document.getElementById('company').value.trim(); if (!company) show('companyErr', t.errCompany); else clear('companyErr');
+window.addEventListener('resize', () => {
+  const t = getText(currentLang);
+  setHTML('t-lockArrow', getLockArrowText(t));
+});
+
+// ─── Form submit ──────────────────────────────────────────────────────────
+document.getElementById('registerForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (currentMode === 'login') {
+    if (!validateLogin()) return;
+  } else if (!validate()) return;
+
+  const btn = document.getElementById('submitBtn');
+  btn.classList.add('loading');
+  btn.disabled = true;
+  document.getElementById('errorBanner').classList.remove('show');
+
+  try {
+    if (currentMode === 'login') {
+      const result = await loginMember(v('email'));
+      showLinkSent(result.email || v('email'));
+    } else {
+      const data = {
+        name: v('name'), phone: v('phone'), company: v('company'),
+        email: v('email'), jobTitle: v('jobTitle'), country: v('country') || detectCountry(),
+        language: currentLang,
+        source: isMemberContentMode() ? 'official-site-member-content' : 'official-site-oee-registration',
+        returnTo: getReturnTo(),
+        pageUrl: window.location.href.split('?')[0],
+        website: v('website'),
+        registeredAt: new Date().toISOString(),
+      };
+      lastEmail = data.email;
+      const result = await registerMember(data);
+      showLinkSent(result.email || data.email);
+    }
+  } catch (err) {
+    console.error(err);
+    showError(err.message || getText(currentLang).errNetwork);
+  } finally {
+    btn.classList.remove('loading');
+    btn.disabled = false;
   }
-  const email = document.getElementById('email').value.trim();
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) show('emailErr', t.errEmail); else clear('emailErr');
-  if (!isLogin) {
-    const privacy = document.getElementById('privacy').checked;
-    if (!privacy) { const el = document.getElementById('privacyErr'); el.textContent = t.errPrivacy; el.classList.add('show'); ok = false; }
-    else { document.getElementById('privacyErr').classList.remove('show'); }
+});
+
+async function registerMember(data) {
+  if (data.website) return { ok: true, email: data.email };
+  try {
+    const result = await postJSON(CONFIG.REGISTER_ENDPOINT, data);
+    if (!result.ok) throw new Error(result.message || getText(currentLang).errGeneric);
+    return result;
+  } catch (err) {
+    if (CONFIG.API_OPTIONAL_FOR_PREVIEW) {
+      console.warn('Member API unavailable; showing the link-sent screen for local preview.', err);
+      return { ok: true, email: data.email, offline: true };
+    }
+    throw err;
+  }
+}
+
+async function loginMember(email) {
+  lastEmail = email;
+  try {
+    const result = await postJSON(CONFIG.RESEND_ENDPOINT, {
+      email,
+      language: currentLang,
+      returnTo: getReturnTo(),
+      pageUrl: window.location.href.split('?')[0],
+    });
+    if (!result.ok) throw new Error(result.message || getText(currentLang).errGeneric);
+    return result;
+  } catch (err) {
+    if (/member not found/i.test(err.message)) {
+      throw new Error(getText(currentLang).loginNotFound);
+    }
+    if (CONFIG.API_OPTIONAL_FOR_PREVIEW) {
+      console.warn('Member API unavailable; showing the link-sent screen for local preview.', err);
+      return { ok: true, email, offline: true };
+    }
+    throw err;
+  }
+}
+
+async function resendEmail() {
+  if (!lastEmail) return;
+  try {
+    const result = await postJSON(CONFIG.RESEND_ENDPOINT, {
+      email: lastEmail,
+      language: currentLang,
+      returnTo: getReturnTo(),
+      pageUrl: window.location.href.split('?')[0],
+    });
+    if (!result.ok) throw new Error(result.message || getText(currentLang).errGeneric);
+    alert(getText(currentLang).resendOk);
+  } catch(e) {
+    alert(e.message || getText(currentLang).errNetwork);
+  }
+}
+
+async function verifyToken(token) {
+  try {
+    const result = await postJSON(CONFIG.VERIFY_ENDPOINT, { token });
+    if (!result.ok) throw new Error(result.message || getText(currentLang).errGeneric);
+    if (result.email) {
+      sessionStorage.setItem('nnpc_member_email', result.email);
+      localStorage.setItem('nnpc_member_email', result.email);
+    }
+    showVerifiedScreen();
+  } catch (err) {
+    console.error(err);
+    showError(err.message || getText(currentLang).errNetwork);
+  }
+}
+
+async function postJSON(url, payload) {
+  let res;
+  try {
+    res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+  } catch (err) {
+    throw new Error(getText(currentLang).errNetwork);
+  }
+
+  const isJSON = res.headers.get('content-type')?.includes('application/json');
+  const body = isJSON ? await res.json() : {};
+  if (!res.ok) {
+    throw new Error(body.message || getText(currentLang).errNetwork);
+  }
+  return { ok: true, ...body };
+}
+
+function showVerifiedScreen() {
+  document.getElementById('formScreen').style.display = 'none';
+  document.getElementById('successScreen').classList.remove('show');
+  document.getElementById('verifiedScreen').classList.add('show');
+  window.NNPCMemberAuth?.grant(sessionStorage.getItem('nnpc_member_email') || '');
+  setLink('t-enterBtn', getEnterUrl());
+}
+
+function showLinkSent(email) {
+  sessionStorage.setItem('nnpc_member_email', email);
+  localStorage.setItem('nnpc_member_email', email);
+  document.getElementById('formScreen').style.display = 'none';
+  document.getElementById('sentEmailDisplay').textContent = email;
+  document.getElementById('successScreen').classList.add('show');
+}
+
+function detectCountry() {
+  const lang = (navigator.language || '').toLowerCase();
+  if (lang.includes('th')) return 'TH';
+  if (lang.includes('tw')) return 'TW';
+  if (lang.includes('sg')) return 'SG';
+  return 'OTHER';
+}
+
+// ─── Validation ───────────────────────────────────────────────────────────
+function v(id) { return document.getElementById(id).value.trim(); }
+
+function validate() {
+  const t = getText(currentLang);
+  let ok = true;
+  const checks = [
+    { id:'name',     errId:'nameErr',    test:()=>v('name').length>=2,   msg:t.errName },
+    { id:'company',  errId:'companyErr', test:()=>v('company').length>=2,msg:t.errCompany },
+    { id:'email',    errId:'emailErr',   test:()=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('email')), msg:t.errEmail },
+  ];
+  checks.forEach(({ id, errId, test, msg }) => {
+    const el = document.getElementById(id);
+    const errEl = document.getElementById(errId);
+    if (!test()) {
+      el.classList.add('error');
+      errEl.textContent = msg;
+      errEl.classList.add('show');
+      ok = false;
+    } else {
+      el.classList.remove('error');
+      errEl.classList.remove('show');
+    }
+  });
+  const priv = document.getElementById('privacy');
+  const privErr = document.getElementById('privacyErr');
+  if (!priv.checked) {
+    privErr.textContent = t.errPrivacy;
+    privErr.classList.add('show');
+    ok = false;
+  } else {
+    privErr.classList.remove('show');
   }
   return ok;
 }
 
-async function submitForm() {
-  const t = getText(currentLang); const isLogin = currentMode === 'login';
-  const btn = document.getElementById('submitBtn'); btn.classList.add('loading'); btn.disabled = true;
-  document.getElementById('errorBanner').classList.remove('show');
-  const website = document.getElementById('website').value;
-  if (website) { btn.classList.remove('loading'); btn.disabled = false; return; }
-  const email = document.getElementById('email').value.trim();
-  const payload = { email, lang: currentLang, returnTo: getReturnTo() || CONFIG.OEE_TOOL_URL };
-  if (!isLogin) { payload.name = document.getElementById('name').value.trim(); payload.company = document.getElementById('company').value.trim(); }
-  if (CONFIG.API_OPTIONAL_FOR_PREVIEW) {
-    await new Promise(r => setTimeout(r, 800));
-    document.getElementById('sentEmailDisplay').textContent = email;
-    document.getElementById('formScreen').style.display = 'none';
-    document.getElementById('successScreen').classList.add('show');
-    setTimeout(() => { const rl = document.querySelector('.resend-link'); if (rl) rl.style.display = 'block'; }, 15000);
-    btn.classList.remove('loading'); btn.disabled = false; return;
+function validateLogin() {
+  const t = getText(currentLang);
+  const email = document.getElementById('email');
+  const emailErr = document.getElementById('emailErr');
+  const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('email'));
+  if (!ok) {
+    email.classList.add('error');
+    emailErr.textContent = t.errEmail;
+    emailErr.classList.add('show');
+  } else {
+    email.classList.remove('error');
+    emailErr.classList.remove('show');
   }
-  try {
-    const endpoint = isLogin ? CONFIG.RESEND_ENDPOINT : CONFIG.REGISTER_ENDPOINT;
-    const res = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-    const data = await res.json();
-    if (res.ok) {
-      document.getElementById('sentEmailDisplay').textContent = email;
-      document.getElementById('formScreen').style.display = 'none';
-      document.getElementById('successScreen').classList.add('show');
-      setTimeout(() => { const rl = document.querySelector('.resend-link'); if (rl) rl.style.display = 'block'; }, 15000);
-    } else {
-      const banner = document.getElementById('errorBanner');
-      if (res.status === 404 && isLogin) banner.textContent = t.loginNotFound; else banner.textContent = data.message || t.errGeneric;
-      banner.classList.add('show');
-    }
-  } catch (err) { const banner = document.getElementById('errorBanner'); banner.textContent = t.errNetwork; banner.classList.add('show'); }
-  btn.classList.remove('loading'); btn.disabled = false;
+  return ok;
 }
 
-async function verifyToken(token) {
-  if (CONFIG.API_OPTIONAL_FOR_PREVIEW) {
-    document.getElementById('formScreen').style.display = 'none';
-    document.getElementById('verifiedScreen').classList.add('show');
-    const link = document.getElementById('t-enterBtn'); if (link) link.href = getEnterUrl(); return;
-  }
-  try {
-    const res = await fetch(CONFIG.VERIFY_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ token }) });
-    const data = await res.json();
-    if (res.ok) {
-      document.getElementById('formScreen').style.display = 'none';
-      document.getElementById('verifiedScreen').classList.add('show');
-      const link = document.getElementById('t-enterBtn'); if (link) link.href = data.redirectUrl || getEnterUrl();
-    } else { const t = getText(currentLang); const banner = document.getElementById('errorBanner'); banner.textContent = data.message || t.errGeneric; banner.classList.add('show'); }
-  } catch (err) { const t = getText(currentLang); const banner = document.getElementById('errorBanner'); banner.textContent = t.errNetwork; banner.classList.add('show'); }
-}
-
-async function resendEmail() {
-  const t = getText(currentLang); const email = document.getElementById('sentEmailDisplay').textContent; if (!email) return;
-  try {
-    const res = await fetch(CONFIG.RESEND_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, lang: currentLang }) });
-    if (res.ok) { const rl = document.querySelector('.resend-link'); if (rl) rl.innerHTML = `<span>${t.resendOk}</span>`; }
-  } catch (e) {}
+function showError(msg) {
+  const el = document.getElementById('errorBanner');
+  el.textContent = msg; el.classList.add('show');
 }
 </script>
 </body>
