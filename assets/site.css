@@ -431,6 +431,54 @@ h1 {
 .page-hero { padding: 4rem 0 2.5rem; }
 .page-hero h1 { max-width: 900px; }
 .page-hero p { color: var(--muted); font-size: 1.16rem; max-width: 860px; }
+.diagnostic-band {
+  padding: 0 0 4rem;
+}
+.diagnostic-panel {
+  background: linear-gradient(135deg, rgba(225,168,19,0.16), rgba(36,36,36,0.96) 42%, rgba(28,28,28,0.98));
+  border: 1px solid rgba(225,168,19,0.28);
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(420px, 1.1fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+.diagnostic-copy h2 {
+  font-size: clamp(1.55rem, 2.5vw, 2.45rem);
+  line-height: 1.15;
+  margin: 0 0 0.7rem;
+}
+.diagnostic-copy p {
+  color: var(--muted);
+  margin: 0;
+}
+.diagnostic-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+.diagnostic-card {
+  background: rgba(0,0,0,0.2);
+  border: 1px solid var(--line);
+  padding: 0.95rem;
+}
+.diagnostic-card strong {
+  color: var(--text);
+  display: block;
+  margin-bottom: 0.35rem;
+}
+.diagnostic-card p {
+  color: var(--muted);
+  font-size: 0.98rem;
+  margin: 0;
+}
+.diagnostic-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.2rem;
+}
 .detail-grid { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 2rem; }
 .side-panel { background: var(--panel); border: 1px solid var(--line); padding: 1.2rem; height: fit-content; position: sticky; top: 96px; }
 .side-panel h3 { color: var(--gold); }
@@ -712,7 +760,8 @@ h1 {
   .dropdown.open .dropdown-menu { display: grid; }
   .dropdown:hover .dropdown-menu { display: none; }
   .dropdown.open:hover .dropdown-menu { display: grid; }
-  .hero-grid, .split, .detail-grid, .contact-grid, .photo-grid { grid-template-columns: 1fr; }
+  .hero-grid, .split, .detail-grid, .contact-grid, .photo-grid, .diagnostic-panel { grid-template-columns: 1fr; }
+  .diagnostic-grid { grid-template-columns: 1fr; }
   .immersive-hero {
     min-height: auto;
     padding: 4.5rem 0 3rem;
