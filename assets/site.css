@@ -330,9 +330,9 @@ h1 {
 .loss-item p { color: var(--muted); margin: 0; }
 .field-story {
   display: grid;
-  grid-template-columns: minmax(300px, 0.82fr) minmax(520px, 1.18fr);
-  gap: clamp(1rem, 2.2vw, 1.6rem);
-  align-items: stretch;
+  grid-template-columns: 1fr;
+  gap: clamp(1.05rem, 2vw, 1.35rem);
+  align-items: start;
   margin-top: 1.35rem;
 }
 .field-copy {
@@ -340,10 +340,7 @@ h1 {
     linear-gradient(135deg, rgba(225,168,19,0.14), rgba(255,255,255,0.025)),
     var(--panel);
   border: 1px solid rgba(225,168,19,0.28);
-  padding: clamp(1.1rem, 2vw, 1.45rem);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  padding: clamp(1.15rem, 2vw, 1.55rem);
 }
 .field-copy h3 {
   font-family: var(--brand-display), 'Noto Sans TC', 'Noto Sans Thai', sans-serif;
@@ -354,14 +351,16 @@ h1 {
   margin: 0.42rem 0 0.75rem;
 }
 .field-copy p { color: var(--muted); margin: 0; font-size: 1.02rem; }
+.field-copy h3,
+.field-copy p { max-width: 920px; }
 .field-photos {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.72rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
 }
 .field-photo {
   display: grid;
-  grid-template-columns: minmax(170px, 230px) minmax(0, 1fr);
+  grid-template-columns: 1fr;
   background: var(--panel);
   border: 1px solid var(--line);
   min-height: 100%;
@@ -369,15 +368,15 @@ h1 {
 .field-photo img {
   display: block;
   width: 100%;
-  height: 100%;
-  min-height: 154px;
+  height: auto;
+  aspect-ratio: 16 / 10;
   object-fit: cover;
 }
 .field-photo figcaption {
   display: grid;
   gap: 0.35rem;
-  align-content: center;
-  padding: 1rem 1.1rem;
+  align-content: start;
+  padding: 0.95rem 1rem 1.05rem;
 }
 .field-photo strong { color: var(--text); font-size: 1.03rem; }
 .field-photo span { color: var(--muted); line-height: 1.55; }
@@ -385,7 +384,7 @@ h1 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 0.55rem;
-  margin-top: 0.72rem;
+  margin-top: 1rem;
 }
 .flow-rail span {
   position: relative;
@@ -903,8 +902,7 @@ h1 {
   .insight-aside { position: static; }
   .insight-grid { grid-template-columns: 1fr; }
   .loss-grid { grid-template-columns: 1fr 1fr; }
-  .signal-grid, .outcome-grid, .solution-path { grid-template-columns: 1fr 1fr; }
-  .field-photo { grid-template-columns: minmax(150px, 220px) minmax(0, 1fr); }
+  .signal-grid, .outcome-grid, .solution-path, .field-photos { grid-template-columns: 1fr 1fr; }
   .side-panel { position: static; }
 }
 
