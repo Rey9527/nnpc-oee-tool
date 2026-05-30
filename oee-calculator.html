@@ -34,7 +34,7 @@
   /* ── AUTH GATE ─────────────────────────────── */
   #authGate {
     position: fixed; inset: 0;
-    background: rgba(10,10,10,0.97);
+    background: rgba(10,10,10,0.92);
     backdrop-filter: blur(8px);
     display: flex; align-items: center; justify-content: center;
     z-index: 100;
@@ -320,6 +320,80 @@
   /* Footer */
   .page-footer { text-align: center; padding: 1.5rem; font-size: 0.95rem; color: #BDBDBD; line-height: 1.7; }
   .page-footer a { color: var(--gold); text-decoration: none; }
+
+  /* Brand system alignment */
+  .gate-card,
+  .gate-btn,
+  .navbar,
+  .nav-tag,
+  .lang-btn,
+  .oee-formula,
+  .card,
+  .input-control,
+  .input-val,
+  .base-oee-row,
+  .slider-row,
+  .factor-badge,
+  .slider-value-box,
+  .result-card,
+  .breakdown-item,
+  .oee-pill,
+  .cta-strip,
+  .cta-btn {
+    border-radius: var(--radius);
+  }
+  .gate-card,
+  .card,
+  .result-card {
+    background: linear-gradient(180deg, rgba(38,38,38,0.98), rgba(31,31,31,0.98));
+    box-shadow: var(--shadow);
+  }
+  .gate-card {
+    border-color: rgba(225,168,19,0.36);
+  }
+  .gate-title,
+  .gate-sub,
+  .gate-login {
+    opacity: 1;
+  }
+  .navbar {
+    background: rgba(23,23,23,0.92);
+    backdrop-filter: blur(16px);
+  }
+  .nav-back,
+  .lang-btn,
+  .gate-btn,
+  .cta-btn {
+    transition: transform var(--fast), border-color var(--fast), background var(--fast), color var(--fast), box-shadow var(--fast);
+  }
+  .nav-back:hover,
+  .lang-btn:hover,
+  .gate-btn:hover,
+  .cta-btn:hover {
+    transform: translateY(-1px);
+  }
+  .gate-btn,
+  .cta-btn {
+    color: #171717;
+    box-shadow: 0 10px 26px rgba(225,168,19,0.15);
+  }
+  .gate-btn:hover,
+  .cta-btn:hover {
+    background: var(--gold);
+    box-shadow: 0 14px 38px rgba(225,168,19,0.2);
+  }
+  .slider-row:hover,
+  .card:hover {
+    border-color: rgba(225,168,19,0.4);
+  }
+  .input-val:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(225,168,19,0.12);
+  }
+  .page-footer a:hover,
+  .gate-login a:hover {
+    color: var(--text);
+  }
 
   @media (max-width: 520px) {
     .result-breakdown { grid-template-columns: 1fr; }

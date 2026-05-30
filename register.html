@@ -289,6 +289,78 @@
   .page-footer { grid-column: 1 / -1; text-align: center; margin-top: 0.75rem; font-size: 0.98rem; color: var(--muted); line-height: 1.8; }
   .page-footer a { color: var(--gold); text-decoration: none; }
 
+  /* Brand system alignment */
+  .home-link,
+  .lang-btn,
+  .tool-preview,
+  .preview-tag,
+  .preview-formula,
+  .preview-panel,
+  .preview-control,
+  .preview-result,
+  .lock-box,
+  .card,
+  .mode-tabs,
+  .mode-tab,
+  .field input,
+  .field select,
+  .info-note,
+  .error-banner,
+  .btn-submit,
+  .btn-enter {
+    border-radius: var(--radius);
+  }
+  .home-link,
+  .lang-btn {
+    min-height: 42px;
+    transition: transform var(--fast), border-color var(--fast), background var(--fast), color var(--fast), box-shadow var(--fast);
+  }
+  .home-link:hover,
+  .lang-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.2);
+  }
+  .tool-preview,
+  .card {
+    background: linear-gradient(180deg, rgba(38,38,38,0.98), rgba(31,31,31,0.98));
+    box-shadow: var(--shadow);
+  }
+  .card {
+    padding: clamp(1.35rem, 2.6vw, 2rem);
+  }
+  .preview-body {
+    filter: none;
+    opacity: 0.92;
+  }
+  .lock-layer {
+    backdrop-filter: blur(1.5px);
+  }
+  .lock-box {
+    box-shadow: var(--shadow);
+  }
+  .mode-tab.active,
+  .btn-submit,
+  .btn-enter {
+    color: #171717;
+    box-shadow: 0 10px 26px rgba(225,168,19,0.15);
+  }
+  .btn-submit:hover,
+  .btn-enter:hover {
+    transform: translateY(-2px);
+    background: var(--gold);
+    box-shadow: 0 14px 38px rgba(225,168,19,0.2);
+  }
+  .field input:focus,
+  .field select:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(225,168,19,0.12);
+  }
+  .checkbox-row label a:hover,
+  .login-hint a:hover,
+  .page-footer a:hover {
+    color: var(--text);
+  }
+
   @media (max-width: 480px) {
     .access-layout { grid-template-columns: 1fr; }
     .tool-preview { min-height: 520px; }
@@ -297,10 +369,15 @@
     .form-grid { grid-template-columns: 1fr; }
     .form-grid .full { grid-column: 1; }
     .card { padding: 1.75rem 1.25rem; }
-    body { padding-top: 4.5rem; }
-    .home-link { top: 0.5rem; left: 0.5rem; min-height: 34px; padding: 0.26rem 0.52rem; font-size: 0.82rem; }
-    .lang-bar { top: 0.5rem; right: 0.5rem; left: 0.5rem; justify-content: center; }
-    .lang-btn { padding: 0.32rem 0.58rem; }
+    body { padding-top: 5.1rem; }
+    .home-link {
+      top: 0.55rem; left: 0.75rem;
+      min-height: 36px; max-width: 9.3rem;
+      padding: 0.32rem 0.58rem; font-size: 0.82rem;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .lang-bar { top: 0.55rem; right: 0.75rem; left: auto; justify-content: flex-end; }
+    .lang-btn { min-height: 36px; padding: 0.32rem 0.52rem; font-size: 0.84rem; }
     .logo-wrap { margin-bottom: 1.75rem; }
   }
 </style>
