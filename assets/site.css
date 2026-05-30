@@ -331,6 +331,7 @@ h1 {
 .order-card p { color: var(--muted); margin: 0.45rem 0 0; }
 
 .section { padding: clamp(3.5rem, 6vw, 5.6rem) 0; border-top: 1px solid rgba(255,255,255,0.06); }
+.section-compact { padding: clamp(1.7rem, 3.4vw, 2.7rem) 0; }
 .section-head { max-width: 780px; margin-bottom: 1.7rem; }
 .section-head h2 {
   font-family: var(--brand-display), 'Noto Sans TC', 'Noto Sans Thai', sans-serif;
@@ -356,10 +357,103 @@ h1 {
 .card h3 { font-size: 1.22rem; line-height: 1.25; margin-bottom: 0.7rem; }
 .card p { color: var(--muted); margin-bottom: 1rem; }
 .card a { color: var(--gold); font-weight: 800; }
+.solution-showcase {
+  display: grid;
+  grid-template-columns: 1.25fr 0.875fr 0.875fr;
+  gap: 1rem;
+  margin-top: 1.2rem;
+}
+.showcase-card {
+  position: relative;
+  min-height: 320px;
+  overflow: hidden;
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+.showcase-card img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  opacity: 0.78;
+  transition: transform 420ms ease, opacity var(--fast);
+}
+.showcase-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(15,15,15,0.92), rgba(15,15,15,0.18) 62%);
+}
+.showcase-card figcaption {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 1;
+  display: grid;
+  gap: 0.3rem;
+}
+.showcase-card strong { color: var(--text); font-size: 1.18rem; }
+.showcase-card span { color: var(--muted); line-height: 1.55; }
+.showcase-card:hover img { transform: scale(1.035); opacity: 0.92; }
 .loss-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
 .loss-item { background: var(--panel); border: 1px solid var(--line); padding: 1.1rem; border-radius: var(--radius); }
 .loss-item strong { display: block; font-size: 1.08rem; margin-bottom: 0.35rem; }
 .loss-item p { color: var(--muted); margin: 0; }
+.home-flow {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(1rem, 3vw, 2rem);
+  align-items: stretch;
+  padding: clamp(1rem, 2.6vw, 1.45rem);
+  border: 1px solid rgba(225,168,19,0.24);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(135deg, rgba(225,168,19,0.13), rgba(34,34,34,0.96) 44%, rgba(23,23,23,0.98)),
+    var(--panel);
+  box-shadow: 0 12px 42px rgba(0,0,0,0.18);
+}
+.home-flow-copy {
+  display: grid;
+  align-content: center;
+  gap: 0.4rem;
+}
+.home-flow-copy h2 {
+  font-size: clamp(1.6rem, 3.1vw, 2.6rem);
+  line-height: 1.14;
+  max-width: 520px;
+  margin: 0;
+}
+.home-flow-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+.home-flow-step {
+  min-height: 166px;
+  display: grid;
+  align-content: start;
+  gap: 0.4rem;
+  border: 1px solid var(--line);
+  background: rgba(0,0,0,0.16);
+  border-radius: var(--radius);
+  padding: 1rem;
+}
+.home-flow-step span {
+  color: #171717;
+  background: var(--gold);
+  display: inline-grid;
+  place-items: center;
+  width: 42px;
+  height: 34px;
+  border-radius: var(--radius);
+  font-weight: 900;
+  margin-bottom: 0.25rem;
+}
+.home-flow-step strong { font-size: 1.08rem; color: var(--text); }
+.home-flow-step p { color: var(--muted); margin: 0; line-height: 1.55; }
 .field-story {
   display: grid;
   grid-template-columns: minmax(280px, 0.82fr) minmax(0, 1.18fr);
@@ -971,7 +1065,7 @@ h1 {
   .dropdown.open .dropdown-menu { display: grid; }
   .dropdown:hover .dropdown-menu { display: none; }
   .dropdown.open:hover .dropdown-menu { display: grid; }
-  .hero-grid, .split, .detail-grid, .contact-grid, .photo-grid, .diagnostic-panel, .lab-band, .field-story, .field-visual { grid-template-columns: 1fr; }
+  .hero-grid, .split, .detail-grid, .contact-grid, .photo-grid, .diagnostic-panel, .lab-band, .field-story, .field-visual, .home-flow, .solution-showcase { grid-template-columns: 1fr; }
   .diagnostic-grid { grid-template-columns: 1fr; }
   .immersive-hero {
     min-height: auto;
@@ -990,7 +1084,7 @@ h1 {
   .insight-aside { position: static; }
   .insight-grid { grid-template-columns: 1fr; }
   .loss-grid { grid-template-columns: 1fr 1fr; }
-  .signal-grid, .outcome-grid, .solution-path { grid-template-columns: 1fr 1fr; }
+  .signal-grid, .outcome-grid, .solution-path, .home-flow-steps { grid-template-columns: 1fr 1fr; }
   .side-panel { position: static; }
 }
 
@@ -1002,7 +1096,8 @@ h1 {
   .hero { padding-top: 3.4rem; }
   .home-immersive, .about-immersive { background-position: center; }
   .immersive-report { min-height: 460px; }
-  .trust-row, .cards, .case-grid, .loss-grid, .signal-grid, .outcome-grid, .solution-path, .visual-grid, .flow-rail { grid-template-columns: 1fr; }
+  .trust-row, .cards, .case-grid, .loss-grid, .signal-grid, .outcome-grid, .solution-path, .visual-grid, .flow-rail, .home-flow-steps { grid-template-columns: 1fr; }
+  .showcase-card { min-height: 260px; }
   .field-story { overflow: hidden; }
   .field-points { grid-template-columns: 1fr; }
   .field-hero-photo img { height: auto; min-height: 0; aspect-ratio: 16 / 10; }
