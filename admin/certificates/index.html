@@ -1,18 +1,19 @@
 <!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>N/NPC | Certificate Admin</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700;800;900&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../assets/site.css"></head><body data-page="certificateAdmin">
 <main class="admin-shell"><section class="certificate-admin-card"><div class="eyebrow">N/NPC Internal</div><h1>Certificate Admin</h1><p>建立或更新證書。正式上線前需要在 Vercel 設定 <code>AIRTABLE_CERTIFICATES_TABLE_NAME</code> 與 <code>CERT_ADMIN_TOKEN</code>。Airtable token 和 Base ID 沿用 OEE 會員系統那組。</p>
 <form class="admin-form" id="certificate-admin-form">
-  <input name="admin_token" placeholder="Admin token">
+  <label class="admin-field"><span>Admin token</span><input name="admin_token" placeholder="Paste your CERT_ADMIN_TOKEN"></label>
   <div class="admin-id-tools">
-    <select id="program-code" aria-label="Program code"><option value="INT">INT Internship</option><option value="AI">AI AI Lab</option><option value="MES">MES Research</option><option value="IOT">IOT Program</option><option value="N8N">N8N Automation</option><option value="DTF">DTF Fellowship</option></select>
-    <input id="certificate-year" inputmode="numeric" placeholder="2026">
+    <label class="admin-field"><span>Program code</span><select id="program-code" aria-label="Program code"><option value="INT">INT Internship</option><option value="AI">AI AI Lab</option><option value="MES">MES Research</option><option value="IOT">IOT Program</option><option value="N8N">N8N Automation</option><option value="DTF">DTF Fellowship</option></select></label>
+    <label class="admin-field"><span>Year</span><input id="certificate-year" inputmode="numeric" placeholder="2026"></label>
     <button class="btn secondary" type="button" id="generate-id">Generate next ID</button>
   </div>
-  <input name="certificate_id" placeholder="NNPC-INT-2026-001" required>
-  <input name="recipient_name" placeholder="Recipient name" required>
-  <input name="position" placeholder="Position">
-  <input name="program" placeholder="NNPC Internship Program">
-  <select name="status"><option>Draft</option><option selected>Verified</option><option>Revoked</option><option>Expired</option></select>
-  <div class="admin-date-grid"><input name="start_date" type="date"><input name="end_date" type="date"><input name="issue_date" type="date"></div>
+  <label class="admin-field"><span>Certificate ID</span><input name="certificate_id" placeholder="NNPC-INT-2026-001" required></label>
+  <label class="admin-field"><span>Recipient name</span><input name="recipient_name" placeholder="Lin Myat Phyo" required></label>
+  <label class="admin-field"><span>Position</span><input name="position" placeholder="Data & AI Operation Analyst Intern"></label>
+  <label class="admin-field"><span>Program</span><input name="program" placeholder="NNPC Internship Program"></label>
+  <label class="admin-field"><span>Status</span><select name="status"><option>Draft</option><option selected>Verified</option><option>Revoked</option><option>Expired</option></select></label>
+  <div class="admin-standard-row"><div><strong>NNPC internship date rule</strong><span>Start = 5th, End = 4th, Issue = 5th after the final month.</span></div><button class="btn secondary" type="button" id="apply-internship-dates">Apply 6-month internship dates</button></div>
+  <div class="admin-date-grid"><label class="admin-field"><span>Start date</span><input name="start_date" type="date"><small>實習開始日，通常是月份 5 號。</small></label><label class="admin-field"><span>End date</span><input name="end_date" type="date"><small>實習結束日，通常是最後月份 4 號。</small></label><label class="admin-field"><span>Issue date</span><input name="issue_date" type="date"><small>證書核發日，通常是結束後 5 號。</small></label></div>
   <button class="btn primary" type="submit">Create Certificate</button>
   <p class="form-note" id="admin-result"></p>
 </form>
@@ -42,6 +43,27 @@ document.getElementById('certificate-admin-form').addEventListener('submit', asy
 });
 
 document.getElementById('certificate-year').value = new Date().getFullYear();
+function toDateInput(date) {
+  const offset = date.getTimezoneOffset() * 60000;
+  return new Date(date.getTime() - offset).toISOString().slice(0, 10);
+}
+function addMonths(date, months) {
+  const next = new Date(date);
+  next.setMonth(next.getMonth() + months);
+  return next;
+}
+document.getElementById('apply-internship-dates').addEventListener('click', () => {
+  const form = document.getElementById('certificate-admin-form');
+  const year = Number(document.getElementById('certificate-year').value || new Date().getFullYear());
+  const start = new Date(year, 0, 5);
+  const end = addMonths(start, 5);
+  end.setDate(4);
+  const issue = new Date(end);
+  issue.setDate(5);
+  form.elements.start_date.value = toDateInput(start);
+  form.elements.end_date.value = toDateInput(end);
+  form.elements.issue_date.value = toDateInput(issue);
+});
 document.getElementById('generate-id').addEventListener('click', async () => {
   const form = document.getElementById('certificate-admin-form');
   const result = document.getElementById('admin-result');
