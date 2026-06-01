@@ -357,6 +357,51 @@ h1 {
 .card h3 { font-size: 1.22rem; line-height: 1.25; margin-bottom: 0.7rem; }
 .card p { color: var(--muted); margin-bottom: 1rem; }
 .card a { color: var(--gold); font-weight: 800; }
+.solution-route {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.65rem;
+  max-width: 860px;
+  margin-top: 1.55rem;
+}
+.solution-route span {
+  position: relative;
+  border: 1px solid rgba(225,168,19,0.26);
+  background: rgba(38,38,38,0.84);
+  color: var(--muted);
+  padding: 0.72rem 0.9rem;
+  text-align: center;
+  font-weight: 900;
+  border-radius: var(--radius);
+}
+.solution-route span::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -0.66rem;
+  width: 0.66rem;
+  height: 1px;
+  background: rgba(225,168,19,0.34);
+}
+.solution-route span:last-child::after { display: none; }
+.solution-cards .card {
+  display: grid;
+  align-content: start;
+  gap: 0.65rem;
+}
+.solution-cards .card-kicker,
+.solution-cards .card h3,
+.solution-cards .card p { margin-bottom: 0; }
+.card-fit {
+  border-left: 3px solid var(--gold);
+  background: rgba(225,168,19,0.08);
+  color: var(--muted);
+  padding: 0.72rem 0.85rem;
+  font-size: 0.96rem;
+  line-height: 1.55;
+  border-radius: var(--radius);
+}
+.solution-cards .card a { margin-top: auto; }
 .solution-showcase {
   display: grid;
   grid-template-columns: 1.25fr 0.875fr 0.875fr;
@@ -773,10 +818,11 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
-  margin-top: 1.45rem;
+  margin-top: 1.6rem;
   padding-top: 1.15rem;
   border-top: 1px solid rgba(255,255,255,0.08);
 }
+.diagnostic-actions .btn { min-width: 158px; }
 .detail-grid { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 2rem; }
 .side-panel { background: var(--panel); border: 1px solid var(--line); padding: 1.2rem; height: fit-content; position: sticky; top: 96px; }
 .side-panel { border-radius: var(--radius); }
@@ -1077,6 +1123,8 @@ h1 {
       linear-gradient(90deg, rgba(10,10,10,0.9), rgba(10,10,10,0.58));
   }
   .ops-visual { min-height: auto; }
+  .solution-route { grid-template-columns: repeat(2, 1fr); }
+  .solution-route span:nth-child(2)::after { display: none; }
   .cards { grid-template-columns: repeat(2, 1fr); }
   .case-grid { grid-template-columns: 1fr 1fr; }
   .case-library-head { grid-template-columns: 1fr; }
@@ -1097,6 +1145,10 @@ h1 {
   .home-immersive, .about-immersive { background-position: center; }
   .immersive-report { min-height: 460px; }
   .trust-row, .cards, .case-grid, .loss-grid, .signal-grid, .outcome-grid, .solution-path, .visual-grid, .flow-rail, .home-flow-steps { grid-template-columns: 1fr; }
+  .solution-route { grid-template-columns: 1fr; }
+  .solution-route span { text-align: left; }
+  .solution-route span::after { display: none; }
+  .diagnostic-actions .btn { width: 100%; }
   .showcase-card { min-height: 260px; }
   .field-story { overflow: hidden; }
   .field-points { grid-template-columns: 1fr; }
