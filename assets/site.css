@@ -1098,7 +1098,25 @@ h1 {
 .form-grid { display: grid; gap: 0.8rem; }
 .form-grid input, .form-grid textarea, .form-grid select {
   width: 100%; background: rgba(255,255,255,0.035); border: 1px solid var(--line); color: var(--text);
+  min-height: 54px;
   padding: 0.92rem 1rem; font: 1rem inherit; border-radius: var(--radius);
+}
+.form-grid select {
+  appearance: none;
+  background:
+    linear-gradient(45deg, transparent 50%, var(--gold) 50%) calc(100% - 19px) 50% / 6px 6px no-repeat,
+    linear-gradient(135deg, var(--gold) 50%, transparent 50%) calc(100% - 14px) 50% / 6px 6px no-repeat,
+    rgba(255,255,255,0.035);
+  padding-right: 2.65rem;
+  font-weight: 700;
+}
+.form-grid input:focus,
+.form-grid textarea:focus,
+.form-grid select:focus {
+  outline: none;
+  border-color: rgba(242,185,31,0.62);
+  box-shadow: 0 0 0 4px rgba(242,185,31,0.12);
+  background-color: rgba(255,255,255,0.055);
 }
 .form-grid textarea { min-height: 140px; resize: vertical; }
 
