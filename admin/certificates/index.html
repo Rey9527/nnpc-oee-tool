@@ -1,0 +1,38 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>N/NPC | Certificate Admin</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700;800;900&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../assets/site.css"></head><body data-page="certificateAdmin">
+<main class="admin-shell"><section class="certificate-admin-card"><div class="eyebrow">N/NPC Internal</div><h1>Certificate Admin</h1><p>建立或更新證書。正式上線前需要在 Vercel 設定 <code>SUPABASE_URL</code>、<code>SUPABASE_SERVICE_ROLE_KEY</code>、<code>CERT_ADMIN_TOKEN</code>。</p>
+<form class="admin-form" id="certificate-admin-form">
+  <input name="admin_token" placeholder="Admin token">
+  <input name="certificate_id" placeholder="NNPC-INT-2026-001" required>
+  <input name="recipient_name" placeholder="Recipient name" required>
+  <input name="position" placeholder="Position">
+  <input name="program" placeholder="NNPC Internship Program">
+  <select name="status"><option>Draft</option><option selected>Verified</option><option>Revoked</option><option>Expired</option></select>
+  <div class="admin-date-grid"><input name="start_date" type="date"><input name="end_date" type="date"><input name="issue_date" type="date"></div>
+  <button class="btn primary" type="submit">Create Certificate</button>
+  <p class="form-note" id="admin-result"></p>
+</form>
+<p class="form-note">正式核發後，公開網址格式為 <code>https://www.nnpc.ai/certificates/NNPC-INT-2026-001</code>。已發出的證書不建議刪除，應改用 Revoked。</p>
+</section></main>
+<script>
+document.getElementById('certificate-admin-form').addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const result = document.getElementById('admin-result');
+  const data = Object.fromEntries(new FormData(form).entries());
+  const token = data.admin_token;
+  delete data.admin_token;
+  result.textContent = 'Saving...';
+  try {
+    const res = await fetch('/api/certificates/admin', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify(data),
+    });
+    const body = await res.json();
+    if (!res.ok) throw new Error(body.message || 'Failed');
+    result.innerHTML = `Created: <a href="/certificates/${encodeURIComponent(body.certificate.certificate_id)}">${body.certificate.certificate_id}</a>`;
+  } catch (err) {
+    result.textContent = err.message;
+  }
+});
+</script></body></html>

@@ -21,6 +21,7 @@ const SHARED = {
     footerTag: 'N/NPC 協助製造業與企業把現場、流程與 AI 串成可改善的營運系統。',
     privacy: '隱私權政策',
     terms: '服務條款',
+    certificateVerification: '證書查驗',
   },
   en: {
     brandSub: 'Smart Manufacturing & Enterprise AI Consulting',
@@ -42,6 +43,7 @@ const SHARED = {
     footerTag: 'N/NPC helps manufacturers and enterprises connect field operations, business processes, and AI into systems that can improve.',
     privacy: 'Privacy Policy',
     terms: 'Terms of Service',
+    certificateVerification: 'Certificate Verification',
   },
   th: {
     brandSub: 'ที่ปรึกษา Smart Manufacturing และ Enterprise AI',
@@ -63,6 +65,7 @@ const SHARED = {
     footerTag: 'N/NPC ช่วยเชื่อมหน้างาน กระบวนการ และ AI ให้กลายเป็นระบบปฏิบัติการที่ปรับปรุงได้จริง',
     privacy: 'นโยบายความเป็นส่วนตัว',
     terms: 'ข้อกำหนดการใช้บริการ',
+    certificateVerification: 'ตรวจสอบใบรับรอง',
   },
 };
 
@@ -285,6 +288,15 @@ function applyLang(lang) {
 }
 
 function initNav() {
+  document.querySelectorAll('.footer-links').forEach((links) => {
+    if (!links.querySelector('[href="/certificates/"]')) {
+      const anchor = document.createElement('a');
+      anchor.href = '/certificates/';
+      anchor.dataset.i18n = 'certificateVerification';
+      links.prepend(anchor);
+    }
+  });
+
   document.querySelectorAll('.lang-btn').forEach((btn) => {
     btn.addEventListener('click', () => applyLang(btn.dataset.lang));
   });
