@@ -1271,6 +1271,11 @@ h1 {
 .certificate-admin-card h1 { margin: 0.3rem 0 0.8rem; }
 .certificate-admin-card code { color: var(--gold); }
 .admin-form { display: grid; gap: 0.75rem; margin: 1rem 0; }
+.admin-id-tools {
+  display: grid;
+  grid-template-columns: 1fr 0.7fr auto;
+  gap: 0.75rem;
+}
 .admin-date-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
 
 .site-footer { border-top: 1px solid var(--line); padding: 2rem 0; color: var(--muted); }
@@ -1333,6 +1338,7 @@ h1 {
   .diagnostic-actions .btn { width: 100%; }
   .certificate-search-row,
   .linkedin-grid,
+  .admin-id-tools,
   .admin-date-grid { grid-template-columns: 1fr; }
   .certificate-search-row .btn { width: 100%; }
   .certificate-topline { flex-direction: column; }

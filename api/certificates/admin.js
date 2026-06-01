@@ -1,6 +1,7 @@
 const {
   createCertificate,
   deleteDraftCertificate,
+  getNextCertificateId,
   handleOptions,
   json,
   readBody,
@@ -14,6 +15,19 @@ module.exports = async function handler(req, res) {
 
   try {
     requireAdmin(req);
+
+    if (req.method === 'GET') {
+      const url = new URL(req.url, `https://${req.headers.host || 'www.nnpc.ai'}`);
+      if (url.searchParams.get('action') === 'next-id') {
+        const certificate_id = await getNextCertificateId(
+          url.searchParams.get('program') || 'INT',
+          url.searchParams.get('year') || new Date().getFullYear(),
+        );
+        return json(res, 200, { ok: true, certificate_id });
+      }
+      return json(res, 400, { ok: false, message: 'Unknown admin action' });
+    }
+
     const data = await readBody(req);
 
     if (req.method === 'POST') {
