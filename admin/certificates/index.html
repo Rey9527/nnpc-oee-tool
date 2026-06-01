@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>N/NPC | Certificate Admin</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700;800;900&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../assets/site.css"></head><body data-page="certificateAdmin">
 <main class="admin-shell"><section class="certificate-admin-card"><div class="admin-hero"><div><div class="eyebrow">N/NPC Internal</div><h1>Certificate Admin</h1><p>建立或更新證書。Airtable token 和 Base ID 沿用 OEE 會員系統那組，管理密碼使用 <code>CERT_ADMIN_TOKEN</code>。</p></div><div class="admin-status-pill">AI Credential Console</div></div>
 <form class="admin-form" id="certificate-admin-form">
-  <section class="admin-panel"><div class="admin-panel-head"><span>01</span><strong>Access</strong></div><label class="admin-field"><span>Admin token</span><div class="admin-token-row"><input name="admin_token" placeholder="Paste your CERT_ADMIN_TOKEN"><button class="btn secondary" type="button" id="remember-token">Remember</button></div><small>只存在這台瀏覽器，不會寫進 Airtable。</small></label></section>
+  <section class="admin-panel"><div class="admin-panel-head"><span>01</span><strong>Access</strong></div><label class="admin-field"><span>Admin token</span><div class="admin-token-row"><input name="admin_token" placeholder="Paste your CERT_ADMIN_TOKEN"><button class="btn secondary" type="button" id="remember-token">Remember</button></div><small id="token-result">只存在這台瀏覽器，不會寫進 Airtable。</small></label></section>
   <section class="admin-panel"><div class="admin-panel-head"><span>02</span><strong>Certificate numbering</strong></div><div class="admin-id-tools">
     <label class="admin-field"><span>Program code</span><select id="program-code" aria-label="Program code"><option value="INT">Internship Program</option><option value="AI">AI Lab Program</option><option value="MES">MES Research Program</option><option value="IOT">IoT Program</option><option value="N8N">n8n Automation Program</option><option value="DTF">Digital Transformation Fellowship</option></select></label>
     <label class="admin-field"><span>Year</span><input id="certificate-year" inputmode="numeric" placeholder="2026"></label>
@@ -20,8 +20,13 @@ document.getElementById('certificate-admin-form').addEventListener('submit', asy
   const form = event.currentTarget;
   const result = document.getElementById('admin-result');
   const data = Object.fromEntries(new FormData(form).entries());
-  const token = data.admin_token;
+  const token = String(data.admin_token || '').trim();
   delete data.admin_token;
+  if (!token) {
+    result.textContent = '請先輸入 Admin token。';
+    form.elements.admin_token.focus();
+    return;
+  }
   result.textContent = 'Saving...';
   try {
     const res = await fetch('/api/certificates/admin', {
@@ -30,7 +35,7 @@ document.getElementById('certificate-admin-form').addEventListener('submit', asy
       body: JSON.stringify(data),
     });
     const body = await res.json();
-    if (!res.ok) throw new Error(body.message || 'Failed');
+    if (!res.ok) throw new Error(body.message === 'Authentication required' ? 'Admin token 不正確，請確認 Vercel 的 CERT_ADMIN_TOKEN 是否完全相同。' : body.message || 'Failed');
     result.innerHTML = `Created: <a href="/certificates/${encodeURIComponent(body.certificate.certificate_id)}">${body.certificate.certificate_id}</a>`;
   } catch (err) {
     result.textContent = err.message;
@@ -42,7 +47,18 @@ if (savedToken) document.getElementById('certificate-admin-form').elements.admin
 document.getElementById('remember-token').addEventListener('click', () => {
   const form = document.getElementById('certificate-admin-form');
   const result = document.getElementById('admin-result');
-  localStorage.setItem('nnpc_cert_admin_token', form.elements.admin_token.value);
+  const tokenResult = document.getElementById('token-result');
+  const token = form.elements.admin_token.value.trim();
+  if (!token) {
+    tokenResult.textContent = '請先輸入 Admin token，才能 Remember。';
+    tokenResult.className = 'admin-inline-note is-error';
+    form.elements.admin_token.focus();
+    return;
+  }
+  localStorage.setItem('nnpc_cert_admin_token', token);
+  form.elements.admin_token.value = token;
+  tokenResult.textContent = '已記住 Admin token。之後同一台瀏覽器會自動帶入。';
+  tokenResult.className = 'admin-inline-note is-success';
   result.textContent = 'Admin token saved in this browser.';
 });
 
@@ -73,12 +89,12 @@ document.getElementById('generate-id').addEventListener('click', async () => {
   const result = document.getElementById('admin-result');
   const idResult = document.getElementById('id-result');
   const button = document.getElementById('generate-id');
-  const token = form.elements.admin_token.value;
+  const token = form.elements.admin_token.value.trim();
   const certificateIdInput = form.elements.certificate_id;
   const program = document.getElementById('program-code').value;
   const selectedProgramName = document.getElementById('program-code').selectedOptions[0].textContent;
   const year = document.getElementById('certificate-year').value || new Date().getFullYear();
-  if (!token.trim()) {
+  if (!token) {
     idResult.textContent = '請先在上方貼上 Admin token，再產生下一個證書編號。';
     idResult.className = 'admin-inline-note is-error';
     result.textContent = 'Missing Admin token.';
@@ -94,7 +110,9 @@ document.getElementById('generate-id').addEventListener('click', async () => {
       headers: { Authorization: `Bearer ${token}` },
     });
     const body = await res.json();
-    if (!res.ok) throw new Error(body.message || 'Failed');
+    if (!res.ok) throw new Error(body.message === 'Authentication required' ? 'Admin token 不正確，請確認 Vercel 的 CERT_ADMIN_TOKEN 是否完全相同。' : body.message || 'Failed');
+    localStorage.setItem('nnpc_cert_admin_token', token);
+    form.elements.admin_token.value = token;
     certificateIdInput.value = body.certificate_id;
     if (!form.elements.program.value.trim()) form.elements.program.value = `NNPC ${selectedProgramName}`;
     idResult.textContent = `已產生下一個編號：${body.certificate_id}`;
