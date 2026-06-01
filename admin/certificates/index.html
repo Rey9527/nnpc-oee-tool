@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>N/NPC | Certificate Admin</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700;800;900&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../assets/site.css"></head><body data-page="certificateAdmin">
-<main class="admin-shell"><section class="certificate-admin-card"><div class="eyebrow">N/NPC Internal</div><h1>Certificate Admin</h1><p>建立或更新證書。正式上線前需要在 Vercel 設定 <code>SUPABASE_URL</code>、<code>SUPABASE_SERVICE_ROLE_KEY</code>、<code>CERT_ADMIN_TOKEN</code>。</p>
+<main class="admin-shell"><section class="certificate-admin-card"><div class="eyebrow">N/NPC Internal</div><h1>Certificate Admin</h1><p>建立或更新證書。正式上線前需要在 Vercel 設定 <code>AIRTABLE_CERTIFICATES_TABLE_NAME</code> 與 <code>CERT_ADMIN_TOKEN</code>。Airtable token 和 Base ID 沿用 OEE 會員系統那組。</p>
 <form class="admin-form" id="certificate-admin-form">
   <input name="admin_token" placeholder="Admin token">
   <input name="certificate_id" placeholder="NNPC-INT-2026-001" required>
