@@ -1511,6 +1511,12 @@ h1 {
   color: var(--muted);
   line-height: 1.45;
 }
+.admin-inline-note {
+  display: block;
+  padding-top: 0.2rem;
+}
+.admin-inline-note.is-success { color: #68d391; }
+.admin-inline-note.is-error { color: #ff8a80; }
 .admin-form input,
 .admin-form select {
   appearance: none;
@@ -1567,6 +1573,10 @@ h1 {
   min-height: 58px;
   border-radius: 12px;
   box-shadow: 0 12px 32px rgba(225,168,19,0.18);
+}
+.admin-form button:disabled {
+  cursor: wait;
+  opacity: 0.62;
 }
 
 .site-footer { border-top: 1px solid var(--line); padding: 2rem 0; color: var(--muted); }

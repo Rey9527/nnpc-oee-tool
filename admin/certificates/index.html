@@ -6,7 +6,7 @@
     <label class="admin-field"><span>Program code</span><select id="program-code" aria-label="Program code"><option value="INT">Internship Program</option><option value="AI">AI Lab Program</option><option value="MES">MES Research Program</option><option value="IOT">IoT Program</option><option value="N8N">n8n Automation Program</option><option value="DTF">Digital Transformation Fellowship</option></select></label>
     <label class="admin-field"><span>Year</span><input id="certificate-year" inputmode="numeric" placeholder="2026"></label>
     <button class="btn secondary" type="button" id="generate-id">Generate next ID</button>
-  </div><label class="admin-field"><span>Certificate ID</span><input name="certificate_id" placeholder="NNPC-INT-2026-001" required></label></section>
+  </div><label class="admin-field"><span>Certificate ID</span><input name="certificate_id" placeholder="NNPC-INT-2026-001" required><small class="admin-inline-note" id="id-result">選好 Program 和 Year 後，按 Generate next ID 自動產生編號。</small></label></section>
   <section class="admin-panel"><div class="admin-panel-head"><span>03</span><strong>Recipient information</strong></div><div class="admin-two-grid"><label class="admin-field"><span>Recipient name</span><input name="recipient_name" placeholder="Enter recipient full name" required></label><label class="admin-field"><span>Status</span><select name="status"><option>Draft</option><option selected>Verified</option><option>Revoked</option><option>Expired</option></select></label></div><label class="admin-field"><span>Position</span><input name="position" placeholder="Enter internship or program position"></label><label class="admin-field"><span>Program</span><input name="program" placeholder="Enter certificate program name"></label></section>
   <section class="admin-panel"><div class="admin-panel-head"><span>04</span><strong>Dates</strong></div><div class="admin-standard-row"><div><strong>NNPC internship date rule</strong><span>Start = 5th, End = 4th, Issue = 5th after the final month.</span></div><button class="btn secondary" type="button" id="apply-internship-dates">Apply 6-month internship dates</button></div><div class="admin-date-grid"><label class="admin-field"><span>Start date</span><input name="start_date" type="date"><small>實習開始日，通常是月份 5 號。</small></label><label class="admin-field"><span>End date</span><input name="end_date" type="date"><small>實習結束日，通常是最後月份 4 號。</small></label><label class="admin-field"><span>Issue date</span><input name="issue_date" type="date"><small>證書核發日，通常是結束後 5 號。</small></label></div></section>
   <button class="btn primary admin-submit" type="submit">Create Certificate</button>
@@ -71,9 +71,23 @@ document.getElementById('apply-internship-dates').addEventListener('click', () =
 document.getElementById('generate-id').addEventListener('click', async () => {
   const form = document.getElementById('certificate-admin-form');
   const result = document.getElementById('admin-result');
+  const idResult = document.getElementById('id-result');
+  const button = document.getElementById('generate-id');
   const token = form.elements.admin_token.value;
+  const certificateIdInput = form.elements.certificate_id;
   const program = document.getElementById('program-code').value;
+  const selectedProgramName = document.getElementById('program-code').selectedOptions[0].textContent;
   const year = document.getElementById('certificate-year').value || new Date().getFullYear();
+  if (!token.trim()) {
+    idResult.textContent = '請先在上方貼上 Admin token，再產生下一個證書編號。';
+    idResult.className = 'admin-inline-note is-error';
+    result.textContent = 'Missing Admin token.';
+    form.elements.admin_token.focus();
+    return;
+  }
+  button.disabled = true;
+  idResult.textContent = '正在連線 Airtable 檢查目前最大編號...';
+  idResult.className = 'admin-inline-note';
   result.textContent = 'Generating ID...';
   try {
     const res = await fetch(`/api/certificates/admin?action=next-id&program=${encodeURIComponent(program)}&year=${encodeURIComponent(year)}`, {
@@ -81,10 +95,18 @@ document.getElementById('generate-id').addEventListener('click', async () => {
     });
     const body = await res.json();
     if (!res.ok) throw new Error(body.message || 'Failed');
-    form.elements.certificate_id.value = body.certificate_id;
+    certificateIdInput.value = body.certificate_id;
+    if (!form.elements.program.value.trim()) form.elements.program.value = `NNPC ${selectedProgramName}`;
+    idResult.textContent = `已產生下一個編號：${body.certificate_id}`;
+    idResult.className = 'admin-inline-note is-success';
     result.textContent = `Next ID: ${body.certificate_id}`;
+    certificateIdInput.focus();
   } catch (err) {
+    idResult.textContent = `無法產生編號：${err.message}`;
+    idResult.className = 'admin-inline-note is-error';
     result.textContent = err.message;
+  } finally {
+    button.disabled = false;
   }
 });
 </script></body></html>
