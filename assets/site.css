@@ -1267,16 +1267,22 @@ h1 {
   place-items: center;
   padding: clamp(20px, 4vw, 48px);
   background:
-    radial-gradient(circle at 18% 8%, rgba(225,168,19,0.12), transparent 28%),
-    radial-gradient(circle at 82% 18%, rgba(255,255,255,0.05), transparent 24%),
-    var(--bg);
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px),
+    radial-gradient(circle at 84% 8%, rgba(225,168,19,0.12), transparent 26%),
+    radial-gradient(circle at 18% 18%, rgba(255,255,255,0.045), transparent 28%),
+    #090909;
+  background-size: 64px 64px, 64px 64px, auto, auto, auto;
 }
 .certificate-admin-card {
-  width: min(980px, calc(100vw - 40px));
+  width: min(1120px, calc(100vw - 40px));
   background:
-    linear-gradient(145deg, rgba(38,38,38,0.94), rgba(22,22,22,0.98)),
-    var(--panel);
-  box-shadow: 0 24px 80px rgba(0,0,0,0.34);
+    linear-gradient(145deg, rgba(28,28,28,0.88), rgba(12,12,12,0.96)),
+    rgba(16,16,16,0.92);
+  border-color: rgba(255,255,255,0.095);
+  box-shadow: 0 32px 90px rgba(0,0,0,0.46);
+  border-radius: 24px;
+  backdrop-filter: blur(18px);
 }
 .admin-hero {
   display: flex;
@@ -1287,19 +1293,27 @@ h1 {
   padding-bottom: 1.15rem;
   margin-bottom: 1rem;
 }
-.certificate-admin-card h1 { margin: 0.3rem 0 0.55rem; }
+.certificate-admin-card h1 {
+  margin: 0.35rem 0 0.7rem;
+  font-family: 'Barlow', 'Noto Sans TC', 'Noto Sans Thai', sans-serif;
+  font-size: clamp(2.6rem, 5vw, 4.8rem);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: 0;
+}
+.certificate-admin-card p { color: var(--muted); max-width: 680px; }
 .certificate-admin-card code { color: var(--gold); }
 .certificate-admin-card code { overflow-wrap: anywhere; }
 .admin-status-pill {
   border: 1px solid rgba(225,168,19,0.35);
   background: rgba(225,168,19,0.08);
   color: var(--gold);
-  padding: 0.58rem 0.75rem;
+  padding: 0.72rem 0.9rem;
   font-weight: 900;
   white-space: nowrap;
   max-width: 100%;
   overflow-wrap: anywhere;
-  border-radius: var(--radius);
+  border-radius: 12px;
 }
 .admin-form { display: grid; gap: 1rem; margin: 1rem 0; }
 .admin-form,
@@ -1307,10 +1321,16 @@ h1 {
 .admin-submit,
 .form-note { min-width: 0; max-width: 100%; }
 .admin-panel {
-  border: 1px solid rgba(255,255,255,0.1);
-  background: rgba(0,0,0,0.16);
-  padding: 1rem;
-  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,0.09);
+  background: rgba(255,255,255,0.035);
+  padding: clamp(1rem, 2vw, 1.35rem);
+  border-radius: 20px;
+  transition: border-color var(--fast), transform var(--fast), background var(--fast);
+}
+.admin-panel:hover {
+  border-color: rgba(225,168,19,0.28);
+  background: rgba(255,255,255,0.045);
+  transform: translateY(-1px);
 }
 .admin-panel-head {
   display: flex;
@@ -1322,16 +1342,23 @@ h1 {
 .admin-panel-head span {
   color: var(--gold);
   font-weight: 900;
+  width: 32px;
+  height: 32px;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid rgba(225,168,19,0.28);
+  background: rgba(225,168,19,0.08);
+  border-radius: 10px;
 }
 .admin-field {
   display: grid;
   gap: 0.36rem;
 }
 .admin-field span {
-  color: var(--gold);
-  font-size: 0.84rem;
-  font-weight: 900;
-  letter-spacing: 0.04em;
+  color: var(--soft);
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0;
   text-transform: uppercase;
 }
 .admin-field small {
@@ -1343,12 +1370,23 @@ h1 {
   appearance: none;
   min-height: 56px;
   font: 700 1rem var(--body-font);
+  border-radius: 12px;
+  background-color: rgba(255,255,255,0.035);
+  border-color: rgba(255,255,255,0.11);
+  transition: border-color var(--fast), box-shadow var(--fast), background var(--fast);
+}
+.admin-form input:focus,
+.admin-form select:focus {
+  outline: none;
+  border-color: rgba(225,168,19,0.62);
+  box-shadow: 0 0 0 4px rgba(225,168,19,0.12);
+  background-color: rgba(255,255,255,0.055);
 }
 .admin-form select {
   background:
     linear-gradient(45deg, transparent 50%, var(--gold) 50%) calc(100% - 18px) 50% / 6px 6px no-repeat,
     linear-gradient(135deg, var(--gold) 50%, transparent 50%) calc(100% - 13px) 50% / 6px 6px no-repeat,
-    rgba(0,0,0,0.22);
+    rgba(255,255,255,0.035);
   padding-right: 2.5rem;
 }
 .admin-token-row {
@@ -1371,9 +1409,9 @@ h1 {
   gap: 1rem;
   align-items: center;
   border: 1px solid rgba(225,168,19,0.22);
-  background: rgba(225,168,19,0.08);
-  padding: 0.85rem;
-  border-radius: var(--radius);
+  background: linear-gradient(135deg, rgba(225,168,19,0.12), rgba(255,255,255,0.035));
+  padding: 1rem;
+  border-radius: 16px;
 }
 .admin-standard-row strong,
 .admin-standard-row span { display: block; }
@@ -1381,6 +1419,8 @@ h1 {
 .admin-submit {
   justify-self: stretch;
   min-height: 58px;
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(225,168,19,0.18);
 }
 
 .site-footer { border-top: 1px solid var(--line); padding: 2rem 0; color: var(--muted); }
