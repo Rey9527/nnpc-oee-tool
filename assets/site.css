@@ -1392,32 +1392,45 @@ h1 {
 }
 .print-ribbon {
   position: absolute;
-  top: -12%;
-  left: -12%;
-  width: 31%;
-  height: 128%;
+  top: -3%;
+  left: -15%;
+  width: 36%;
+  height: 112%;
   pointer-events: none;
+  opacity: 0.82;
+}
+.print-ribbon,
+.print-ribbon::before,
+.print-ribbon::after {
+  border-radius: 50%;
+}
+.print-ribbon {
+  background:
+    radial-gradient(ellipse at 72% 50%, transparent 0 41%, rgba(99,62,4,0.11) 41.4%, transparent 42.2%),
+    radial-gradient(ellipse at 68% 50%, transparent 0 43%, rgba(225,168,19,0.26) 43.4%, rgba(177,112,10,0.58) 45.5%, rgba(225,168,19,0.18) 47.2%, transparent 48.2%),
+    radial-gradient(ellipse at 65% 50%, transparent 0 50%, rgba(17,17,17,0.08) 50.4%, transparent 51.1%),
+    radial-gradient(ellipse at 61% 50%, transparent 0 54%, rgba(225,168,19,0.14) 54.4%, transparent 55.2%);
+  filter: saturate(1.05);
 }
 .print-ribbon::before,
 .print-ribbon::after {
   content: "";
   position: absolute;
-  inset: 0;
-  border-radius: 50%;
   transform: rotate(-10deg);
 }
 .print-ribbon::before {
-  border-right: 24px solid rgba(177,112,10,0.72);
-  border-left: 1px solid rgba(177,112,10,0.12);
-  filter: blur(0.2px);
+  inset: 0 10% 0 4%;
+  background:
+    linear-gradient(90deg, transparent, rgba(255,255,255,0.36), transparent),
+    radial-gradient(ellipse at 70% 50%, transparent 0 45%, rgba(185,126,21,0.22) 45.4%, transparent 47%);
+  filter: blur(1.8px);
 }
 .print-ribbon::after {
-  inset: 3% 12% 0 15%;
-  border-right: 10px solid rgba(225,168,19,0.22);
-  border-left: 1px solid rgba(17,17,17,0.08);
-  box-shadow:
-    28px 0 0 rgba(225,168,19,0.08),
-    -16px 0 0 rgba(17,17,17,0.04);
+  inset: 5% 19% 2% 18%;
+  background:
+    repeating-radial-gradient(ellipse at 70% 50%, transparent 0 13px, rgba(17,17,17,0.035) 14px, transparent 15px),
+    radial-gradient(ellipse at 66% 50%, transparent 0 47%, rgba(225,168,19,0.13) 47.3%, transparent 48%);
+  opacity: 0.8;
 }
 .print-watermark {
   position: absolute;
@@ -1553,7 +1566,12 @@ h1 {
   border-top: 1px solid #111;
   padding-top: 0.52rem;
 }
-.print-signature strong { font-size: 1.08rem; }
+.print-signature strong {
+  font-family: 'Great Vibes', 'Cormorant Garamond', cursive;
+  font-size: clamp(1.55rem, 2.4vw, 2.15rem);
+  font-weight: 400;
+  line-height: 0.9;
+}
 .linkedin-box {
   border-top: 1px solid var(--line);
   margin-top: 1.2rem;
