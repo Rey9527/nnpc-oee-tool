@@ -5,10 +5,17 @@ const {
   handleOptions,
   json,
   readBody,
-  requireAdmin,
   revokeCertificate,
   updateCertificate,
 } = require('../../lib/certificates-common');
+
+function requireAdminRequest(req) {
+  const token = String(process.env.CERT_ADMIN_TOKEN || '').trim();
+  if (!token) throw new Error('Missing CERT_ADMIN_TOKEN');
+  const auth = String(req.headers.authorization || '');
+  const provided = auth.replace(/^Bearer\s+/i, '').trim();
+  if (provided !== token) throw new Error('Authentication required');
+}
 
 module.exports = async function handler(req, res) {
   if (handleOptions(req, res)) return;
@@ -32,7 +39,7 @@ module.exports = async function handler(req, res) {
       }
     }
 
-    requireAdmin(req);
+    requireAdminRequest(req);
 
     if (req.method === 'GET') {
       const url = new URL(req.url, `https://${req.headers.host || 'www.nnpc.ai'}`);
