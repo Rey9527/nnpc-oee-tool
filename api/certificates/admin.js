@@ -14,7 +14,9 @@ function requireAdminRequest(req) {
   if (!token) throw new Error('Missing CERT_ADMIN_TOKEN');
   const auth = String(req.headers.authorization || '');
   const provided = auth.replace(/^Bearer\s+/i, '').trim();
-  if (provided !== token) throw new Error('Authentication required');
+  if (provided !== token) {
+    throw new Error(`Authentication required (configured=${Boolean(token)}, configured_length=${token.length}, header_received=${Boolean(auth)}, provided_length=${provided.length})`);
+  }
 }
 
 module.exports = async function handler(req, res) {
