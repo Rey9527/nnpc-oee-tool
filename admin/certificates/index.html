@@ -36,9 +36,64 @@ document.getElementById('certificate-admin-form').addEventListener('submit', asy
     });
     const body = await res.json();
     if (!res.ok) throw new Error(body.message === 'Authentication required' ? 'Admin token 不正確，請確認 Vercel 的 CERT_ADMIN_TOKEN 是否完全相同。' : body.message || 'Failed');
-    result.innerHTML = `Created: <a href="/certificates/${encodeURIComponent(body.certificate.certificate_id)}">${body.certificate.certificate_id}</a>`;
+    const certificate = body.certificate;
+    const credentialUrl = `${window.location.origin}/certificates/${encodeURIComponent(certificate.certificate_id)}`;
+    result.innerHTML = `
+      <section class="admin-success-card" aria-live="polite">
+        <div class="admin-success-head">
+          <span>Created</span>
+          <strong>${escapeHtml(certificate.certificate_id)}</strong>
+        </div>
+        <div class="admin-credential-grid">
+          ${credentialRow('Verification URL', credentialUrl)}
+          ${credentialRow('LinkedIn Credential ID', certificate.certificate_id)}
+          ${credentialRow('LinkedIn Credential URL', credentialUrl)}
+        </div>
+        <div class="admin-success-actions">
+          <a class="btn secondary" href="${credentialUrl}" target="_blank" rel="noopener">Open Verification Page</a>
+          <button class="btn primary" type="button" data-copy-value="${escapeAttr(credentialUrl)}">Copy LinkedIn URL</button>
+        </div>
+      </section>`;
   } catch (err) {
     result.textContent = err.message;
+  }
+});
+
+function escapeHtml(value) {
+  return String(value || '').replace(/[&<>"']/g, (char) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+  }[char]));
+}
+
+function escapeAttr(value) {
+  return escapeHtml(value).replace(/`/g, '&#96;');
+}
+
+function credentialRow(label, value) {
+  return `
+    <div class="admin-credential-row">
+      <span>${escapeHtml(label)}</span>
+      <code>${escapeHtml(value)}</code>
+      <button type="button" class="admin-copy-btn" data-copy-value="${escapeAttr(value)}">Copy</button>
+    </div>`;
+}
+
+document.addEventListener('click', async (event) => {
+  const button = event.target.closest('[data-copy-value]');
+  if (!button) return;
+  const value = button.getAttribute('data-copy-value') || '';
+  try {
+    await navigator.clipboard.writeText(value);
+    const original = button.textContent;
+    button.textContent = 'Copied';
+    setTimeout(() => { button.textContent = original; }, 1400);
+  } catch (err) {
+    button.textContent = 'Copy failed';
+    setTimeout(() => { button.textContent = 'Copy'; }, 1400);
   }
 });
 

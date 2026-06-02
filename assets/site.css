@@ -1578,6 +1578,72 @@ h1 {
   cursor: wait;
   opacity: 0.62;
 }
+.admin-success-card {
+  display: grid;
+  gap: 1rem;
+  margin-top: 0.8rem;
+  padding: clamp(1rem, 2vw, 1.2rem);
+  border: 1px solid rgba(104,211,145,0.28);
+  background: linear-gradient(135deg, rgba(104,211,145,0.09), rgba(225,168,19,0.06));
+  border-radius: 18px;
+  color: var(--text);
+}
+.admin-success-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding-bottom: 0.8rem;
+}
+.admin-success-head span {
+  color: #68d391;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+.admin-success-head strong {
+  overflow-wrap: anywhere;
+  font-size: 1.08rem;
+}
+.admin-credential-grid {
+  display: grid;
+  gap: 0.65rem;
+}
+.admin-credential-row {
+  display: grid;
+  grid-template-columns: minmax(140px, 0.36fr) minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.72rem;
+  border: 1px solid rgba(255,255,255,0.09);
+  background: rgba(0,0,0,0.16);
+  border-radius: 12px;
+}
+.admin-credential-row span {
+  color: var(--soft);
+  font-size: 0.82rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+.admin-credential-row code {
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+.admin-copy-btn {
+  min-height: 38px;
+  border: 1px solid rgba(225,168,19,0.32);
+  border-radius: 9px;
+  background: rgba(225,168,19,0.12);
+  color: var(--gold);
+  font-weight: 900;
+  cursor: pointer;
+}
+.admin-success-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
 
 .site-footer { border-top: 1px solid var(--line); padding: 2rem 0; color: var(--muted); }
 .footer-grid { display: flex; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
@@ -1647,7 +1713,11 @@ h1 {
   .admin-token-row,
   .admin-id-tools,
   .admin-two-grid,
-  .admin-date-grid { grid-template-columns: 1fr; }
+  .admin-date-grid,
+  .admin-credential-row { grid-template-columns: 1fr; }
+  .admin-success-head { align-items: flex-start; flex-direction: column; }
+  .admin-copy-btn,
+  .admin-success-actions .btn { width: 100%; }
   .admin-standard-row { flex-direction: column; align-items: flex-start; }
   .certificate-search-row .btn { width: 100%; }
   .certificate-topline { flex-direction: column; }
