@@ -14,6 +14,24 @@ module.exports = async function handler(req, res) {
   if (handleOptions(req, res)) return;
 
   try {
+    if (req.method === 'GET') {
+      const url = new URL(req.url, `https://${req.headers.host || 'www.nnpc.ai'}`);
+      if (url.searchParams.get('action') === 'debug-token') {
+        const configured = String(process.env.CERT_ADMIN_TOKEN || '').trim();
+        const auth = String(req.headers.authorization || '');
+        const provided = auth.replace(/^Bearer\s+/i, '').trim();
+        return json(res, 200, {
+          ok: true,
+          vercel_env: process.env.VERCEL_ENV || '',
+          configured: Boolean(configured),
+          configured_length: configured.length,
+          header_received: Boolean(auth),
+          provided_length: provided.length,
+          token_matches: Boolean(configured) && provided === configured,
+        });
+      }
+    }
+
     requireAdmin(req);
 
     if (req.method === 'GET') {
