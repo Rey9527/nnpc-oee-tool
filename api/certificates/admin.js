@@ -37,7 +37,7 @@ module.exports = async function handler(req, res) {
           header_received: Boolean(auth),
           provided_length: provided.length,
           token_matches: Boolean(configured) && provided === configured,
-          auth_mode: 'inline-v2',
+          auth_mode: 'next-id-inline-v3',
         });
       }
       if (url.searchParams.get('action') === 'next-id') {
