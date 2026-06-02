@@ -1356,11 +1356,11 @@ h1 {
   overflow: hidden;
   aspect-ratio: 1.414 / 1;
   background:
-    radial-gradient(circle at 12% 10%, rgba(225,168,19,0.1), transparent 28%),
-    linear-gradient(135deg, #fffdf7, #f8f5ec);
+    radial-gradient(circle at 72% 18%, rgba(225,168,19,0.06), transparent 22%),
+    linear-gradient(135deg, #fffdf8, #ffffff 42%, #fbfaf6);
   color: #101010;
   border: 1px solid rgba(255,255,255,0.72);
-  padding: clamp(1.65rem, 3vw, 2.8rem);
+  padding: clamp(1.45rem, 2.7vw, 2.45rem) clamp(1.45rem, 2.7vw, 2.45rem) clamp(1.35rem, 2.4vw, 2.1rem) clamp(2.5rem, 5vw, 4.8rem);
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
   box-shadow: 0 32px 90px rgba(0,0,0,0.38);
@@ -1369,7 +1369,7 @@ h1 {
 .print-border {
   position: absolute;
   inset: clamp(0.7rem, 1.4vw, 1.05rem);
-  border: 1px solid rgba(17,17,17,0.16);
+  border: 1px solid rgba(17,17,17,0.12);
   pointer-events: none;
 }
 .print-border::before,
@@ -1389,6 +1389,35 @@ h1 {
   bottom: 2.2rem;
   width: 2px;
   height: min(130px, 24%);
+}
+.print-ribbon {
+  position: absolute;
+  top: -12%;
+  left: -12%;
+  width: 31%;
+  height: 128%;
+  pointer-events: none;
+}
+.print-ribbon::before,
+.print-ribbon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  transform: rotate(-10deg);
+}
+.print-ribbon::before {
+  border-right: 24px solid rgba(177,112,10,0.72);
+  border-left: 1px solid rgba(177,112,10,0.12);
+  filter: blur(0.2px);
+}
+.print-ribbon::after {
+  inset: 3% 12% 0 15%;
+  border-right: 10px solid rgba(225,168,19,0.22);
+  border-left: 1px solid rgba(17,17,17,0.08);
+  box-shadow:
+    28px 0 0 rgba(225,168,19,0.08),
+    -16px 0 0 rgba(17,17,17,0.04);
 }
 .print-watermark {
   position: absolute;
@@ -1435,46 +1464,60 @@ h1 {
   position: relative;
   z-index: 1;
   align-self: center;
-  max-width: 88%;
-  padding-left: clamp(0.4rem, 1vw, 0.8rem);
+  justify-self: center;
+  text-align: center;
+  max-width: min(620px, 90%);
+  padding-left: 0;
 }
 .print-kicker {
-  color: #6f570d;
-  font-size: clamp(0.72rem, 0.9vw, 0.92rem);
-  font-weight: 900;
-  letter-spacing: 0.2em;
+  color: #0b0b2b;
+  font-family: 'Cormorant Garamond', 'Noto Sans TC', 'Noto Sans Thai', serif;
+  font-size: clamp(1.55rem, 3.4vw, 3.15rem);
+  font-weight: 700;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
+.print-kicker::after {
+  content: "OF INTERNSHIP COMPLETION";
+  display: block;
+  width: fit-content;
+  margin: 0.12rem auto 0;
+  color: #262626;
+  font-family: 'Cormorant Garamond', 'Noto Sans TC', 'Noto Sans Thai', serif;
+  font-size: clamp(0.72rem, 1vw, 0.92rem);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
 .print-statement {
-  margin: clamp(1.2rem, 2.1vw, 1.7rem) 0 0.2rem;
+  margin: clamp(1.05rem, 1.8vw, 1.45rem) 0 0.2rem;
   color: #5c5c5c;
   font-weight: 700;
 }
 .print-name {
-  font-family: 'Cormorant Garamond', 'Noto Sans TC', 'Noto Sans Thai', serif;
-  font-size: clamp(3.25rem, 7vw, 6.9rem);
-  font-weight: 700;
-  line-height: 0.86;
+  font-family: 'Great Vibes', 'Cormorant Garamond', 'Noto Sans TC', 'Noto Sans Thai', cursive;
+  font-size: clamp(3.2rem, 7vw, 6.3rem);
+  font-weight: 400;
+  line-height: 0.9;
   color: #111;
   letter-spacing: 0;
-  padding-bottom: clamp(0.8rem, 1.5vw, 1.15rem);
-  border-bottom: 1px solid rgba(17,17,17,0.22);
+  padding: 0.15rem 0 clamp(0.55rem, 1vw, 0.8rem);
+  border-bottom: 1px solid rgba(17,17,17,0.18);
 }
 .print-position {
-  margin: 0.72rem 0 0;
+  margin: 0.62rem 0 0;
   color: #333;
-  font-size: clamp(1rem, 1.35vw, 1.25rem);
+  font-size: clamp(0.88rem, 1.05vw, 1rem);
   font-weight: 800;
 }
 .print-meta-grid {
   display: grid;
-  grid-template-columns: 0.98fr 1.34fr 0.82fr;
-  gap: 0.85rem;
-  margin-top: clamp(1.15rem, 2.1vw, 1.55rem);
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(0.7rem, 1.5vw, 1.2rem);
+  margin-top: clamp(1rem, 1.8vw, 1.3rem);
 }
 .print-meta-grid div {
-  border-left: 2px solid rgba(216,165,20,0.7);
-  padding-left: 0.62rem;
+  border-left: 0;
+  padding-left: 0;
 }
 .print-meta-grid span,
 .print-footer span {
