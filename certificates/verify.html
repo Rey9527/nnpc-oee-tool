@@ -3,9 +3,32 @@
 <main>
   <section class="section certificate-detail-wrap"><div class="shell" data-certificate-detail>
     <div class="certificate-verification-card">
-      <div class="certificate-topline"><div><div class="eyebrow">NNPC Consulting Co., Ltd.</div><h1 data-i18n="title">Certificate Verification</h1></div><div id="cert-status" class="certificate-status invalid">Loading</div></div>
+      <div class="certificate-topline"><div><div class="eyebrow">NNPC Consulting Co., Ltd.</div><h1 data-i18n="title">Certificate Verification</h1><p data-i18n="verifyIntro">This public page verifies whether the credential below was issued by N/NPC Consulting Co., Ltd.</p></div><div id="cert-status" class="certificate-status invalid">Loading</div></div>
       <p id="cert-error" class="certificate-error"></p>
       <div class="certificate-grid">
+        <div class="certificate-print-card">
+          <div class="print-watermark">N/NPC</div>
+          <div class="print-head">
+            <div class="print-logo">N<span>/</span>NPC</div>
+            <div class="print-company">NNPC Consulting Co., Ltd.</div>
+          </div>
+          <div class="print-body">
+            <div class="print-kicker" data-i18n="printTitle">CERTIFICATE OF INTERNSHIP COMPLETION</div>
+            <p class="print-statement" data-i18n="printStatement">This certifies that</p>
+            <div class="print-name"><span id="cert-name">—</span></div>
+            <p class="print-position"><span id="cert-position">—</span></p>
+            <div class="print-divider"></div>
+            <div class="print-meta-grid">
+              <div><span data-i18n="programLabel">Program</span><strong id="cert-program">—</strong></div>
+              <div><span data-i18n="periodLabel">Internship Period</span><strong id="cert-period">—</strong></div>
+              <div><span data-i18n="issueLabel">Issue Date</span><strong id="cert-issue">—</strong></div>
+            </div>
+          </div>
+          <div class="print-footer">
+            <div><span data-i18n="idLabel">Certificate ID</span><strong id="cert-id">—</strong></div>
+            <div class="print-signature"><strong>Derek Yeh</strong><span>Chief Executive Officer</span></div>
+          </div>
+        </div>
         <div class="certificate-facts">
           <div><span data-i18n="idLabel">Certificate ID</span><strong id="cert-id">—</strong></div>
           <div><span data-i18n="nameLabel">Name</span><strong id="cert-name">—</strong></div>
@@ -16,17 +39,10 @@
           <div><span data-i18n="issueLabel">Issue Date</span><strong id="cert-issue">—</strong></div>
           <div><span data-i18n="issuedByLabel">Issued By</span><strong id="cert-issued-by">—</strong></div>
         </div>
-        <div class="certificate-print-card">
-          <div class="print-logo">N<span>/</span>NPC</div>
-          <div class="print-title" data-i18n="printTitle">CERTIFICATE OF INTERNSHIP COMPLETION</div>
-          <div id="cert-name-print" class="print-name"><span id="cert-name">—</span></div>
-          <div class="print-meta"><span data-i18n="periodLabel">Internship Period</span><strong id="cert-period">—</strong></div>
-          <div class="print-footer"><span id="cert-id">—</span><span>Derek Yeh, CEO</span></div>
-        </div>
       </div>
       <div class="linkedin-box"><div class="certificate-tool-row"><h2 data-i18n="linkedinTitle">LinkedIn Credential Fields</h2><button class="btn secondary certificate-print-btn" type="button" onclick="window.print()" data-i18n="printBtn">Print Certificate</button></div><div class="linkedin-grid"><div><span data-i18n="credentialName">Name</span><strong id="linkedin-name">—</strong></div><div><span data-i18n="organization">Issuing Organization</span><strong id="linkedin-org">—</strong></div><div><span data-i18n="credentialId">Credential ID</span><strong id="linkedin-id">—</strong><button type="button" data-copy="id" data-i18n="copy">Copy</button></div><div><span data-i18n="credentialUrl">Credential URL</span><strong id="linkedin-url">—</strong><button type="button" data-copy="url" data-i18n="copy">Copy</button></div></div></div>
     </div>
   </div></section>
 </main>
 <footer class="site-footer"><div class="shell footer-grid"><div><strong>N<span style="color:var(--gold);">/</span>NPC</strong><br><span data-i18n="footerTag"></span></div><div class="footer-links"><a href="/privacy-policy.html" data-i18n="privacy"></a><a href="/terms.html" data-i18n="terms"></a><a href="/contact/" data-i18n="navContact"></a></div></div></footer>
-<script>window.NNPC_PAGE={certificateDetail:{zh:{title:'證書查驗',idLabel:'Certificate ID',nameLabel:'姓名',positionLabel:'職稱',programLabel:'計畫',startLabel:'開始日期',endLabel:'結束日期',issueLabel:'核發日期',issuedByLabel:'核發者',printTitle:'CERTIFICATE OF INTERNSHIP COMPLETION',periodLabel:'Internship Period',linkedinTitle:'LinkedIn Credential 欄位',credentialName:'Name',organization:'Issuing Organization',credentialId:'Credential ID',credentialUrl:'Credential URL',copy:'複製',printBtn:'列印證書'},en:{title:'Certificate Verification',idLabel:'Certificate ID',nameLabel:'Name',positionLabel:'Position',programLabel:'Program',startLabel:'Start Date',endLabel:'End Date',issueLabel:'Issue Date',issuedByLabel:'Issued By',printTitle:'CERTIFICATE OF INTERNSHIP COMPLETION',periodLabel:'Internship Period',linkedinTitle:'LinkedIn Credential Fields',credentialName:'Name',organization:'Issuing Organization',credentialId:'Credential ID',credentialUrl:'Credential URL',copy:'Copy',printBtn:'Print Certificate'},th:{title:'ตรวจสอบใบรับรอง',idLabel:'Certificate ID',nameLabel:'ชื่อ',positionLabel:'ตำแหน่ง',programLabel:'โปรแกรม',startLabel:'วันเริ่มต้น',endLabel:'วันสิ้นสุด',issueLabel:'วันที่ออกใบรับรอง',issuedByLabel:'ผู้ออกใบรับรอง',printTitle:'CERTIFICATE OF INTERNSHIP COMPLETION',periodLabel:'Internship Period',linkedinTitle:'ข้อมูลสำหรับ LinkedIn Credential',credentialName:'Name',organization:'Issuing Organization',credentialId:'Credential ID',credentialUrl:'Credential URL',copy:'คัดลอก',printBtn:'พิมพ์ใบรับรอง'}}};</script><script src="../assets/site.js"></script><script src="../assets/certificates-ui.js"></script></body></html>
+<script>window.NNPC_PAGE={certificateDetail:{zh:{title:'證書查驗',verifyIntro:'此公開頁面用於確認下方證書是否由 N/NPC Consulting Co., Ltd. 正式核發。',idLabel:'Certificate ID',nameLabel:'姓名',positionLabel:'職稱',programLabel:'計畫',startLabel:'開始日期',endLabel:'結束日期',issueLabel:'核發日期',issuedByLabel:'核發者',printTitle:'CERTIFICATE OF INTERNSHIP COMPLETION',printStatement:'This certifies that',periodLabel:'Internship Period',linkedinTitle:'LinkedIn Credential 欄位',credentialName:'Name',organization:'Issuing Organization',credentialId:'Credential ID',credentialUrl:'Credential URL',copy:'複製',printBtn:'列印證書'},en:{title:'Certificate Verification',verifyIntro:'This public page verifies whether the credential below was issued by N/NPC Consulting Co., Ltd.',idLabel:'Certificate ID',nameLabel:'Name',positionLabel:'Position',programLabel:'Program',startLabel:'Start Date',endLabel:'End Date',issueLabel:'Issue Date',issuedByLabel:'Issued By',printTitle:'CERTIFICATE OF INTERNSHIP COMPLETION',printStatement:'This certifies that',periodLabel:'Internship Period',linkedinTitle:'LinkedIn Credential Fields',credentialName:'Name',organization:'Issuing Organization',credentialId:'Credential ID',credentialUrl:'Credential URL',copy:'Copy',printBtn:'Print Certificate'},th:{title:'ตรวจสอบใบรับรอง',verifyIntro:'หน้านี้ใช้ยืนยันว่าใบรับรองด้านล่างออกโดย N/NPC Consulting Co., Ltd. อย่างเป็นทางการ',idLabel:'Certificate ID',nameLabel:'ชื่อ',positionLabel:'ตำแหน่ง',programLabel:'โปรแกรม',startLabel:'วันเริ่มต้น',endLabel:'วันสิ้นสุด',issueLabel:'วันที่ออกใบรับรอง',issuedByLabel:'ผู้ออกใบรับรอง',printTitle:'CERTIFICATE OF INTERNSHIP COMPLETION',printStatement:'This certifies that',periodLabel:'Internship Period',linkedinTitle:'ข้อมูลสำหรับ LinkedIn Credential',credentialName:'Name',organization:'Issuing Organization',credentialId:'Credential ID',credentialUrl:'Credential URL',copy:'คัดลอก',printBtn:'พิมพ์ใบรับรอง'}}};</script><script src="../assets/site.js"></script><script src="../assets/certificates-ui.js"></script></body></html>

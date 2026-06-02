@@ -1280,19 +1280,30 @@ h1 {
 .certificate-note p,
 .form-note { color: var(--muted); }
 .certificate-detail-wrap { padding-top: 3rem; }
-.certificate-verification-card { min-height: 520px; }
+.certificate-verification-card {
+  min-height: 520px;
+  background:
+    radial-gradient(circle at 76% 12%, rgba(225,168,19,0.12), transparent 34%),
+    rgba(255,255,255,0.035);
+}
 .certificate-topline {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
   align-items: flex-start;
-  margin-bottom: 1.3rem;
+  margin-bottom: 1.6rem;
 }
 .certificate-topline h1 {
-  font-family: var(--brand-display), 'Noto Sans TC', 'Noto Sans Thai', sans-serif;
-  font-weight: 400;
-  font-size: clamp(2.4rem, 4vw, 4rem);
-  line-height: 1;
+  margin: 0.18rem 0 0.55rem;
+  font-family: 'Barlow', 'Noto Sans TC', 'Noto Sans Thai', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.2rem, 4vw, 3.8rem);
+  line-height: 0.98;
+}
+.certificate-topline p {
+  margin: 0;
+  color: var(--muted);
+  max-width: 640px;
 }
 .certificate-status {
   border: 1px solid var(--line);
@@ -1310,8 +1321,9 @@ h1 {
 .certificate-error { color: #fca5a5; font-weight: 800; }
 .certificate-grid {
   display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(360px, 1.08fr);
-  gap: 1rem;
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+  gap: clamp(1rem, 2vw, 1.25rem);
+  align-items: start;
 }
 .certificate-facts {
   display: grid;
@@ -1340,45 +1352,133 @@ h1 {
   white-space: pre-line;
 }
 .certificate-print-card {
-  background: #fff;
-  color: #111;
-  border: 1px solid rgba(225,168,19,0.6);
-  min-height: 380px;
-  padding: clamp(1.2rem, 2.4vw, 2rem);
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1.414 / 1;
+  background:
+    linear-gradient(90deg, #f5b400 0 12px, transparent 12px),
+    linear-gradient(135deg, rgba(225,168,19,0.08), transparent 42%),
+    #fff;
+  color: #101010;
+  border: 1px solid rgba(255,255,255,0.7);
+  padding: clamp(1.4rem, 2.7vw, 2.55rem);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  box-shadow: 0 28px 80px rgba(0,0,0,0.36);
+  border-radius: 8px;
+}
+.print-watermark {
+  position: absolute;
+  right: -0.35em;
+  bottom: -0.28em;
+  color: rgba(0,0,0,0.035);
+  font-family: var(--brand-display), sans-serif;
+  font-size: clamp(7rem, 18vw, 16rem);
+  line-height: 0.8;
+  pointer-events: none;
+}
+.print-head {
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
-  border-radius: 4px;
+  gap: 1rem;
+  align-items: flex-start;
+  position: relative;
+  z-index: 1;
 }
 .print-logo {
   font-family: var(--brand-display), sans-serif;
-  font-size: 2rem;
+  font-size: clamp(2rem, 4vw, 3.1rem);
   line-height: 1;
   color: #111;
 }
 .print-logo span { color: var(--gold); }
-.print-title {
-  color: #333;
-  font-size: 0.92rem;
+.print-company {
+  color: #373737;
   font-weight: 900;
-  letter-spacing: 0.12em;
+  text-align: right;
+}
+.print-body {
+  position: relative;
+  z-index: 1;
+  align-self: center;
+  max-width: 86%;
+}
+.print-kicker {
+  color: #5f4a03;
+  font-size: clamp(0.82rem, 1vw, 1rem);
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.print-statement {
+  margin: clamp(1rem, 2vw, 1.45rem) 0 0.25rem;
+  color: #5c5c5c;
+  font-weight: 700;
 }
 .print-name {
-  font-family: var(--brand-display), 'Noto Sans TC', sans-serif;
-  font-size: clamp(3rem, 5.5vw, 5.4rem);
-  line-height: 0.95;
+  font-family: 'Barlow', 'Noto Sans TC', 'Noto Sans Thai', sans-serif;
+  font-size: clamp(2.8rem, 6vw, 5.8rem);
+  font-weight: 800;
+  line-height: 0.92;
   color: #111;
+  letter-spacing: 0;
 }
-.print-meta strong { color: #111; font-size: 1.35rem; }
+.print-position {
+  margin: 0.65rem 0 0;
+  color: #333;
+  font-size: clamp(1rem, 1.35vw, 1.25rem);
+  font-weight: 800;
+}
+.print-divider {
+  width: min(520px, 78%);
+  height: 3px;
+  margin: clamp(1rem, 2vw, 1.4rem) 0;
+  background: linear-gradient(90deg, var(--gold), rgba(0,0,0,0.18));
+}
+.print-meta-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr 0.75fr;
+  gap: 0.85rem;
+}
+.print-meta-grid div {
+  border-top: 1px solid rgba(0,0,0,0.16);
+  padding-top: 0.55rem;
+}
+.print-meta-grid span,
+.print-footer span {
+  display: block;
+  color: #777;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.print-meta-grid strong,
+.print-footer strong {
+  display: block;
+  color: #111;
+  margin-top: 0.18rem;
+  font-size: clamp(0.82rem, 1vw, 1rem);
+}
 .print-footer {
+  position: relative;
+  z-index: 1;
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  border-top: 2px solid var(--gold);
+  align-items: end;
+  border-top: 1px solid rgba(0,0,0,0.18);
   padding-top: 0.9rem;
   color: #333;
   font-weight: 800;
 }
+.print-signature {
+  min-width: min(260px, 44%);
+  text-align: left;
+  border-top: 2px solid #111;
+  padding-top: 0.52rem;
+}
+.print-signature strong { font-size: 1.08rem; }
 .linkedin-box {
   border-top: 1px solid var(--line);
   margin-top: 1.2rem;
@@ -1710,6 +1810,7 @@ h1 {
   .diagnostic-actions .btn { width: 100%; }
   .certificate-search-row,
   .linkedin-grid,
+  .print-meta-grid,
   .admin-token-row,
   .admin-id-tools,
   .admin-two-grid,
@@ -1721,6 +1822,15 @@ h1 {
   .admin-standard-row { flex-direction: column; align-items: flex-start; }
   .certificate-search-row .btn { width: 100%; }
   .certificate-topline { flex-direction: column; }
+  .certificate-print-card {
+    aspect-ratio: auto;
+    min-height: 560px;
+  }
+  .print-body { max-width: 100%; }
+  .print-head,
+  .print-footer { flex-direction: column; align-items: flex-start; }
+  .print-company { text-align: left; }
+  .print-signature { min-width: min(100%, 260px); }
   .certificate-tool-row { flex-direction: column; align-items: flex-start; }
   .print-footer { flex-direction: column; }
   .showcase-card { min-height: 260px; }
@@ -1753,8 +1863,10 @@ h1 {
     inset: 0;
     width: auto;
     height: auto;
+    aspect-ratio: auto;
     min-height: 0;
     border: none;
     box-shadow: none;
+    border-radius: 0;
   }
 }
