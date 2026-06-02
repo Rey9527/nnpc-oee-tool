@@ -9,6 +9,8 @@ const {
   updateCertificate,
 } = require('../../lib/certificates-common');
 
+const AIRTABLE_API = 'https://api.airtable.com/v0';
+
 function requireAdminRequest(req) {
   const token = String(process.env.CERT_ADMIN_TOKEN || '').trim();
   if (!token) throw new Error('Missing CERT_ADMIN_TOKEN');
@@ -17,6 +19,32 @@ function requireAdminRequest(req) {
   if (provided !== token) {
     throw new Error(`Authentication required (configured=${Boolean(token)}, configured_length=${token.length}, header_received=${Boolean(auth)}, provided_length=${provided.length})`);
   }
+}
+
+async function probeAirtableTable(tableName) {
+  const token = String(process.env.AIRTABLE_TOKEN || '').trim();
+  const base = String(process.env.AIRTABLE_BASE_ID || '').trim();
+  if (!token || !base || !tableName) {
+    return { table: tableName || '', ok: false, message: 'Missing AIRTABLE_TOKEN, AIRTABLE_BASE_ID, or table name' };
+  }
+  const url = new URL(`${AIRTABLE_API}/${base}/${encodeURIComponent(tableName)}`);
+  url.searchParams.set('maxRecords', '1');
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+  const body = await response.json().catch(() => ({}));
+  return {
+    table: tableName,
+    ok: response.ok,
+    status: response.status,
+    record_count: Array.isArray(body.records) ? body.records.length : undefined,
+    error_type: body.error?.type || '',
+    error_message: body.error?.message || '',
+  };
 }
 
 module.exports = async function handler(req, res) {
@@ -38,6 +66,30 @@ module.exports = async function handler(req, res) {
           provided_length: provided.length,
           token_matches: Boolean(configured) && provided === configured,
           auth_mode: 'next-id-inline-v3',
+        });
+      }
+      if (url.searchParams.get('action') === 'debug-airtable') {
+        requireAdminRequest(req);
+        const token = String(process.env.AIRTABLE_TOKEN || '').trim();
+        const base = String(process.env.AIRTABLE_BASE_ID || '').trim();
+        const memberTable = String(process.env.AIRTABLE_TABLE_NAME || 'Register').trim();
+        const certificatesTable = String(process.env.AIRTABLE_CERTIFICATES_TABLE_NAME || 'Certificates').trim();
+        const [member_probe, certificates_probe] = await Promise.all([
+          probeAirtableTable(memberTable),
+          probeAirtableTable(certificatesTable),
+        ]);
+        return json(res, 200, {
+          ok: true,
+          airtable_token_configured: Boolean(token),
+          airtable_token_length: token.length,
+          airtable_token_starts_with_pat: token.startsWith('pat'),
+          base_id_configured: Boolean(base),
+          base_id_length: base.length,
+          base_id_starts_with_app: base.startsWith('app'),
+          member_table_name: memberTable,
+          certificates_table_name: certificatesTable,
+          member_probe,
+          certificates_probe,
         });
       }
       if (url.searchParams.get('action') === 'next-id') {
