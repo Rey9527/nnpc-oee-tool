@@ -72,7 +72,7 @@ module.exports = async function handler(req, res) {
         requireAdminRequest(req);
         const token = String(process.env.AIRTABLE_TOKEN || '').trim();
         const base = String(process.env.AIRTABLE_BASE_ID || '').trim();
-        const memberTable = String(process.env.AIRTABLE_TABLE_NAME || 'Register').trim();
+        const memberTable = String(process.env.AIRTABLE_REGISTER_TABLE_NAME || process.env.AIRTABLE_TABLE_NAME || 'Register').trim();
         const certificatesTable = String(process.env.AIRTABLE_CERTIFICATES_TABLE_NAME || 'Certificates').trim();
         const [member_probe, certificates_probe] = await Promise.all([
           probeAirtableTable(memberTable),
@@ -87,6 +87,7 @@ module.exports = async function handler(req, res) {
           base_id_length: base.length,
           base_id_starts_with_app: base.startsWith('app'),
           member_table_name: memberTable,
+          member_table_env: process.env.AIRTABLE_REGISTER_TABLE_NAME ? 'AIRTABLE_REGISTER_TABLE_NAME' : 'AIRTABLE_TABLE_NAME',
           certificates_table_name: certificatesTable,
           member_probe,
           certificates_probe,
