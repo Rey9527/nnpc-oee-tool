@@ -40,6 +40,23 @@ module.exports = async function handler(req, res) {
           auth_mode: 'inline-v2',
         });
       }
+      if (url.searchParams.get('action') === 'next-id') {
+        const configured = String(process.env.CERT_ADMIN_TOKEN || '').trim();
+        const auth = String(req.headers.authorization || '');
+        const provided = auth.replace(/^Bearer\s+/i, '').trim();
+        if (!configured) throw new Error('Missing CERT_ADMIN_TOKEN');
+        if (provided !== configured) {
+          return json(res, 401, {
+            ok: false,
+            message: `Authentication required (configured=${Boolean(configured)}, configured_length=${configured.length}, header_received=${Boolean(auth)}, provided_length=${provided.length})`,
+          });
+        }
+        const certificate_id = await getNextCertificateId(
+          url.searchParams.get('program') || 'INT',
+          url.searchParams.get('year') || new Date().getFullYear(),
+        );
+        return json(res, 200, { ok: true, certificate_id });
+      }
     }
 
     requireAdminRequest(req);
