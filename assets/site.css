@@ -1478,10 +1478,10 @@ h1 {
   position: relative;
   z-index: 1;
   align-self: center;
-  justify-self: end;
+  justify-self: center;
   text-align: center;
-  width: min(640px, 78%);
-  padding-left: 0;
+  width: min(660px, 82%);
+  padding-left: clamp(0.5rem, 2.2cqw, 1.4rem);
 }
 .print-kicker {
   color: #0b0b2b;
@@ -1560,7 +1560,7 @@ h1 {
   align-items: end;
   border-top: 1px solid rgba(0,0,0,0.12);
   padding-top: 1rem;
-  margin-left: clamp(0.35rem, 2cqw, 1.6rem);
+  margin-left: 0;
   color: #333;
   font-weight: 800;
 }
