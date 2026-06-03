@@ -1355,22 +1355,17 @@ h1 {
   position: relative;
   overflow: hidden;
   aspect-ratio: 1.414 / 1;
-  background:
-    radial-gradient(circle at 72% 18%, rgba(225,168,19,0.06), transparent 22%),
-    linear-gradient(135deg, #fffdf8, #ffffff 42%, #fbfaf6);
+  background: #fff url("images/certificate-bg.png") center / cover no-repeat;
   color: #101010;
   border: 1px solid rgba(255,255,255,0.72);
-  padding: clamp(1.45rem, 2.7vw, 2.45rem) clamp(1.45rem, 2.7vw, 2.45rem) clamp(1.35rem, 2.4vw, 2.1rem) clamp(2.5rem, 5vw, 4.8rem);
+  padding: clamp(1.65rem, 3vw, 2.8rem) clamp(1.75rem, 3.2vw, 3rem) clamp(1.45rem, 2.7vw, 2.35rem) clamp(3.4rem, 7vw, 6.4rem);
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
   box-shadow: 0 32px 90px rgba(0,0,0,0.38);
   border-radius: 12px;
 }
 .print-border {
-  position: absolute;
-  inset: clamp(0.7rem, 1.4vw, 1.05rem);
-  border: 1px solid rgba(17,17,17,0.12);
-  pointer-events: none;
+  display: none;
 }
 .print-border::before,
 .print-border::after {
@@ -1391,13 +1386,7 @@ h1 {
   height: min(130px, 24%);
 }
 .print-ribbon {
-  position: absolute;
-  top: -3%;
-  left: -15%;
-  width: 36%;
-  height: 112%;
-  pointer-events: none;
-  opacity: 0.82;
+  display: none;
 }
 .print-ribbon,
 .print-ribbon::before,
@@ -1436,7 +1425,7 @@ h1 {
   position: absolute;
   right: 0.11em;
   bottom: 0.03em;
-  color: rgba(0,0,0,0.028);
+  color: rgba(0,0,0,0.018);
   font-family: var(--brand-display), sans-serif;
   font-size: clamp(5.8rem, 14vw, 12rem);
   line-height: 0.8;
@@ -1480,9 +1469,9 @@ h1 {
   position: relative;
   z-index: 1;
   align-self: center;
-  justify-self: center;
+  justify-self: end;
   text-align: center;
-  max-width: min(620px, 90%);
+  width: min(640px, 86%);
   padding-left: 0;
 }
 .print-kicker {
@@ -1558,8 +1547,9 @@ h1 {
   justify-content: space-between;
   gap: 1rem;
   align-items: end;
-  border-top: 1px solid rgba(0,0,0,0.14);
+  border-top: 1px solid rgba(0,0,0,0.12);
   padding-top: 1rem;
+  margin-left: clamp(0.5rem, 2vw, 2rem);
   color: #333;
   font-weight: 800;
 }
