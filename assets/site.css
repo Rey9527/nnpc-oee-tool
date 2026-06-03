@@ -1324,6 +1324,8 @@ h1 {
   grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
   gap: clamp(1rem, 2vw, 1.25rem);
   align-items: start;
+  overflow-x: auto;
+  padding-bottom: 0.2rem;
 }
 .certificate-facts {
   display: grid;
@@ -1354,12 +1356,14 @@ h1 {
 .certificate-print-card {
   position: relative;
   overflow: hidden;
-  aspect-ratio: 1.414 / 1;
+  width: 860px;
+  min-width: 860px;
+  height: 608px;
+  aspect-ratio: auto;
   background: #fff url("images/certificate-bg.png") center / cover no-repeat;
   color: #101010;
   border: 1px solid rgba(255,255,255,0.72);
-  container-type: inline-size;
-  padding: clamp(1.2rem, 3cqw, 2rem) clamp(1.45rem, 4cqw, 2.55rem) clamp(1.2rem, 3cqw, 1.9rem) clamp(2.15rem, 5cqw, 4.2rem);
+  padding: 28px 38px 28px 68px;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
   box-shadow: 0 32px 90px rgba(0,0,0,0.38);
@@ -1428,7 +1432,7 @@ h1 {
   bottom: 0.03em;
   color: rgba(0,0,0,0.018);
   font-family: var(--brand-display), sans-serif;
-  font-size: clamp(5.8rem, 14vw, 12rem);
+  font-size: 132px;
   line-height: 0.8;
   pointer-events: none;
 }
@@ -1448,7 +1452,7 @@ h1 {
 }
 .print-logo span { color: var(--gold); }
 .print-logo-img {
-  width: clamp(98px, 15cqw, 132px);
+  width: 112px;
   height: auto;
   display: block;
   border-radius: 2px;
@@ -1463,13 +1467,13 @@ h1 {
 }
 .print-company strong {
   font-family: 'Cinzel', 'Cormorant Garamond', 'Noto Sans TC', 'Noto Sans Thai', serif;
-  font-size: clamp(0.72rem, 0.88vw, 0.9rem);
+  font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.045em;
 }
 .print-company span {
   color: #777;
-  font-size: 0.72rem;
+  font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -1480,13 +1484,13 @@ h1 {
   align-self: center;
   justify-self: center;
   text-align: center;
-  width: min(660px, 82%);
-  padding-left: clamp(0.5rem, 2.2cqw, 1.4rem);
+  width: 560px;
+  padding-left: 18px;
 }
 .print-kicker {
   color: #0b0b2b;
   font-family: 'Cinzel', 'Cormorant Garamond', 'Noto Sans TC', 'Noto Sans Thai', serif;
-  font-size: clamp(1.45rem, 4.7cqw, 2.55rem);
+  font-size: 30px;
   font-weight: 400;
   letter-spacing: 0.19em;
   text-transform: uppercase;
@@ -1498,36 +1502,36 @@ h1 {
   margin: 0.12rem auto 0;
   color: #262626;
   font-family: 'Cinzel', 'Cormorant Garamond', 'Noto Sans TC', 'Noto Sans Thai', serif;
-  font-size: clamp(0.64rem, 1.45cqw, 0.82rem);
+  font-size: 10px;
   font-weight: 400;
   letter-spacing: 0.18em;
 }
 .print-statement {
-  margin: clamp(1.05rem, 1.8vw, 1.45rem) 0 0.2rem;
+  margin: 22px 0 4px;
   color: #5c5c5c;
   font-weight: 700;
 }
 .print-name {
   font-family: 'Cormorant Garamond', 'Noto Sans TC', 'Noto Sans Thai', serif;
-  font-size: clamp(2.45rem, 7.1cqw, 4.35rem);
+  font-size: 54px;
   font-weight: 500;
   line-height: 1.02;
   color: #111;
   letter-spacing: 0.005em;
-  padding: 0.05rem 0 clamp(0.42rem, 1.2cqw, 0.68rem);
+  padding: 2px 0 8px;
   border-bottom: 1px solid rgba(17,17,17,0.18);
 }
 .print-position {
-  margin: 0.62rem 0 0;
+  margin: 10px 0 0;
   color: #333;
-  font-size: clamp(0.88rem, 1.05vw, 1rem);
+  font-size: 13px;
   font-weight: 700;
 }
 .print-meta-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(12rem, 1.35fr) minmax(0, 1.05fr);
-  gap: clamp(0.6rem, 1.5cqw, 1rem);
-  margin-top: clamp(0.85rem, 2.1cqw, 1.15rem);
+  grid-template-columns: 1fr 190px 1fr;
+  gap: 16px;
+  margin-top: 18px;
 }
 .print-meta-grid div {
   border-left: 0;
@@ -1537,7 +1541,7 @@ h1 {
 .print-footer span {
   display: block;
   color: #777;
-  font-size: 0.72rem;
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1547,7 +1551,7 @@ h1 {
   display: block;
   color: #111;
   margin-top: 0.18rem;
-  font-size: clamp(0.68rem, 1.45cqw, 0.82rem);
+  font-size: 11px;
   font-weight: 700;
   white-space: nowrap;
 }
@@ -1565,14 +1569,14 @@ h1 {
   font-weight: 800;
 }
 .print-signature {
-  min-width: min(260px, 44%);
+  min-width: 260px;
   text-align: left;
   border-top: 1px solid #111;
   padding-top: 0.52rem;
 }
 .print-signature strong {
   font-family: 'Cormorant Garamond', 'Noto Sans TC', 'Noto Sans Thai', serif;
-  font-size: clamp(1.24rem, 1.85vw, 1.62rem);
+  font-size: 21px;
   font-weight: 500;
   line-height: 1;
   letter-spacing: 0;
@@ -1908,7 +1912,6 @@ h1 {
   .diagnostic-actions .btn { width: 100%; }
   .certificate-search-row,
   .linkedin-grid,
-  .print-meta-grid,
   .admin-token-row,
   .admin-id-tools,
   .admin-two-grid,
@@ -1920,17 +1923,7 @@ h1 {
   .admin-standard-row { flex-direction: column; align-items: flex-start; }
   .certificate-search-row .btn { width: 100%; }
   .certificate-topline { flex-direction: column; }
-  .certificate-print-card {
-    aspect-ratio: auto;
-    min-height: 560px;
-  }
-  .print-body { max-width: 100%; }
-  .print-head,
-  .print-footer { flex-direction: column; align-items: flex-start; }
-  .print-company { text-align: left; }
-  .print-signature { min-width: min(100%, 260px); }
   .certificate-tool-row { flex-direction: column; align-items: flex-start; }
-  .print-footer { flex-direction: column; }
   .showcase-card { min-height: 260px; }
   .field-story { overflow: hidden; }
   .field-points { grid-template-columns: 1fr; }
