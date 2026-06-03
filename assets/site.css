@@ -1453,9 +1453,9 @@ h1 {
   gap: 0.28rem;
 }
 .print-company strong {
-  font-family: 'Cinzel', 'Cormorant Garamond', serif;
-  font-size: clamp(0.78rem, 1vw, 0.96rem);
-  font-weight: 600;
+  font-family: 'Barlow', 'Noto Sans TC', 'Noto Sans Thai', sans-serif;
+  font-size: clamp(0.82rem, 1vw, 0.98rem);
+  font-weight: 800;
   letter-spacing: 0.035em;
 }
 .print-company span {
@@ -1476,10 +1476,10 @@ h1 {
 }
 .print-kicker {
   color: #0b0b2b;
-  font-family: 'Cinzel', 'Cormorant Garamond', 'Noto Sans TC', 'Noto Sans Thai', serif;
-  font-size: clamp(1.5rem, 3.2vw, 3rem);
-  font-weight: 500;
-  letter-spacing: 0.18em;
+  font-family: 'Barlow', 'Noto Sans TC', 'Noto Sans Thai', sans-serif;
+  font-size: clamp(1.8rem, 3.6vw, 3.4rem);
+  font-weight: 800;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 .print-kicker::after {
@@ -1488,10 +1488,10 @@ h1 {
   width: fit-content;
   margin: 0.12rem auto 0;
   color: #262626;
-  font-family: 'Cinzel', 'Cormorant Garamond', 'Noto Sans TC', 'Noto Sans Thai', serif;
+  font-family: 'Barlow', 'Noto Sans TC', 'Noto Sans Thai', sans-serif;
   font-size: clamp(0.72rem, 1vw, 0.92rem);
-  font-weight: 500;
-  letter-spacing: 0.18em;
+  font-weight: 700;
+  letter-spacing: 0.16em;
 }
 .print-statement {
   margin: clamp(1.05rem, 1.8vw, 1.45rem) 0 0.2rem;
@@ -1499,12 +1499,12 @@ h1 {
   font-weight: 700;
 }
 .print-name {
-  font-family: 'Cormorant Garamond', 'Noto Sans TC', 'Noto Sans Thai', serif;
-  font-size: clamp(3rem, 6.4vw, 5.85rem);
-  font-weight: 600;
-  line-height: 0.88;
+  font-family: 'Barlow', 'Noto Sans TC', 'Noto Sans Thai', sans-serif;
+  font-size: clamp(2.8rem, 5.9vw, 5.4rem);
+  font-weight: 800;
+  line-height: 0.92;
   color: #111;
-  letter-spacing: 0.01em;
+  letter-spacing: -0.01em;
   padding: 0.15rem 0 clamp(0.55rem, 1vw, 0.8rem);
   border-bottom: 1px solid rgba(17,17,17,0.18);
 }
@@ -1560,11 +1560,11 @@ h1 {
   padding-top: 0.52rem;
 }
 .print-signature strong {
-  font-family: 'Cormorant Garamond', 'Noto Sans TC', 'Noto Sans Thai', serif;
-  font-size: clamp(1.35rem, 2vw, 1.85rem);
-  font-weight: 600;
-  line-height: 0.9;
-  letter-spacing: 0.01em;
+  font-family: 'Barlow', 'Noto Sans TC', 'Noto Sans Thai', sans-serif;
+  font-size: clamp(1.05rem, 1.4vw, 1.28rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0;
 }
 .linkedin-box {
   border-top: 1px solid var(--line);
