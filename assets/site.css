@@ -1321,15 +1321,17 @@ h1 {
 .certificate-error { color: #fca5a5; font-weight: 800; }
 .certificate-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
-  gap: clamp(1rem, 2vw, 1.25rem);
+  grid-template-columns: 1fr;
+  gap: 1.15rem;
   align-items: start;
   overflow-x: auto;
   padding-bottom: 0.2rem;
 }
 .certificate-facts {
   display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.72rem;
+  min-width: 0;
 }
 .certificate-facts div,
 .linkedin-grid div {
@@ -1868,6 +1870,7 @@ h1 {
   .hero-grid, .split, .detail-grid, .contact-grid, .photo-grid, .diagnostic-panel, .lab-band, .field-story, .field-visual, .home-flow, .solution-showcase, .home-service-grid { grid-template-columns: 1fr; }
   .certificate-search-panel,
   .certificate-grid { grid-template-columns: 1fr; }
+  .certificate-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .admin-hero { flex-direction: column; }
   .admin-status-pill { white-space: normal; }
   .diagnostic-grid { grid-template-columns: 1fr; }
@@ -1924,6 +1927,7 @@ h1 {
   .certificate-search-row .btn { width: 100%; }
   .certificate-topline { flex-direction: column; }
   .certificate-tool-row { flex-direction: column; align-items: flex-start; }
+  .certificate-facts { grid-template-columns: 1fr; }
   .showcase-card { min-height: 260px; }
   .field-story { overflow: hidden; }
   .field-points { grid-template-columns: 1fr; }
