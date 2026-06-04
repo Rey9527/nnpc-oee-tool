@@ -1948,20 +1948,32 @@ h1 {
 }
 
 @media print {
-  @page { size: A4 landscape; margin: 12mm; }
-  body { background: #fff !important; }
+  @page { size: A4 landscape; margin: 8mm; }
+  html,
+  body {
+    width: 281mm;
+    height: 194mm;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    background: #fff !important;
+  }
   body * { visibility: hidden !important; }
   .certificate-print-card,
   .certificate-print-card * { visibility: visible !important; }
   .certificate-print-card {
     position: fixed;
-    inset: 0;
-    width: auto;
-    height: auto;
-    aspect-ratio: auto;
-    min-height: 0;
+    left: 50%;
+    top: 50%;
+    width: 860px;
+    min-width: 860px;
+    height: 608px;
+    transform: translate(-50%, -50%) scale(1.18);
+    transform-origin: center;
     border: none;
     box-shadow: none;
     border-radius: 0;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
   }
 }

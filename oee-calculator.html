@@ -888,7 +888,9 @@ function recalc() {
   const dashTotal = 251.3;
   document.getElementById('gBase').setAttribute('stroke-dasharray', `${baseOEE * 2.513} ${dashTotal}`);
   document.getElementById('gCurrent').setAttribute('stroke-dasharray', `${currentOEE * 2.513} ${dashTotal}`);
-  const angle = (currentOEE / 100) * 180 - 90;
+  // SVG's positive Y axis points downward, so the visible upper semicircle
+  // runs from 180deg (left) through 270deg (top) to 360deg (right).
+  const angle = 180 + (currentOEE / 100) * 180;
   const rad = angle * Math.PI / 180;
   const x2 = 100 + 60 * Math.cos(rad);
   const y2 = 100 + 60 * Math.sin(rad);
