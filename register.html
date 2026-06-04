@@ -278,6 +278,7 @@
     margin-top: 1.5rem; padding: 1rem 2rem;
     background: var(--gold); color: #1C1C1C; border: none; border-radius: 2px;
     font-family: inherit; font-weight: 700; font-size: 1.04rem;
+    min-width: 198px; justify-content: center;
     letter-spacing: 0.02em; text-transform: none; cursor: pointer;
     text-decoration: none; transition: background 0.2s, box-shadow 0.2s;
   }
@@ -1226,7 +1227,11 @@ function showVerifiedScreen() {
   document.getElementById('successScreen').classList.remove('show');
   document.getElementById('verifiedScreen').classList.add('show');
   window.NNPCMemberAuth?.grant(sessionStorage.getItem('nnpc_member_email') || '');
-  setLink('t-enterBtn', getEnterUrl());
+  const enterBtn = document.getElementById('t-enterBtn');
+  if (enterBtn) {
+    enterBtn.textContent = getText(currentLang).enterBtn || 'Enter OEE Calculator →';
+    enterBtn.href = getEnterUrl();
+  }
 }
 
 function showLinkSent(email) {
