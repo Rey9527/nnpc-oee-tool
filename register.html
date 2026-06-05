@@ -498,8 +498,8 @@
             <div class="select-wrap">
               <select id="country" name="country">
                 <option value="" id="t-selectDefault">請選擇國家</option>
-                <option value="TH">🇹🇭 Thailand</option>
-                <option value="TW">🇹🇼 Taiwan</option>
+                <option value="Thailand">🇹🇭 Thailand</option>
+                <option value="Taiwan">🇹🇼 Taiwan</option>
                 <option value="VN">🇻🇳 Vietnam</option>
                 <option value="MY">🇲🇾 Malaysia</option>
                 <option value="ID">🇮🇩 Indonesia</option>
@@ -508,7 +508,7 @@
                 <option value="CN">🇨🇳 China</option>
                 <option value="JP">🇯🇵 Japan</option>
                 <option value="KR">🇰🇷 Korea</option>
-                <option value="OTHER" id="t-selectOther">其他 Other</option>
+                <option value="Others" id="t-selectOther">其他 Other</option>
               </select>
             </div>
             <span class="field-error" id="countryErr"></span>
@@ -1245,10 +1245,9 @@ function showLinkSent(email) {
 
 function detectCountry() {
   const lang = (navigator.language || '').toLowerCase();
-  if (lang.includes('th')) return 'TH';
-  if (lang.includes('tw')) return 'TW';
-  if (lang.includes('sg')) return 'SG';
-  return 'OTHER';
+  if (lang.includes('th')) return 'Thailand';
+  if (lang.includes('tw')) return 'Taiwan';
+  return 'Others';
 }
 
 // ─── Validation ───────────────────────────────────────────────────────────
