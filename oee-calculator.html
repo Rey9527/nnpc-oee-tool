@@ -69,16 +69,17 @@
   .gate-btn {
     display: block; width: 100%;
     padding: 0.9rem;
-    background: var(--gold); color: #1C1C1C;
-    border: none; border-radius: 2px;
+    background: var(--gold-gradient); color: #1C1C1C;
+    border: 1px solid rgba(255,226,138,0.72); border-radius: 2px;
     font-family: inherit; font-weight: 700;
     font-size: 1rem; letter-spacing: 0.02em;
     text-transform: none; cursor: pointer;
     text-decoration: none;
+    box-shadow: var(--gold-button-shadow);
     transition: background 0.2s, box-shadow 0.2s;
     margin-bottom: 0.75rem;
   }
-  .gate-btn:hover { background: #F0B820; box-shadow: 0 4px 20px rgba(225,168,19,0.3); }
+  .gate-btn:hover { background: var(--gold-gradient-hover); box-shadow: 0 18px 46px rgba(242,185,31,0.3), inset 0 1px 0 rgba(255,255,255,0.62); }
   .gate-login { font-size: 0.98rem; color: var(--muted); }
   .gate-login a { color: var(--gold); text-decoration: none; }
 
@@ -307,15 +308,16 @@
   .cta-text h3 { font-family: inherit; font-weight: 700; font-size: 1.12rem; color: var(--text); margin-bottom: 0.25rem; }
   .cta-text p { font-size: 1rem; color: var(--muted); line-height: 1.6; }
   .cta-btn {
-    background: var(--gold); color: #1C1C1C;
-    border: none; border-radius: 2px;
+    background: var(--gold-gradient); color: #1C1C1C;
+    border: 1px solid rgba(255,226,138,0.72); border-radius: 2px;
     font-family: inherit; font-weight: 700;
     font-size: 1rem; letter-spacing: 0.02em;
     text-transform: none; padding: 0.85rem 1.5rem;
     cursor: pointer; white-space: nowrap;
-    transition: background 0.2s; text-decoration: none;
+    box-shadow: var(--gold-button-shadow);
+    transition: background 0.2s, box-shadow 0.2s; text-decoration: none;
   }
-  .cta-btn:hover { background: #F0B820; }
+  .cta-btn:hover { background: var(--gold-gradient-hover); box-shadow: 0 18px 46px rgba(242,185,31,0.3), inset 0 1px 0 rgba(255,255,255,0.62); }
 
   /* Footer */
   .page-footer { text-align: center; padding: 1.5rem; font-size: 0.95rem; color: #BDBDBD; line-height: 1.7; }
@@ -375,12 +377,12 @@
   .gate-btn,
   .cta-btn {
     color: #171717;
-    box-shadow: 0 10px 26px rgba(225,168,19,0.15);
+    box-shadow: var(--gold-button-shadow);
   }
   .gate-btn:hover,
   .cta-btn:hover {
-    background: var(--gold);
-    box-shadow: 0 14px 38px rgba(225,168,19,0.2);
+    background: var(--gold-gradient-hover);
+    box-shadow: 0 18px 46px rgba(242,185,31,0.3), inset 0 1px 0 rgba(255,255,255,0.62);
   }
   .slider-row:hover,
   .card:hover {
