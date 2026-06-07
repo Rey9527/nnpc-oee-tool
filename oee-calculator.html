@@ -606,7 +606,7 @@
   <!-- Result -->
   <div class="result-card">
     <div class="result-eyebrow" id="t-resultEyebrow">每月新增獲利試算結果</div>
-    <div id="zeroState" class="zero-state" id="t-zeroState">← 請滑動上方 A / P / Q 滑桿來試算</div>
+    <div id="zeroState" class="zero-state">← 請滑動上方 A / P / Q 滑桿來試算</div>
     <div id="resultContent" style="display:none;">
       <div class="oee-delta-display">
         <div class="oee-pill" id="pill-base">65%</div>
@@ -628,12 +628,24 @@
           <div class="breakdown-val" style="color:var(--Q);" id="result-cost">฿ 0</div>
         </div>
         <div class="breakdown-item">
-          <div class="breakdown-label" id="t-capacityLabel">🏭 月產能總值</div>
+          <div class="breakdown-label" id="t-currentOutputLabel">⚙️ 目前有效產出</div>
+          <div class="breakdown-val" style="color:var(--muted);" id="result-current-output">฿ 0</div>
+        </div>
+        <div class="breakdown-item">
+          <div class="breakdown-label" id="t-targetOutputLabel">🚀 目標有效產出</div>
+          <div class="breakdown-val" style="color:var(--gold);" id="result-target-output">฿ 0</div>
+        </div>
+        <div class="breakdown-item">
+          <div class="breakdown-label" id="t-capacityLabel">🏭 理論月產能</div>
           <div class="breakdown-val" style="color:var(--muted);" id="result-capacity">฿ 0</div>
         </div>
         <div class="breakdown-item">
-          <div class="breakdown-label" id="t-workerLabel">👷 月薪人力成本</div>
+          <div class="breakdown-label" id="t-workerLabel">👷 固定月薪成本</div>
           <div class="breakdown-val" style="color:var(--muted);" id="result-worker">฿ 0</div>
+        </div>
+        <div class="breakdown-item">
+          <div class="breakdown-label" id="t-outputPerWorkerLabel">👤 每人月產出</div>
+          <div class="breakdown-val" style="color:var(--gold);" id="result-output-per-worker">฿ 0</div>
         </div>
       </div>
       <div class="per-percent-note" id="result-perPercent"></div>
@@ -706,8 +718,9 @@ const T = {
     zeroState:'← 請滑動上方 A / P / Q 滑桿來試算',
     resultSub:'/ 每月額外創造的價值（營收增益 + 成本節省）',
     revenueLabel:'📈 每月營收增益', costLabel:'💸 每月成本節省',
-    capacityLabel:'🏭 月產能總值', workerLabel:'👷 月薪人力成本',
-    perPercent:(v)=>`★ 依您的工廠規模，OEE 每提升 1% ≈ ${v} / 月`,
+    currentOutputLabel:'⚙️ 目前有效產出', targetOutputLabel:'🚀 目標有效產出',
+    capacityLabel:'🏭 理論月產能', workerLabel:'👷 固定月薪成本', outputPerWorkerLabel:'👤 每人月產出',
+    perPercent:(v)=>`★ 同樣機台與人力下，OEE 每提升 1% ≈ ${v} / 月`,
     ctaTitle:'準備好開始數位轉型了嗎？',
     ctaSub:'N/NPC 顧問團隊提供 IoT + MES 客製化解決方案，協助您工廠提升 OEE。',
     ctaBtn:'預約顧問諮詢 →',
@@ -733,8 +746,9 @@ const T = {
     zeroState:'← Slide the A / P / Q sliders above to calculate',
     resultSub:'/ additional value created monthly (revenue + cost savings)',
     revenueLabel:'📈 Monthly Revenue Gain', costLabel:'💸 Monthly Cost Savings',
-    capacityLabel:'🏭 Monthly Gross Capacity', workerLabel:'👷 Monthly Labor Cost',
-    perPercent:(v)=>`★ For your factory, every 1% OEE gain ≈ ${v} / month`,
+    currentOutputLabel:'⚙️ Current Effective Output', targetOutputLabel:'🚀 Target Effective Output',
+    capacityLabel:'🏭 Theoretical Monthly Capacity', workerLabel:'👷 Fixed Monthly Labor Cost', outputPerWorkerLabel:'👤 Monthly Output per Worker',
+    perPercent:(v)=>`★ With the same machines and people, every 1% OEE gain ≈ ${v} / month`,
     ctaTitle:'Ready to Start Your Digital Transformation?',
     ctaSub:'N/NPC provides customized IoT + MES solutions to improve your factory OEE.',
     ctaBtn:'Book a Consultation →',
@@ -760,8 +774,9 @@ const T = {
     zeroState:'← เลื่อนแถบ A / P / Q ด้านบนเพื่อคำนวณ',
     resultSub:'/ มูลค่าเพิ่มต่อเดือน (รายได้ + ประหยัดต้นทุน)',
     revenueLabel:'📈 รายได้เพิ่มต่อเดือน', costLabel:'💸 ต้นทุนที่ประหยัดได้/เดือน',
-    capacityLabel:'🏭 กำลังการผลิตรวม/เดือน', workerLabel:'👷 ต้นทุนแรงงาน/เดือน',
-    perPercent:(v)=>`★ OEE เพิ่มขึ้น 1% ≈ ${v} / เดือน`,
+    currentOutputLabel:'⚙️ ผลผลิตจริงปัจจุบัน', targetOutputLabel:'🚀 ผลผลิตจริงเป้าหมาย',
+    capacityLabel:'🏭 กำลังผลิตตามทฤษฎี/เดือน', workerLabel:'👷 ค่าแรงคงที่/เดือน', outputPerWorkerLabel:'👤 ผลผลิตต่อคน/เดือน',
+    perPercent:(v)=>`★ ใช้เครื่องจักรและคนเท่าเดิม OEE เพิ่มขึ้น 1% ≈ ${v} / เดือน`,
     ctaTitle:'พร้อมเริ่มการเปลี่ยนแปลงดิจิทัลแล้วหรือยัง?',
     ctaSub:'ทีมที่ปรึกษา N/NPC ให้บริการโซลูชัน IoT + MES เพื่อพัฒนา OEE โรงงานของคุณ',
     ctaBtn:'นัดหมายที่ปรึกษา →',
@@ -794,7 +809,9 @@ function setLang(lang, btn) {
   setText('zeroState', t.zeroState);
   setText('t-resultSub', t.resultSub);
   setText('t-revenueLabel', t.revenueLabel); setText('t-costLabel', t.costLabel);
+  setText('t-currentOutputLabel', t.currentOutputLabel); setText('t-targetOutputLabel', t.targetOutputLabel);
   setText('t-capacityLabel', t.capacityLabel); setText('t-workerLabel', t.workerLabel);
+  setText('t-outputPerWorkerLabel', t.outputPerWorkerLabel);
   setText('t-ctaTitle', t.ctaTitle); setText('t-ctaSub', t.ctaSub); setText('t-ctaBtn', t.ctaBtn);
   recalc();
 }
@@ -881,6 +898,9 @@ function recalc() {
   const totalDelta = Math.min(deltaA + deltaP + deltaQ, 100 - baseOEE);
   const currentOEE = baseOEE + totalDelta;
   const workerCost = workers * 12000;
+  const baseEffectiveOutput = gross * (baseOEE / 100);
+  const targetEffectiveOutput = gross * (currentOEE / 100);
+  const outputPerWorker = workers ? targetEffectiveOutput / workers : 0;
   const revenueGain = gross * (totalDelta / 100);
   const costSavings = workerCost * (totalDelta / 100);
   const totalGain = revenueGain + costSavings;
@@ -907,9 +927,12 @@ function recalc() {
   document.getElementById('fc-P').innerHTML = t.fcP + `<strong style="color:var(--P)">${fmt((gross + workerCost)*(deltaP/100))}</strong>`;
   document.getElementById('fc-Q').innerHTML = t.fcQ + `<strong style="color:var(--Q)">${fmt((gross + workerCost)*(deltaQ/100))}</strong>`;
 
-  // Worker cost
+  // Fixed capacity and OEE-linked effective output
+  document.getElementById('result-current-output').textContent = fmt(baseEffectiveOutput);
+  document.getElementById('result-target-output').textContent = fmt(targetEffectiveOutput);
   document.getElementById('result-capacity').textContent = fmt(gross);
   document.getElementById('result-worker').textContent = fmt(workerCost);
+  document.getElementById('result-output-per-worker').textContent = fmt(outputPerWorker);
 
   // Result panel
   const zero = document.getElementById('zeroState');
