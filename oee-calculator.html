@@ -274,6 +274,14 @@
   .slider-track-wrap { margin-bottom: 0.5rem; }
   .slider-minmax { display: flex; justify-content: space-between; font-size: 0.9rem; color: var(--muted); font-family: inherit; }
   .factor-contribution { font-size: 0.96rem; color: var(--muted); line-height: 1.55; }
+  .factor-hint {
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 1.55;
+    margin-top: 0.45rem;
+    padding-top: 0.55rem;
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
 
   /* Result */
   .result-card {
@@ -297,6 +305,70 @@
   .arrow-right { color: var(--gold); font-size: 1rem; }
   .zero-state { font-size: 1rem; color: var(--muted); font-style: normal; padding: 1rem 0; line-height: 1.6; }
   .per-percent-note { font-size: 0.96rem; color: var(--muted); margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); font-family: inherit; line-height: 1.6; }
+  .diagnosis-card {
+    margin-top: 1rem;
+    text-align: left;
+    background: rgba(0,0,0,0.22);
+    border: 1px solid rgba(225,168,19,0.18);
+    border-radius: 2px;
+    padding: 1.05rem;
+  }
+  .diagnosis-label {
+    color: var(--gold);
+    font-size: 0.86rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 0.45rem;
+  }
+  .diagnosis-card h3 {
+    font-size: 1.12rem;
+    margin-bottom: 0.45rem;
+    color: var(--text);
+  }
+  .diagnosis-card p {
+    color: var(--muted);
+    line-height: 1.65;
+    margin: 0;
+  }
+  .formula-details {
+    margin-top: 1rem;
+    text-align: left;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.025);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .formula-details summary {
+    cursor: pointer;
+    padding: 0.9rem 1rem;
+    color: var(--text);
+    font-weight: 700;
+    list-style: none;
+  }
+  .formula-details summary::-webkit-details-marker { display: none; }
+  .formula-details summary::after {
+    content: '+';
+    float: right;
+    color: var(--gold);
+  }
+  .formula-details[open] summary::after { content: '-'; }
+  .formula-list {
+    display: grid;
+    gap: 0.55rem;
+    padding: 0 1rem 1rem;
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+  .formula-list code {
+    color: var(--text);
+    background: rgba(0,0,0,0.22);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 0.12rem 0.32rem;
+    border-radius: 2px;
+    white-space: normal;
+  }
 
   /* CTA footer */
   .cta-strip {
@@ -566,6 +638,7 @@
         <div class="slider-minmax"><span>0%</span><span id="maxA">+20%</span></div>
       </div>
       <div class="factor-contribution" id="fc-A">A 貢獻月增益：<strong style="color:var(--A);">฿ 0</strong></div>
+      <div class="factor-hint" id="t-hintA">少停機、少等待，讓設備真的在生產。</div>
     </div>
 
     <div class="slider-row" style="--accent-color:var(--P);">
@@ -583,6 +656,7 @@
         <div class="slider-minmax"><span>0%</span><span id="maxP">+20%</span></div>
       </div>
       <div class="factor-contribution" id="fc-P">P 貢獻月增益：<strong style="color:var(--P);">฿ 0</strong></div>
+      <div class="factor-hint" id="t-hintP">減少換線、空轉、節拍不穩，讓產線更接近標準速度。</div>
     </div>
 
     <div class="slider-row" style="--accent-color:var(--Q);">
@@ -600,6 +674,7 @@
         <div class="slider-minmax"><span>0%</span><span id="maxQ">+20%</span></div>
       </div>
       <div class="factor-contribution" id="fc-Q">Q 貢獻月增益：<strong style="color:var(--Q);">฿ 0</strong></div>
+      <div class="factor-hint" id="t-hintQ">降低重工、報廢與品質波動，讓產出更接近可出貨數量。</div>
     </div>
   </div>
 
@@ -649,6 +724,21 @@
         </div>
       </div>
       <div class="per-percent-note" id="result-perPercent"></div>
+      <div class="diagnosis-card">
+        <div class="diagnosis-label" id="t-diagnosisLabel">初步診斷</div>
+        <h3 id="diagnosis-title">先找出最大的 OEE 漏洞</h3>
+        <p id="diagnosis-body">拖曳 A / P / Q 後，這裡會把數字翻成可能的現場問題。</p>
+      </div>
+      <details class="formula-details">
+        <summary id="t-formulaTitle">查看計算邏輯與假設</summary>
+        <div class="formula-list">
+          <div id="t-formulaAssumption">目前假設：每台機每小時產值 ฿2,500，每人月薪 ฿12,000。這是快速診斷用，可在正式顧問評估時替換成你的真實數字。</div>
+          <div><code id="t-formulaCapacity">理論月產能 = 機台數 × 每小時產值 × 班制 × 8 × 工作天</code></div>
+          <div><code id="t-formulaOutput">有效產出 = 理論月產能 × OEE</code></div>
+          <div><code id="t-formulaGain">每月新增價值 = 理論月產能 × OEE提升幅度 + 固定月薪成本 × OEE提升幅度</code></div>
+          <div><code id="t-formulaWorker">每人月產出 = 目標有效產出 ÷ 員工人數</code></div>
+        </div>
+      </details>
     </div>
   </div>
 
@@ -713,6 +803,9 @@ const T = {
     avgNote:'泰國製造業平均 OEE 約 60–68%',
     baseRef:'基準', targetRef:'目標',
     descA:'可動率（IoT 智慧貼紙）', descP:'性能效率（MES 系統）', descQ:'品質合格率（MES + 數據分析）',
+    hintA:'少停機、少等待，讓設備真的在生產。',
+    hintP:'減少換線、空轉、節拍不穩，讓產線更接近標準速度。',
+    hintQ:'降低重工、報廢與品質波動，讓產出更接近可出貨數量。',
     fcA:'A 貢獻月增益：', fcP:'P 貢獻月增益：', fcQ:'Q 貢獻月增益：',
     resultEyebrow:'每月新增獲利試算結果',
     zeroState:'← 請滑動上方 A / P / Q 滑桿來試算',
@@ -721,9 +814,25 @@ const T = {
     currentOutputLabel:'⚙️ 目前有效產出', targetOutputLabel:'🚀 目標有效產出',
     capacityLabel:'🏭 理論月產能', workerLabel:'👷 固定月薪成本', outputPerWorkerLabel:'👤 每人月產出',
     perPercent:(v)=>`★ 同樣機台與人力下，OEE 每提升 1% ≈ ${v} / 月`,
+    diagnosisLabel:'初步診斷',
+    diagnosisIdleTitle:'先找出最大的 OEE 漏洞',
+    diagnosisIdleBody:'拖曳 A / P / Q 後，這裡會把數字翻成可能的現場問題。',
+    diagnosisA:(v)=>`最大的改善空間在可動率，約占本次模擬 ${v}%。建議優先檢查停機、等待料件、設備異常、保養與現場事件回報是否即時。`,
+    diagnosisP:(v)=>`最大的改善空間在性能效率，約占本次模擬 ${v}%。建議優先檢查換線、瓶頸工序、節拍落差、排程與人機資料是否能即時對齊。`,
+    diagnosisQ:(v)=>`最大的改善空間在品質，約占本次模擬 ${v}%。建議優先檢查重工、報廢、首件確認、製程參數與品質資料是否能追溯到批次與設備。`,
+    diagnosisBalanced:(v)=>`這次改善分布較平均，總提升 ${v}%。建議用現場診斷先確認 A / P / Q 的真實基準，避免只靠感覺投資系統。`,
+    formulaTitle:'查看計算邏輯與假設',
+    formulaAssumption:'目前假設：每台機每小時產值 ฿2,500，每人月薪 ฿12,000。這是快速診斷用，可在正式顧問評估時替換成你的真實數字。',
+    formulaCapacity:'理論月產能 = 機台數 × 每小時產值 × 班制 × 8 × 工作天',
+    formulaOutput:'有效產出 = 理論月產能 × OEE',
+    formulaGain:'每月新增價值 = 理論月產能 × OEE提升幅度 + 固定月薪成本 × OEE提升幅度',
+    formulaWorker:'每人月產出 = 目標有效產出 ÷ 員工人數',
     ctaTitle:'準備好開始數位轉型了嗎？',
     ctaSub:'N/NPC 顧問團隊提供 IoT + MES 客製化解決方案，協助您工廠提升 OEE。',
     ctaBtn:'預約顧問諮詢 →',
+    ctaTitleActive:'想知道這筆損失真正發生在哪裡？',
+    ctaSubActive:'N/NPC 可以協助你用現場資料確認 A / P / Q 的真實漏洞，找出最值得先改善的設備、工序或品質問題。',
+    ctaBtnActive:'安排 OEE 現場診斷 →',
   },
   en: {
     homeLink:'← Back to Website', logout:'← Sign Out',
@@ -741,6 +850,9 @@ const T = {
     avgNote:'Thai manufacturing average OEE is approx. 60–68%',
     baseRef:'Baseline', targetRef:'Target',
     descA:'Availability (IoT Smart Sensor)', descP:'Performance (MES System)', descQ:'Quality Rate (MES + Analytics)',
+    hintA:'Reduce downtime and waiting so equipment is actually producing.',
+    hintP:'Reduce changeover loss, idling, and unstable cycle time so the line runs closer to standard speed.',
+    hintQ:'Reduce rework, scrap, and quality variation so output gets closer to shippable quantity.',
     fcA:'A monthly contribution: ', fcP:'P monthly contribution: ', fcQ:'Q monthly contribution: ',
     resultEyebrow:'Monthly Profit Gain Estimate',
     zeroState:'← Slide the A / P / Q sliders above to calculate',
@@ -749,9 +861,25 @@ const T = {
     currentOutputLabel:'⚙️ Current Effective Output', targetOutputLabel:'🚀 Target Effective Output',
     capacityLabel:'🏭 Theoretical Monthly Capacity', workerLabel:'👷 Fixed Monthly Labor Cost', outputPerWorkerLabel:'👤 Monthly Output per Worker',
     perPercent:(v)=>`★ With the same machines and people, every 1% OEE gain ≈ ${v} / month`,
+    diagnosisLabel:'Initial diagnosis',
+    diagnosisIdleTitle:'Find the largest OEE leak first',
+    diagnosisIdleBody:'Move A / P / Q to translate the numbers into likely shop-floor issues.',
+    diagnosisA:(v)=>`The largest simulated opportunity is Availability, around ${v}% of this improvement. Start by checking downtime, material waiting, machine alarms, maintenance, and whether shop-floor events are reported in time.`,
+    diagnosisP:(v)=>`The largest simulated opportunity is Performance, around ${v}% of this improvement. Start by checking changeovers, bottleneck processes, cycle-time gaps, scheduling, and whether machine and labor data are connected.`,
+    diagnosisQ:(v)=>`The largest simulated opportunity is Quality, around ${v}% of this improvement. Start by checking rework, scrap, first-piece approval, process parameters, and whether quality data can be traced to batches and equipment.`,
+    diagnosisBalanced:(v)=>`The improvement is distributed across A / P / Q, with a total gain of ${v}%. A site diagnosis can confirm the real baseline before investing based on assumptions.`,
+    formulaTitle:'View calculation logic and assumptions',
+    formulaAssumption:'Current assumptions: ฿2,500 output value per machine-hour and ฿12,000 monthly salary per worker. This is for quick diagnosis and can be replaced with your real figures during consulting assessment.',
+    formulaCapacity:'Theoretical monthly capacity = Machines × hourly value × shifts × 8 × working days',
+    formulaOutput:'Effective output = Theoretical monthly capacity × OEE',
+    formulaGain:'Monthly added value = Theoretical monthly capacity × OEE gain + fixed labor cost × OEE gain',
+    formulaWorker:'Monthly output per worker = Target effective output ÷ workers',
     ctaTitle:'Ready to Start Your Digital Transformation?',
     ctaSub:'N/NPC provides customized IoT + MES solutions to improve your factory OEE.',
     ctaBtn:'Book a Consultation →',
+    ctaTitleActive:'Want to know where this loss is really happening?',
+    ctaSubActive:'N/NPC can help verify the real A / P / Q gaps with shop-floor data and identify the equipment, process, or quality issue worth improving first.',
+    ctaBtnActive:'Book an OEE Site Diagnosis →',
   },
   th: {
     homeLink:'← กลับเว็บไซต์หลัก', logout:'← ออกจากระบบ',
@@ -769,6 +897,9 @@ const T = {
     avgNote:'ค่าเฉลี่ย OEE อุตสาหกรรมไทย ประมาณ 60–68%',
     baseRef:'พื้นฐาน', targetRef:'เป้าหมาย',
     descA:'ความพร้อมใช้งาน (IoT Sensor)', descP:'ประสิทธิภาพการผลิต (MES)', descQ:'อัตราของดี (MES + Data)',
+    hintA:'ลด downtime และเวลารอ เพื่อให้เครื่องจักรผลิตงานจริงมากขึ้น',
+    hintP:'ลดเวลาเปลี่ยนงาน การเดินเครื่องเปล่า และ cycle time ที่ไม่นิ่ง',
+    hintQ:'ลด rework, scrap และความผันผวนของคุณภาพ เพื่อให้ผลผลิตใกล้เคียงจำนวนที่ส่งมอบได้จริง',
     fcA:'A มีส่วนช่วยรายเดือน: ', fcP:'P มีส่วนช่วยรายเดือน: ', fcQ:'Q มีส่วนช่วยรายเดือน: ',
     resultEyebrow:'ผลประมาณการกำไรที่เพิ่มขึ้นต่อเดือน',
     zeroState:'← เลื่อนแถบ A / P / Q ด้านบนเพื่อคำนวณ',
@@ -777,9 +908,25 @@ const T = {
     currentOutputLabel:'⚙️ ผลผลิตจริงปัจจุบัน', targetOutputLabel:'🚀 ผลผลิตจริงเป้าหมาย',
     capacityLabel:'🏭 กำลังผลิตตามทฤษฎี/เดือน', workerLabel:'👷 ค่าแรงคงที่/เดือน', outputPerWorkerLabel:'👤 ผลผลิตต่อคน/เดือน',
     perPercent:(v)=>`★ ใช้เครื่องจักรและคนเท่าเดิม OEE เพิ่มขึ้น 1% ≈ ${v} / เดือน`,
+    diagnosisLabel:'การวิเคราะห์เบื้องต้น',
+    diagnosisIdleTitle:'หาช่องว่าง OEE ที่ใหญ่ที่สุดก่อน',
+    diagnosisIdleBody:'เลื่อน A / P / Q แล้วระบบจะแปลตัวเลขเป็นปัญหาหน้างานที่อาจเกิดขึ้น',
+    diagnosisA:(v)=>`โอกาสปรับปรุงหลักอยู่ที่ Availability ประมาณ ${v}% ของการจำลองนี้ ควรเริ่มตรวจ downtime, การรอวัตถุดิบ, alarm เครื่องจักร, งานซ่อมบำรุง และการบันทึกเหตุการณ์หน้างาน`,
+    diagnosisP:(v)=>`โอกาสปรับปรุงหลักอยู่ที่ Performance ประมาณ ${v}% ของการจำลองนี้ ควรเริ่มตรวจ changeover, bottleneck, cycle time, schedule และการเชื่อมข้อมูลเครื่องจักรกับแรงงาน`,
+    diagnosisQ:(v)=>`โอกาสปรับปรุงหลักอยู่ที่ Quality ประมาณ ${v}% ของการจำลองนี้ ควรเริ่มตรวจ rework, scrap, first-piece approval, process parameters และ traceability ของข้อมูลคุณภาพ`,
+    diagnosisBalanced:(v)=>`การปรับปรุงกระจายอยู่ใน A / P / Q รวม ${v}% แนะนำให้ตรวจหน้างานเพื่อยืนยัน baseline จริงก่อนลงทุน`,
+    formulaTitle:'ดูวิธีคำนวณและสมมติฐาน',
+    formulaAssumption:'สมมติฐานปัจจุบัน: มูลค่าผลิตต่อเครื่องต่อชั่วโมง ฿2,500 และค่าแรงต่อคนต่อเดือน ฿12,000 ใช้สำหรับการวินิจฉัยเบื้องต้น และสามารถเปลี่ยนเป็นตัวเลขจริงในขั้นตอนที่ปรึกษา',
+    formulaCapacity:'กำลังผลิตตามทฤษฎี = จำนวนเครื่อง × มูลค่าต่อชั่วโมง × กะ × 8 × วันทำงาน',
+    formulaOutput:'ผลผลิตจริง = กำลังผลิตตามทฤษฎี × OEE',
+    formulaGain:'มูลค่าเพิ่มต่อเดือน = กำลังผลิตตามทฤษฎี × OEE ที่เพิ่มขึ้น + ค่าแรงคงที่ × OEE ที่เพิ่มขึ้น',
+    formulaWorker:'ผลผลิตต่อคนต่อเดือน = ผลผลิตจริงเป้าหมาย ÷ จำนวนพนักงาน',
     ctaTitle:'พร้อมเริ่มการเปลี่ยนแปลงดิจิทัลแล้วหรือยัง?',
     ctaSub:'ทีมที่ปรึกษา N/NPC ให้บริการโซลูชัน IoT + MES เพื่อพัฒนา OEE โรงงานของคุณ',
     ctaBtn:'นัดหมายที่ปรึกษา →',
+    ctaTitleActive:'อยากรู้ว่าความสูญเสียนี้เกิดขึ้นตรงไหนจริงหรือไม่?',
+    ctaSubActive:'N/NPC ช่วยตรวจ A / P / Q จากข้อมูลหน้างานจริง เพื่อหาเครื่องจักร กระบวนการ หรือปัญหาคุณภาพที่ควรปรับปรุงก่อน',
+    ctaBtnActive:'นัดหมายตรวจ OEE หน้างาน →',
   }
 };
 
@@ -805,6 +952,7 @@ function setLang(lang, btn) {
   setText('t-avgNote', t.avgNote);
   setText('t-baseRef', t.baseRef); setText('t-targetRef', t.targetRef);
   setText('t-descA', t.descA); setText('t-descP', t.descP); setText('t-descQ', t.descQ);
+  setText('t-hintA', t.hintA); setText('t-hintP', t.hintP); setText('t-hintQ', t.hintQ);
   setText('t-resultEyebrow', t.resultEyebrow);
   setText('zeroState', t.zeroState);
   setText('t-resultSub', t.resultSub);
@@ -812,6 +960,13 @@ function setLang(lang, btn) {
   setText('t-currentOutputLabel', t.currentOutputLabel); setText('t-targetOutputLabel', t.targetOutputLabel);
   setText('t-capacityLabel', t.capacityLabel); setText('t-workerLabel', t.workerLabel);
   setText('t-outputPerWorkerLabel', t.outputPerWorkerLabel);
+  setText('t-diagnosisLabel', t.diagnosisLabel);
+  setText('t-formulaTitle', t.formulaTitle);
+  setText('t-formulaAssumption', t.formulaAssumption);
+  setText('t-formulaCapacity', t.formulaCapacity);
+  setText('t-formulaOutput', t.formulaOutput);
+  setText('t-formulaGain', t.formulaGain);
+  setText('t-formulaWorker', t.formulaWorker);
   setText('t-ctaTitle', t.ctaTitle); setText('t-ctaSub', t.ctaSub); setText('t-ctaBtn', t.ctaBtn);
   recalc();
 }
@@ -889,6 +1044,37 @@ function onDeltaChange() {
 // ─── Calculation & Render ───────────────────────────
 function fmt(n) { return '฿ ' + Math.round(n).toLocaleString('th-TH'); }
 
+function updateDiagnosis(totalDelta) {
+  const t = T[state.lang];
+  const title = document.getElementById('diagnosis-title');
+  const body = document.getElementById('diagnosis-body');
+  if (!title || !body) return;
+
+  if (totalDelta <= 0) {
+    title.textContent = t.diagnosisIdleTitle;
+    body.textContent = t.diagnosisIdleBody;
+    return;
+  }
+
+  const factors = [
+    { key: 'A', value: state.deltaA, title: state.lang === 'zh' ? '先查可動率損失' : state.lang === 'th' ? 'เริ่มจาก Availability loss' : 'Start with availability loss', body: t.diagnosisA },
+    { key: 'P', value: state.deltaP, title: state.lang === 'zh' ? '先查性能效率損失' : state.lang === 'th' ? 'เริ่มจาก Performance loss' : 'Start with performance loss', body: t.diagnosisP },
+    { key: 'Q', value: state.deltaQ, title: state.lang === 'zh' ? '先查品質損失' : state.lang === 'th' ? 'เริ่มจาก Quality loss' : 'Start with quality loss', body: t.diagnosisQ }
+  ].sort((a, b) => b.value - a.value);
+
+  const top = factors[0];
+  const second = factors[1];
+  const share = Math.round((top.value / totalDelta) * 100);
+  if (top.value === second.value) {
+    title.textContent = t.diagnosisIdleTitle;
+    body.textContent = t.diagnosisBalanced(totalDelta);
+    return;
+  }
+
+  title.textContent = top.title;
+  body.textContent = top.body(share);
+}
+
 function recalc() {
   const { machines, shifts, workers, workDays, baseOEE, deltaA, deltaP, deltaQ, lang } = state;
   const t = T[lang];
@@ -940,6 +1126,7 @@ function recalc() {
   if (totalDelta === 0) {
     zero.style.display = 'block';
     content.style.display = 'none';
+    updateDiagnosis(totalDelta);
   } else {
     zero.style.display = 'none';
     content.style.display = 'block';
@@ -950,7 +1137,13 @@ function recalc() {
     document.getElementById('result-revenue').textContent = fmt(revenueGain);
     document.getElementById('result-cost').textContent = fmt(costSavings);
     document.getElementById('result-perPercent').textContent = t.perPercent(fmt(perOne));
+    updateDiagnosis(totalDelta);
   }
+
+  const activeResult = totalDelta > 0;
+  setText('t-ctaTitle', activeResult ? t.ctaTitleActive : t.ctaTitle);
+  setText('t-ctaSub', activeResult ? t.ctaSubActive : t.ctaSub);
+  setText('t-ctaBtn', activeResult ? t.ctaBtnActive : t.ctaBtn);
 }
 
 // Init
