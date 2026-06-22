@@ -72,10 +72,10 @@ const SHARED = {
 const PAGE = {
   home: {
     zh: {
-      title: '訂單很多，不代表工廠真的有賺錢。',
+      title: '你的工廠，OEE 每提升 1 個百分點，一年值多少？',
       eyebrow: 'N/NPC Smart Operations',
-      subtitle: 'N/NPC 協助製造業與企業從 MES、IoT 現場數據、OEE 分析，到 AI 預測、CRM、BizForm、KM 與 RTLS 即時定位，建立看得見、算得清、能持續改善的營運系統。',
-      primary: '試算 OEE 漏利',
+      subtitle: '輸入機台、人力、班制與工作天，快速估算目前有效產出、改善空間與潛在收益，再決定最值得優先改善的現場問題。',
+      primary: '試算我的 OEE 改善價值',
       secondary: '看解決方案',
       trust1N: 'MES + IoT', trust1T: '把現場資料接起來',
       trust2N: 'AI', trust2T: '預測異常與最佳化決策',
@@ -139,10 +139,10 @@ const PAGE = {
       ctaText: '從 OEE 工具開始，或直接預約 N/NPC 進行產線與流程診斷。',
     },
     en: {
-      title: 'A full order book does not always mean a profitable factory.',
+      title: 'What is one OEE point worth to your factory each year?',
       eyebrow: 'N/NPC Smart Operations',
-      subtitle: 'N/NPC helps manufacturers and enterprises connect MES, IoT field data, OEE analysis, AI prediction, CRM, BizForm, KM, and RTLS into visible, measurable, and continuously improving operating systems.',
-      primary: 'Calculate OEE Loss',
+      subtitle: 'Enter your machines, workforce, shifts, and working days to estimate effective output, improvement potential, and financial value before deciding what to improve first.',
+      primary: 'Calculate My OEE Value',
       secondary: 'View Solutions',
       trust1N: 'MES + IoT', trust1T: 'Connect shop-floor data',
       trust2N: 'AI', trust2T: 'Predict risk and optimize decisions',
@@ -206,10 +206,10 @@ const PAGE = {
       ctaText: 'Use the OEE tool first, or book a production and process diagnosis with N/NPC.',
     },
     th: {
-      title: 'ออเดอร์เยอะ ไม่ได้แปลว่าโรงงานกำไรดีเสมอไป',
+      title: 'OEE เพิ่มขึ้น 1 จุด สร้างมูลค่าให้โรงงานคุณปีละเท่าไร?',
       eyebrow: 'N/NPC Smart Operations',
-      subtitle: 'N/NPC ช่วยโรงงานและองค์กรเชื่อม MES, ข้อมูล IoT หน้างาน, OEE, AI prediction, CRM, BizForm, KM และ RTLS ให้กลายเป็นระบบที่มองเห็น วัดผลได้ และปรับปรุงต่อเนื่อง',
-      primary: 'คำนวณการรั่วไหล OEE',
+      subtitle: 'กรอกจำนวนเครื่องจักร พนักงาน กะ และวันทำงาน เพื่อประเมินผลผลิตจริง โอกาสปรับปรุง และมูลค่าทางการเงิน ก่อนเลือกว่าควรแก้ปัญหาใดก่อน',
+      primary: 'คำนวณมูลค่า OEE',
       secondary: 'ดูโซลูชัน',
       trust1N: 'MES + IoT', trust1T: 'เชื่อมข้อมูลหน้างาน',
       trust2N: 'AI', trust2T: 'พยากรณ์ความเสี่ยงและเพิ่มประสิทธิภาพ',
