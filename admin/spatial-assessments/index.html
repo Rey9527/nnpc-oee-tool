@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>N/NPC | Spatial Assessment Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700;800;900&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/site.css">
+</head>
+<body>
+<main class="admin-shell spatial-admin-shell">
+  <section class="certificate-admin-card spatial-admin-card">
+    <div class="admin-hero spatial-admin-hero">
+      <div>
+        <div class="eyebrow">N/NPC Internal</div>
+        <h1>Spatial Assessment Admin</h1>
+        <p>查看 RTLS / 空間服務需求、成本估算與報價建議。成本公式只在後端運算，公開診斷頁不會暴露。</p>
+      </div>
+      <a class="admin-status-pill" href="/tools/spatial-assessment/">Open Public Tool</a>
+    </div>
+
+    <section class="admin-panel">
+      <div class="admin-panel-head"><span>01</span><strong>Access</strong></div>
+      <label class="admin-field">
+        <span>Admin token</span>
+        <div class="admin-token-row">
+          <input id="adminToken" autocomplete="off" placeholder="Paste SPATIAL_ADMIN_TOKEN or CERT_ADMIN_TOKEN">
+          <button class="btn secondary" type="button" id="rememberToken">Remember</button>
+        </div>
+        <small id="tokenNote">只存在這台瀏覽器，不會寫進 Airtable。</small>
+      </label>
+      <div class="spatial-admin-actions">
+        <button class="btn primary" type="button" id="loadRecords">Load assessments</button>
+        <button class="btn secondary" type="button" id="exportCsv">Export CSV</button>
+      </div>
+      <p class="form-note" id="adminMessage"></p>
+    </section>
+
+    <section class="spatial-admin-board">
+      <aside class="spatial-admin-list admin-panel">
+        <div class="spatial-admin-list-head">
+          <div>
+            <div class="admin-panel-head"><span>02</span><strong>Requests</strong></div>
+            <p id="recordCount">尚未載入資料</p>
+          </div>
+          <select id="statusFilter" aria-label="Filter status">
+            <option value="">All</option>
+            <option>New</option>
+            <option>Contacted</option>
+            <option>Qualified</option>
+            <option>Quoted</option>
+            <option>Closed</option>
+          </select>
+        </div>
+        <input class="spatial-admin-search" id="searchBox" placeholder="Search company, contact, email, ID">
+        <div class="spatial-admin-records" id="recordList"></div>
+      </aside>
+
+      <section class="spatial-admin-detail admin-panel" id="detailPanel">
+        <div class="spatial-admin-empty">
+          <div class="eyebrow">Cost Estimation</div>
+          <h2>選一筆需求查看報價建議</h2>
+          <p>載入後左側會列出案件。點選案件即可看到建置費、建議月費、首年估算與成本拆解。</p>
+        </div>
+      </section>
+    </section>
+  </section>
+</main>
+
+<script>
+const state = { records: [], selectedId: '' };
+const statuses = ['New', 'Contacted', 'Qualified', 'Quoted', 'Closed'];
+const els = {
+  token: document.getElementById('adminToken'),
+  remember: document.getElementById('rememberToken'),
+  note: document.getElementById('tokenNote'),
+  message: document.getElementById('adminMessage'),
+  load: document.getElementById('loadRecords'),
+  exportCsv: document.getElementById('exportCsv'),
+  list: document.getElementById('recordList'),
+  count: document.getElementById('recordCount'),
+  search: document.getElementById('searchBox'),
+  filter: document.getElementById('statusFilter'),
+  detail: document.getElementById('detailPanel'),
+};
+
+const savedToken = localStorage.getItem('nnpc_spatial_admin_token');
+if (savedToken) els.token.value = savedToken;
+
+function money(value) {
+  return new Intl.NumberFormat('zh-TW', {
+    style: 'currency',
+    currency: 'TWD',
+    maximumFractionDigits: 0,
+  }).format(Number(value || 0));
+}
+
+function number(value) {
+  return new Intl.NumberFormat('zh-TW', { maximumFractionDigits: 0 }).format(Number(value || 0));
+}
+
+function escapeHtml(value) {
+  return String(value || '').replace(/[&<>"']/g, (char) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+  }[char]));
+}
+
+function token() {
+  return els.token.value.trim();
+}
+
+async function api(method = 'GET', body) {
+  if (!token()) throw new Error('請先輸入 Admin token。');
+  const res = await fetch('/api/spatial/admin', {
+    method,
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token()}`,
+    },
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.message === 'Authentication required'
+    ? 'Admin token 不正確，請確認 SPATIAL_ADMIN_TOKEN 或 CERT_ADMIN_TOKEN。'
+    : data.message || 'Request failed');
+  return data;
+}
+
+function filteredRecords() {
+  const query = els.search.value.trim().toLowerCase();
+  const status = els.filter.value;
+  return state.records.filter((record) => {
+    if (status && record.status !== status) return false;
+    if (!query) return true;
+    return [
+      record.assessment_id,
+      record.company,
+      record.contact,
+      record.email,
+      record.scene,
+      record.notes,
+    ].join(' ').toLowerCase().includes(query);
+  });
+}
+
+function renderList() {
+  const records = filteredRecords();
+  els.count.textContent = `${records.length} / ${state.records.length} 筆`;
+  els.list.innerHTML = records.map((record) => {
+    const selected = record.record_id === state.selectedId ? ' is-selected' : '';
+    const needs = (record.needs || []).slice(0, 2).map(escapeHtml).join(' · ');
+    return `<button class="spatial-admin-record${selected}" type="button" data-id="${escapeHtml(record.record_id)}">
+      <span class="spatial-record-top"><strong>${escapeHtml(record.company)}</strong><em>${escapeHtml(record.status)}</em></span>
+      <span>${escapeHtml(record.contact)} · ${escapeHtml(record.email)}</span>
+      <small>${escapeHtml(record.assessment_id)}${needs ? ' · ' + needs : ''}</small>
+    </button>`;
+  }).join('') || '<p class="form-note">沒有符合條件的資料。</p>';
+}
+
+function row(label, value) {
+  return `<div class="spatial-detail-row"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value || '-')}</strong></div>`;
+}
+
+function kpi(label, value, note) {
+  return `<div class="spatial-admin-kpi"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong>${note ? `<small>${escapeHtml(note)}</small>` : ''}</div>`;
+}
+
+function renderDetail(record) {
+  if (!record) return;
+  const estimate = record.estimate || {};
+  const usage = estimate.usage || {};
+  const classification = estimate.classification || {};
+  const statusOptions = statuses.map((status) => `<option${status === record.status ? ' selected' : ''}>${status}</option>`).join('');
+  els.detail.innerHTML = `
+    <div class="spatial-detail-head">
+      <div>
+        <div class="eyebrow">${escapeHtml(record.assessment_id)}</div>
+        <h2>${escapeHtml(record.company)}</h2>
+        <p>${escapeHtml(record.contact)} · ${escapeHtml(record.email)}${record.phone ? ' · ' + escapeHtml(record.phone) : ''}</p>
+      </div>
+      <div class="spatial-status-tools">
+        <select id="detailStatus">${statusOptions}</select>
+        <button class="btn secondary" type="button" id="saveStatus">Save</button>
+      </div>
+    </div>
+
+    <div class="spatial-admin-kpis">
+      ${kpi('建議月費', money(estimate.suggested_monthly), 'Suggested recurring fee')}
+      ${kpi('建置費', money(estimate.setup_fee), 'One-time setup')}
+      ${kpi('首年估算', money(estimate.first_year), 'Setup + 12 months')}
+      ${kpi('內部月成本', money(estimate.monthly_internal), 'Before margin')}
+    </div>
+
+    <div class="spatial-cost-grid">
+      <section>
+        <h3>需求摘要</h3>
+        ${row('Needs', (record.needs || []).join('、'))}
+        ${row('Scene', record.scene)}
+        ${row('Stage', record.stage)}
+        ${row('Sites', record.sites)}
+        ${row('People / Assets', record.assets)}
+        ${row('Monthly Users', record.users)}
+        ${row('Update Frequency', record.frequency)}
+        ${row('Timeline', record.timeline)}
+        ${row('Accuracy', record.accuracy)}
+      </section>
+      <section>
+        <h3>成本拆解</h3>
+        ${row('Scale', classification.scale)}
+        ${row('Use Types', (classification.types || []).join('、'))}
+        ${row('Map / Search / Route', money(estimate.map_cost))}
+        ${row('Device / Messages', money(estimate.device_cost))}
+        ${row('Spatial Analysis', money(estimate.analysis_cost))}
+        ${row('Operations Base', money(estimate.operations_cost))}
+        ${row('Map Events', number(usage.map_events))}
+        ${row('Search Events', number(usage.search_events))}
+        ${row('Route Events', number(usage.route_events))}
+        ${row('Device Messages', number(usage.messages))}
+      </section>
+    </div>
+
+    <section class="spatial-notes">
+      <h3>Notes</h3>
+      <p>${escapeHtml(record.notes || 'No notes provided.')}</p>
+    </section>
+
+    <div class="spatial-admin-danger">
+      <button class="btn secondary" type="button" id="deleteRecord">Delete record</button>
+      <small>正式案件建議改 Status，不建議刪除。刪除會移除 Airtable record。</small>
+    </div>`;
+
+  document.getElementById('saveStatus').addEventListener('click', async () => {
+    await updateStatus(record.record_id, document.getElementById('detailStatus').value);
+  });
+  document.getElementById('deleteRecord').addEventListener('click', async () => {
+    if (!confirm(`Delete ${record.company}?`)) return;
+    await deleteRecord(record.record_id);
+  });
+}
+
+async function loadRecords() {
+  els.message.textContent = 'Loading assessments...';
+  els.load.disabled = true;
+  try {
+    const data = await api('GET');
+    state.records = data.assessments || [];
+    if (!state.selectedId && state.records[0]) state.selectedId = state.records[0].record_id;
+    localStorage.setItem('nnpc_spatial_admin_token', token());
+    renderList();
+    renderDetail(state.records.find((record) => record.record_id === state.selectedId));
+    els.message.textContent = `Loaded ${state.records.length} assessments.`;
+  } catch (err) {
+    els.message.textContent = err.message;
+  } finally {
+    els.load.disabled = false;
+  }
+}
+
+async function updateStatus(recordId, status) {
+  els.message.textContent = 'Saving status...';
+  try {
+    const data = await api('PATCH', { record_id: recordId, status });
+    const index = state.records.findIndex((record) => record.record_id === recordId);
+    if (index >= 0) state.records[index] = data.assessment;
+    renderList();
+    renderDetail(data.assessment);
+    els.message.textContent = 'Status updated.';
+  } catch (err) {
+    els.message.textContent = err.message;
+  }
+}
+
+async function deleteRecord(recordId) {
+  els.message.textContent = 'Deleting record...';
+  try {
+    await api('DELETE', { record_id: recordId });
+    state.records = state.records.filter((record) => record.record_id !== recordId);
+    state.selectedId = state.records[0]?.record_id || '';
+    renderList();
+    renderDetail(state.records.find((record) => record.record_id === state.selectedId));
+    els.message.textContent = 'Record deleted.';
+  } catch (err) {
+    els.message.textContent = err.message;
+  }
+}
+
+function exportCsv() {
+  const headers = ['Assessment ID','Company','Contact','Email','Status','Suggested Monthly','Setup Fee','First Year','Needs','Notes'];
+  const rows = state.records.map((record) => [
+    record.assessment_id,
+    record.company,
+    record.contact,
+    record.email,
+    record.status,
+    record.estimate?.suggested_monthly,
+    record.estimate?.setup_fee,
+    record.estimate?.first_year,
+    (record.needs || []).join(' / '),
+    record.notes,
+  ]);
+  const csv = [headers, ...rows].map((rowData) => rowData.map((value) => `"${String(value || '').replace(/"/g, '""')}"`).join(',')).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `nnpc-spatial-assessments-${new Date().toISOString().slice(0, 10)}.csv`;
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+els.remember.addEventListener('click', () => {
+  if (!token()) {
+    els.note.textContent = '請先輸入 Admin token。';
+    els.note.className = 'admin-inline-note is-error';
+    return;
+  }
+  localStorage.setItem('nnpc_spatial_admin_token', token());
+  els.note.textContent = '已記住 Admin token。';
+  els.note.className = 'admin-inline-note is-success';
+});
+els.load.addEventListener('click', loadRecords);
+els.exportCsv.addEventListener('click', exportCsv);
+els.search.addEventListener('input', renderList);
+els.filter.addEventListener('change', renderList);
+els.list.addEventListener('click', (event) => {
+  const button = event.target.closest('[data-id]');
+  if (!button) return;
+  state.selectedId = button.dataset.id;
+  renderList();
+  renderDetail(state.records.find((record) => record.record_id === state.selectedId));
+});
+</script>
+</body>
+</html>

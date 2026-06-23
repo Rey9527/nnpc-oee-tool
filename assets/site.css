@@ -1799,6 +1799,261 @@ h1 {
   opacity: 0.62;
 }
 
+.spatial-admin-shell {
+  place-items: start center;
+}
+
+.spatial-admin-card {
+  width: min(1360px, calc(100vw - 40px));
+}
+
+.spatial-admin-hero .admin-status-pill {
+  text-decoration: none;
+}
+
+.spatial-admin-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 0.9rem;
+}
+
+.spatial-admin-board {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.38fr) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.spatial-admin-list,
+.spatial-admin-detail {
+  min-height: 560px;
+}
+
+.spatial-admin-list-head {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.spatial-admin-list-head p {
+  margin: -0.35rem 0 0.7rem;
+  color: var(--soft);
+}
+
+.spatial-admin-list-head select,
+.spatial-status-tools select {
+  min-height: 44px;
+  max-width: 170px;
+  background-color: rgba(255,255,255,0.045);
+  border: 1px solid var(--line);
+  color: var(--text);
+  border-radius: 12px;
+  padding: 0 0.7rem;
+  font: 800 0.95rem var(--body-font);
+}
+
+.spatial-admin-search {
+  width: 100%;
+  min-height: 48px;
+  margin-bottom: 0.85rem;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,0.04);
+  color: var(--text);
+  padding: 0.8rem 0.95rem;
+  font: 700 1rem var(--body-font);
+}
+
+.spatial-admin-records {
+  display: grid;
+  gap: 0.6rem;
+  max-height: 640px;
+  overflow: auto;
+  padding-right: 0.25rem;
+}
+
+.spatial-admin-record {
+  display: grid;
+  gap: 0.22rem;
+  width: 100%;
+  text-align: left;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,0.035);
+  color: var(--muted);
+  border-radius: 16px;
+  padding: 0.85rem;
+  cursor: pointer;
+  transition: border-color var(--fast), background var(--fast), transform var(--fast);
+}
+
+.spatial-admin-record:hover,
+.spatial-admin-record.is-selected {
+  border-color: rgba(242,185,31,0.48);
+  background: rgba(242,185,31,0.08);
+  transform: translateY(-1px);
+}
+
+.spatial-record-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+.spatial-record-top strong {
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.spatial-record-top em {
+  flex: 0 0 auto;
+  border: 1px solid rgba(242,185,31,0.34);
+  color: var(--gold);
+  border-radius: 999px;
+  padding: 0.08rem 0.5rem;
+  font-style: normal;
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.spatial-admin-record span,
+.spatial-admin-record small {
+  overflow-wrap: anywhere;
+}
+
+.spatial-admin-empty {
+  min-height: 420px;
+  display: grid;
+  align-content: center;
+  justify-items: start;
+}
+
+.spatial-admin-empty h2,
+.spatial-detail-head h2 {
+  margin: 0.4rem 0 0.5rem;
+  font-size: clamp(1.8rem, 3vw, 3rem);
+  line-height: 1.05;
+}
+
+.spatial-admin-empty p,
+.spatial-detail-head p {
+  color: var(--muted);
+  max-width: 720px;
+}
+
+.spatial-detail-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.spatial-status-tools {
+  display: flex;
+  gap: 0.55rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.spatial-admin-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.spatial-admin-kpi {
+  border: 1px solid var(--line);
+  background: linear-gradient(145deg, rgba(242,185,31,0.11), rgba(255,255,255,0.032));
+  border-radius: 18px;
+  padding: 1rem;
+  min-width: 0;
+}
+
+.spatial-admin-kpi span,
+.spatial-admin-kpi small {
+  display: block;
+  color: var(--soft);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.spatial-admin-kpi strong {
+  display: block;
+  margin: 0.22rem 0;
+  color: var(--text);
+  font-size: clamp(1.35rem, 2vw, 1.9rem);
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.spatial-cost-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.spatial-cost-grid section,
+.spatial-notes {
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,0.03);
+  border-radius: 18px;
+  padding: 1rem;
+}
+
+.spatial-cost-grid h3,
+.spatial-notes h3 {
+  margin: 0 0 0.75rem;
+  color: var(--gold);
+}
+
+.spatial-detail-row {
+  display: grid;
+  grid-template-columns: minmax(120px, 0.34fr) minmax(0, 1fr);
+  gap: 0.7rem;
+  padding: 0.48rem 0;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+
+.spatial-detail-row span {
+  color: var(--soft);
+  font-weight: 800;
+  font-size: 0.84rem;
+}
+
+.spatial-detail-row strong {
+  color: var(--muted);
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.spatial-notes p {
+  margin: 0;
+  color: var(--muted);
+  white-space: pre-wrap;
+}
+
+.spatial-admin-danger {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+  border-top: 1px solid var(--line);
+  padding-top: 1rem;
+}
+
+.spatial-admin-danger small {
+  color: var(--soft);
+}
+
 /* Tool center and spatial assessment */
 .tools-hero { padding-bottom: 2.5rem; }
 .tool-hub-grid {
@@ -2060,6 +2315,11 @@ h1 {
   .certificate-search-panel,
   .certificate-grid { grid-template-columns: 1fr; }
   .certificate-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .spatial-admin-board,
+  .spatial-admin-kpis,
+  .spatial-cost-grid { grid-template-columns: 1fr; }
+  .spatial-admin-list,
+  .spatial-admin-detail { min-height: auto; }
   .admin-hero { flex-direction: column; }
   .admin-status-pill { white-space: normal; }
   .diagnostic-grid { grid-template-columns: 1fr; }
@@ -2113,6 +2373,14 @@ h1 {
   .admin-copy-btn,
   .admin-success-actions .btn { width: 100%; }
   .admin-standard-row { flex-direction: column; align-items: flex-start; }
+  .spatial-admin-records { max-height: none; }
+  .spatial-detail-head,
+  .spatial-admin-danger { flex-direction: column; align-items: flex-start; }
+  .spatial-detail-row { grid-template-columns: 1fr; gap: 0.15rem; }
+  .spatial-status-tools,
+  .spatial-status-tools select,
+  .spatial-status-tools .btn,
+  .spatial-admin-actions .btn { width: 100%; max-width: none; }
   .certificate-search-row .btn { width: 100%; }
   .certificate-topline { flex-direction: column; }
   .certificate-tool-row { flex-direction: column; align-items: flex-start; }

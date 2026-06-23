@@ -1,4 +1,9 @@
 const MAX_TEXT = 3000;
+const {
+  airtableConfigured,
+  createAssessment,
+  sanitizeAssessment,
+} = require('../../lib/spatial-common');
 
 function json(res, status, body) {
   const origin = String(process.env.ALLOWED_ORIGIN || '*').split(/[\s,]+/)[0] || '*';
@@ -41,36 +46,44 @@ module.exports = async function handler(req, res) {
     const data = await readBody(req);
     if (data.website) return json(res, 200, { ok: true });
 
-    const email = clean(data.email).toLowerCase();
-    const company = clean(data.company);
-    const contact = clean(data.contact);
-    if (!company || !contact || !email || !email.includes('@')) {
-      return json(res, 400, { ok: false, message: 'Missing required contact fields' });
-    }
+    const assessment = sanitizeAssessment(data);
+    const { email, company, contact } = assessment;
+    let stored = null;
+    if (airtableConfigured()) stored = await createAssessment(assessment);
 
     const apiKey = process.env.RESEND_API_KEY;
     const from = process.env.FROM_EMAIL;
-    if (!apiKey || !from) throw new Error('Email service is not configured');
+    if (!apiKey || !from) {
+      if (stored) {
+        return json(res, 200, {
+          ok: true,
+          assessment_id: stored.assessment_id,
+          warning: 'Assessment saved, but email service is not configured',
+        });
+      }
+      throw new Error('Email service is not configured');
+    }
 
-    const needs = Array.isArray(data.needs) ? data.needs.map((item) => clean(item, 80)).slice(0, 12) : [];
+    const needs = assessment.needs;
     const text = [
       'N/NPC RTLS / Spatial Service Assessment',
       '',
+      line('Assessment ID', assessment.assessment_id),
       line('Company', company),
       line('Contact', contact),
       line('Email', email),
-      line('Phone', clean(data.phone)),
+      line('Phone', assessment.phone),
       line('Needs', needs),
-      line('Scene', clean(data.scene)),
-      line('Stage', clean(data.stage)),
-      line('Sites', clean(data.sites)),
-      line('People / assets', clean(data.assets)),
-      line('Monthly users', clean(data.users)),
-      line('Update frequency', clean(data.frequency)),
-      line('Timeline', clean(data.timeline)),
-      line('Accuracy', clean(data.accuracy)),
+      line('Scene', assessment.scene),
+      line('Stage', assessment.stage),
+      line('Sites', assessment.sites),
+      line('People / assets', assessment.assets),
+      line('Monthly users', assessment.users),
+      line('Update frequency', assessment.frequency),
+      line('Timeline', assessment.timeline),
+      line('Accuracy', assessment.accuracy),
       '',
-      line('Notes', clean(data.notes, MAX_TEXT)),
+      line('Notes', clean(assessment.notes, MAX_TEXT)),
     ].join('\n');
 
     const response = await fetch('https://api.resend.com/emails', {
@@ -85,8 +98,18 @@ module.exports = async function handler(req, res) {
       }),
     });
     const body = await response.json().catch(() => ({}));
-    if (!response.ok) throw new Error(body.message || `Email request failed: ${response.status}`);
-    return json(res, 200, { ok: true });
+    if (!response.ok) {
+      if (stored) {
+        console.error(body.message || `Email request failed: ${response.status}`);
+        return json(res, 200, {
+          ok: true,
+          assessment_id: stored.assessment_id,
+          warning: 'Assessment saved, but notification email failed',
+        });
+      }
+      throw new Error(body.message || `Email request failed: ${response.status}`);
+    }
+    return json(res, 200, { ok: true, assessment_id: stored?.assessment_id || assessment.assessment_id });
   } catch (err) {
     console.error(err);
     return json(res, 500, { ok: false, message: err.message || 'Submission failed' });

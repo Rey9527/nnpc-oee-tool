@@ -4,6 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "vercel dev",
-    "check": "node -c lib/oee-common.js && node -c lib/certificates-common.js && node -c api/oee/register.js && node -c api/oee/resend-verification.js && node -c api/oee/verify.js && node -c api/certificates/get.js && node -c api/certificates/admin.js && node -c api/spatial/submit.js && node -c assets/site.js && node -c assets/certificates-ui.js && node -c assets/spatial-assessment.js"
+    "check": "node -c lib/oee-common.js && node -c lib/certificates-common.js && node -c lib/spatial-common.js && node -c api/oee/register.js && node -c api/oee/resend-verification.js && node -c api/oee/verify.js && node -c api/certificates/get.js && node -c api/certificates/admin.js && node -c api/spatial/submit.js && node -c api/spatial/admin.js && node -c assets/site.js && node -c assets/certificates-ui.js && node -c assets/spatial-assessment.js"
   }
 }
