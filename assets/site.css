@@ -1908,6 +1908,17 @@ h1 {
   background-size: 6px 6px;
   background-repeat: no-repeat;
   padding-right: 2.5rem;
+  min-height: 52px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+.assessment-fields select option {
+  background: #181818;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 1rem;
 }
 .assessment-fields input:focus, .assessment-fields select:focus, .assessment-notes textarea:focus {
   border-color: rgba(242,185,31,0.48); box-shadow: 0 0 0 3px rgba(242,185,31,0.08);
