@@ -1920,6 +1920,17 @@ h1 {
   font-family: inherit;
   font-size: 1rem;
 }
+.contact-fields input,
+.assessment-notes textarea {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.contact-fields input::placeholder,
+.assessment-notes textarea::placeholder {
+  color: #a8a8a8;
+  font-size: 1rem;
+  opacity: 1;
+}
 .assessment-fields input:focus, .assessment-fields select:focus, .assessment-notes textarea:focus {
   border-color: rgba(242,185,31,0.48); box-shadow: 0 0 0 3px rgba(242,185,31,0.08);
 }
