@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>N/NPC | Spatial Service Assessment</title>
+<meta name="description" content="Initial RTLS and spatial service requirement assessment by N/NPC.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700;800;900&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/site.css">
+</head>
+<body class="spatial-page">
+<header class="spatial-topbar">
+  <a class="brand" href="/"><span class="brand-main">N<span>/</span>NPC</span><span class="brand-sub">Spatial Intelligence Assessment</span></a>
+  <div class="spatial-top-actions">
+    <a class="btn secondary spatial-back" href="/tools/" id="backTools">← 工具中心</a>
+    <div class="lang-bar">
+      <button class="lang-btn" data-lang="zh">中</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="th">ไทย</button>
+    </div>
+  </div>
+</header>
+
+<main class="spatial-shell">
+  <section class="spatial-intro">
+    <div class="eyebrow">RTLS · Location · Spatial Services</div>
+    <h1 id="pageTitle">空間服務需求診斷</h1>
+    <p id="pageIntro">用幾個簡單問題整理場域、使用規模與預期成果。此工具不顯示價格，提交後由 N/NPC 顧問進一步確認技術範圍。</p>
+  </section>
+
+  <div class="assessment-progress" aria-label="Assessment progress">
+    <span class="active"></span><span></span><span></span>
+  </div>
+
+  <form id="assessmentForm" novalidate>
+    <section class="assessment-panel" data-step="1">
+      <div class="assessment-heading"><span>01</span><div><h2 id="step1Title">您想解決什麼問題？</h2><p id="step1Hint">可複選，只需選擇最接近的使用情境。</p></div></div>
+      <div class="assessment-options" id="needOptions"></div>
+      <div class="assessment-actions"><button class="btn primary" type="button" data-next="2" id="next1">下一步</button></div>
+    </section>
+
+    <section class="assessment-panel hidden" data-step="2">
+      <div class="assessment-heading"><span>02</span><div><h2 id="step2Title">使用場域與規模</h2><p id="step2Hint">選擇區間即可，不需要精確數字。</p></div></div>
+      <div class="assessment-fields" id="scaleFields"></div>
+      <div class="assessment-actions"><button class="btn secondary" type="button" data-prev="1" id="back2">上一步</button><button class="btn primary" type="button" data-next="3" id="next2">下一步</button></div>
+    </section>
+
+    <section class="assessment-panel hidden" data-step="3">
+      <div class="assessment-heading"><span>03</span><div><h2 id="step3Title">聯絡資訊與補充說明</h2><p id="step3Hint">請留下可供後續確認需求的資訊。</p></div></div>
+      <div class="assessment-fields contact-fields">
+        <label><span id="companyLabel">公司／單位名稱 *</span><input name="company" required autocomplete="organization" placeholder="例如：N/NPC Consulting"></label>
+        <label><span id="contactLabel">聯絡人 *</span><input name="contact" required autocomplete="name" placeholder="姓名"></label>
+        <label><span id="emailLabel">電子郵件 *</span><input name="email" required type="email" autocomplete="email" placeholder="name@company.com"></label>
+        <label><span id="phoneLabel">電話</span><input name="phone" autocomplete="tel" placeholder="選填"></label>
+      </div>
+      <label class="assessment-notes"><span id="notesLabel">目前遇到的問題或期待成果</span><textarea name="notes" id="notes" maxlength="3000" placeholder="例如：希望在大型廠區追蹤巡檢人員，並保存異常事件前後的移動軌跡。"></textarea></label>
+      <input class="honeypot" name="website" tabindex="-1" autocomplete="off">
+      <div class="assessment-summary" id="assessmentSummary"></div>
+      <div class="assessment-message" id="formMessage" role="status"></div>
+      <p class="assessment-privacy"><span id="privacyNote">提交即表示您同意 N/NPC 使用這些資料聯絡並釐清本次需求。</span> <a href="/privacy-policy.html" id="privacyLink">隱私權政策</a></p>
+      <div class="assessment-actions"><button class="btn secondary" type="button" data-prev="2" id="back3">上一步</button><button class="btn primary" type="submit" id="submitButton">提交需求</button></div>
+    </section>
+  </form>
+
+  <section class="assessment-panel assessment-success hidden" id="successPanel">
+    <div class="success-mark">✓</div>
+    <div class="eyebrow" id="successEyebrow">Assessment Received</div>
+    <h2 id="successTitle">需求已完成記錄</h2>
+    <p id="successText">N/NPC 已收到你的使用情境與規模，後續將由專人確認技術範圍、導入方式與下一步。</p>
+    <div class="assessment-summary" id="successSummary"></div>
+    <div class="assessment-actions assessment-actions-center"><a class="btn primary" href="/tools/" id="successBack">返回工具中心</a></div>
+  </section>
+
+  <p class="assessment-disclaimer" id="disclaimer">本工具僅用於初步需求釐清，不構成正式報價、定位精度保證或服務承諾。</p>
+</main>
+<script src="../../assets/spatial-assessment.js"></script>
+</body>
+</html>
