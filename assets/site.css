@@ -113,9 +113,20 @@ a { color: inherit; text-decoration: none; }
   border: 1px solid var(--line); background: rgba(255,255,255,0.04); color: var(--muted);
   padding: 0.42rem 0.58rem; font-family: inherit; font-size: 0.92rem; font-weight: 700;
   line-height: 1.2; cursor: pointer; border-radius: var(--radius);
-  transition: background var(--fast), border-color var(--fast), color var(--fast);
+  box-shadow: none;
+  transition: background var(--fast), border-color var(--fast), color var(--fast), transform var(--fast);
 }
-.lang-btn.active { color: #1c1c1c; background: var(--gold-gradient); border-color: rgba(255,238,168,0.74); box-shadow: var(--gold-button-shadow); }
+.lang-btn:hover {
+  color: var(--text);
+  background: rgba(255,255,255,0.065);
+  border-color: rgba(255,255,255,0.18);
+}
+.lang-btn.active {
+  color: var(--gold);
+  background: rgba(255,255,255,0.075);
+  border-color: rgba(242,185,31,0.38);
+  box-shadow: inset 0 0 0 1px rgba(242,185,31,0.06);
+}
 .menu-toggle {
   display: none; min-height: 44px; border: 1px solid var(--line); background: rgba(255,255,255,0.04);
   color: var(--text); padding: 0.62rem 0.8rem; font-family: inherit; font-size: 1rem; font-weight: 800;
@@ -190,8 +201,9 @@ a { color: inherit; text-decoration: none; }
 }
 .legal-lang-btn.active {
   color: var(--gold);
-  border-color: rgba(225,168,19,0.42);
-  background: var(--gold-dim);
+  border-color: rgba(242,185,31,0.38);
+  background: rgba(255,255,255,0.075);
+  box-shadow: inset 0 0 0 1px rgba(242,185,31,0.06);
 }
 .legal-page h1 {
   font-size: 2rem;

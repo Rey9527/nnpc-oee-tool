@@ -52,8 +52,14 @@
     font-size: 0.92rem; color: var(--muted); cursor: pointer;
     transition: all 0.15s; font-family: inherit; white-space: nowrap;
   }
-  .lang-btn:hover { border-color: var(--gold); color: var(--text); }
-  .lang-btn.active { background: var(--gold-dim); border-color: rgba(225,168,19,0.4); color: var(--gold); font-weight: 700; }
+  .lang-btn:hover { background: rgba(255,255,255,0.065); border-color: rgba(255,255,255,0.18); color: var(--text); }
+  .lang-btn.active {
+    background: rgba(255,255,255,0.075);
+    border-color: rgba(242,185,31,0.38);
+    color: var(--gold);
+    box-shadow: inset 0 0 0 1px rgba(242,185,31,0.06);
+    font-weight: 700;
+  }
 
   .page-wrap {
     width: 100%; max-width: 1080px;
@@ -321,6 +327,8 @@
   .home-link:hover,
   .lang-btn:hover {
     transform: translateY(-1px);
+  }
+  .home-link:hover {
     box-shadow: 0 10px 28px rgba(0,0,0,0.2);
   }
   .tool-preview,
