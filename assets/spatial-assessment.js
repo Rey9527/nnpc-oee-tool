@@ -9,6 +9,8 @@
       step3Title: '聯絡資訊與補充說明', step3Hint: '請留下可供後續確認需求的資訊。',
       next: '下一步', back: '上一步', submit: '提交需求', sending: '送出中…',
       company: '公司／單位名稱 *', contact: '聯絡人 *', email: '電子郵件 *', phone: '電話',
+      companyPlaceholder: '例如：○○科技', contactPlaceholder: '請輸入姓名',
+      emailPlaceholder: 'name@company.com', phonePlaceholder: '選填',
       notes: '目前遇到的問題或期待成果', notesPlaceholder: '例如：希望在大型廠區追蹤巡檢人員，並保存異常事件前後的移動軌跡。',
       chooseNeed: '請至少選擇一項需求。', required: '請填寫公司／單位、聯絡人與有效的電子郵件。',
       error: '目前無法送出，請稍後再試或寄信至 info@nnpc.ai。',
@@ -47,6 +49,8 @@
       step3Title: 'Contact and context', step3Hint: 'Leave details for follow-up clarification.',
       next: 'Next', back: 'Back', submit: 'Submit Assessment', sending: 'Submitting…',
       company: 'Company / organization *', contact: 'Contact person *', email: 'Email *', phone: 'Phone',
+      companyPlaceholder: 'Example: Acme Manufacturing', contactPlaceholder: 'Full name',
+      emailPlaceholder: 'name@company.com', phonePlaceholder: 'Optional',
       notes: 'Current problem or expected outcome', notesPlaceholder: 'Example: Track inspection staff across a large site and retain movement history around abnormal events.',
       chooseNeed: 'Please select at least one requirement.', required: 'Please enter company, contact person, and a valid email.',
       error: 'Unable to submit right now. Please try again or email info@nnpc.ai.',
@@ -85,6 +89,8 @@
       step3Title: 'ข้อมูลติดต่อและรายละเอียด', step3Hint: 'กรอกข้อมูลเพื่อให้เราติดต่อกลับและยืนยันความต้องการ',
       next: 'ถัดไป', back: 'ย้อนกลับ', submit: 'ส่งแบบประเมิน', sending: 'กำลังส่ง…',
       company: 'บริษัท / องค์กร *', contact: 'ผู้ติดต่อ *', email: 'อีเมล *', phone: 'โทรศัพท์',
+      companyPlaceholder: 'ตัวอย่าง: บริษัท เอบีซี จำกัด', contactPlaceholder: 'ชื่อผู้ติดต่อ',
+      emailPlaceholder: 'name@company.com', phonePlaceholder: 'ไม่บังคับ',
       notes: 'ปัญหาปัจจุบันหรือผลลัพธ์ที่คาดหวัง', notesPlaceholder: 'ตัวอย่าง: ต้องการติดตามพนักงานตรวจสอบในพื้นที่ขนาดใหญ่ และเก็บประวัติการเคลื่อนไหวก่อนและหลังเหตุผิดปกติ',
       chooseNeed: 'กรุณาเลือกอย่างน้อยหนึ่งความต้องการ', required: 'กรุณากรอกบริษัท ผู้ติดต่อ และอีเมลที่ถูกต้อง',
       error: 'ขณะนี้ไม่สามารถส่งได้ กรุณาลองใหม่หรือส่งอีเมลไปที่ info@nnpc.ai',
@@ -142,6 +148,10 @@
       '#successBack':t.successBack,'#privacyNote':t.privacyNote,'#privacyLink':t.privacyLink,'#disclaimer':t.disclaimer
     };
     Object.entries(text).forEach(([selector, value]) => { const el = $(selector); if (el) el.textContent = value; });
+    $('[name="company"]').placeholder = t.companyPlaceholder;
+    $('[name="contact"]').placeholder = t.contactPlaceholder;
+    $('[name="email"]').placeholder = t.emailPlaceholder;
+    $('[name="phone"]').placeholder = t.phonePlaceholder;
     $('#notes').placeholder = t.notesPlaceholder;
     $$('.lang-btn').forEach((button) => button.classList.toggle('active', button.dataset.lang === lang));
     $('#needOptions').innerHTML = t.needs.map(([value,title,hint]) => `<label class="assessment-option"><input type="checkbox" name="needs" value="${esc(value)}"><span><strong>${esc(title)}</strong><small>${esc(hint)}</small></span></label>`).join('');
