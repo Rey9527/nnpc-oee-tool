@@ -16,7 +16,7 @@
       <div>
         <div class="eyebrow">N/NPC Internal</div>
         <h1>Spatial Assessment Admin</h1>
-        <p>查看 RTLS / 空間服務需求、成本估算與報價建議。成本公式只在後端運算，公開診斷頁不會暴露。</p>
+        <p>查看 RTLS / 空間服務需求、成本估算與報價建議。所有建議報價以泰銖（THB）呈現，成本公式只在後端運算。</p>
       </div>
       <a class="admin-status-pill" href="/tools/spatial-assessment/">Open Public Tool</a>
     </div>
@@ -90,9 +90,9 @@ const savedToken = localStorage.getItem('nnpc_spatial_admin_token');
 if (savedToken) els.token.value = savedToken;
 
 function money(value) {
-  return new Intl.NumberFormat('zh-TW', {
+  return new Intl.NumberFormat('th-TH', {
     style: 'currency',
-    currency: 'TWD',
+    currency: 'THB',
     maximumFractionDigits: 0,
   }).format(Number(value || 0));
 }
@@ -172,6 +172,7 @@ function renderDetail(record) {
   const estimate = record.estimate || {};
   const usage = estimate.usage || {};
   const classification = estimate.classification || {};
+  const rates = estimate.exchange_rates || {};
   const statusOptions = statuses.map((status) => `<option${status === record.status ? ' selected' : ''}>${status}</option>`).join('');
   els.detail.innerHTML = `
     <div class="spatial-detail-head">
@@ -192,6 +193,7 @@ function renderDetail(record) {
       ${kpi('首年估算', money(estimate.first_year), 'Setup + 12 months')}
       ${kpi('內部月成本', money(estimate.monthly_internal), 'Before margin')}
     </div>
+    <p class="spatial-currency-note">所有金額均為泰銖（THB），未稅，僅供初步估算。換算基準：NT$1 = ฿${escapeHtml(rates.twd_to_thb || 1.05)}；第三方美元成本先依 US$1 = NT$${escapeHtml(rates.usd_to_twd || 32.5)} 換算。</p>
 
     <div class="spatial-cost-grid">
       <section>
@@ -287,13 +289,14 @@ async function deleteRecord(recordId) {
 }
 
 function exportCsv() {
-  const headers = ['Assessment ID','Company','Contact','Email','Status','Suggested Monthly','Setup Fee','First Year','Needs','Notes'];
+  const headers = ['Assessment ID','Company','Contact','Email','Status','Currency','Suggested Monthly','Setup Fee','First Year','Needs','Notes'];
   const rows = state.records.map((record) => [
     record.assessment_id,
     record.company,
     record.contact,
     record.email,
     record.status,
+    record.estimate?.quote_currency || 'THB',
     record.estimate?.suggested_monthly,
     record.estimate?.setup_fee,
     record.estimate?.first_year,
