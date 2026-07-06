@@ -20,7 +20,7 @@ Use these exact field names:
 | Monthly Users | Single line text |
 | Update Frequency | Single line text |
 | Timeline | Single line text |
-| Accuracy | Single line text |
+| Accuracy | Optional legacy/internal field. New public form no longer asks this. |
 | Notes | Long text |
 | Status | Single line text |
 

@@ -14,12 +14,12 @@
       notes: '目前遇到的問題或期待成果', notesPlaceholder: '例如：希望在大型廠區追蹤巡檢人員，並保存異常事件前後的移動軌跡。',
       chooseNeed: '請至少選擇一項應用需求。', required: '請填寫公司／單位、聯絡人與有效的電子郵件。',
       error: '目前無法送出，請稍後再試或寄信至 info@nnpc.ai。',
-      summary: '應用需求摘要', sceneText: '場域', stageText: '導入階段', scaleText: '規模', timelineText: '預計時程', accuracyText: '定位精度',
+      summary: '應用需求摘要', sceneText: '場域', stageText: '導入階段', scaleText: '規模', timelineText: '預計時程',
       successEyebrow: 'Assessment Received', successTitle: '需求已完成記錄',
       successText: 'N/NPC 已收到你的使用情境與規模，後續將由專人確認技術範圍、導入方式與下一步。',
       successBack: '返回工具中心',
       privacyNote: '提交即表示您同意 N/NPC 使用這些資料聯絡並釐清本次需求。', privacyLink: '隱私權政策',
-      disclaimer: '本工具僅用於初步需求釐清，不構成正式報價、定位精度保證或服務承諾。',
+      disclaimer: '本工具僅用於初步需求釐清，不構成正式報價或服務承諾。',
       needs: [
         ['人員定位與安全管理','人員定位與安全管理','知道員工、外包商、地勤、病患或巡檢人員在哪裡。'],
         ['資產設備追蹤','資產／設備追蹤','快速找到推車、工具、醫療設備、模具、治具、棧板或移動設備。'],
@@ -37,8 +37,7 @@
         ['assets','人員／設備數量',['1–10','11–50','51–200','201–1,000','1,001 以上']],
         ['users','每月使用人數',['1–50','51–500','501–5,000','5,001 以上']],
         ['frequency','位置更新頻率',['每日少量更新','每 1–2 小時','每 15 分鐘','接近即時']],
-        ['timeline','預計導入時間',['三個月內','三至六個月','六至十二個月','尚未確定']],
-        ['accuracy','預期定位精度',['知道在哪一區即可','約數公尺','需要精準點位','尚未確定']]
+        ['timeline','預計導入時間',['三個月內','三至六個月','六至十二個月','尚未確定']]
       ]
     },
     en: {
@@ -54,12 +53,12 @@
       notes: 'Current problem or expected outcome', notesPlaceholder: 'Example: Track inspection staff across a large site and retain movement history around abnormal events.',
       chooseNeed: 'Please select at least one application requirement.', required: 'Please enter company, contact person, and a valid email.',
       error: 'Unable to submit right now. Please try again or email info@nnpc.ai.',
-      summary: 'Application requirement summary', sceneText: 'Site', stageText: 'Stage', scaleText: 'Scale', timelineText: 'Timeline', accuracyText: 'Positioning accuracy',
+      summary: 'Application requirement summary', sceneText: 'Site', stageText: 'Stage', scaleText: 'Scale', timelineText: 'Timeline',
       successEyebrow: 'Assessment Received', successTitle: 'Your requirements were recorded',
       successText: 'N/NPC has received your use case and scale. A consultant will follow up to confirm technical scope and next steps.',
       successBack: 'Back to Tool Center',
       privacyNote: 'By submitting, you agree that N/NPC may use this information to contact you and clarify this request.', privacyLink: 'Privacy Policy',
-      disclaimer: 'This tool is for initial requirement clarification and does not constitute a quotation, accuracy guarantee, or service commitment.',
+      disclaimer: 'This tool is for initial requirement clarification and does not constitute a quotation or service commitment.',
       needs: [
         ['Personnel positioning and safety','Personnel positioning and safety','Locate employees, contractors, ground staff, patients, or inspection teams.'],
         ['Asset and equipment tracking','Asset / equipment tracking','Find carts, tools, medical equipment, molds, fixtures, pallets, or mobile assets.'],
@@ -77,8 +76,7 @@
         ['assets','People / assets',['1–10','11–50','51–200','201–1,000','1,001+']],
         ['users','Monthly users',['1–50','51–500','501–5,000','5,001+']],
         ['frequency','Location update frequency',['A few times daily','Every 1–2 hours','Every 15 minutes','Near real time']],
-        ['timeline','Expected timeline',['Within 3 months','3–6 months','6–12 months','Not decided']],
-        ['accuracy','Expected accuracy',['Zone level','A few meters','Precise point','Not decided']]
+        ['timeline','Expected timeline',['Within 3 months','3–6 months','6–12 months','Not decided']]
       ]
     },
     th: {
@@ -94,12 +92,12 @@
       notes: 'ปัญหาปัจจุบันหรือผลลัพธ์ที่คาดหวัง', notesPlaceholder: 'ตัวอย่าง: ต้องการติดตามพนักงานตรวจสอบในพื้นที่ขนาดใหญ่ และเก็บประวัติการเคลื่อนไหวก่อนและหลังเหตุผิดปกติ',
       chooseNeed: 'กรุณาเลือกความต้องการใช้งานอย่างน้อยหนึ่งข้อ', required: 'กรุณากรอกบริษัท ผู้ติดต่อ และอีเมลที่ถูกต้อง',
       error: 'ขณะนี้ไม่สามารถส่งได้ กรุณาลองใหม่หรือส่งอีเมลไปที่ info@nnpc.ai',
-      summary: 'สรุปความต้องการใช้งาน', sceneText: 'พื้นที่', stageText: 'ขั้นตอน', scaleText: 'ขนาด', timelineText: 'ระยะเวลา', accuracyText: 'ความแม่นยำของตำแหน่ง',
+      summary: 'สรุปความต้องการใช้งาน', sceneText: 'พื้นที่', stageText: 'ขั้นตอน', scaleText: 'ขนาด', timelineText: 'ระยะเวลา',
       successEyebrow: 'Assessment Received', successTitle: 'บันทึกความต้องการเรียบร้อยแล้ว',
       successText: 'N/NPC ได้รับรูปแบบการใช้งานและขนาดของคุณแล้ว ที่ปรึกษาจะติดต่อเพื่อยืนยันขอบเขตทางเทคนิคและขั้นตอนต่อไป',
       successBack: 'กลับศูนย์เครื่องมือ',
       privacyNote: 'เมื่อส่งแบบประเมิน คุณยินยอมให้ N/NPC ใช้ข้อมูลนี้เพื่อติดต่อและชี้แจงความต้องการครั้งนี้', privacyLink: 'นโยบายความเป็นส่วนตัว',
-      disclaimer: 'เครื่องมือนี้ใช้สำหรับการวิเคราะห์ความต้องการเบื้องต้นเท่านั้น ไม่ใช่ใบเสนอราคา การรับประกันความแม่นยำ หรือข้อผูกพันในการให้บริการ',
+      disclaimer: 'เครื่องมือนี้ใช้สำหรับการวิเคราะห์ความต้องการเบื้องต้นเท่านั้น ไม่ใช่ใบเสนอราคาหรือข้อผูกพันในการให้บริการ',
       needs: [
         ['ติดตามตำแหน่งบุคลากรและความปลอดภัย','ติดตามตำแหน่งบุคลากรและความปลอดภัย','รู้ว่าพนักงาน ผู้รับเหมา เจ้าหน้าที่ภาคพื้น ผู้ป่วย หรือทีมตรวจสอบอยู่ที่ไหน'],
         ['ติดตามทรัพย์สินและอุปกรณ์','ติดตามทรัพย์สิน / อุปกรณ์','ค้นหารถเข็น เครื่องมือ อุปกรณ์แพทย์ แม่พิมพ์ จิ๊ก พาเลท หรืออุปกรณ์เคลื่อนที่'],
@@ -117,8 +115,7 @@
         ['assets','จำนวนคน / อุปกรณ์',['1–10','11–50','51–200','201–1,000','1,001+']],
         ['users','ผู้ใช้ต่อเดือน',['1–50','51–500','501–5,000','5,001+']],
         ['frequency','ความถี่ในการอัปเดตตำแหน่ง',['ไม่กี่ครั้งต่อวัน','ทุก 1–2 ชั่วโมง','ทุก 15 นาที','ใกล้เคียง real time']],
-        ['timeline','ระยะเวลาที่คาดว่าจะเริ่ม',['ภายใน 3 เดือน','3–6 เดือน','6–12 เดือน','ยังไม่กำหนด']],
-        ['accuracy','ความแม่นยำที่ต้องการ',['ระดับโซน','ประมาณไม่กี่เมตร','ตำแหน่งแม่นยำ','ยังไม่กำหนด']]
+        ['timeline','ระยะเวลาที่คาดว่าจะเริ่ม',['ภายใน 3 เดือน','3–6 เดือน','6–12 เดือน','ยังไม่กำหนด']]
       ]
     }
   };
@@ -175,7 +172,7 @@
     return {
       needs: form.getAll('needs'),
       scene: form.get('scene'), stage: form.get('stage'), sites: form.get('sites'), assets: form.get('assets'),
-      users: form.get('users'), frequency: form.get('frequency'), timeline: form.get('timeline'), accuracy: form.get('accuracy'),
+      users: form.get('users'), frequency: form.get('frequency'), timeline: form.get('timeline'),
       company: String(form.get('company') || '').trim(), contact: String(form.get('contact') || '').trim(),
       email: String(form.get('email') || '').trim(), phone: String(form.get('phone') || '').trim(),
       notes: String(form.get('notes') || '').trim(), website: String(form.get('website') || '').trim()
@@ -185,7 +182,7 @@
   function updateSummary() {
     const d = values();
     const t = data[lang];
-    $('#assessmentSummary').innerHTML = `<strong>${esc(t.summary)}</strong><div class="summary-tags">${d.needs.map((item) => `<span>${esc(item)}</span>`).join('')}</div><p>${esc(t.sceneText)}：${esc(d.scene)} · ${esc(t.stageText)}：${esc(d.stage)} · ${esc(t.timelineText)}：${esc(d.timeline)} · ${esc(t.accuracyText)}：${esc(d.accuracy)}</p>`;
+    $('#assessmentSummary').innerHTML = `<strong>${esc(t.summary)}</strong><div class="summary-tags">${d.needs.map((item) => `<span>${esc(item)}</span>`).join('')}</div><p>${esc(t.sceneText)}：${esc(d.scene)} · ${esc(t.stageText)}：${esc(d.stage)} · ${esc(t.timelineText)}：${esc(d.timeline)}</p>`;
   }
 
   async function submit(event) {
