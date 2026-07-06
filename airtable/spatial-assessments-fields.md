@@ -12,7 +12,7 @@ Use these exact field names:
 | Contact | Single line text |
 | Email | Email or single line text |
 | Phone | Phone or single line text |
-| Needs | Long text |
+| Needs | Long text. Stored backend field; displayed as `應用需求` in the admin UI. |
 | Scene | Single line text |
 | Stage | Single line text |
 | Sites | Single line text |

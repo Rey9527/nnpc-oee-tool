@@ -16,7 +16,7 @@
       <div>
         <div class="eyebrow">N/NPC Internal</div>
         <h1>Spatial Assessment Admin</h1>
-        <p>查看 RTLS / 空間服務需求、成本估算與報價建議。所有建議報價以泰銖（THB）呈現，成本公式只在後端運算。</p>
+        <p>查看 RTLS / 空間服務應用需求、成本估算與報價建議。所有建議報價以泰銖（THB）呈現，成本公式只在後端運算。</p>
       </div>
       <a class="admin-status-pill" href="/tools/spatial-assessment/">Open Public Tool</a>
     </div>
@@ -61,7 +61,7 @@
       <section class="spatial-admin-detail admin-panel" id="detailPanel">
         <div class="spatial-admin-empty">
           <div class="eyebrow">Cost Estimation</div>
-          <h2>選一筆需求查看報價建議</h2>
+          <h2>選一筆應用需求查看報價建議</h2>
           <p>載入後左側會列出案件。點選案件即可看到建置費、建議月費、首年估算與成本拆解。</p>
         </div>
       </section>
@@ -197,8 +197,8 @@ function renderDetail(record) {
 
     <div class="spatial-cost-grid">
       <section>
-        <h3>需求摘要</h3>
-        ${row('Needs', (record.needs || []).join('、'))}
+        <h3>應用需求摘要</h3>
+        ${row('應用需求', (record.needs || []).join('、'))}
         ${row('Scene', record.scene)}
         ${row('Stage', record.stage)}
         ${row('Sites', record.sites)}
@@ -289,7 +289,7 @@ async function deleteRecord(recordId) {
 }
 
 function exportCsv() {
-  const headers = ['Assessment ID','Company','Contact','Email','Status','Currency','Suggested Monthly','Setup Fee','First Year','Needs','Notes'];
+  const headers = ['Assessment ID','Company','Contact','Email','Status','Currency','Suggested Monthly','Setup Fee','First Year','Application Requirements','Notes'];
   const rows = state.records.map((record) => [
     record.assessment_id,
     record.company,
