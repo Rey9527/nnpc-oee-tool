@@ -21,14 +21,14 @@
       privacyNote: '提交即表示您同意 N/NPC 使用這些資料聯絡並釐清本次需求。', privacyLink: '隱私權政策',
       disclaimer: '本工具僅用於初步需求釐清，不構成正式報價、定位精度保證或服務承諾。',
       needs: [
-        ['位置顯示','顯示人員或設備位置','在平面圖或地圖上查看目前位置。'],
-        ['軌跡紀錄','查看移動軌跡','保存歷史路徑、停留點與移動紀錄。'],
-        ['路線導航','導航或路線引導','引導人員、車輛或機器抵達目的地。'],
-        ['派遣管理','派遣與任務管理','依距離、位置或狀態分派工作。'],
-        ['地點搜尋','搜尋地址或地點','輸入名稱或地址，快速找到目標位置。'],
-        ['空間分析','場域或地理分析','分析面積、環境、風險或選址條件。'],
-        ['裝置管理','遠端管理設備','查看設備狀態、更新與異常訊息。'],
-        ['尚未確定','尚未確定','先描述場景，由我們協助判斷。']
+        ['人員定位與安全管理','人員定位與安全管理','知道員工、外包商、地勤、病患或巡檢人員在哪裡。'],
+        ['資產設備追蹤','資產／設備追蹤','快速找到推車、工具、醫療設備、模具、治具、棧板或移動設備。'],
+        ['車輛搬運流程追蹤','車輛／搬運流程追蹤','掌握 AGV、堆高機、推車、地勤車輛或物流移動路徑。'],
+        ['巡檢派工任務管理','巡檢／派工／任務管理','依位置派最近的人、確認是否到場，並留下任務軌跡。'],
+        ['空間使用率分析','空間使用率分析','分析人流、停留時間、設備使用率、熱區與閒置區。'],
+        ['異常事件回溯','異常事件回溯','回看事故、遺失、等待、滯留或危險區域進出紀錄。'],
+        ['導航路線引導','導航／路線引導','協助大型場域、醫院、機場、倉儲或地下工程的路線引導。'],
+        ['尚未確定','尚未確定，想先評估','先描述場景，由我們協助判斷。']
       ],
       fields: [
         ['scene','主要使用場域',['室內','戶外','室內與戶外']],
@@ -61,13 +61,13 @@
       privacyNote: 'By submitting, you agree that N/NPC may use this information to contact you and clarify this request.', privacyLink: 'Privacy Policy',
       disclaimer: 'This tool is for initial requirement clarification and does not constitute a quotation, accuracy guarantee, or service commitment.',
       needs: [
-        ['Location display','Show people or asset locations','View current positions on a floor plan or map.'],
-        ['Movement history','Review movement history','Keep paths, stops, and historical movement records.'],
-        ['Navigation','Navigation or route guidance','Guide people, vehicles, or machines to a destination.'],
-        ['Dispatch','Dispatch and task management','Assign work using distance, location, or status.'],
-        ['Place search','Search addresses or places','Find target locations by name or address.'],
-        ['Spatial analysis','Site or geographic analysis','Analyze area, environment, risk, or site conditions.'],
-        ['Device management','Remote device management','Monitor device status, updates, and alerts.'],
+        ['Personnel positioning and safety','Personnel positioning and safety','Locate employees, contractors, ground staff, patients, or inspection teams.'],
+        ['Asset and equipment tracking','Asset / equipment tracking','Find carts, tools, medical equipment, molds, fixtures, pallets, or mobile assets.'],
+        ['Vehicle and material flow tracking','Vehicle / material flow tracking','Track AGVs, forklifts, carts, ground vehicles, or logistics movement paths.'],
+        ['Inspection dispatch and task management','Inspection / dispatch / task management','Assign the nearest person, confirm arrival, and keep task movement records.'],
+        ['Space utilization analysis','Space utilization analysis','Analyze people flow, dwell time, equipment utilization, hot zones, and idle areas.'],
+        ['Incident history and audit trail','Incident history and audit trail','Review accidents, loss, waiting, dwell, or restricted-area entry records.'],
+        ['Navigation and route guidance','Navigation / route guidance','Guide movement in large sites, hospitals, airports, warehouses, or underground projects.'],
         ['Not sure','Not sure yet','Describe the scenario and let us help classify it.']
       ],
       fields: [
@@ -101,14 +101,14 @@
       privacyNote: 'เมื่อส่งแบบประเมิน คุณยินยอมให้ N/NPC ใช้ข้อมูลนี้เพื่อติดต่อและชี้แจงความต้องการครั้งนี้', privacyLink: 'นโยบายความเป็นส่วนตัว',
       disclaimer: 'เครื่องมือนี้ใช้สำหรับการวิเคราะห์ความต้องการเบื้องต้นเท่านั้น ไม่ใช่ใบเสนอราคา การรับประกันความแม่นยำ หรือข้อผูกพันในการให้บริการ',
       needs: [
-        ['แสดงตำแหน่ง','แสดงตำแหน่งคนหรืออุปกรณ์','ดูตำแหน่งปัจจุบันบนแผนผังหรือแผนที่'],
-        ['ประวัติการเคลื่อนที่','ดูเส้นทางย้อนหลัง','บันทึกเส้นทาง จุดหยุด และประวัติการเคลื่อนที่'],
-        ['นำทาง','การนำทางหรือแนะนำเส้นทาง','นำทางคน รถ หรือเครื่องจักรไปยังจุดหมาย'],
-        ['มอบหมายงาน','การจัดส่งและมอบหมายงาน','มอบหมายงานตามระยะทาง ตำแหน่ง หรือสถานะ'],
-        ['ค้นหาสถานที่','ค้นหาที่อยู่หรือสถานที่','ค้นหาตำแหน่งด้วยชื่อหรือที่อยู่'],
-        ['วิเคราะห์พื้นที่','วิเคราะห์พื้นที่หรือภูมิศาสตร์','วิเคราะห์พื้นที่ สภาพแวดล้อม ความเสี่ยง หรือเงื่อนไขทำเล'],
-        ['จัดการอุปกรณ์','จัดการอุปกรณ์ระยะไกล','ดูสถานะ การอัปเดต และการแจ้งเตือนของอุปกรณ์'],
-        ['ยังไม่แน่ใจ','ยังไม่แน่ใจ','อธิบายสถานการณ์ แล้วให้เราช่วยวิเคราะห์']
+        ['ติดตามตำแหน่งบุคลากรและความปลอดภัย','ติดตามตำแหน่งบุคลากรและความปลอดภัย','รู้ว่าพนักงาน ผู้รับเหมา เจ้าหน้าที่ภาคพื้น ผู้ป่วย หรือทีมตรวจสอบอยู่ที่ไหน'],
+        ['ติดตามทรัพย์สินและอุปกรณ์','ติดตามทรัพย์สิน / อุปกรณ์','ค้นหารถเข็น เครื่องมือ อุปกรณ์แพทย์ แม่พิมพ์ จิ๊ก พาเลท หรืออุปกรณ์เคลื่อนที่'],
+        ['ติดตามยานพาหนะและการเคลื่อนย้าย','ติดตามยานพาหนะ / การเคลื่อนย้าย','ติดตาม AGV รถโฟล์คลิฟท์ รถเข็น รถภาคพื้น หรือเส้นทางโลจิสติกส์'],
+        ['ตรวจงานมอบหมายงานและภารกิจ','ตรวจงาน / มอบหมายงาน / จัดการภารกิจ','มอบหมายคนที่อยู่ใกล้ที่สุด ยืนยันการเข้าพื้นที่ และเก็บประวัติภารกิจ'],
+        ['วิเคราะห์การใช้พื้นที่','วิเคราะห์การใช้พื้นที่','วิเคราะห์การไหลของคน เวลาพำนัก การใช้อุปกรณ์ โซนหนาแน่น และพื้นที่ว่าง'],
+        ['ย้อนดูเหตุการณ์ผิดปกติ','ย้อนดูเหตุการณ์ผิดปกติ','ตรวจสอบอุบัติเหตุ การสูญหาย การรอคอย การค้างอยู่ หรือการเข้าเขตจำกัด'],
+        ['นำทางและแนะนำเส้นทาง','นำทาง / แนะนำเส้นทาง','ช่วยนำทางในพื้นที่ขนาดใหญ่ โรงพยาบาล สนามบิน คลังสินค้า หรือโครงการใต้ดิน'],
+        ['ยังไม่แน่ใจ','ยังไม่แน่ใจ ต้องการประเมินก่อน','อธิบายสถานการณ์ แล้วให้เราช่วยวิเคราะห์']
       ],
       fields: [
         ['scene','พื้นที่ใช้งานหลัก',['ภายในอาคาร','ภายนอกอาคาร','ทั้งภายในและภายนอก']],
