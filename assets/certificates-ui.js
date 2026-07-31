@@ -1,4 +1,5 @@
 (function () {
+  let activeCertificate = null;
   const SAMPLE = {
     certificate_id: 'NNPC-INT-2026-001',
     recipient_name: 'Lin Myat Phyo',
@@ -79,7 +80,8 @@
     if (!value) return '';
     const date = new Date(`${value}T00:00:00`);
     if (Number.isNaN(date.getTime())) return value;
-    return new Intl.DateTimeFormat(lang() === 'zh' ? 'zh-TW' : lang(), {
+    const locale = lang() === 'zh' ? 'zh-TW' : lang() === 'th' ? 'th-TH-u-ca-gregory' : 'en-US';
+    return new Intl.DateTimeFormat(locale, {
       day: 'numeric',
       month: 'long',
       year: 'numeric',
@@ -90,7 +92,7 @@
     const startDate = new Date(`${start}T00:00:00`);
     const endDate = new Date(`${end}T00:00:00`);
     if (Number.isNaN(startDate.getTime()) || Number.isNaN(endDate.getTime())) return '';
-    const locale = lang() === 'zh' ? 'zh-TW' : lang();
+    const locale = lang() === 'zh' ? 'zh-TW' : lang() === 'th' ? 'th-TH-u-ca-gregory' : 'en-US';
     const formatter = new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric' });
     return `${formatter.format(startDate)} – ${formatter.format(endDate)}`;
   }
@@ -140,6 +142,31 @@
     });
   }
 
+  function renderCertificate(cert) {
+    if (!cert) return;
+    const status = document.getElementById('cert-status');
+    const certStatus = statusClass(cert.status);
+    if (status) {
+      status.className = `certificate-status ${certStatus}`;
+      status.textContent = statusText(cert.status);
+    }
+    setText('cert-id', cert.certificate_id);
+    setText('cert-name', cert.recipient_name);
+    setText('cert-position', cert.position);
+    setText('cert-program', cert.program);
+    setText('cert-start', formatLongDate(cert.start_date));
+    setText('cert-end', formatLongDate(cert.end_date));
+    setText('cert-issue', formatLongDate(cert.issue_date));
+    setText('cert-period', formatPeriod(cert.start_date, cert.end_date));
+    setText('cert-issued-by', `${cert.issued_by_name}\n${cert.issued_by_title}\nNNPC Consulting Co., Ltd.`);
+
+    const credentialUrl = `${window.location.origin}/certificates/${encodeURIComponent(cert.certificate_id)}`;
+    setText('linkedin-name', t('linkedinName'));
+    setText('linkedin-org', t('org'));
+    setText('linkedin-id', cert.certificate_id);
+    setText('linkedin-url', credentialUrl);
+  }
+
   function initCertificatePreviewScale() {
     const frame = document.querySelector('.certificate-preview-frame');
     if (!frame) return;
@@ -182,26 +209,9 @@
     try {
       const cert = await fetchCertificate(id);
       if (!cert) throw new Error('not-found');
-      const certStatus = statusClass(cert.status);
-      if (status) {
-        status.className = `certificate-status ${certStatus}`;
-        status.textContent = statusText(cert.status);
-      }
-      setText('cert-id', cert.certificate_id);
-      setText('cert-name', cert.recipient_name);
-      setText('cert-position', cert.position);
-      setText('cert-program', cert.program);
-      setText('cert-start', formatLongDate(cert.start_date));
-      setText('cert-end', formatLongDate(cert.end_date));
-      setText('cert-issue', formatLongDate(cert.issue_date));
-      setText('cert-period', formatPeriod(cert.start_date, cert.end_date));
-      setText('cert-issued-by', `${cert.issued_by_name}\n${cert.issued_by_title}\nNNPC Consulting Co., Ltd.`);
-
+      activeCertificate = cert;
+      renderCertificate(cert);
       const credentialUrl = `${window.location.origin}/certificates/${encodeURIComponent(cert.certificate_id)}`;
-      setText('linkedin-name', t('linkedinName'));
-      setText('linkedin-org', t('org'));
-      setText('linkedin-id', cert.certificate_id);
-      setText('linkedin-url', credentialUrl);
       setCopyButton(document.querySelector('[data-copy="id"]'), cert.certificate_id);
       setCopyButton(document.querySelector('[data-copy="url"]'), credentialUrl);
       root.classList.remove('is-loading');
@@ -220,5 +230,9 @@
     initCertificatePreviewScale();
     initSearch();
     initVerify();
+  });
+
+  document.addEventListener('nnpc:languagechange', () => {
+    if (activeCertificate) renderCertificate(activeCertificate);
   });
 }());

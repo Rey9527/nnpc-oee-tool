@@ -303,6 +303,7 @@ function applyLang(lang) {
   document.querySelectorAll('.lang-btn').forEach((btn) => {
     btn.classList.toggle('active', btn.dataset.lang === lang);
   });
+  document.dispatchEvent(new CustomEvent('nnpc:languagechange', { detail: { lang } }));
 }
 
 function initNav() {
