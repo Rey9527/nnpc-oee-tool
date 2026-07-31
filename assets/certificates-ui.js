@@ -142,6 +142,17 @@
     });
   }
 
+  function fitCertificateName() {
+    const name = document.querySelector('.print-name #cert-name');
+    if (!name) return;
+    let size = 54;
+    name.style.fontSize = `${size}px`;
+    while (name.scrollWidth > name.clientWidth && size > 30) {
+      size -= 1;
+      name.style.fontSize = `${size}px`;
+    }
+  }
+
   function renderCertificate(cert) {
     if (!cert) return;
     const status = document.getElementById('cert-status');
@@ -152,6 +163,7 @@
     }
     setText('cert-id', cert.certificate_id);
     setText('cert-name', cert.recipient_name);
+    fitCertificateName();
     setText('cert-position', cert.position);
     setText('cert-program', cert.program);
     setText('cert-start', formatLongDate(cert.start_date));

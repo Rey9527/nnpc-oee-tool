@@ -88,9 +88,9 @@
             <button class="btn secondary" type="button" id="apply-internship-dates">Apply 6-month internship dates</button>
           </div>
           <div class="admin-date-grid">
-            <label class="admin-field"><span>Start date</span><input name="start_date" type="date"><small>實習開始日，通常是月份 5 號。</small></label>
-            <label class="admin-field"><span>End date</span><input name="end_date" type="date"><small>實習結束日，通常是最後月份 4 號。</small></label>
-            <label class="admin-field"><span>Issue date</span><input name="issue_date" type="date"><small>證書核發日，通常是結束後 5 號。</small></label>
+            <label class="admin-field"><span>Start date</span><input name="start_date" type="date" required><small>實習開始日，通常是月份 5 號。</small></label>
+            <label class="admin-field"><span>End date</span><input name="end_date" type="date" required><small>實習結束日，通常是最後月份 4 號。</small></label>
+            <label class="admin-field"><span>Issue date</span><input name="issue_date" type="date" required><small>證書核發日，通常是結束後 5 號。</small></label>
           </div>
         </section>
 
@@ -270,21 +270,26 @@ function addMonths(date, months) {
   return next;
 }
 
-document.getElementById('apply-internship-dates').addEventListener('click', () => {
+function applyInternshipDates(force = false) {
   const year = Number(yearInput.value || new Date().getFullYear());
   const start = new Date(year, 0, 5);
   const end = addMonths(start, 5);
   end.setDate(4);
   const issue = new Date(end);
   issue.setDate(5);
-  form.elements.start_date.value = toDateInput(start);
-  form.elements.end_date.value = toDateInput(end);
-  form.elements.issue_date.value = toDateInput(issue);
-});
+  if (force || !form.elements.start_date.value) form.elements.start_date.value = toDateInput(start);
+  if (force || !form.elements.end_date.value) form.elements.end_date.value = toDateInput(end);
+  if (force || !form.elements.issue_date.value) form.elements.issue_date.value = toDateInput(issue);
+}
+
+document.getElementById('apply-internship-dates').addEventListener('click', () => applyInternshipDates(true));
 
 generateButton.addEventListener('click', generateNextId);
 programSelect.addEventListener('change', scheduleIdGeneration);
 yearInput.addEventListener('input', scheduleIdGeneration);
+yearInput.addEventListener('change', () => applyInternshipDates(true));
+
+applyInternshipDates();
 
 document.getElementById('send-login-link').addEventListener('click', async () => {
   const emailInput = document.getElementById('admin-email');

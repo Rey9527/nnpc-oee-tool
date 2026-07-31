@@ -1551,6 +1551,12 @@ h1 {
   padding: 2px 0 8px;
   border-bottom: 1px solid rgba(17,17,17,0.18);
 }
+.print-name #cert-name {
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  line-height: inherit;
+}
 .print-position {
   margin: 10px 0 0;
   color: #333;
