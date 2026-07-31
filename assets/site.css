@@ -1340,8 +1340,17 @@ h1 {
   grid-template-columns: 1fr;
   gap: 1.15rem;
   align-items: start;
-  overflow-x: auto;
+  overflow: hidden;
   padding-bottom: 0.2rem;
+}
+.certificate-preview-frame {
+  --certificate-scale: 1;
+  position: relative;
+  width: min(100%, 860px);
+  aspect-ratio: 860 / 608;
+  overflow: hidden;
+  border-radius: 12px;
+  justify-self: start;
 }
 .certificate-facts {
   display: grid;
@@ -1372,7 +1381,8 @@ h1 {
   white-space: pre-line;
 }
 .certificate-print-card {
-  position: relative;
+  position: absolute;
+  inset: 0 auto auto 0;
   overflow: hidden;
   width: 860px;
   min-width: 860px;
@@ -1386,6 +1396,8 @@ h1 {
   grid-template-rows: auto minmax(0, 1fr) auto;
   box-shadow: 0 32px 90px rgba(0,0,0,0.38);
   border-radius: 12px;
+  transform: scale(var(--certificate-scale));
+  transform-origin: top left;
 }
 .print-border {
   display: none;
@@ -1616,7 +1628,10 @@ h1 {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0.8rem;
+  min-width: 0;
 }
+.linkedin-grid div { min-width: 0; }
+.linkedin-grid strong { overflow-wrap: anywhere; }
 .linkedin-grid button {
   margin-top: 0.55rem;
   border: 1px solid var(--line);
@@ -2481,5 +2496,10 @@ h1 {
     border-radius: 0;
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
+  }
+  .certificate-preview-frame {
+    width: 0;
+    height: 0;
+    overflow: visible;
   }
 }

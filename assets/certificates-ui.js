@@ -140,6 +140,22 @@
     });
   }
 
+  function initCertificatePreviewScale() {
+    const frame = document.querySelector('.certificate-preview-frame');
+    if (!frame) return;
+    const update = () => {
+      const scale = Math.min(1, frame.clientWidth / 860);
+      frame.style.setProperty('--certificate-scale', String(scale));
+    };
+    update();
+    if ('ResizeObserver' in window) {
+      const observer = new ResizeObserver(update);
+      observer.observe(frame);
+    } else {
+      window.addEventListener('resize', update, { passive: true });
+    }
+  }
+
   async function initSearch() {
     const form = document.querySelector('[data-certificate-search]');
     if (!form) return;
@@ -201,6 +217,7 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
+    initCertificatePreviewScale();
     initSearch();
     initVerify();
   });
