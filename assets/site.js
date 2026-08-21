@@ -72,9 +72,9 @@ const SHARED = {
 const PAGE = {
   home: {
     zh: {
-      title: '<span>讓營運被看見。</span><span>把浪費變成利潤，</span><span class="hero-accent">把數位能力變成新收入。</span>',
+      title: '<span>讓營運被看見。</span><span>把浪費變成利潤，</span><span class="hero-accent">創造新的數位收入。</span>',
       eyebrow: '智慧營運與企業 AI',
-      subtitle: 'N/NPC 整合營運系統、現場資料、企業 AI 與空間智能，協助企業降低停機、等待、重工與人工成本，同時釋放產能、提升資產使用率，並建立可供新應用接入的數位營運能力。',
+      subtitle: 'N/NPC 連接營運系統、現場資料與企業 AI，協助你降低成本、釋放產能，並把數位能力轉成新收入。',
       primary: '估算我的營運價值',
       secondary: '看解決方案',
       trust1N: '降低成本', trust1T: '減少停機、等待、重工與人工處理',
@@ -147,9 +147,9 @@ const PAGE = {
       ctaText: '告訴我們最想降低的成本、釋放的產能或發展的數位服務，N/NPC 會協助整理第一階段路線。',
     },
     en: {
-      title: '<span>Make operations visible.</span><span>Turn waste into profit.</span><span class="hero-accent">Turn digital capabilities into new revenue.</span>',
+      title: '<span>See operations clearly.</span><span>Turn waste into profit.</span><span class="hero-accent">Create new digital revenue.</span>',
       eyebrow: 'Smart Operations & Enterprise AI',
-      subtitle: 'N/NPC integrates operating systems, field data, enterprise AI, and spatial intelligence to reduce downtime, waiting, rework, and manual cost while releasing capacity, improving asset utilization, and enabling new applications.',
+      subtitle: 'N/NPC connects operations, field data, and enterprise AI to reduce cost, release capacity, and turn digital capabilities into new revenue.',
       primary: 'Estimate My Operating Value',
       secondary: 'View Solutions',
       trust1N: 'Reduce cost', trust1T: 'Cut downtime, waiting, rework, and manual handling',
@@ -222,9 +222,9 @@ const PAGE = {
       ctaText: 'Tell us which cost you want to reduce, capacity you want to release, or digital service you want to develop. N/NPC will help define the first-stage path.',
     },
     th: {
-      title: '<span>ทำให้ทุกการดำเนินงานมองเห็นได้</span><span>เปลี่ยนความสูญเสียให้เป็นกำไร</span><span class="hero-accent">และต่อยอดศักยภาพดิจิทัลสู่รายได้ใหม่</span>',
+      title: '<span>มองเห็นทุกการดำเนินงาน</span><span>เปลี่ยนความสูญเสียเป็นกำไร</span><span class="hero-accent">สร้างรายได้ใหม่ด้วยดิจิทัล</span>',
       eyebrow: 'Smart Operations & Enterprise AI',
-      subtitle: 'N/NPC เชื่อมระบบปฏิบัติการ ข้อมูลหน้างาน Enterprise AI และ Spatial Intelligence เพื่อลด downtime การรอ งานแก้ และต้นทุนงาน manual พร้อมเพิ่มกำลังการผลิต การใช้สินทรัพย์ และความพร้อมสำหรับ application ใหม่',
+      subtitle: 'N/NPC เชื่อมระบบปฏิบัติการ ข้อมูลหน้างาน และ Enterprise AI เพื่อลดต้นทุน เพิ่มกำลังการผลิต และต่อยอดความสามารถดิจิทัลสู่รายได้ใหม่',
       primary: 'ประเมินมูลค่าการดำเนินงาน',
       secondary: 'ดูโซลูชัน',
       trust1N: 'ลดต้นทุน', trust1T: 'ลด downtime การรอ งานแก้ และงาน manual',

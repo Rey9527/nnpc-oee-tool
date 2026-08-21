@@ -2425,7 +2425,7 @@ h1 {
   .diagnostic-grid { grid-template-columns: 1fr; }
   .immersive-hero {
     min-height: auto;
-    padding: 4.5rem 0 3rem;
+    padding: 3rem 0 2.6rem;
   }
   .immersive-hero::after {
     background:
@@ -2454,7 +2454,14 @@ h1 {
   .brand-sub { display: none; }
   .lang-btn { padding: 0.38rem 0.48rem; font-size: 0.82rem; }
   .hero { padding-top: 3.4rem; }
-  .value-hero-title { font-size: clamp(2.6rem, 12vw, 4rem); line-height: 1; }
+  .value-hero-title {
+    font-size: clamp(2.15rem, 9vw, 3.15rem);
+    line-height: 1.02;
+    margin: 0.55rem 0 1rem;
+  }
+  .home-immersive .eyebrow { font-size: 0.82rem; line-height: 1.35; }
+  .home-immersive .hero-copy { font-size: 1.02rem; line-height: 1.65; }
+  .home-immersive .hero-actions { margin-top: 1.25rem; }
   .digital-space-band { padding: 1.35rem; border-radius: 18px; }
   .digital-space-band .btn { width: 100%; white-space: normal; text-align: center; }
   .value-path { grid-template-columns: 1fr; }
