@@ -2588,19 +2588,21 @@ h1 {
     flex: 0 0 min(78vw, 300px);
     min-height: 218px;
     padding: 1.2rem;
-    border-color: rgba(20,20,20,0.12);
+    border-color: rgba(255,255,255,0.11);
     border-radius: 18px;
-    background: #f4f2ec;
-    color: #151515;
+    background:
+      linear-gradient(180deg, rgba(34,34,34,0.98), rgba(20,20,20,0.98)),
+      radial-gradient(circle at 100% 0%, rgba(242,185,31,0.1), transparent 42%);
+    color: var(--text);
     box-shadow: 0 16px 36px rgba(0,0,0,0.28);
     scroll-snap-align: start;
   }
   body[data-page="home"] .home-overlap-section .home-flow-step strong {
-    color: #151515;
+    color: var(--text);
     font-size: 1.16rem;
   }
   body[data-page="home"] .home-overlap-section .home-flow-step p {
-    color: #55524c;
+    color: var(--muted);
     line-height: 1.58;
   }
   .home-service-card { min-height: auto; border-radius: 18px; }
