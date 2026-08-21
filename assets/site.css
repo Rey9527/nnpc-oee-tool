@@ -2530,28 +2530,43 @@ h1 {
   .lang-btn { padding: 0.38rem 0.48rem; font-size: 0.82rem; }
   .hero { padding-top: 3.4rem; }
   .value-hero-title {
-    font-size: clamp(2.15rem, 9vw, 3.15rem);
+    font-size: clamp(2rem, 8.4vw, 2.4rem);
     line-height: 1.02;
     margin: 0.55rem 0 1rem;
   }
   .home-immersive .eyebrow { font-size: 0.82rem; line-height: 1.35; }
-  .home-immersive .hero-copy { font-size: 1.02rem; line-height: 1.65; }
-  .home-immersive .hero-actions { margin-top: 1.25rem; }
-  body[data-page="home"] .home-immersive { padding: 2.7rem 0 4.8rem; }
-  body[data-page="home"] .home-overlap-section { margin-top: -2.4rem; }
+  .home-immersive .hero-copy { font-size: 0.98rem; line-height: 1.58; }
+  .home-immersive .hero-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-top: 1.15rem;
+  }
+  .home-immersive .hero-actions .btn { width: 100%; }
+  body[data-page="home"] .home-immersive {
+    padding: 2.25rem 0 5.4rem;
+    background-position: 58% center;
+  }
+  body[data-page="home"] .home-overlap-section { margin-top: -3.7rem; }
   body[data-page="home"] .home-overlap-section .home-flow {
-    padding: 1rem;
-    border-radius: 20px;
+    display: block;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
   }
   body[data-page="home"] .home-overlap-section .home-flow-copy {
-    padding: 0.2rem 0.15rem 0.6rem;
+    max-width: calc(100% - 1.1rem);
+    margin: 0 0 0.75rem;
+    padding: 1rem 1.05rem;
+    border: 1px solid rgba(242,185,31,0.28);
+    border-radius: 18px;
+    background: rgba(12,12,12,0.92);
+    box-shadow: 0 20px 46px rgba(0,0,0,0.34);
   }
   body[data-page="home"] .home-overlap-section .home-flow-copy h2 {
-    font-size: 1.55rem;
-  }
-  body[data-page="home"] .home-overlap-section .home-flow-step {
-    min-height: auto;
-    padding: 1rem;
+    font-size: 1.4rem;
   }
   .digital-space-band { padding: 1.35rem; border-radius: 18px; }
   .digital-space-band .btn { width: 100%; white-space: normal; text-align: center; }
@@ -2559,6 +2574,35 @@ h1 {
   .home-immersive, .about-immersive { background-position: center; }
   .immersive-report { min-height: 460px; }
   .trust-row, .cards, .home-service-grid, .case-grid, .loss-grid, .signal-grid, .outcome-grid, .solution-path, .visual-grid, .flow-rail, .home-flow-steps { grid-template-columns: 1fr; }
+  body[data-page="home"] .home-overlap-section .home-flow-steps {
+    display: flex;
+    gap: 0.75rem;
+    margin-right: calc((100vw - 100%) / -2);
+    padding: 0 1rem 0.5rem 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  body[data-page="home"] .home-overlap-section .home-flow-steps::-webkit-scrollbar { display: none; }
+  body[data-page="home"] .home-overlap-section .home-flow-step {
+    flex: 0 0 min(78vw, 300px);
+    min-height: 218px;
+    padding: 1.2rem;
+    border-color: rgba(20,20,20,0.12);
+    border-radius: 18px;
+    background: #f4f2ec;
+    color: #151515;
+    box-shadow: 0 16px 36px rgba(0,0,0,0.28);
+    scroll-snap-align: start;
+  }
+  body[data-page="home"] .home-overlap-section .home-flow-step strong {
+    color: #151515;
+    font-size: 1.16rem;
+  }
+  body[data-page="home"] .home-overlap-section .home-flow-step p {
+    color: #55524c;
+    line-height: 1.58;
+  }
   .home-service-card { min-height: auto; border-radius: 18px; }
   .solution-route { grid-template-columns: 1fr; }
   .solution-route span { text-align: left; }
