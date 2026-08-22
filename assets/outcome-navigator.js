@@ -6,13 +6,14 @@
   const COPY = {
     zh: {
       eyebrow: 'NNPC Outcome Navigator',
-      title: '先選成果，再設計不能妥協的條件。',
-      intro: '你的挑戰不是選 AI 還是 IoT，而是在改善一個結果時，不製造另一個問題。',
-      outcomeTitle: '我要改善什麼？', constraintTitle: '但不能讓什麼變得更糟？',
-      chooseOutcome: '選擇想改善的成果', chooseConstraint: '選擇不能妥協的條件',
-      show: '查看建議起點', resultTitle: 'Recommended Starting Point',
+      title: '先選想改善的成果，再告訴我們導入時最擔心什麼。',
+      intro: '不必先懂 AI、IoT 或 MES。從你的營運目標與實際顧慮開始，N/NPC 會整理適合的起點。',
+      outcomeTitle: '你最想改善什麼？', constraintTitle: '導入時，你最擔心什麼？',
+      chooseOutcome: '選擇想改善的成果', chooseConstraint: '選擇最在意的導入顧慮',
+      show: '查看 N/NPC 為我設計的建議', resultTitle: 'N/NPC 為你設計的建議',
       phase: '第一階段目標', confirm: '需要先確認', expansion: '可能擴充路徑',
-      meeting: '預約 Discovery Meeting', related: '查看相關解決方案',
+      meeting: '預約方案診斷', related: '查看相關解決方案', edit: '重新選擇', apply: '更新建議',
+      core: '推薦核心能力', approach: '建議導入方式', match: 'N/NPC 依照你的目標與導入顧慮，建議從以下組合開始。',
       outcomes: {
         waste: '減少浪費與異常支出', profit: '提升產能與利潤', speed: '縮短交期與回應時間',
         quality: '提升品質與可追溯性', labor: '降低人力依賴與管理負擔', visibility: '提高安全、合規與營運可視性'
@@ -22,17 +23,18 @@
         limitedIt: 'IT 人力有限，不能增加維運負擔', privacy: '資料不能外流', phased: '必須逐步導入、先看到成果'
       },
       contactPrefix: '我已完成 NNPC Outcome Navigator，希望進一步討論：',
-      labels: { outcome: '希望改善', constraint: '不能妥協', start: '建議起點' }
+      labels: { outcome: '希望改善', constraint: '導入顧慮', start: '建議起點' }
     },
     en: {
       eyebrow: 'NNPC Outcome Navigator',
-      title: 'Start with the outcome. Design around the constraint.',
-      intro: 'Your challenge is not choosing AI or IoT. It is improving one result without creating another problem.',
-      outcomeTitle: 'What do you want to improve?', constraintTitle: 'What cannot get worse?',
-      chooseOutcome: 'Choose an outcome', chooseConstraint: 'Choose a constraint',
-      show: 'Show recommended starting point', resultTitle: 'Recommended Starting Point',
+      title: 'Choose the result you want, then tell us what concerns you most about implementation.',
+      intro: 'You do not need to choose AI, IoT, or MES first. Start with your operating goal and practical concern; N/NPC will define a suitable starting point.',
+      outcomeTitle: 'What do you most want to improve?', constraintTitle: 'What concerns you most about implementation?',
+      chooseOutcome: 'Choose an outcome', chooseConstraint: 'Choose your main implementation concern',
+      show: 'Show my N/NPC recommendation', resultTitle: 'Your N/NPC Recommendation',
       phase: 'Phase 1 objective', confirm: 'What to confirm', expansion: 'Expansion path',
-      meeting: 'Book a Discovery Meeting', related: 'View related solutions',
+      meeting: 'Book a Solution Review', related: 'View related solutions', edit: 'Change selections', apply: 'Update recommendation',
+      core: 'Recommended capability', approach: 'Implementation approach', match: 'Based on your goal and implementation concern, N/NPC recommends starting with this combination.',
       outcomes: {
         waste: 'Reduce waste and abnormal cost', profit: 'Increase capacity and profit', speed: 'Shorten lead time and response time',
         quality: 'Improve quality and traceability', labor: 'Reduce labor dependency and management burden', visibility: 'Improve safety, compliance, and visibility'
@@ -42,17 +44,18 @@
         limitedIt: 'Limited IT capacity; avoid added maintenance', privacy: 'Data cannot leave the organization', phased: 'Start small and show results first'
       },
       contactPrefix: 'I completed the NNPC Outcome Navigator and would like to discuss:',
-      labels: { outcome: 'Outcome', constraint: 'Constraint', start: 'Starting point' }
+      labels: { outcome: 'Outcome', constraint: 'Implementation concern', start: 'Starting point' }
     },
     th: {
       eyebrow: 'NNPC Outcome Navigator',
-      title: 'เริ่มจากผลลัพธ์ แล้วออกแบบโดยไม่ละทิ้งข้อจำกัด',
-      intro: 'ความท้าทายไม่ใช่การเลือก AI หรือ IoT แต่คือการปรับปรุงผลลัพธ์หนึ่งโดยไม่สร้างปัญหาอีกด้าน',
-      outcomeTitle: 'คุณต้องการปรับปรุงอะไร?', constraintTitle: 'อะไรที่ห้ามแย่ลง?',
-      chooseOutcome: 'เลือกผลลัพธ์', chooseConstraint: 'เลือกข้อจำกัด',
-      show: 'ดูจุดเริ่มต้นที่แนะนำ', resultTitle: 'Recommended Starting Point',
+      title: 'เลือกผลลัพธ์ที่ต้องการ แล้วบอกเราว่ากังวลอะไรที่สุดเมื่อต้องนำระบบไปใช้',
+      intro: 'ไม่จำเป็นต้องเลือก AI, IoT หรือ MES ก่อน เริ่มจากเป้าหมายและข้อกังวลจริง แล้ว N/NPC จะจัดจุดเริ่มต้นที่เหมาะสมให้',
+      outcomeTitle: 'คุณต้องการปรับปรุงอะไรมากที่สุด?', constraintTitle: 'เมื่อนำระบบไปใช้ คุณกังวลเรื่องใดที่สุด?',
+      chooseOutcome: 'เลือกผลลัพธ์', chooseConstraint: 'เลือกข้อกังวลหลักในการนำไปใช้',
+      show: 'ดูคำแนะนำที่ N/NPC ออกแบบให้', resultTitle: 'คำแนะนำจาก N/NPC สำหรับคุณ',
       phase: 'เป้าหมายระยะแรก', confirm: 'สิ่งที่ต้องยืนยัน', expansion: 'เส้นทางการขยาย',
-      meeting: 'นัด Discovery Meeting', related: 'ดูโซลูชันที่เกี่ยวข้อง',
+      meeting: 'นัดวิเคราะห์โซลูชัน', related: 'ดูโซลูชันที่เกี่ยวข้อง', edit: 'เลือกใหม่', apply: 'อัปเดตคำแนะนำ',
+      core: 'ความสามารถหลักที่แนะนำ', approach: 'แนวทางการนำไปใช้', match: 'N/NPC แนะนำให้เริ่มจากชุดนี้ตามเป้าหมายและข้อกังวลในการนำระบบไปใช้ของคุณ',
       outcomes: {
         waste: 'ลดความสูญเสียและค่าใช้จ่ายผิดปกติ', profit: 'เพิ่มกำลังการผลิตและกำไร', speed: 'ลด lead time และเวลาตอบสนอง',
         quality: 'เพิ่มคุณภาพและ traceability', labor: 'ลดการพึ่งพาแรงงานและภาระบริหาร', visibility: 'เพิ่มความปลอดภัย compliance และ visibility'
@@ -62,7 +65,7 @@
         limitedIt: 'ทีม IT จำกัด ห้ามเพิ่มภาระดูแล', privacy: 'ข้อมูลห้ามออกนอกองค์กร', phased: 'ต้องเริ่มทีละขั้นและเห็นผลก่อน'
       },
       contactPrefix: 'ฉันทำ NNPC Outcome Navigator แล้ว และต้องการปรึกษาเพิ่มเติม:',
-      labels: { outcome: 'ผลลัพธ์', constraint: 'ข้อจำกัด', start: 'จุดเริ่มต้น' }
+      labels: { outcome: 'ผลลัพธ์', constraint: 'ข้อกังวลในการนำไปใช้', start: 'จุดเริ่มต้น' }
     }
   };
 
@@ -95,28 +98,28 @@
 
   const CONSTRAINTS = {
     zh: {
-      production:{ modifier:'採旁路資料蒐集與影子運行，不先改變現場作業。', confirm:'可安全讀取訊號而不控制設備的介面', final:'無干擾驗證' },
-      budget:{ modifier:'限定單一流程或場域，先證明一個可量化成果。', confirm:'可接受的 POC 範圍與投資上限', final:'小範圍 POC' },
-      'fragmented-data':{ modifier:'先建立最小資料索引，不要求一次整併所有系統。', confirm:'各系統資料擁有者與可用介面', final:'最小整合層' },
-      'limited-it':{ modifier:'採低維運、標準介面與可由 N/NPC 協助管理的架構。', confirm:'內部 IT 可承擔的維運與權限範圍', final:'低維運部署' },
-      privacy:{ modifier:'以私有或混合部署為前提，先定義資料邊界與權限。', confirm:'資料分類、存放位置與外部連線政策', final:'私有環境驗證' },
-      phased:{ modifier:'把成果拆成可驗收里程碑，每階段可獨立產生價值。', confirm:'第一個可在短週期驗證的成功指標', final:'分階段擴充' }
+      production:{ approach:'旁路蒐集＋影子運行', modifier:'採旁路資料蒐集與影子運行，不先改變現場作業。', confirm:'可安全讀取訊號而不控制設備的介面', final:'無干擾驗證' },
+      budget:{ approach:'單一場景小型 POC', modifier:'限定單一流程或場域，先證明一個可量化成果。', confirm:'可接受的 POC 範圍與投資上限', final:'小範圍 POC' },
+      'fragmented-data':{ approach:'最小資料整合層', modifier:'先建立最小資料索引，不要求一次整併所有系統。', confirm:'各系統資料擁有者與可用介面', final:'最小整合層' },
+      'limited-it':{ approach:'低維運託管架構', modifier:'採低維運、標準介面與可由 N/NPC 協助管理的架構。', confirm:'內部 IT 可承擔的維運與權限範圍', final:'低維運部署' },
+      privacy:{ approach:'私有或混合部署', modifier:'以私有或混合部署為前提，先定義資料邊界與權限。', confirm:'資料分類、存放位置與外部連線政策', final:'私有環境驗證' },
+      phased:{ approach:'分階段驗收與擴充', modifier:'把成果拆成可驗收里程碑，每階段可獨立產生價值。', confirm:'第一個可在短週期驗證的成功指標', final:'分階段擴充' }
     },
     en: {
-      production:{ modifier:'Use passive capture and shadow operation before changing field work.', confirm:'Interfaces that can safely read signals without controlling equipment', final:'Non-disruptive validation' },
-      budget:{ modifier:'Limit the first scope to one workflow or site and prove one measurable result.', confirm:'Acceptable POC scope and investment ceiling', final:'Focused POC' },
-      'fragmented-data':{ modifier:'Build a minimum data index without replacing every system at once.', confirm:'Data owners and available interfaces across systems', final:'Minimum integration layer' },
-      'limited-it':{ modifier:'Use standard interfaces and a low-maintenance managed architecture.', confirm:'IT capacity for access, ownership, and maintenance', final:'Low-maintenance deployment' },
-      privacy:{ modifier:'Assume private or hybrid deployment and define data boundaries first.', confirm:'Data classification, storage location, and external access policy', final:'Private environment validation' },
-      phased:{ modifier:'Split value into independently measurable milestones.', confirm:'The first success metric that can be validated quickly', final:'Phased expansion' }
+      production:{ approach:'Passive capture + shadow operation', modifier:'Use passive capture and shadow operation before changing field work.', confirm:'Interfaces that can safely read signals without controlling equipment', final:'Non-disruptive validation' },
+      budget:{ approach:'Focused single-scenario POC', modifier:'Limit the first scope to one workflow or site and prove one measurable result.', confirm:'Acceptable POC scope and investment ceiling', final:'Focused POC' },
+      'fragmented-data':{ approach:'Minimum data integration layer', modifier:'Build a minimum data index without replacing every system at once.', confirm:'Data owners and available interfaces across systems', final:'Minimum integration layer' },
+      'limited-it':{ approach:'Low-maintenance managed architecture', modifier:'Use standard interfaces and a low-maintenance managed architecture.', confirm:'IT capacity for access, ownership, and maintenance', final:'Low-maintenance deployment' },
+      privacy:{ approach:'Private or hybrid deployment', modifier:'Assume private or hybrid deployment and define data boundaries first.', confirm:'Data classification, storage location, and external access policy', final:'Private environment validation' },
+      phased:{ approach:'Phased validation and expansion', modifier:'Split value into independently measurable milestones.', confirm:'The first success metric that can be validated quickly', final:'Phased expansion' }
     },
     th: {
-      production:{ modifier:'ใช้ passive capture และ shadow operation ก่อนเปลี่ยนงานหน้างาน', confirm:'interface ที่อ่าน signal ได้โดยไม่ควบคุม equipment', final:'ทดสอบโดยไม่รบกวนการผลิต' },
-      budget:{ modifier:'จำกัดระยะแรกไว้ที่ workflow หรือ site เดียว และพิสูจน์ผลลัพธ์หนึ่งข้อ', confirm:'ขอบเขต POC และเพดานการลงทุน', final:'Focused POC' },
-      'fragmented-data':{ modifier:'สร้าง minimum data index โดยไม่ต้องแทนที่ทุกระบบพร้อมกัน', confirm:'data owner และ interface ที่ใช้ได้ของแต่ละระบบ', final:'Minimum integration layer' },
-      'limited-it':{ modifier:'ใช้ standard interface และ managed architecture ที่ดูแลง่าย', confirm:'ขอบเขตที่ทีม IT รับผิดชอบด้าน access และ maintenance ได้', final:'Low-maintenance deployment' },
-      privacy:{ modifier:'ใช้ private หรือ hybrid deployment และกำหนด data boundary ก่อน', confirm:'data classification, storage location และ external access policy', final:'Private environment validation' },
-      phased:{ modifier:'แบ่ง value เป็น milestone ที่วัดผลและส่งมอบแยกกันได้', confirm:'success metric แรกที่ตรวจสอบได้ในระยะสั้น', final:'Phased expansion' }
+      production:{ approach:'Passive capture + shadow operation', modifier:'ใช้ passive capture และ shadow operation ก่อนเปลี่ยนงานหน้างาน', confirm:'interface ที่อ่าน signal ได้โดยไม่ควบคุม equipment', final:'ทดสอบโดยไม่รบกวนการผลิต' },
+      budget:{ approach:'POC ขนาดเล็กในหนึ่งสถานการณ์', modifier:'จำกัดระยะแรกไว้ที่ workflow หรือ site เดียว และพิสูจน์ผลลัพธ์หนึ่งข้อ', confirm:'ขอบเขต POC และเพดานการลงทุน', final:'Focused POC' },
+      'fragmented-data':{ approach:'Minimum data integration layer', modifier:'สร้าง minimum data index โดยไม่ต้องแทนที่ทุกระบบพร้อมกัน', confirm:'data owner และ interface ที่ใช้ได้ของแต่ละระบบ', final:'Minimum integration layer' },
+      'limited-it':{ approach:'Managed architecture ที่ดูแลง่าย', modifier:'ใช้ standard interface และ managed architecture ที่ดูแลง่าย', confirm:'ขอบเขตที่ทีม IT รับผิดชอบด้าน access และ maintenance ได้', final:'Low-maintenance deployment' },
+      privacy:{ approach:'Private หรือ hybrid deployment', modifier:'ใช้ private หรือ hybrid deployment และกำหนด data boundary ก่อน', confirm:'data classification, storage location และ external access policy', final:'Private environment validation' },
+      phased:{ approach:'ตรวจรับและขยายผลเป็นระยะ', modifier:'แบ่ง value เป็น milestone ที่วัดผลและส่งมอบแยกกันได้', confirm:'success metric แรกที่ตรวจสอบได้ในระยะสั้น', final:'Phased expansion' }
     }
   };
 
@@ -141,14 +144,14 @@
   }
 
   function compactMarkup(copy, state) {
-    const outcomeOptions = OUTCOME_IDS.map((id) => `<option value="${id}"${state.outcome === id ? ' selected' : ''}>${copy.outcomes[id]}</option>`).join('');
-    const constraintOptions = CONSTRAINT_IDS.map((id) => `<option value="${id}"${state.constraint === id ? ' selected' : ''}>${copy.constraints[normalizeConstraintKey(id)]}</option>`).join('');
+    const ready = state.outcome && state.constraint;
+    const href = ready ? `/solutions/?outcome=${state.outcome}&constraint=${state.constraint}#outcome-navigator` : '#';
     return `<div class="outcome-navigator compact">
       <div class="navigator-intro"><div class="eyebrow">${copy.eyebrow}</div><h2>${copy.title}</h2><p>${copy.intro}</p></div>
-      <div class="navigator-compact-controls">
-        <label><span>01 · ${copy.outcomeTitle}</span><select data-nav-select="outcome"><option value="">${copy.chooseOutcome}</option>${outcomeOptions}</select></label>
-        <label><span>02 · ${copy.constraintTitle}</span><select data-nav-select="constraint"><option value="">${copy.chooseConstraint}</option>${constraintOptions}</select></label>
-        <a class="btn primary navigator-go${state.outcome && state.constraint ? '' : ' disabled'}" data-nav-go href="#" aria-disabled="${!(state.outcome && state.constraint)}">${copy.show}</a>
+      <div class="navigator-quick-grid">
+        <fieldset><legend><b>01</b>${copy.outcomeTitle}</legend><div class="outcome-option-grid">${optionButtons(OUTCOME_IDS, 'outcome', state.outcome, copy.outcomes)}</div></fieldset>
+        <fieldset><legend><b>02</b>${copy.constraintTitle}</legend><div class="outcome-option-grid">${optionButtons(CONSTRAINT_IDS, 'constraint', state.constraint, copy.constraints)}</div></fieldset>
+        <a class="btn primary navigator-go${ready ? '' : ' disabled'}" data-nav-go href="${href}" aria-disabled="${!ready}">${copy.show}</a>
       </div>
     </div>`;
   }
@@ -159,8 +162,17 @@
     const constraint = CONSTRAINTS[lang][state.constraint];
     const steps = [...route.steps, constraint.final];
     const contact = `/contact/?outcome=${state.outcome}&constraint=${state.constraint}`;
-    return `<section class="navigator-result" aria-live="polite">
-      <div class="navigator-result-head"><span>${copy.resultTitle}</span><h3>${route.start}</h3></div>
+    return `<div class="navigator-selection-summary">
+      <div><small>${copy.labels.outcome}</small><strong>${copy.outcomes[state.outcome]}</strong></div>
+      <div><small>${copy.labels.constraint}</small><strong>${copy.constraints[normalizeConstraintKey(state.constraint)]}</strong></div>
+      <button class="btn secondary" type="button" data-nav-edit>${copy.edit}</button>
+    </div>
+    <section class="navigator-result" aria-live="polite">
+      <div class="navigator-result-head"><span>${copy.resultTitle}</span><h3>${route.start}</h3><p>${copy.match}</p></div>
+      <div class="navigator-recommendation-pair">
+        <div><small>${copy.core}</small><strong>${route.start}</strong></div>
+        <div><small>${copy.approach}</small><strong>${constraint.approach}</strong></div>
+      </div>
       <div class="navigator-path">${steps.map((step, index) => `<div><b>${index + 1}</b><span>${step}</span></div>`).join('')}</div>
       <div class="navigator-result-grid">
         <div><strong>${copy.phase}</strong><p>${route.objective} ${constraint.modifier}</p></div>
@@ -172,13 +184,17 @@
   }
 
   function fullMarkup(copy, lang, state) {
+    const ready = state.outcome && state.constraint;
+    if (ready && !state.editing) {
+      return `<div class="outcome-navigator full result-first">${resultMarkup(copy, lang, state)}</div>`;
+    }
     return `<div class="outcome-navigator full">
       <div class="navigator-intro"><div class="eyebrow">${copy.eyebrow}</div><h2>${copy.title}</h2><p>${copy.intro}</p></div>
       <div class="navigator-choices">
         <fieldset><legend><b>01</b>${copy.outcomeTitle}</legend><div class="outcome-option-grid">${optionButtons(OUTCOME_IDS, 'outcome', state.outcome, copy.outcomes)}</div></fieldset>
         <fieldset><legend><b>02</b>${copy.constraintTitle}</legend><div class="outcome-option-grid">${optionButtons(CONSTRAINT_IDS, 'constraint', state.constraint, copy.constraints)}</div></fieldset>
       </div>
-      <div data-nav-result>${resultMarkup(copy, lang, state)}</div>
+      ${ready ? `<div class="navigator-apply"><button class="btn primary" type="button" data-nav-apply>${copy.apply}</button></div>` : ''}
     </div>`;
   }
 
@@ -192,22 +208,21 @@
   }
 
   function bindNavigator(root, state) {
-    root.querySelectorAll('[data-nav-select]').forEach((select) => {
-      select.addEventListener('change', () => {
-        state[select.dataset.navSelect] = select.value;
-        const link = root.querySelector('[data-nav-go]');
-        const ready = state.outcome && state.constraint;
-        link.classList.toggle('disabled', !ready);
-        link.setAttribute('aria-disabled', String(!ready));
-        link.href = ready ? `/solutions/?outcome=${state.outcome}&constraint=${state.constraint}#outcome-navigator` : '#';
-      });
-    });
     root.querySelectorAll('.outcome-option').forEach((button) => {
       button.addEventListener('click', () => {
         state[button.dataset.group] = button.dataset.value;
         updateUrl(state);
         renderRoot(root, state);
       });
+    });
+    root.querySelector('[data-nav-edit]')?.addEventListener('click', () => {
+      state.editing = true;
+      renderRoot(root, state);
+    });
+    root.querySelector('[data-nav-apply]')?.addEventListener('click', () => {
+      state.editing = false;
+      updateUrl(state);
+      renderRoot(root, state);
     });
   }
 
@@ -236,9 +251,14 @@
   function init() {
     const initial = selectionFromUrl();
     document.querySelectorAll('[data-outcome-navigator]').forEach((root) => {
-      const state = { ...initial };
+      const state = { ...initial, editing: root.dataset.mode === 'full' && !(initial.outcome && initial.constraint) };
       root._navigatorState = state;
       renderRoot(root, state);
+      if (root.dataset.mode === 'full' && initial.outcome && initial.constraint && window.location.hash === '#outcome-navigator') {
+        const focusResult = () => window.setTimeout(() => root.scrollIntoView({ block: 'start' }), 240);
+        if (document.readyState === 'complete') focusResult();
+        else window.addEventListener('load', focusResult, { once: true });
+      }
     });
     prefillContact();
   }

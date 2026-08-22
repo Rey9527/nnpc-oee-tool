@@ -748,11 +748,10 @@ h1 {
   box-shadow: 0 30px 80px rgba(0,0,0,0.42);
   overflow: hidden;
 }
+#outcome-navigator { scroll-margin-top: 100px; }
 .outcome-navigator.compact {
   display: grid;
-  grid-template-columns: minmax(250px, 0.72fr) minmax(0, 1.28fr);
   gap: clamp(1.2rem, 3vw, 2.4rem);
-  align-items: end;
   padding: clamp(1.2rem, 2.6vw, 1.8rem);
 }
 .navigator-intro h2 {
@@ -761,29 +760,18 @@ h1 {
   line-height: 1.12;
 }
 .navigator-intro p { color: var(--muted); margin: 0; max-width: 740px; }
-.navigator-compact-controls {
+.navigator-quick-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr)) auto;
-  gap: 0.75rem;
-  align-items: end;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
 }
-.navigator-compact-controls label { display: grid; gap: 0.4rem; min-width: 0; }
-.navigator-compact-controls label > span { color: var(--soft); font-size: 0.84rem; font-weight: 800; }
-.navigator-compact-controls select {
-  width: 100%;
-  min-height: 48px;
-  border: 1px solid rgba(255,255,255,0.13);
-  border-radius: var(--radius);
-  background: #191919;
-  color: var(--text);
-  padding: 0.72rem 2.2rem 0.72rem 0.85rem;
-  font: 700 1rem var(--body-font);
-}
+.navigator-quick-grid .navigator-go { grid-column: 1 / -1; justify-self: start; }
 .navigator-go.disabled { opacity: 0.42; pointer-events: none; box-shadow: none; }
 .outcome-navigator.full { padding: clamp(1.3rem, 3vw, 2.2rem); }
 .outcome-navigator.full .navigator-intro { max-width: 820px; margin-bottom: 1.5rem; }
 .navigator-choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
-.navigator-choices fieldset {
+.navigator-choices fieldset,
+.navigator-quick-grid fieldset {
   min-width: 0;
   margin: 0;
   padding: 1rem;
@@ -791,7 +779,8 @@ h1 {
   border-radius: var(--radius);
   background: rgba(255,255,255,0.02);
 }
-.navigator-choices legend {
+.navigator-choices legend,
+.navigator-quick-grid legend {
   display: flex;
   align-items: center;
   gap: 0.65rem;
@@ -799,7 +788,8 @@ h1 {
   color: var(--text);
   font-weight: 900;
 }
-.navigator-choices legend b {
+.navigator-choices legend b,
+.navigator-quick-grid legend b {
   display: inline-grid;
   place-items: center;
   width: 30px;
@@ -840,6 +830,26 @@ h1 {
   color: var(--text);
 }
 .outcome-option.selected i { border-color: var(--gold); background: var(--gold); box-shadow: inset 0 0 0 3px #191919; }
+.navigator-selection-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) auto;
+  gap: 0.75rem;
+  align-items: stretch;
+  margin-bottom: 1rem;
+}
+.navigator-selection-summary > div {
+  display: grid;
+  gap: 0.28rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255,255,255,0.025);
+}
+.navigator-selection-summary small,
+.navigator-recommendation-pair small { color: var(--soft); font-weight: 800; }
+.navigator-selection-summary strong,
+.navigator-recommendation-pair strong { color: var(--text); }
+.navigator-selection-summary .btn { align-self: center; }
 .navigator-result {
   margin-top: 1.2rem;
   padding: clamp(1.1rem, 2.4vw, 1.5rem);
@@ -847,8 +857,24 @@ h1 {
   border-radius: var(--radius);
   background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.018));
 }
+.result-first .navigator-result { margin-top: 0; }
 .navigator-result-head span { color: var(--soft); font-size: 0.82rem; font-weight: 900; letter-spacing: 0.05em; text-transform: uppercase; }
-.navigator-result-head h3 { margin: 0.25rem 0 1rem; font-size: clamp(1.45rem, 2.4vw, 2.15rem); }
+.navigator-result-head h3 { margin: 0.25rem 0 0.35rem; font-size: clamp(1.65rem, 3vw, 2.6rem); }
+.navigator-result-head p { color: var(--muted); margin: 0 0 1rem; }
+.navigator-recommendation-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+.navigator-recommendation-pair > div {
+  display: grid;
+  gap: 0.3rem;
+  padding: 1rem;
+  border-left: 3px solid var(--gold);
+  background: rgba(242,185,31,0.055);
+}
+.navigator-recommendation-pair strong { font-size: 1.08rem; }
 .navigator-path { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.7rem; margin: 0 0 1.1rem; }
 .navigator-path > div {
   position: relative;
@@ -870,6 +896,7 @@ h1 {
 .navigator-result-grid p, .navigator-result-grid ul { color: var(--muted); margin: 0; }
 .navigator-result-grid ul { padding-left: 1.15rem; }
 .navigator-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1rem; }
+.navigator-apply { display: flex; justify-content: flex-end; margin-top: 1rem; }
 .field-story {
   display: grid;
   grid-template-columns: minmax(280px, 0.82fr) minmax(0, 1.18fr);
@@ -2646,8 +2673,8 @@ h1 {
   .signal-grid, .outcome-grid, .solution-path, .home-flow-steps { grid-template-columns: 1fr 1fr; }
   .side-panel { position: static; }
   .outcome-navigator.compact { grid-template-columns: 1fr; }
-  .navigator-compact-controls { grid-template-columns: 1fr 1fr; }
-  .navigator-compact-controls .navigator-go { grid-column: 1 / -1; }
+  .navigator-quick-grid { grid-template-columns: 1fr; }
+  .navigator-quick-grid .navigator-go { grid-column: auto; }
 }
 
 @media (max-width: 620px) {
@@ -2735,10 +2762,13 @@ h1 {
   .home-service-card { min-height: auto; border-radius: 8px; }
   .outcome-navigator.compact { padding: 1rem; gap: 1rem; }
   .outcome-navigator.compact .navigator-intro h2 { font-size: 1.42rem; }
-  .navigator-compact-controls, .navigator-choices, .outcome-option-grid, .navigator-result-grid { grid-template-columns: 1fr; }
+  .navigator-choices, .outcome-option-grid, .navigator-result-grid, .navigator-selection-summary, .navigator-recommendation-pair { grid-template-columns: 1fr; }
+  .navigator-quick-grid .outcome-option-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .navigator-quick-grid .navigator-go { width: 100%; white-space: normal; text-align: center; }
   .navigator-choices { gap: 0.85rem; }
-  .navigator-choices fieldset { padding: 0.8rem; }
+  .navigator-choices fieldset, .navigator-quick-grid fieldset { padding: 0.8rem; }
   .outcome-option { min-height: 52px; font-size: 0.94rem; }
+  .navigator-selection-summary .btn { width: 100%; }
   .navigator-path { grid-template-columns: 1fr 1fr; }
   .navigator-result-grid > div { padding: 0.9rem 0; border-right: 0; border-bottom: 1px solid var(--line); }
   .navigator-result-grid > div:last-child { border-bottom: 0; }
