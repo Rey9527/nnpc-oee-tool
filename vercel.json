@@ -1,4 +1,8 @@
 {
+  "redirects": [
+    { "source": "/cases/profet-ai-domain-twin", "destination": "/cases/enterprise-ai-domain-twin/", "permanent": true },
+    { "source": "/cases/profet-ai-domain-twin/", "destination": "/cases/enterprise-ai-domain-twin/", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/oee", "has": [{ "type": "query", "key": "t" }], "destination": "/register.html" },
     { "source": "/oee", "has": [{ "type": "query", "key": "token" }], "destination": "/register.html" },
