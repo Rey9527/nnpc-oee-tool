@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>N/NPC OEE Tool Access</title>
+<title>N/NPC Member Access</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;900&family=Barlow+Condensed:wght@700;900&family=League+Gothic&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Sans+Thai:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
@@ -78,15 +78,41 @@
     font-family: var(--brand-logo);
     font-weight: 700; font-size: 3.75rem;
     letter-spacing: 0.015em; color: var(--text); line-height: 0.86;
+    white-space: nowrap;
     text-rendering: geometricPrecision;
   }
   .logo-slash { color: var(--gold); display: inline-block; transform: skewX(-8deg); margin: 0 0.03em; }
   .logo-tagline { font-size: 0.92rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-top: 0.5rem; font-family: inherit; }
 
   .access-layout {
-    display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(360px, 0.88fr);
+    display: grid; grid-template-columns: minmax(0, 0.88fr) minmax(400px, 1.12fr);
     gap: 1.25rem; align-items: stretch;
   }
+  .member-overview {
+    position: relative; overflow: hidden; min-height: 600px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: clamp(1.6rem, 3vw, 2.6rem);
+    background: linear-gradient(145deg, rgba(38,38,38,0.98), rgba(25,25,25,0.98));
+    border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow);
+  }
+  .member-overview::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(135deg, rgba(242,185,31,0.09), transparent 38%), repeating-linear-gradient(-45deg, transparent, transparent 42px, rgba(242,185,31,0.018) 42px, rgba(242,185,31,0.018) 43px);
+  }
+  .member-overview > * { position: relative; z-index: 1; }
+  .member-kicker { color: var(--gold); font-size: 0.9rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1rem; }
+  .member-heading { max-width: 10em; font-size: clamp(2.25rem, 4.2vw, 3.7rem); line-height: 1.02; letter-spacing: 0; margin-bottom: 1.15rem; }
+  .member-intro { max-width: 34rem; color: var(--muted); font-size: 1.08rem; line-height: 1.75; }
+  .member-benefits { display: grid; gap: 0.65rem; margin-top: 2rem; }
+  .member-benefit { display: grid; grid-template-columns: 2.25rem 1fr; gap: 0.8rem; padding: 0.9rem 0; border-top: 1px solid var(--border); }
+  .member-benefit:first-child { border-top-color: rgba(242,185,31,0.34); }
+  .member-benefit span { color: var(--gold); font-family: 'Barlow', sans-serif; font-weight: 700; }
+  .member-benefit strong { display: block; color: var(--text); font-size: 1.02rem; margin-bottom: 0.18rem; }
+  .member-benefit p { color: var(--muted); font-size: 0.96rem; line-height: 1.55; }
+  .access-context { margin-top: 1.4rem; padding: 1rem 1.05rem; background: rgba(0,0,0,0.2); border: 1px solid rgba(242,185,31,0.28); border-left: 3px solid var(--gold); }
+  .access-context[hidden] { display: none; }
+  .access-context span { display: block; color: var(--muted); font-size: 0.88rem; margin-bottom: 0.25rem; }
+  .access-context strong { color: var(--text); font-size: 1.02rem; line-height: 1.5; }
   .tool-preview {
     background: #202020; border: 1px solid var(--border); border-radius: 2px;
     position: relative; overflow: hidden; min-height: 620px;
@@ -372,14 +398,30 @@
     color: var(--text);
   }
 
+  @media (max-width: 900px) {
+    .access-layout { grid-template-columns: 1fr; }
+    .member-overview { min-height: auto; }
+  }
+
   @media (max-width: 480px) {
     .access-layout { grid-template-columns: 1fr; }
-    .tool-preview { min-height: 520px; }
+    .logo-wrap { margin: 0.55rem 0 1.35rem; }
+    .logo-text { font-size: 2.75rem; }
+    .logo-tagline { font-size: 0.7rem; white-space: nowrap; }
+    .member-overview { min-height: auto; padding: 1.25rem 1.1rem; }
+    .member-kicker { margin-bottom: 0.7rem; }
+    .member-heading { font-size: 1.95rem; max-width: 12em; margin-bottom: 0.75rem; }
+    .member-intro { font-size: 0.96rem; line-height: 1.62; }
+    .access-context { margin-top: 0.95rem; padding: 0.78rem 0.85rem; }
+    .member-benefits { gap: 0; margin-top: 0.95rem; }
+    .member-benefit { grid-template-columns: 1.8rem 1fr; gap: 0.55rem; padding: 0.58rem 0; }
+    .member-benefit strong { margin: 0; font-size: 0.95rem; }
+    .member-benefit p { display: none; }
     .preview-body { padding: 1rem; filter: blur(0.5px); opacity: 0.88; }
     .preview-title { font-size: 1.95rem; }
     .form-grid { grid-template-columns: 1fr; }
     .form-grid .full { grid-column: 1; }
-    .card { padding: 1.75rem 1.25rem; }
+    .card { padding: 1.35rem 1.1rem; }
     body { padding-top: 5.1rem; }
     .home-link {
       top: 0.55rem; left: 0.75rem;
@@ -412,47 +454,20 @@
   </div>
 
   <div class="access-layout">
-  <section class="tool-preview" aria-label="OEE tool preview">
-    <div class="preview-nav">
-      <div class="preview-brand">N<span>/</span>NPC</div>
-      <div class="preview-tag" id="t-previewTag">會員專屬</div>
-    </div>
-    <div class="preview-body">
-      <div class="preview-eyebrow">OEE · Overall Equipment Effectiveness</div>
-      <div class="preview-title" id="t-previewTitle">工廠獲利計算機</div>
-      <div class="preview-sub" id="t-previewSub">調整參數，即時看到 OEE 提升帶來的真實金錢價值</div>
-      <div class="preview-formula"><span style="color:#22d3ee;">A</span> 可動率 × <span style="color:#a78bfa;">P</span> 性能 × <span style="color:#4CAF82;">Q</span> 品質</div>
-
-      <div class="preview-panel">
-        <div class="preview-panel-title" id="t-previewStep1">步驟 1 — 工廠規模</div>
-        <div class="preview-grid">
-          <div class="preview-control"><span><small>Machines</small><strong>20</strong></span><small>台</small></div>
-          <div class="preview-control"><span><small>Shifts</small><strong>2</strong></span><small>班</small></div>
-          <div class="preview-control"><span><small>Workers</small><strong>23</strong></span><small>人</small></div>
-          <div class="preview-control"><span><small>Days</small><strong>26</strong></span><small>天</small></div>
-        </div>
-      </div>
-
-      <div class="preview-panel">
-        <div class="preview-panel-title" id="t-previewStep2">步驟 2 — 模擬改善</div>
-        <div class="preview-grid">
-          <div class="preview-control"><span><small>Current OEE</small><strong>65%</strong></span></div>
-          <div class="preview-control"><span><small>Target OEE</small><strong>78%</strong></span></div>
-        </div>
-      </div>
-
-      <div class="preview-result">
-        <small id="t-previewResultLabel">預估每月新增產值</small>
-        <strong>฿ 1,872,000</strong>
+  <section class="member-overview" aria-labelledby="memberHeading">
+    <div>
+      <div class="member-kicker" id="t-memberKicker">N/NPC MEMBER</div>
+      <h1 class="member-heading" id="memberHeading">一個會員入口，連接工具與專業內容。</h1>
+      <p class="member-intro" id="t-memberIntro">使用 N/NPC 的營運工具、閱讀會員案例，並持續取得實務研究與新內容。</p>
+      <div class="access-context" id="accessContext" hidden>
+        <span id="t-contextLabel">您正要前往</span>
+        <strong id="contextTitle"></strong>
       </div>
     </div>
-    <div class="lock-layer">
-      <div class="lock-box">
-        <div class="lock-icon">LOCK</div>
-        <div class="lock-title" id="t-lockTitle">OEE 工具已準備好</div>
-        <div class="lock-sub" id="t-lockSub">留下基本會員資料，下一秒就能開始操作完整計算機。</div>
-        <div class="lock-arrow" id="t-lockArrow">往右註冊解鎖 →</div>
-      </div>
+    <div class="member-benefits">
+      <div class="member-benefit"><span>01</span><div><strong id="t-benefit1Title">會員案例與產業分析</strong><p id="t-benefit1Text">閱讀導入判斷、案例拆解與實務觀察。</p></div></div>
+      <div class="member-benefit"><span>02</span><div><strong id="t-benefit2Title">營運診斷工具</strong><p id="t-benefit2Text">使用 OEE、空間需求等線上評估工具。</p></div></div>
+      <div class="member-benefit"><span>03</span><div><strong id="t-benefit3Title">持續更新</strong><p id="t-benefit3Text">同一會員身份沿用於後續新增內容。</p></div></div>
     </div>
   </section>
 
@@ -465,23 +480,17 @@
         <button type="button" class="mode-tab active" id="registerTab" onclick="setMode('register')" role="tab" aria-selected="true">新會員註冊</button>
         <button type="button" class="mode-tab" id="loginTab" onclick="setMode('login')" role="tab" aria-selected="false">已是會員登入</button>
       </div>
-      <div class="card-title" id="t-cardTitle">建立您的會員帳號</div>
-      <div class="card-sub" id="t-cardSub">填寫以下資料，我們將寄送驗證信至您的 Email。<br>驗證完成後即可使用 OEE 工廠獲利計算機。</div>
-      <div class="info-note" id="t-infoNote">此註冊僅供 N/NPC 會員使用。送出後請至信箱完成 Email 驗證，系統將自動開通 OEE 工具使用權限。</div>
+      <div class="card-title" id="t-cardTitle">建立 N/NPC 會員</div>
+      <div class="card-sub" id="t-cardSub">只需三項基本資料。我們會將安全驗證連結寄到您的 Email。</div>
+      <div class="info-note" id="t-infoNote">不用設定密碼。點擊信中的連結即可完成驗證並前往會員內容。</div>
 
       <form id="registerForm" novalidate>
         <div class="form-grid">
 
-          <div class="field">
+          <div class="field full">
             <label id="t-lName">姓名 <span class="req">*</span></label>
             <input type="text" id="name" name="name" autocomplete="name" required>
             <span class="field-error" id="nameErr"></span>
-          </div>
-
-          <div class="field optional">
-            <label id="t-lPhone">電話號碼 <span class="req">*</span></label>
-            <input type="tel" id="phone" name="phone" placeholder="+66 xx-xxxx-xxxx" autocomplete="tel">
-            <span class="field-error" id="phoneErr"></span>
           </div>
 
           <div class="field full">
@@ -494,33 +503,6 @@
             <label>Email <span class="req">*</span></label>
             <input type="email" id="email" name="email" placeholder="name@company.com" autocomplete="email" required>
             <span class="field-error" id="emailErr"></span>
-          </div>
-
-          <div class="field optional">
-            <label id="t-lJob">職稱 / 部門 <span class="req">*</span></label>
-            <input type="text" id="jobTitle" name="jobTitle">
-            <span class="field-error" id="jobErr"></span>
-          </div>
-
-          <div class="field optional">
-            <label id="t-lCountry">所在國家 <span class="req">*</span></label>
-            <div class="select-wrap">
-              <select id="country" name="country">
-                <option value="" id="t-selectDefault">請選擇國家</option>
-                <option value="Thailand">🇹🇭 Thailand</option>
-                <option value="Taiwan">🇹🇼 Taiwan</option>
-                <option value="VN">🇻🇳 Vietnam</option>
-                <option value="MY">🇲🇾 Malaysia</option>
-                <option value="ID">🇮🇩 Indonesia</option>
-                <option value="PH">🇵🇭 Philippines</option>
-                <option value="SG">🇸🇬 Singapore</option>
-                <option value="CN">🇨🇳 China</option>
-                <option value="JP">🇯🇵 Japan</option>
-                <option value="KR">🇰🇷 Korea</option>
-                <option value="Others" id="t-selectOther">其他 Other</option>
-              </select>
-            </div>
-            <span class="field-error" id="countryErr"></span>
           </div>
 
         </div>
@@ -555,7 +537,7 @@
       <div class="success-sub">
         <span id="t-successSub1">我們已將驗證連結寄送至</span><br>
         <span class="success-email-highlight" id="sentEmailDisplay"></span><br><br>
-        <span id="t-successSub2">請前往您的信箱點擊驗證連結，完成後即可使用 OEE 計算機。</span><br><br>
+        <span id="t-successSub2">請前往信箱點擊連結，完成會員驗證並繼續前往內容。</span><br><br>
         <small style="color:#C8C8C8;font-size:0.98rem;line-height:1.7;" id="t-successSub3">若未收到，請檢查垃圾郵件資料夾。</small>
       </div>
       <div class="resend-link">
@@ -569,10 +551,10 @@
       <div class="verified-badge" id="t-verifiedBadge">✓ Email 驗證成功</div>
       <div class="success-title" id="t-verifiedTitle">歡迎加入 N/NPC！</div>
       <div class="success-sub" style="margin-top:0.5rem;" id="t-verifiedSub">
-        您的帳號已通過驗證。立即使用 OEE 工廠獲利計算機，找出您工廠的隱性損失。
+        您的會員身份已通過驗證，可以繼續前往 N/NPC 會員內容。
       </div>
       <a href="oee-calculator.html" class="btn-enter" id="t-enterBtn">
-        進入 OEE 計算機 →
+        繼續前往會員內容 →
       </a>
     </div>
   </div>
@@ -595,6 +577,7 @@ const CONFIG = {
   VERIFY_ENDPOINT: '/api/oee/verify',
   API_OPTIONAL_FOR_PREVIEW: location.protocol === 'file:',
   OEE_TOOL_URL: 'oee-calculator.html',
+  MEMBER_HOME_URL: '/cases/',
   LOGIN_URL: 'oee-calculator.html',
   WEBSITE_URL: 'https://www.nnpc.ai/index.html',
   CONTACT_URL: '/contact',
@@ -608,7 +591,14 @@ const T = {
   zh: {
     htmlLang: 'zh-TW', bodyClass: '',
     homeLink: '← 返回官網',
-    tagline: 'Smart Manufacturing Solutions',
+    tagline: 'Smart Operations & Enterprise AI',
+    memberKicker: 'N/NPC MEMBER',
+    memberHeading: '一個會員入口，連接工具與專業內容。',
+    memberIntro: '使用 N/NPC 的營運工具、閱讀會員案例，並持續取得實務研究與新內容。',
+    benefit1Title: '會員案例與產業分析', benefit1Text: '閱讀導入判斷、案例拆解與實務觀察。',
+    benefit2Title: '營運診斷工具', benefit2Text: '使用 OEE、空間需求等線上評估工具。',
+    benefit3Title: '持續更新', benefit3Text: '同一會員身份沿用於後續新增內容。',
+    contextLabel: '您正要前往', targetCases: '會員案例分析中心', targetEnterpriseCase: '企業 AI Domain Twin 案例分析', targetSmartTagCase: 'Smart Tag 機台健康案例分析', targetMesCase: 'MES / OEE 工廠可視化案例分析', targetRtlsCase: 'RTLS 空間智能案例分析', targetOee: 'OEE 營運價值計算工具', targetSpatial: '空間服務需求診斷', targetDefault: 'N/NPC 會員內容',
     previewTag: '會員專屬',
     previewTitle: '工廠獲利計算機',
     previewSub: '調整參數，即時看到 OEE 提升帶來的真實金錢價值',
@@ -621,12 +611,12 @@ const T = {
     lockArrowMobile: '往下留下 Email ↓',
     registerTab: '新會員註冊',
     loginTab: '已是會員登入',
-    cardTitle: '取得 OEE 工具連結',
-    cardSub: '只要 3 個欄位。我們會把 OEE 工廠獲利計算機的專屬連結寄到您的 Email。',
-    infoNote: '請使用可收信的 Email。點擊信中的工具連結後，即可開啟完整 OEE 計算機。',
+    cardTitle: '建立 N/NPC 會員',
+    cardSub: '只需三項基本資料。我們會將安全驗證連結寄到您的 Email。',
+    infoNote: '不用設定密碼。點擊信中的連結即可完成驗證並前往會員內容。',
     loginCardTitle: '會員登入',
-    loginCardSub: '輸入您註冊過的 Email，我們會重新寄送 OEE 工具連結給您。',
-    loginInfoNote: '不用密碼。請到信箱點擊最新工具連結，即可回到 OEE 計算機。',
+    loginCardSub: '輸入註冊過的 Email，我們會寄送新的會員登入連結。',
+    loginInfoNote: '不用密碼。請到信箱點擊最新連結，安全返回會員內容。',
     lName: '姓名 <span class="req">*</span>',
     lPhone: '電話號碼 <span class="req">*</span>',
     lCompany: '公司名稱 <span class="req">*</span>',
@@ -635,8 +625,8 @@ const T = {
     namePh: '您的姓名', companyPh: '您的公司全名', jobPh: '例如：生產部經理',
     selectDefault: '請選擇國家', selectOther: '其他 Other',
     privacy: '我已閱讀並同意 <a href="privacy-policy.html" id="privacyLinkZh">隱私權政策</a> 及 <a href="terms.html" id="termsLinkZh">服務條款</a>，並同意 N/NPC 以上述資料與我聯繫。',
-    submitBtn: '寄送 OEE 工具連結 →',
-    loginSubmitBtn: '寄送登入工具連結 →',
+    submitBtn: '建立會員並寄送驗證連結 →',
+    loginSubmitBtn: '寄送會員登入連結 →',
     loginHint: '已有帳號？', loginLink: '直接登入',
     registerHint: '還不是會員？', registerLink: '免費註冊',
     errName: '請輸入姓名', errPhone: '請輸入電話號碼', errCompany: '請輸入公司名稱',
@@ -645,14 +635,14 @@ const T = {
     errNetwork: '目前無法連線至會員系統，請稍後再試或聯絡 N/NPC。',
     resendOk: '驗證信已重新寄出。',
     loginNotFound: '查無此會員 Email，請先免費註冊。',
-    successTitle: '工具連結已寄出！',
-    successSub1: '我們已將 OEE 工具連結寄送至',
-    successSub2: '請前往信箱點擊連結，即可開啟完整 OEE 工廠獲利計算機。',
+    successTitle: '會員驗證連結已寄出！',
+    successSub1: '我們已將安全驗證連結寄送至',
+    successSub2: '請前往信箱點擊連結，完成會員驗證並繼續前往內容。',
     successSub3: '若未收到，請檢查垃圾郵件或促銷郵件資料夾。',
     resendHint: '沒有收到？', resendBtn: '重新寄送',
-    verifiedBadge: '✓ 工具連結驗證成功', verifiedTitle: '歡迎加入 N/NPC！',
-    verifiedSub: '您的工具使用權限已開通。立即使用 OEE 工廠獲利計算機，找出您工廠的隱性損失。',
-    enterBtn: '進入 OEE 計算機 →',
+    verifiedBadge: '✓ 會員身份驗證成功', verifiedTitle: '歡迎加入 N/NPC！',
+    verifiedSub: '您的會員身份已通過驗證，可以繼續前往 N/NPC 會員內容。',
+    enterBtn: '繼續前往會員內容 →',
     footerWeb: '官方網站', footerContact: '聯絡我們', footerPrivacy: '隱私權政策',
     emailSubject: '【N/NPC】您的 OEE 工具連結',
     emailGreeting: (name) => `您好，${name}！`,
@@ -665,7 +655,14 @@ const T = {
   en: {
     htmlLang: 'en', bodyClass: '',
     homeLink: '← Back to Website',
-    tagline: 'Smart Manufacturing Solutions',
+    tagline: 'Smart Operations & Enterprise AI',
+    memberKicker: 'N/NPC MEMBER',
+    memberHeading: 'One member access point for tools and professional content.',
+    memberIntro: 'Use N/NPC operational tools, read member case insights, and stay connected to new practical research and content.',
+    benefit1Title: 'Case and industry insights', benefit1Text: 'Read adoption criteria, case breakdowns, and field observations.',
+    benefit2Title: 'Operational assessment tools', benefit2Text: 'Use OEE, spatial-requirement, and related online tools.',
+    benefit3Title: 'Continuous access', benefit3Text: 'Use the same membership for content added in the future.',
+    contextLabel: 'You are about to access', targetCases: 'Member Case Insights Center', targetEnterpriseCase: 'Enterprise AI Domain Twin Case Analysis', targetSmartTagCase: 'Smart Tag Machine Health Case Analysis', targetMesCase: 'MES / OEE Factory Visibility Case Analysis', targetRtlsCase: 'RTLS Location Intelligence Case Analysis', targetOee: 'OEE Operational Value Calculator', targetSpatial: 'Spatial Service Assessment', targetDefault: 'N/NPC Member Content',
     previewTag: 'Member Only',
     previewTitle: 'Factory Profit Calculator',
     previewSub: 'Adjust OEE inputs and see the financial impact instantly.',
@@ -678,12 +675,12 @@ const T = {
     lockArrowMobile: 'Scroll down and leave your Email ↓',
     registerTab: 'New Member Registration',
     loginTab: 'Existing Member Login',
-    cardTitle: 'Get Your OEE Tool Link',
-    cardSub: 'Only 3 fields. We will send the dedicated OEE Factory Profit Calculator link to your Email.',
-    infoNote: 'Use an Email you can access. Click the tool link in your inbox to open the full OEE calculator.',
+    cardTitle: 'Create Your N/NPC Membership',
+    cardSub: 'Only three basic fields. We will send a secure verification link to your Email.',
+    infoNote: 'No password required. Click the Email link to verify and continue to member content.',
     loginCardTitle: 'Member Login',
-    loginCardSub: 'Enter the Email you registered with. We will send a fresh OEE tool link to your inbox.',
-    loginInfoNote: 'No password needed. Open the latest tool link in your inbox to return to the OEE calculator.',
+    loginCardSub: 'Enter your registered Email and we will send a fresh member login link.',
+    loginInfoNote: 'No password required. Use the latest Email link to return securely to member content.',
     lName: 'Full Name <span class="req">*</span>',
     lPhone: 'Phone Number <span class="req">*</span>',
     lCompany: 'Company Name <span class="req">*</span>',
@@ -692,8 +689,8 @@ const T = {
     namePh: 'Your full name', companyPh: 'Your company name', jobPh: 'e.g. Production Manager',
     selectDefault: 'Select country', selectOther: 'Other',
     privacy: 'I have read and agree to the <a href="privacy-policy.html" id="privacyLinkEn">Privacy Policy</a> and <a href="terms.html" id="termsLinkEn">Terms of Service</a>, and consent to N/NPC contacting me.',
-    submitBtn: 'Send OEE Tool Link →',
-    loginSubmitBtn: 'Send Login Tool Link →',
+    submitBtn: 'Create Membership & Send Link →',
+    loginSubmitBtn: 'Send Member Login Link →',
     loginHint: 'Already have an account?', loginLink: 'Sign In',
     registerHint: 'Not a member yet?', registerLink: 'Free Registration',
     errName: 'Please enter your name', errPhone: 'Please enter your phone number', errCompany: 'Please enter your company name',
@@ -702,14 +699,14 @@ const T = {
     errNetwork: 'We cannot connect to the member system right now. Please try again later or contact N/NPC.',
     resendOk: 'Verification Email resent.',
     loginNotFound: 'No member was found for this Email. Please register first.',
-    successTitle: 'Tool Link Sent!',
-    successSub1: 'We sent the OEE tool link to',
-    successSub2: 'Open your inbox and click the link to launch the full OEE Factory Profit Calculator.',
+    successTitle: 'Member Verification Link Sent!',
+    successSub1: 'We sent a secure verification link to',
+    successSub2: 'Open your inbox, click the link, and continue to the member content.',
     successSub3: 'If you do not see it, check spam or promotions.',
     resendHint: 'Didn\'t receive it?', resendBtn: 'Resend Email',
-    verifiedBadge: '✓ Tool Link Verified', verifiedTitle: 'Welcome to N/NPC!',
-    verifiedSub: 'Your tool access is active. You can now use the OEE Factory Profit Calculator.',
-    enterBtn: 'Enter OEE Calculator →',
+    verifiedBadge: '✓ Membership Verified', verifiedTitle: 'Welcome to N/NPC!',
+    verifiedSub: 'Your membership is verified. You can now continue to N/NPC member content.',
+    enterBtn: 'Continue to Member Content →',
     footerWeb: 'Website', footerContact: 'Contact Us', footerPrivacy: 'Privacy Policy',
     emailSubject: '[N/NPC] Your OEE Tool Link',
     emailGreeting: (name) => `Hello, ${name}!`,
@@ -722,7 +719,14 @@ const T = {
   th: {
     htmlLang: 'th', bodyClass: 'thai',
     homeLink: '← กลับเว็บไซต์หลัก',
-    tagline: 'โซลูชันการผลิตอัจฉริยะ',
+    tagline: 'Smart Operations & Enterprise AI',
+    memberKicker: 'N/NPC MEMBER',
+    memberHeading: 'สมาชิกหนึ่งบัญชี สำหรับเครื่องมือและเนื้อหาระดับมืออาชีพ',
+    memberIntro: 'ใช้เครื่องมือด้านการดำเนินงานของ N/NPC อ่าน case insights สำหรับสมาชิก และติดตามเนื้อหาเชิงปฏิบัติใหม่ ๆ',
+    benefit1Title: 'Case และ Industry Insights', benefit1Text: 'อ่านเกณฑ์การนำไปใช้ การวิเคราะห์กรณี และข้อสังเกตจากงานจริง',
+    benefit2Title: 'เครื่องมือประเมินการดำเนินงาน', benefit2Text: 'ใช้เครื่องมือ OEE การประเมินความต้องการเชิงพื้นที่ และเครื่องมือออนไลน์อื่น ๆ',
+    benefit3Title: 'เข้าถึงได้อย่างต่อเนื่อง', benefit3Text: 'ใช้สมาชิกเดิมกับเนื้อหาใหม่ที่จะเพิ่มในอนาคต',
+    contextLabel: 'คุณกำลังจะไปยัง', targetCases: 'Member Case Insights Center', targetEnterpriseCase: 'Enterprise AI Domain Twin Case Analysis', targetSmartTagCase: 'Smart Tag Machine Health Case Analysis', targetMesCase: 'MES / OEE Factory Visibility Case Analysis', targetRtlsCase: 'RTLS Location Intelligence Case Analysis', targetOee: 'เครื่องมือคำนวณมูลค่า OEE', targetSpatial: 'การประเมิน Spatial Service', targetDefault: 'เนื้อหาสำหรับสมาชิก N/NPC',
     previewTag: 'สำหรับสมาชิก',
     previewTitle: 'เครื่องคำนวณกำไรโรงงาน',
     previewSub: 'ปรับค่า OEE แล้วเห็นผลกระทบทางการเงินได้ทันที',
@@ -735,12 +739,12 @@ const T = {
     lockArrowMobile: 'เลื่อนลงแล้วกรอก Email ↓',
     registerTab: 'สมัครสมาชิกใหม่',
     loginTab: 'สมาชิกเดิมเข้าสู่ระบบ',
-    cardTitle: 'รับลิงก์เครื่องมือ OEE',
-    cardSub: 'กรอกเพียง 3 ช่อง เราจะส่งลิงก์เครื่องคำนวณกำไรโรงงาน OEE ไปที่ Email ของคุณ',
-    infoNote: 'กรุณาใช้ Email ที่เปิดอ่านได้ คลิกลิงก์ใน Email เพื่อเปิดเครื่องคำนวณ OEE แบบเต็ม',
+    cardTitle: 'สร้างสมาชิก N/NPC',
+    cardSub: 'กรอกข้อมูลพื้นฐานเพียง 3 ช่อง แล้วเราจะส่งลิงก์ยืนยันที่ปลอดภัยไปยัง Email ของคุณ',
+    infoNote: 'ไม่ต้องตั้งรหัสผ่าน คลิกลิงก์ใน Email เพื่อยืนยันและเข้าสู่เนื้อหาสำหรับสมาชิก',
     loginCardTitle: 'เข้าสู่ระบบสมาชิก',
-    loginCardSub: 'กรอก Email ที่เคยลงทะเบียน เราจะส่งลิงก์เครื่องมือ OEE ใหม่ไปให้คุณ',
-    loginInfoNote: 'ไม่ต้องใช้รหัสผ่าน เปิดลิงก์เครื่องมือล่าสุดใน Email เพื่อกลับเข้าเครื่องคำนวณ OEE',
+    loginCardSub: 'กรอก Email ที่เคยลงทะเบียน แล้วเราจะส่งลิงก์เข้าสู่ระบบสมาชิกใหม่ให้คุณ',
+    loginInfoNote: 'ไม่ต้องใช้รหัสผ่าน เปิดลิงก์ล่าสุดใน Email เพื่อกลับเข้าสู่เนื้อหาสำหรับสมาชิกอย่างปลอดภัย',
     lName: 'ชื่อ-นามสกุล <span class="req">*</span>',
     lPhone: 'หมายเลขโทรศัพท์ <span class="req">*</span>',
     lCompany: 'ชื่อบริษัท <span class="req">*</span>',
@@ -749,8 +753,8 @@ const T = {
     namePh: 'ชื่อ-นามสกุลของคุณ', companyPh: 'ชื่อบริษัทของคุณ', jobPh: 'เช่น ผู้จัดการฝ่ายผลิต',
     selectDefault: 'เลือกประเทศ', selectOther: 'อื่นๆ',
     privacy: 'ฉันได้อ่านและยอมรับ <a href="privacy-policy.html" id="privacyLinkTh">นโยบายความเป็นส่วนตัว</a> และ <a href="terms.html" id="termsLinkTh">ข้อกำหนดการใช้บริการ</a> และยินยอมให้ N/NPC ติดต่อฉัน',
-    submitBtn: 'ส่งลิงก์เครื่องมือ OEE →',
-    loginSubmitBtn: 'ส่งลิงก์เข้าสู่ระบบ →',
+    submitBtn: 'สร้างสมาชิกและส่งลิงก์ยืนยัน →',
+    loginSubmitBtn: 'ส่งลิงก์เข้าสู่ระบบสมาชิก →',
     loginHint: 'มีบัญชีอยู่แล้ว?', loginLink: 'เข้าสู่ระบบ',
     registerHint: 'ยังไม่ได้เป็นสมาชิก?', registerLink: 'สมัครฟรี',
     errName: 'กรุณากรอกชื่อ', errPhone: 'กรุณากรอกหมายเลขโทรศัพท์', errCompany: 'กรุณากรอกชื่อบริษัท',
@@ -759,14 +763,14 @@ const T = {
     errNetwork: 'ไม่สามารถเชื่อมต่อระบบสมาชิกได้ในขณะนี้ กรุณาลองใหม่ภายหลังหรือติดต่อ N/NPC',
     resendOk: 'ส่ง Email ยืนยันอีกครั้งแล้ว',
     loginNotFound: 'ไม่พบสมาชิกจาก Email นี้ กรุณาสมัครสมาชิกก่อน',
-    successTitle: 'ส่งลิงก์เครื่องมือแล้ว!',
-    successSub1: 'เราได้ส่งลิงก์เครื่องมือ OEE ไปที่',
-    successSub2: 'กรุณาเปิด Email แล้วคลิกลิงก์เพื่อใช้เครื่องคำนวณกำไรโรงงาน OEE แบบเต็ม',
+    successTitle: 'ส่งลิงก์ยืนยันสมาชิกแล้ว!',
+    successSub1: 'เราได้ส่งลิงก์ยืนยันที่ปลอดภัยไปยัง',
+    successSub2: 'กรุณาเปิด Email คลิกลิงก์ และเข้าสู่เนื้อหาสำหรับสมาชิกต่อไป',
     successSub3: 'หากไม่พบ Email กรุณาตรวจสอบในสแปมหรือโปรโมชัน',
     resendHint: 'ไม่ได้รับ Email?', resendBtn: 'ส่งใหม่อีกครั้ง',
-    verifiedBadge: '✓ ยืนยันลิงก์เครื่องมือแล้ว', verifiedTitle: 'ยินดีต้อนรับสู่ N/NPC!',
-    verifiedSub: 'สิทธิ์ใช้งานเครื่องมือของคุณเปิดแล้ว สามารถใช้เครื่องคำนวณกำไรโรงงาน OEE ได้ทันที',
-    enterBtn: 'เข้าสู่เครื่องคำนวณ OEE →',
+    verifiedBadge: '✓ ยืนยันสมาชิกแล้ว', verifiedTitle: 'ยินดีต้อนรับสู่ N/NPC!',
+    verifiedSub: 'ยืนยันสมาชิกของคุณแล้ว สามารถเข้าสู่เนื้อหาสำหรับสมาชิก N/NPC ได้ทันที',
+    enterBtn: 'เข้าสู่เนื้อหาสำหรับสมาชิก →',
     footerWeb: 'เว็บไซต์หลัก', footerContact: 'ติดต่อเรา', footerPrivacy: 'นโยบายความเป็นส่วนตัว',
     emailSubject: '[N/NPC] ลิงก์เครื่องมือ OEE ของคุณ',
     emailGreeting: (name) => `สวัสดี, ${name}!`,
@@ -916,6 +920,15 @@ function setLang(lang, btn) {
   // Update all text
   setHTML('t-homeLink', t.homeLink);
   setHTML('t-tagline', t.tagline);
+  setHTML('t-memberKicker', t.memberKicker);
+  setHTML('memberHeading', t.memberHeading);
+  setHTML('t-memberIntro', t.memberIntro);
+  setHTML('t-benefit1Title', t.benefit1Title);
+  setHTML('t-benefit1Text', t.benefit1Text);
+  setHTML('t-benefit2Title', t.benefit2Title);
+  setHTML('t-benefit2Text', t.benefit2Text);
+  setHTML('t-benefit3Title', t.benefit3Title);
+  setHTML('t-benefit3Text', t.benefit3Text);
   setHTML('t-previewTag', t.previewTag);
   setHTML('t-previewTitle', t.previewTitle);
   setHTML('t-previewSub', t.previewSub);
@@ -956,6 +969,7 @@ function setLang(lang, btn) {
   setHTML('t-footerContact', t.footerContact);
   setHTML('t-footerPrivacy', t.footerPrivacy);
   setLinks();
+  updateAccessContext(t);
   setPreviewContext(t);
   setMode(currentMode, false);
 
@@ -1031,14 +1045,36 @@ function isMemberContentMode() {
 }
 
 function getText(lang) {
-  return {
-    ...T[lang],
-    ...(isMemberContentMode() ? MEMBER_CONTENT_COPY[lang] : {}),
-  };
+  return T[lang];
 }
 
 function getEnterUrl() {
-  return getReturnTo() || CONFIG.OEE_TOOL_URL;
+  return getAccessReturnTo();
+}
+
+function getAccessReturnTo() {
+  return getReturnTo() || CONFIG.MEMBER_HOME_URL;
+}
+
+function accessTargetName(path, t) {
+  if (/enterprise-ai-domain-twin/i.test(path)) return t.targetEnterpriseCase;
+  if (/smart-tag-case-analysis/i.test(path)) return t.targetSmartTagCase;
+  if (/mes-oee-factory-visibility/i.test(path)) return t.targetMesCase;
+  if (/rtls-location-intelligence/i.test(path)) return t.targetRtlsCase;
+  if (/spatial-assessment/i.test(path)) return t.targetSpatial;
+  if (/oee|calculator/i.test(path)) return t.targetOee;
+  if (/cases/i.test(path)) return t.targetCases;
+  return t.targetDefault;
+}
+
+function updateAccessContext(t) {
+  const returnTo = getReturnTo();
+  const box = document.getElementById('accessContext');
+  if (!box) return;
+  box.hidden = !returnTo;
+  if (!returnTo) return;
+  setHTML('t-contextLabel', t.contextLabel);
+  setHTML('contextTitle', accessTargetName(returnTo, t));
 }
 
 function setLinks() {
@@ -1121,11 +1157,11 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
       showLinkSent(result.email || v('email'));
     } else {
       const data = {
-        name: v('name'), phone: v('phone'), company: v('company'),
-        email: v('email'), jobTitle: v('jobTitle'), country: v('country') || detectCountry(),
+        name: v('name'), phone: '', company: v('company'),
+        email: v('email'), jobTitle: '', country: detectCountry(),
         language: currentLang,
-        source: isMemberContentMode() ? 'official-site-member-content' : 'official-site-oee-registration',
-        returnTo: getReturnTo(),
+        source: 'official-site-member-registration',
+        returnTo: getAccessReturnTo(),
         pageUrl: window.location.href.split('?')[0],
         website: v('website'),
         registeredAt: new Date().toISOString(),
@@ -1164,7 +1200,7 @@ async function loginMember(email) {
     const result = await postJSON(CONFIG.RESEND_ENDPOINT, {
       email,
       language: currentLang,
-      returnTo: getReturnTo(),
+      returnTo: getAccessReturnTo(),
       pageUrl: window.location.href.split('?')[0],
     });
     if (!result.ok) throw new Error(result.message || getText(currentLang).errGeneric);
@@ -1187,7 +1223,7 @@ async function resendEmail() {
     const result = await postJSON(CONFIG.RESEND_ENDPOINT, {
       email: lastEmail,
       language: currentLang,
-      returnTo: getReturnTo(),
+      returnTo: getAccessReturnTo(),
       pageUrl: window.location.href.split('?')[0],
     });
     if (!result.ok) throw new Error(result.message || getText(currentLang).errGeneric);
