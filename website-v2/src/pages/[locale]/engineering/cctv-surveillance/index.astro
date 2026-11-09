@@ -1,0 +1,24 @@
+---
+import EngineeringPage from '../../../../layouts/EngineeringPage.astro';
+import EngineeringSections from '../../../../components/EngineeringSections.astro';
+import { locales, type Locale } from '../../../../content/home';
+import { homeCopy } from '../../../../content/home-copy';
+import { cctvCopy } from '../../../../content/engineering/cctv';
+import { cctvPath } from '../../../../content/routes';
+
+export function getStaticPaths() {
+  return locales.map(locale => ({ params: { locale } }));
+}
+const locale = Astro.params.locale as Locale;
+const copy = cctvCopy[locale];
+---
+<EngineeringPage
+  locale={locale}
+  page={cctvPath}
+  intro={copy.intro}
+  sections={copy.sections}
+  contactCopy={copy.contact}
+  illustration={{ src: '/images/work/cctv-inspection.jpg', alt: copy.imageAlt, width: 1080, height: 810, caption: homeCopy[locale].work.label }}
+>
+  <EngineeringSections sections={copy.sections} />
+</EngineeringPage>

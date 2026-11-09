@@ -1,4 +1,8 @@
 {
+  "framework": null,
+  "installCommand": "npm ci --prefix website-v2 --include=dev",
+  "buildCommand": "npm run build:website",
+  "outputDirectory": "dist",
   "redirects": [
     { "source": "/cases/profet-ai-domain-twin", "destination": "/cases/enterprise-ai-domain-twin/", "permanent": true },
     { "source": "/cases/profet-ai-domain-twin/", "destination": "/cases/enterprise-ai-domain-twin/", "permanent": true }
@@ -6,8 +10,8 @@
   "rewrites": [
     { "source": "/oee", "has": [{ "type": "query", "key": "t" }], "destination": "/register.html" },
     { "source": "/oee", "has": [{ "type": "query", "key": "token" }], "destination": "/register.html" },
-    { "source": "/oee", "destination": "/index.html" },
-    { "source": "/oee/", "destination": "/index.html" },
+    { "source": "/oee", "destination": "/legacy-home.html" },
+    { "source": "/oee/", "destination": "/legacy-home.html" },
     { "source": "/oee/register.html", "destination": "/register.html" },
     { "source": "/oee/oee-calculator.html", "destination": "/oee-calculator.html" },
     { "source": "/oee/privacy-policy.html", "destination": "/privacy-policy.html" },

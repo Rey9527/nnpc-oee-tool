@@ -1,0 +1,39 @@
+---
+import '../styles/global.css';
+import '../styles/home.css';
+import { locales, localeMeta, type Locale } from '../content/home';
+import { localizedPath, type PagePath } from '../content/routes';
+
+interface Props {
+  locale: Locale;
+  page?: PagePath;
+  metadata?: { title: string; description: string };
+}
+const { locale, page = '', metadata = localeMeta[locale] } = Astro.props;
+const site = Astro.site ?? new URL('http://localhost:4321');
+const canonical = new URL(localizedPath(locale, page), site);
+const indexable = process.env.NNPC_PUBLIC_RELEASE === '1' && site.origin === 'https://www.nnpc.ai';
+---
+<!doctype html>
+<html lang={localeMeta[locale].lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{metadata.title}</title>
+    <meta name="description" content={metadata.description} />
+    {!indexable && <meta name="robots" content="noindex,nofollow" />}
+    <meta name="theme-color" content="#ffcc00" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href={canonical} />
+    {locales.map(language => (
+      <link rel="alternate" hreflang={localeMeta[language].lang} href={new URL(localizedPath(language, page), site)} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={new URL(localizedPath('en', page), site)} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={metadata.title} />
+    <meta property="og:description" content={metadata.description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL('/images/home/home-hero-desktop.png', site)} />
+  </head>
+  <body><slot /></body>
+</html>

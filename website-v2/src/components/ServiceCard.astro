@@ -1,0 +1,13 @@
+---
+import Icon from './Icon.astro';
+
+interface Props { title: string; description: string; icon: string; href?: string }
+const { title, description, icon, href } = Astro.props;
+const Element = href ? 'a' : 'article';
+---
+<Element class="service-card" href={href}>
+  <Icon name={icon} />
+  <h3>{title}</h3>
+  <p>{description}</p>
+  {href && <span class="ui-symbol service-arrow" aria-hidden="true"><Icon name="arrow-up-right" /></span>}
+</Element>

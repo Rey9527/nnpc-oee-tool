@@ -1,0 +1,9 @@
+---
+interface Props { dark?: boolean }
+const { dark = false } = Astro.props;
+const source = '/images/brand/nnpc-wordmark.png';
+---
+<span class:list={['brand-mark', { 'brand-mark-inverse': dark }]}>
+  <img src={source} width="2500" height="1200" alt="NNPC" />
+  {dark && <img class="brand-slash" src={source} width="2500" height="1200" alt="" />}
+</span>

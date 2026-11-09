@@ -1,0 +1,49 @@
+---
+import EngineeringPage from '../../../layouts/EngineeringPage.astro';
+import EngineeringSections from '../../../components/EngineeringSections.astro';
+import { diagramCopy } from '../../../content/diagrams';
+import { locales, type Locale } from '../../../content/home';
+import { homeCopy } from '../../../content/home-copy';
+import { serviceCopy, serviceLabels, upkeepCopy } from '../../../content/engineering/services';
+import { engineeringScenes } from '../../../content/engineering/scene-copy';
+import type { EngineeringSection } from '../../../content/engineering/types';
+import { additionalServices, servicePath, type AdditionalService } from '../../../content/routes';
+
+export function getStaticPaths() {
+  return locales.flatMap(locale => additionalServices.map(service => ({ params: { locale, service } })));
+}
+
+const locale = Astro.params.locale as Locale;
+const service = Astro.params.service as AdditionalService;
+const copy = serviceCopy[locale][service];
+const labels = serviceLabels[locale];
+const upkeep = upkeepCopy[locale];
+const diagrams = diagramCopy[locale];
+const diagramsByService = {
+  'access-control': diagrams.access,
+  'lan-fiber': diagrams.fiber,
+  'environmental-monitoring-ahu': diagrams.environment,
+} as const;
+const diagram = service in diagramsByService ? diagramsByService[service as keyof typeof diagramsByService] : undefined;
+const work = homeCopy[locale].work;
+const illustration = service === 'server-room'
+  ? { src: '/images/work/network-room.jpg', alt: work.scenes[1][0], width: 1080, height: 810, caption: work.label }
+  : { src: `/images/engineering/${service}.jpg`, alt: engineeringScenes[locale][service], width: 1400, height: 933, caption: work.label };
+const sections: EngineeringSection[] = [
+  { id: 'scope', title: labels.scope, layout: 'cards', items: copy.scope },
+  { id: 'acceptance', title: labels.acceptance, layout: 'checklist', items: copy.acceptance },
+  { id: 'maintenance', title: upkeep.title, layout: 'checklist', items: [[upkeep.item, upkeep.notes[service]]] },
+  { id: 'quotation', title: labels.options, layout: 'checklist', items: [[labels.discuss, copy.options]] },
+];
+---
+<EngineeringPage
+  locale={locale}
+  page={servicePath(service)}
+  intro={{ title: copy.title, description: copy.description, eyebrow: labels.eyebrow }}
+  sections={sections}
+  contactCopy={{ title: labels.contact, text: homeCopy[locale].contact.text }}
+  illustration={illustration}
+  diagram={diagram && { ...diagram, note: diagrams.note }}
+>
+  <EngineeringSections sections={sections} />
+</EngineeringPage>

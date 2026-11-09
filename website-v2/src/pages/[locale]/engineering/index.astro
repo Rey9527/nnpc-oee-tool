@@ -1,0 +1,43 @@
+---
+import EngineeringPage from '../../../layouts/EngineeringPage.astro';
+import EngineeringSections from '../../../components/EngineeringSections.astro';
+import SectionHeading from '../../../components/SectionHeading.astro';
+import ServiceCard from '../../../components/ServiceCard.astro';
+import { locales, type Locale } from '../../../content/home';
+import { homeCopy, serviceIcons } from '../../../content/home-copy';
+import { overviewCopy } from '../../../content/engineering/overview';
+import { cctvCopy } from '../../../content/engineering/cctv';
+import { engineeringScenes } from '../../../content/engineering/scene-copy';
+import { engineeringPath, engineeringServices, localizedPath, servicePath } from '../../../content/routes';
+
+export function getStaticPaths() {
+  return locales.map(locale => ({ params: { locale } }));
+}
+const locale = Astro.params.locale as Locale;
+const copy = overviewCopy[locale];
+const home = homeCopy[locale];
+const services = { id: 'services', title: copy.services };
+---
+<EngineeringPage
+  locale={locale}
+  page={engineeringPath}
+  intro={copy.intro}
+  sections={[services, ...copy.sections]}
+  contactCopy={copy.contact}
+  illustration={{ src: '/images/engineering/engineering-overview.jpg', alt: engineeringScenes[locale]['engineering-overview'], width: 1400, height: 933, caption: home.work.label }}
+>
+  <section id={services.id} class="container engineering-block">
+    <SectionHeading title={services.title} text={copy.scope} />
+    <div class="services-grid engineering-services">
+      {home.services.map(([title, description], index) => (
+        <ServiceCard
+          title={index === 0 ? cctvCopy[locale].intro.title : title}
+          description={description}
+          icon={serviceIcons[index]}
+          href={localizedPath(locale, servicePath(engineeringServices[index]))}
+        />
+      ))}
+    </div>
+  </section>
+  <EngineeringSections sections={copy.sections} />
+</EngineeringPage>

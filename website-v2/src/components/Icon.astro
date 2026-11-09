@@ -1,0 +1,28 @@
+---
+interface Props {name?: string}
+const {name='layers'}=Astro.props;
+const paths:Record<string,string> = {
+'arrow-up-right':'M6 18 18 6 M8 6h10v10',
+'arrow-right':'M4 12h15m-6-6 6 6-6 6',
+'chevron-down':'m6 9 6 6 6-6',
+globe:'M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0ZM2 12h20m-10-10c3 3 4 7 4 10s-1 7-4 10c-3-3-4-7-4-10s1-7 4-10Z',
+menu:'M4 6h16M4 12h16M4 18h16',
+camera:'M3 7h13v9H3z M16 10l5-3v12l-5-3 M7 16v5m-3 0h9',
+access:'M5 3h14v18H5z M9 7h6v5H9z M14 16h1',
+bell:'M6 17h12l-2-4V9a4 4 0 0 0-8 0v4z M10 21h4 M3 8l2-3m14 0 2 3',
+phone:'M6 3l4 5-3 3a17 17 0 0 0 6 6l3-3 5 4-2 3C10 23 1 14 3 5z',
+network:'M9 3h6v5H9z M12 8v5 M4 13h16 M4 13v3m16-3v3m-8-3v3 M1 16h6v5H1z M9 16h6v5H9z M17 16h6v5h-6z',
+speaker:'M3 9h5l7-5v16l-7-5H3z M18 8a6 6 0 0 1 0 8 M21 5a10 10 0 0 1 0 14',
+screen:'M3 6h18v13H3z M8 2l4 4 4-4 M9 22h6',
+wifi:'M2 8a16 16 0 0 1 20 0 M5 12a11 11 0 0 1 14 0 M8 16a6 6 0 0 1 8 0 M12 20h.01',
+server:'M4 3h16v7H4z M4 14h16v7H4z M7 6.5h.01 M7 17.5h.01 M11 6.5h6 M11 17.5h6',
+sensor:'M10 14V5a2 2 0 0 1 4 0v9a4 4 0 1 1-4 0z M12 8v9 M16 6h3 M16 10h2 M12 18h.01',
+ahu:'M3 5h18v14H3z M9 8v8 M12 8v8 M15 8v8 M1 9h2 M1 15h2 M21 9h2 M21 15h2',
+wrench:'M14 6a5 5 0 0 0-6 6l-5 5a2.1 2.1 0 0 0 3 3l5-5a5 5 0 0 0 6-6l-3 3-3-3z',
+helmet:'M3 18h18v3H3z M5 18v-6a7 7 0 0 1 14 0v6 M10 5V3h4v10',
+layers:'M2 7l10-5 10 5-10 5z M2 12l10 5 10-5 M2 17l10 5 10-5',
+people:'M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8 M5 22v-3a7 7 0 0 1 14 0v3 M3 8a3 3 0 0 0 0 6 M21 8a3 3 0 0 1 0 6',
+headset:'M4 13V9a8 8 0 0 1 16 0v4 M2 11h5v8H2z M17 11h5v8h-5z M20 19v3h-8'
+};
+---
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={paths[name] || paths.layers}/></svg>

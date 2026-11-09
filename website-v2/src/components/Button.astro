@@ -1,0 +1,7 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {href:string; secondary?:boolean}
+const {href,secondary=false}=Astro.props;
+---
+<a class:list={['button',{secondary}]} href={href}><slot/><span class="ui-symbol" aria-hidden="true"><Icon name="arrow-up-right" /></span></a>

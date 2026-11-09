@@ -1,0 +1,94 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import IntagMap from './IntagMap.astro';
+import { exampleCopy } from '../content/solution-examples';
+import type { Locale } from '../content/home';
+import type { SolutionId } from '../content/solution-detail';
+
+interface Props { locale: Locale; solution: SolutionId }
+const { locale, solution } = Astro.props;
+const copy = exampleCopy[locale];
+const chart = copy.iiot;
+const record = solution === 'mes-mom' || solution === 'wms' ? copy[solution] : undefined;
+const ai = copy['enterprise-ai'];
+const notes = solution === 'intag' ? [] : copy[solution].points;
+---
+<section id="example" class="container engineering-block solution-example">
+  <SectionHeading title={copy.title} text={copy.note} />
+  {solution === 'intag' ? <IntagMap locale={locale} /> : (
+    <div class="example-body">
+      {solution === 'iiot' && (
+        <figure class="example-panel">
+          <figcaption><strong>{chart.heading}</strong><small>{chart.metric}</small></figcaption>
+          <svg viewBox="0 0 540 210" role="img" aria-labelledby="trend-title">
+            <title id="trend-title">{chart.heading} — {chart.gap}</title>
+            <path d="M52 34h464M52 74h464M52 114h464M52 154h464" fill="none" stroke="#d9dfe2" />
+            <g fill="#485963" font-size="16" text-anchor="end">
+              <text x="43" y="39">30</text><text x="43" y="79">20</text>
+              <text x="43" y="119">10</text><text x="43" y="159">0</text>
+            </g>
+            <rect x="250" y="34" width="102" height="120" fill="#ffeab2" opacity=".65" />
+            <text x="301" y="101" fill="#634e00" text-anchor="middle" font-size="16">{chart.gap}</text>
+            <path d="M52 110 89 103 113 107 147 84 176 87 207 56 238 62M352 103 383 98 417 107 447 89 482 98 516 92" fill="none" stroke="#245a7a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+            {chart.labels.map((label, index) => (
+              <text x={[52, 202, 352, 502][index]} y="186" text-anchor="middle" fill="#485963" font-size="17">{label}</text>
+            ))}
+          </svg>
+        </figure>
+      )}
+      {record && (
+        <div class="example-panel">
+          <table>
+            <caption>{record.heading}</caption>
+            <thead><tr>{record.columns.map(column => <th scope="col">{column}</th>)}</tr></thead>
+            <tbody>
+              {record.rows.map(([label, value]) => <tr><th scope="row">{label}</th><td>{value}</td></tr>)}
+            </tbody>
+          </table>
+        </div>
+      )}
+      {solution === 'enterprise-ai' && (
+        <article class="example-panel answer-panel">
+          <h3>{ai.heading}</h3>
+          <p class="sample-question">{ai.question}</p>
+          <p>{ai.answer}</p>
+          <p class="sample-source">{ai.citation}</p>
+          <p class="sample-restriction">{ai.restricted}</p>
+          <div class="sample-followup">
+            <p class="sample-question">{ai.secondQuestion}</p>
+            <p>{ai.secondAnswer}</p>
+          </div>
+        </article>
+      )}
+      <dl class="example-notes">
+        {notes.map(([title, detail]) => <div><dt>{title}</dt><dd>{detail}</dd></div>)}
+      </dl>
+    </div>
+  )}
+</section>
+
+<style>
+  .example-body { display: grid; gap: 18px; margin-top: 24px; }
+  .example-panel { margin: 0; min-width: 0; padding: clamp(12px, 2.5vw, 24px); background: #f1f3f2; border: 1px solid var(--line); border-top: 3px solid var(--yellow); }
+  figcaption { display: grid; gap: 4px; }
+  figcaption small, .sample-source, .sample-restriction { color: var(--muted); }
+  svg { width: 100%; height: auto; margin-top: 8px; }
+  table { width: 100%; border-collapse: collapse; text-align: start; font-size: 14px; }
+  caption { text-align: start; font-weight: 700; margin-bottom: 10px; }
+  th, td { text-align: start; padding: 8px 6px; border-bottom: 1px solid #cbd2d5; }
+  thead th { color: var(--muted); font-size: 12px; }
+  tbody th { width: 32%; }
+  .answer-panel h3 { font-size: 17px; }
+  .answer-panel p { margin: 8px 0; font-size: 14px; }
+  .sample-question { background: #fff; padding: 8px 10px; font-weight: 700; }
+  .sample-source, .sample-restriction { font-size: 13px; }
+  .sample-source { border-left: 3px solid var(--yellow); padding-left: 8px; }
+  .sample-followup { border-top: 1px solid #cbd2d5; padding-top: 7px; margin-top: 12px; }
+  .example-notes { display: grid; gap: 10px; margin: 0; }
+  .example-notes div { padding: 6px 0 10px; border-bottom: 1px solid var(--line); }
+  .example-notes dt { font-weight: 700; }
+  .example-notes dd { margin: 4px 0 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
+  @media (min-width: 850px) {
+    .example-body { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
+  }
+</style>

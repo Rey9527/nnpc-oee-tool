@@ -1,0 +1,89 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Button from '../components/Button.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import EngineeringDiagram from '../components/EngineeringDiagram.astro';
+import { contact, homeCopy } from '../content/home-copy';
+import { engineeringLabels } from '../content/engineering/shared';
+import type { EngineeringContact, EngineeringIntro } from '../content/engineering/types';
+import type { Locale } from '../content/home';
+import { engineeringPath, localizedPath, type PagePath } from '../content/routes';
+import '../styles/engineering.css';
+
+interface Props {
+  locale: Locale;
+  page: Exclude<PagePath, ''>;
+  intro: EngineeringIntro;
+  sections: readonly { id: string; title: string }[];
+  contactCopy: EngineeringContact;
+  consultationLabel?: string;
+  illustration?: { src: string; alt: string; width: number; height: number; caption: string };
+  diagram?: { title: string; note: string; flows: readonly (readonly (readonly [string, string])[])[] };
+}
+const { locale, page, intro, sections, contactCopy, illustration, diagram, consultationLabel } = Astro.props;
+const labels = engineeringLabels[locale];
+const copy = homeCopy[locale];
+const engineering = copy.nav[0];
+const parent = page !== engineeringPath && page.startsWith(engineeringPath)
+  ? { href: localizedPath(locale, engineeringPath), label: engineering }
+  : page !== 'solutions/' && page.startsWith('solutions/')
+    ? { href: localizedPath(locale, 'solutions/'), label: copy.nav[1] }
+    : undefined;
+const current = page === engineeringPath ? engineering : intro.title;
+const hasVisual = Boolean(illustration || diagram);
+---
+<BaseLayout locale={locale} page={page} metadata={{ title: `${intro.title} | N/NPC`, description: intro.description }}>
+  <Header locale={locale} page={page} consultationLabel={consultationLabel} />
+  <main id="main" class="engineering-page">
+    <div class="engineering-hero">
+      <div class="container">
+        <nav class="engineering-breadcrumb" aria-label={labels.breadcrumb}>
+          <ol>
+            <li><a href={localizedPath(locale)}>{labels.home}</a></li>
+            {parent && <li><a href={parent.href}>{parent.label}</a></li>}
+            <li aria-current="page">{current}</li>
+          </ol>
+        </nav>
+        <div class:list={['engineering-hero-grid', { 'has-illustration': hasVisual }]}>
+          <div>
+            <p class="eyebrow engineering-eyebrow">{intro.eyebrow}</p>
+            <h1>{intro.title}</h1>
+            <p class="engineering-lede">{intro.description}</p>
+            <Button href="#contact">{consultationLabel ?? copy.consult}</Button>
+          </div>
+          {illustration && (
+            <figure class="engineering-illustration">
+              <img src={illustration.src} alt={illustration.alt} width={illustration.width} height={illustration.height} decoding="async" />
+              <figcaption>{illustration.caption}</figcaption>
+            </figure>
+          )}
+          {diagram && !illustration && <EngineeringDiagram title={diagram.title} note={diagram.note} flows={diagram.flows} />}
+        </div>
+      </div>
+    </div>
+    <nav class="container engineering-contents" aria-label={labels.contents}>
+      <span>{labels.contents}</span>
+      <ul>
+        {sections.map(({ id, title }) => <li><a href={`#${id}`}>{title}</a></li>)}
+      </ul>
+    </nav>
+    {diagram && illustration && (
+      <div class="container engineering-diagram-panel">
+        <EngineeringDiagram title={diagram.title} note={diagram.note} flows={diagram.flows} />
+      </div>
+    )}
+    <slot />
+    <section id="contact" class="engineering-contact">
+      <div class="container">
+        <SectionHeading title={contactCopy.title} text={contactCopy.text} />
+        <div class="engineering-contact-actions">
+          <Button href={`mailto:${contact.email}`}>{labels.email}</Button>
+          <Button href={contact.lineUrl} secondary>LINE {contact.lineId}</Button>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer locale={locale} page={page} />
+</BaseLayout>

@@ -1,0 +1,14 @@
+---
+interface Props { image: string; title: string; description: string; label: string }
+const { image, title, description, label } = Astro.props;
+---
+<article class="project-card">
+  <figure class="project-image">
+    <img src={`/images/work/${image}.jpg`} alt="" loading="lazy" decoding="async" />
+    <figcaption>{label}</figcaption>
+  </figure>
+  <div class="project-copy">
+    <h3>{title}</h3>
+    <p>{description}</p>
+  </div>
+</article>
