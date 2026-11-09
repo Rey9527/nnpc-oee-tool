@@ -4,7 +4,7 @@ import { join } from 'node:path';
 
 const siteUrl = 'https://www.nnpc.ai';
 const websiteProjectId = 'prj_ibuF2QGND5ekKOZWwncSOC4Y2XOO';
-const useNewWebsite = process.env.VERCEL !== '1' || process.env.VERCEL_PROJECT_ID === websiteProjectId;
+const useNewWebsite = process.env.VERCEL_PROJECT_ID === websiteProjectId;
 const production = process.env.VERCEL_ENV === 'production';
 const output = 'dist';
 const legacyPaths = [

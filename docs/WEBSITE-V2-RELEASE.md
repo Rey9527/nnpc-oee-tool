@@ -1,6 +1,8 @@
 # N/NPC website release
 
-Astro lives in `website-v2/`. GitHub pull requests targeting `main` use the existing Vercel `nnpc` project for previews. Merging to `main` triggers its production build. The public origin is `https://www.nnpc.ai`. The apex keeps its existing redirect. The build checks Vercel's system project ID so the other two Git-linked projects continue to serve the legacy homepage and sitemap.
+Astro lives in `website-v2/`. GitHub pull requests targeting `main` use the existing Vercel `nnpc` project for previews. Merging to `main` triggers its production build. The public origin is `https://www.nnpc.ai`. The apex keeps its existing redirect. Only the matching Vercel system project ID enables Astro. Every other value, including an unset project ID, serves the legacy homepage and sitemap.
+
+To build the integrated site locally, run `npm ci --prefix website-v2` and then `VERCEL_PROJECT_ID=prj_ibuF2QGND5ekKOZWwncSOC4Y2XOO npm run build:website`. Local builds use the preview robots rules.
 
 The build copies the Astro static output and an explicit list of legacy public files into `dist/`. The existing root `api/` and `lib/` still run in the same Vercel project. Protected previews keep the Astro robots directive and a restrictive robots.txt. The production sitemap adds the three localized sets of pages and keeps legacy entries.
 
