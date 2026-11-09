@@ -21,7 +21,7 @@ const labels = detailLabels[locale];
 const pilot = pilotCopy[locale];
 const sections: EngineeringSection[] = [
   ...(copy.applications ? [{ id: 'applications', layout: 'cards' as const, ...copy.applications }] : []),
-  { id: 'use-cases', title: labels.useCases, layout: 'cards', items: copy.useCases },
+  { id: 'use-cases', title: labels.useCases, text: copy.definition, layout: 'cards', items: copy.useCases },
   { id: 'workflow', title: labels.workflow, layout: 'steps', items: copy.workflow },
   { id: 'scope', title: labels.scope, layout: 'checklist', items: copy.scope },
   { id: 'acceptance', title: labels.tests, layout: 'checklist', items: copy.tests },

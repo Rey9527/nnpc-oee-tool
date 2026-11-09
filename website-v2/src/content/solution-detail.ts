@@ -7,6 +7,7 @@ interface SolutionDetail {
   title: string;
   intro: string;
   useCases: readonly Entry[];
+  definition?: string;
   workflow: readonly Entry[];
   scope: readonly Entry[];
   tests: readonly Entry[];
@@ -49,6 +50,7 @@ export const solutionDetail: Record<Locale, Record<SolutionId, SolutionDetail>> 
     'mes-mom': {
       title: 'MES / MOM for production execution',
       intro: 'Give supervisors a traceable view of what was scheduled, what operators ran and what was produced. Begin with one line or operation and agree where ERP and shop-floor records meet.',
+      definition: 'A Manufacturing Execution System (MES) manages and records production on the shop floor. Manufacturing Operations Management (MOM) covers a broader scope that can include production, quality, maintenance and material movement.',
       useCases: [
         ['Work orders tracked on paper and spreadsheets', 'Make released orders, current instructions and actual quantities visible to the line. Identify which steps still require operator confirmation.'],
         ['Quality and rework are hard to reconcile', 'Connect agreed defects, holds or rework records to the relevant order and lot so supervisors can explain the difference between input and accepted output.'],
@@ -165,6 +167,7 @@ export const solutionDetail: Record<Locale, Record<SolutionId, SolutionDetail>> 
     'mes-mom': {
       title: 'MES / MOM 生產執行與營運管理',
       intro: '讓現場主管查到計畫、執行和實際產出的關聯。從一條產線或一個工序開始，先劃清 ERP 與現場紀錄的分工。',
+      definition: 'MES（Manufacturing Execution System，製造執行系統）管理與記錄產線作業。MOM（Manufacturing Operations Management，製造營運管理）的範圍更廣，可涵蓋生產、品質、維護與物料移動。',
       useCases: [
         ['工單分散在紙本和試算表', '讓產線看到已發工單、有效作業指示及實際數量，明確保留需由操作人員確認的步驟。'],
         ['品質和重工數量對不上', '把約定的缺陷、待判或重工紀錄連回工單和批次，解釋投入與良品的差異。'],
@@ -281,6 +284,7 @@ export const solutionDetail: Record<Locale, Record<SolutionId, SolutionDetail>> 
     'mes-mom': {
       title: 'MES / MOM สำหรับการดำเนินงานผลิต',
       intro: 'ให้หัวหน้างานตรวจสอบความเชื่อมโยงระหว่างแผน งานที่ทำ และผลผลิตจริง เริ่มจากสายการผลิตหรือขั้นตอนเดียวและแบ่งหน้าที่ระหว่าง ERP กับหน้างานให้ชัด',
+      definition: 'MES (Manufacturing Execution System) ใช้จัดการและบันทึกงานผลิตที่หน้างาน ส่วน MOM (Manufacturing Operations Management) มีขอบเขตกว้างกว่า ครอบคลุมได้ทั้งการผลิต คุณภาพ การบำรุงรักษา และการเคลื่อนย้ายวัสดุ',
       useCases: [
         ['ใบสั่งผลิตกระจายในกระดาษและสเปรดชีต', 'แสดงใบสั่งที่อนุมัติ วิธีปฏิบัติงานฉบับปัจจุบัน และจำนวนจริง ระบุขั้นตอนที่ผู้ปฏิบัติงานต้องยืนยันเอง'],
         ['กระทบยอดของเสียและงานแก้ไขไม่ได้', 'เชื่อมของเสีย งานพักรอตรวจ และงานแก้ไขกับใบสั่งและล็อตเพื่ออธิบายส่วนต่างจากวัตถุดิบถึงผลผลิตที่ผ่าน'],

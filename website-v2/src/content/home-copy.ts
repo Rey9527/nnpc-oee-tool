@@ -80,7 +80,15 @@ export const homeCopy = {
     },
     solutions: {
       eyebrow: '04 / SMART OPERATIONS', title: 'Connect engineering with operations',
-      text: 'Discuss where production, warehousing or enterprise knowledge tools could fit alongside your infrastructure.',
+      text: 'Explore solutions for equipment data, production and warehouse management, indoor asset location and company knowledge. Start with what your site needs.',
+      viewAll: 'View all solutions',
+      subtitles: {
+        iiot: '(Industrial Internet of Things)',
+        'mes-mom': 'Production Execution & Operations Management',
+        wms: '(Warehouse Management System)',
+        intag: 'Indoor Location & Dispatch Support',
+        'enterprise-ai': 'Internal Knowledge Search',
+      },
     },
     industries: {
       eyebrow: '05 / INDUSTRIES', title: 'Start with the operating environment',
@@ -165,7 +173,15 @@ export const homeCopy = {
     },
     solutions: {
       eyebrow: '04 / 智慧營運', title: '讓工程系統支援日常營運',
-      text: '依現場基礎設施與業務需求，討論生產、倉儲及企業知識工具的導入方式。',
+      text: '從設備資料、生產與倉儲管理，到資產定位與企業知識查詢，依現場需求選擇適合的方案。',
+      viewAll: '查看全部方案',
+      subtitles: {
+        iiot: '工業物聯網',
+        'mes-mom': '製造執行與營運管理',
+        wms: '倉儲管理系統',
+        intag: '室內定位與派工輔助',
+        'enterprise-ai': '企業知識查詢',
+      },
     },
     industries: {
       eyebrow: '05 / 產業應用', title: '從實際營運環境出發',
@@ -250,7 +266,15 @@ export const homeCopy = {
     },
     solutions: {
       eyebrow: '04 / การดำเนินงานอัจฉริยะ', title: 'เชื่อมระบบวิศวกรรมกับการดำเนินงาน',
-      text: 'หารือการใช้เครื่องมือด้านการผลิต คลังสินค้า หรือความรู้ในองค์กรร่วมกับโครงสร้างพื้นฐานของคุณ',
+      text: 'เลือกโซลูชันตามความต้องการหน้างาน ตั้งแต่ข้อมูลเครื่องจักร การจัดการการผลิตและคลังสินค้า ไปจนถึงการระบุตำแหน่งทรัพย์สินและการค้นหาความรู้ในองค์กร',
+      viewAll: 'ดูโซลูชันทั้งหมด',
+      subtitles: {
+        iiot: 'อินเทอร์เน็ตของสรรพสิ่งในอุตสาหกรรม',
+        'mes-mom': 'ระบบบริหารการผลิตและการปฏิบัติงาน',
+        wms: 'ระบบบริหารจัดการคลังสินค้า',
+        intag: 'การระบุตำแหน่งในอาคารและช่วยจัดงาน',
+        'enterprise-ai': 'การค้นหาความรู้ภายในองค์กร',
+      },
     },
     industries: {
       eyebrow: '05 / อุตสาหกรรม', title: 'เริ่มจากสภาพการทำงานจริง',

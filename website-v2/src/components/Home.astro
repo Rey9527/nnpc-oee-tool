@@ -10,7 +10,7 @@ import CoverageMap from './CoverageMap.astro';
 import Icon from './Icon.astro';
 import type { Locale } from '../content/home';
 import { capabilityIcons, contact, homeCopy, serviceIcons, solutionNames } from '../content/home-copy';
-import { engineeringPath, engineeringServices, localizedPath, servicePath } from '../content/routes';
+import { engineeringPath, engineeringServices, localizedPath, servicePath, solutionPath } from '../content/routes';
 import { solutionIds } from '../content/company';
 
 interface Props { locale: Locale }
@@ -107,10 +107,20 @@ const sceneImages = ['cctv-inspection', 'network-room', 'ahu-monitoring'];
           <p class="solutions-intro">{copy.solutions.text}</p>
         </div>
         <div class="solution-list">
-          {solutionNames.map((name, index) => (
-            <a href={`${localizedPath(locale, 'solutions/')}#${solutionIds[index]}`}><span class="solution-number">0{index + 1}</span><h3>{name}</h3><span class="ui-symbol"><Icon name="arrow-up-right" /></span></a>
+          {solutionIds.map((id, index) => (
+            <a href={localizedPath(locale, solutionPath(id))}>
+              <span class="solution-number" aria-hidden="true">0{index + 1}</span>
+              <div class="solution-label">
+                <h3>{solutionNames[index]}</h3>
+                <p>{copy.solutions.subtitles[id]}</p>
+              </div>
+              <span class="ui-symbol"><Icon name="arrow-right" /></span>
+            </a>
           ))}
         </div>
+        <a class="text-link solutions-all" href={localizedPath(locale, 'solutions/')}>
+          {copy.solutions.viewAll} <span class="ui-symbol"><Icon name="arrow-right" /></span>
+        </a>
       </div>
     </section>
 
