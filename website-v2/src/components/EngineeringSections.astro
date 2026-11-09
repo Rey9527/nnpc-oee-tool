@@ -1,0 +1,25 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import Button from './Button.astro';
+import type { EngineeringSection } from '../content/engineering/types';
+
+interface Props { sections: readonly EngineeringSection[] }
+const { sections } = Astro.props;
+---
+{sections.map(({ id, title, text, layout, items, link }) => {
+  const List = layout === 'steps' ? 'ol' : 'ul';
+  return (
+    <section id={id} class="container engineering-block">
+      <SectionHeading title={title} text={text} />
+      {items.length > 0 && <List class:list={['engineering-items', `engineering-${layout}`]} role={layout === 'steps' ? undefined : 'list'}>
+        {items.map(([heading, description], index) => (
+          <li>
+            {layout === 'steps' && <span class="step-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>}
+            <div><h3>{heading}</h3><p>{description}</p></div>
+          </li>
+        ))}
+      </List>}
+      {link && <Button href={link.href} secondary>{link.label}</Button>}
+    </section>
+  );
+})}

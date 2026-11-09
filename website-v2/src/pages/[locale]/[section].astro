@@ -1,0 +1,68 @@
+---
+import EngineeringPage from '../../layouts/EngineeringPage.astro';
+import EngineeringSections from '../../components/EngineeringSections.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import Button from '../../components/Button.astro';
+import { companyCopy, solutionIds } from '../../content/company';
+import { diagramCopy } from '../../content/diagrams';
+import { pilotCopy } from '../../content/solution-pilots';
+import { detailLabels } from '../../content/solution-detail';
+import type { EngineeringSection } from '../../content/engineering/types';
+import { locales, type Locale } from '../../content/home';
+import { homeCopy, solutionNames } from '../../content/home-copy';
+import { engineeringPath, localizedPath, mainPages, solutionPath, type MainPage } from '../../content/routes';
+
+export function getStaticPaths() {
+  return locales.flatMap(locale => mainPages.map(section => ({ params: { locale, section } })));
+}
+
+const locale = Astro.params.locale as Locale;
+const section = Astro.params.section as MainPage;
+const copy = companyCopy[locale];
+const home = homeCopy[locale];
+const pilot = pilotCopy[locale];
+const diagrams = diagramCopy[locale];
+const descriptions = {
+  solutions: home.solutions.text, industries: home.industries.text,
+  work: copy.work[1], about: home.about.text, contact: copy.contactIntro,
+};
+const intro = { title: copy.titles[section], description: descriptions[section], eyebrow: 'NNPC Consulting' };
+const scenarios = ['cctv-inspection', 'network-room', 'ahu-monitoring'];
+const sections: Record<MainPage, EngineeringSection[]> = {
+  solutions: solutionIds.map((id, index) => ({
+    id, title: solutionNames[index], text: copy.solutionNotes[index], layout: 'checklist',
+    items: [[pilot.prepare, pilot.solutions[id][0]], [pilot.acceptance, pilot.solutions[id][1]]],
+    link: { href: localizedPath(locale, solutionPath(id)), label: `${detailLabels[locale].more} · ${solutionNames[index]}` },
+  })),
+  industries: [{ id: 'facilities', title: copy.industry[0], text: copy.industry[1], layout: 'cards', items: copy.industries }],
+  work: [{ id: 'review-points', title: home.delivery.title, text: home.delivery.text, layout: 'checklist', items: copy.workChecks }],
+  about: [{ id: 'responsibilities', title: copy.about[0], text: copy.about[1], layout: 'cards', items: copy.responsibilities }],
+  contact: [{ id: 'enquiry', title: copy.contact[0], text: copy.contact[1], layout: 'cards', items: copy.brief }],
+};
+const menu = section === 'work' ? [{ id: 'scenarios', title: copy.work[0] }, ...sections.work] : sections[section];
+---
+<EngineeringPage
+  locale={locale}
+  page={`${section}/`}
+  intro={intro}
+  sections={menu}
+  contactCopy={{ title: copy.contactActions, text: home.contact.text }}
+  consultationLabel={section === 'solutions' ? detailLabels[locale].consult : undefined}
+  diagram={section === 'solutions' ? { ...diagrams.pilot, note: diagrams.note } : undefined}
+>
+  {section === 'work' && (
+    <section id="scenarios" class="container engineering-block">
+      <div class="section-top"><SectionHeading title={copy.work[0]} text={copy.work[1]} /></div>
+      <div class="project-grid">
+        {home.work.scenes.map(([title, description], index) => (
+          <ProjectCard image={scenarios[index]} title={title} description={description} label={home.work.label} />
+        ))}
+      </div>
+    </section>
+  )}
+  <EngineeringSections sections={sections[section]} />
+  {(section === 'industries' || section === 'about' || section === 'work') && (
+    <div class="container"><Button href={localizedPath(locale, engineeringPath)} secondary>{home.engineering.link}</Button></div>
+  )}
+</EngineeringPage>

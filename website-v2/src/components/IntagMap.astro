@@ -1,0 +1,116 @@
+---
+import { exampleCopy } from '../content/solution-examples';
+import type { Locale } from '../content/home';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const copy = exampleCopy[locale].intag;
+const modes = ['plan', 'heat', 'fence'];
+---
+<fieldset class="intag-demo">
+  <legend>{copy.controls}</legend>
+  <div class="map-controls">
+    {modes.map((mode, index) => (
+      <label>
+        <input type="radio" name="intag-view" value={mode} checked={index === 0} />
+        <span>{copy.modes[index]}</span>
+      </label>
+    ))}
+  </div>
+  <div class="map-demo">
+    <svg viewBox="0 0 600 344" role="img" aria-labelledby="map-title">
+      <title id="map-title">{copy.modes.join(' / ')}</title>
+      <defs>
+        <radialGradient id="intag-heat">
+          <stop offset="0" stop-color="#c7421a" stop-opacity=".92" />
+          <stop offset=".53" stop-color="#f5a300" stop-opacity=".58" />
+          <stop offset="1" stop-color="#ffd359" stop-opacity="0" />
+        </radialGradient>
+        <clipPath id="intag-bounds"><rect x="20" y="36" width="560" height="285" rx="3" /></clipPath>
+      </defs>
+      <text x="24" y="25" class="floor-level">L1</text>
+      <rect x="20" y="36" width="560" height="285" rx="3" fill="#f7f7f4" stroke="#737e86" stroke-width="2" />
+      <g fill="none" stroke="#a1aab0" stroke-width="2">
+        <path d="M20 139h560M20 212h560M176 36v103m0 73v109M390 36v103m0 73v109" />
+      </g>
+      <g class="floor-labels" text-anchor="middle">
+        <text x="95" y="86">{copy.zones[0]}</text>
+        <text x="282" y="77">{copy.zones[1]}</text>
+        <text x="282" y="270">{copy.zones[2]}</text>
+        <text x="484" y="274">{copy.zones[3]}</text>
+        <text x="95" y="182">{copy.zones[4]}</text>
+      </g>
+      <g fill="#d8dee0">
+        <rect x="200" y="96" width="45" height="23" rx="2" />
+        <rect x="261" y="96" width="45" height="23" rx="2" />
+        <rect x="322" y="96" width="45" height="23" rx="2" />
+      </g>
+      <g class="map-layer layer-plan">
+        <path d="M120 116v62h344" fill="none" stroke="#376d91" stroke-width="4" stroke-dasharray="8 7" />
+        <circle cx="464" cy="178" r="12" fill="#183f5b" stroke="#fff" stroke-width="4" />
+        <text x="464" y="159" text-anchor="middle" class="floor-level">F-07</text>
+      </g>
+      <g class="map-layer layer-heat" clip-path="url(#intag-bounds)" opacity=".78">
+        <circle cx="102" cy="126" r="65" fill="url(#intag-heat)" />
+        <circle cx="342" cy="213" r="48" fill="url(#intag-heat)" />
+        <circle cx="483" cy="251" r="82" fill="url(#intag-heat)" />
+        <circle cx="505" cy="247" r="62" fill="url(#intag-heat)" />
+      </g>
+      <g class="map-layer layer-fence">
+        <rect x="402" y="221" width="166" height="88" rx="4" fill="#ffcc0038" stroke="#886800" stroke-width="3" stroke-dasharray="8 6" />
+        <path d="M470 192v39m-9-9 9 9 9-9" fill="none" stroke="#886800" stroke-width="4" />
+        <text x="484" y="298" text-anchor="middle" class="floor-level">{copy.fence}</text>
+      </g>
+    </svg>
+    <div class="map-meta layer-plan">
+      <strong>{copy.asset}</strong><span>{copy.timestamp}</span><span>{copy.viewTime}</span><span class="data-status">{copy.status}</span>
+    </div>
+    <div class="map-meta layer-heat"><span>{copy.heatScale[0]}</span><span class="heat-scale" aria-hidden="true"></span><span>{copy.heatScale[1]}</span></div>
+    <div class="map-meta layer-fence"><strong>{copy.asset}</strong><span>{copy.fence}</span></div>
+  </div>
+  {modes.map((mode, index) => (
+    <div class:list={['map-detail', 'layer-' + mode]}>
+      <h3>{copy.descriptions[index][0]}</h3>
+      <p>{copy.descriptions[index][1]}</p>
+      {mode === 'fence' && (
+        <ol class="fence-events">
+          {copy.events.map(([time, event]) => <li><time>{time}</time>{event}</li>)}
+        </ol>
+      )}
+    </div>
+  ))}
+  <p class="map-limit">{copy.limit}</p>
+</fieldset>
+
+<style>
+  .intag-demo { max-width: 840px; margin: 24px 0 0; border: 0; padding: 0; min-inline-size: 0; }
+  legend { font-weight: 700; margin-bottom: 8px; }
+  .map-controls { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 12px; }
+  label { position: relative; cursor: pointer; }
+  label span { display: block; padding: 8px 12px; border: 1px solid var(--line); font-size: 13px; }
+  input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  input:checked + span { background: var(--yellow); border-color: #9f7b00; font-weight: 700; }
+  input:focus-visible + span { outline: 2px solid #634e00; outline-offset: 3px; }
+  .map-demo { background: #f0f2f2; border: 1px solid var(--line); padding: 8px; }
+  svg { width: 100%; height: auto; }
+  .floor-labels { fill: #35434d; font-size: 21px; }
+  .floor-level { fill: #243641; font-size: 17px; font-weight: 700; }
+  .map-meta { min-height: 34px; padding: 4px 10px; font-size: 13px; gap: 8px 18px; align-items: center; flex-wrap: wrap; }
+  .map-meta span { color: var(--muted); }
+  .map-meta .data-status { padding: 2px 7px; background: #ffe8af; color: #583f00; }
+  .heat-scale { width: min(110px, 30vw); height: 8px; background: linear-gradient(90deg, #ffe789, #c7421a); }
+  .map-detail { margin-top: 14px; }
+  .map-detail p, .map-limit { font-size: 14px; color: var(--muted); margin-bottom: 8px; }
+  .map-detail h3 { font-size: 17px; margin-bottom: 5px; }
+  .map-limit { margin-top: 12px; }
+  .map-layer, .map-meta, .map-detail { display: none; }
+  .intag-demo:has([value="plan"]:checked) :is(.map-layer, .map-detail).layer-plan,
+  .intag-demo:has([value="heat"]:checked) :is(.map-layer, .map-detail).layer-heat,
+  .intag-demo:has([value="fence"]:checked) :is(.map-layer, .map-detail).layer-fence { display: block; }
+  .intag-demo:has([value="plan"]:checked) .map-meta.layer-plan,
+  .intag-demo:has([value="heat"]:checked) .map-meta.layer-heat,
+  .intag-demo:has([value="fence"]:checked) .map-meta.layer-fence { display: flex; }
+  .fence-events { margin: 0; padding: 0; list-style: none; }
+  .fence-events li { display: flex; gap: 14px; padding: 6px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+  time { font-variant-numeric: tabular-nums; font-weight: 700; }
+</style>

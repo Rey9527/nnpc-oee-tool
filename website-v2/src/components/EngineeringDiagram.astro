@@ -1,0 +1,67 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  title: string;
+  note: string;
+  flows: readonly (readonly (readonly [icon: string, label: string])[])[];
+}
+const { title, note, flows } = Astro.props;
+---
+<figure class="engineering-diagram">
+  <figcaption>
+    <strong>{title}</strong>
+    <span>{note}</span>
+  </figcaption>
+  {flows.map(flow => (
+    <ol class="diagram-flow" role="list">
+      {flow.map(([icon, label]) => (
+        <li><Icon name={icon} /><span>{label}</span></li>
+      ))}
+    </ol>
+  ))}
+</figure>
+
+<style>
+  .engineering-diagram {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--yellow);
+    margin: 0;
+    padding: clamp(14px, 3vw, 26px);
+  }
+  figcaption { display: grid; gap: 5px; line-height: 1.45; }
+  figcaption span { color: var(--muted); font-size: 13px; }
+  .diagram-flow {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin: 16px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  li {
+    position: relative;
+    display: grid;
+    align-content: start;
+    justify-items: center;
+    gap: 7px;
+    padding: 10px 5px;
+    background: var(--paper);
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+  li:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    left: 100%;
+    top: 26px;
+    width: 14px;
+    height: 5px;
+    background: #8b6c00;
+    clip-path: polygon(0 35%, 70% 35%, 70% 0, 100% 50%, 70% 100%, 70% 65%, 0 65%);
+  }
+  li :global(svg) { width: 25px; height: 25px; }
+</style>

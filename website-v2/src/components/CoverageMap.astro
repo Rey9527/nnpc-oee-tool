@@ -1,0 +1,25 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import type { Locale } from '../content/home';
+import { homeCopy, provinces, siteCount } from '../content/home-copy';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const copy = homeCopy[locale].footprint;
+---
+<div id="coverage" class="coverage-panel">
+  <SectionHeading title={copy.title} />
+  <p class="footprint-total"><strong>{siteCount}</strong> {copy.unit} <span aria-hidden="true">·</span> <strong>{provinces.length}</strong> {copy.region}</p>
+  <figure class="coverage-map">
+    <img src="/images/home/thailand-footprint.svg" width="360" height="240" alt={copy.mapTitle} />
+    <figcaption>{copy.mapNote} <a href="https://www.openstreetmap.org/copyright">© OpenStreetMap</a> · <a href="https://www.geoboundaries.org/api/current/gbOpen/THA/ADM1/">geoBoundaries</a></figcaption>
+  </figure>
+  <ul class="coverage-list">
+    {provinces.map(({ id, count }, index) => (
+      <li data-province={id}>
+        <span>{copy.names[index]}<small>{copy.areas[index]}</small></span>
+        <strong>{copy.countLabel(count)}</strong>
+      </li>
+    ))}
+  </ul>
+</div>

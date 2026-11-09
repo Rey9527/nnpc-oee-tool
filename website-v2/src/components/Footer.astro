@@ -1,0 +1,35 @@
+---
+import Logo from './Logo.astro';
+import type { Locale } from '../content/home';
+import { contact, homeCopy, navigationIds } from '../content/home-copy';
+import { localizedPath, navigationHref, type PagePath } from '../content/routes';
+
+interface Props { locale: Locale; page?: PagePath }
+const { locale, page = '' } = Astro.props;
+const copy = homeCopy[locale];
+const legacyLinks = {
+  en: ['Tools', 'Certificate verification'],
+  'zh-tw': ['工具', '證書驗證'],
+  th: ['เครื่องมือ', 'ตรวจสอบใบรับรอง'],
+}[locale];
+---
+<footer class="site-footer">
+  <div class="container footer-top">
+    <div>
+      <a href={page ? localizedPath(locale) : '#main'} class="logo-link" aria-label={copy.home}><Logo dark /></a>
+      <p>{copy.footer}</p>
+    </div>
+    <nav aria-label={copy.footerNav}>
+      {navigationIds.map((id, index) => <a href={navigationHref(locale, page, id)}>{copy.nav[index]}</a>)}
+      {process.env.NNPC_COMBINED_SITE === '1' && (
+        <><a href="/tools/">{legacyLinks[0]}</a><a href="/certificates/">{legacyLinks[1]}</a></>
+      )}
+    </nav>
+    <div class="footer-location">
+      <span class="eyebrow">NNPC Consulting · {copy.country}</span>
+      <a href={`mailto:${contact.email}`}>{contact.email}</a>
+      <a href={contact.lineUrl}>LINE {contact.lineId}</a>
+    </div>
+  </div>
+  <div class="container footer-bottom">© {new Date().getFullYear()} NNPC Consulting</div>
+</footer>

@@ -1,0 +1,65 @@
+---
+import Logo from './Logo.astro';
+import Button from './Button.astro';
+import Icon from './Icon.astro';
+import { locales, localeMeta, type Locale } from '../content/home';
+import { homeCopy, navigationIds } from '../content/home-copy';
+import { localizedPath, navigationHref, type PagePath } from '../content/routes';
+
+interface Props { locale: Locale; page?: PagePath; consultationLabel?: string }
+const { locale, page = '', consultationLabel } = Astro.props;
+const copy = homeCopy[locale];
+const consult = consultationLabel ?? copy.consult;
+const links = navigationIds.map((section, index) => ({
+  href: navigationHref(locale, page, section),
+  text: copy.nav[index],
+  current: page === `${section}/` ? 'page' as const : undefined,
+}));
+---
+<a class="skip-link" href="#main">{copy.skip}</a>
+<header class="site-header">
+  <div class="container header-inner">
+    <a href={localizedPath(locale)} class="logo-link" aria-label={copy.home}><Logo /></a>
+    <nav class="desktop-nav" aria-label={copy.navLabel}>
+      {links.map(({ href, text, current }) => <a href={href} aria-current={current}>{text}</a>)}
+    </nav>
+    <div class="header-actions">
+      <details class="language-menu">
+        <summary aria-label={copy.language}>
+          <span class="ui-symbol"><Icon name="globe" /></span>
+          {locale === 'zh-tw' ? '繁中' : locale.toUpperCase()}
+          <span class="ui-symbol"><Icon name="chevron-down" /></span>
+        </summary>
+        <div class="language-options">
+          {locales.map(language => (
+            <a href={localizedPath(language, page)} lang={localeMeta[language].lang} aria-current={language === locale ? 'page' : undefined}>{localeMeta[language].label}</a>
+          ))}
+        </div>
+      </details>
+      <div class="header-cta"><Button href="#contact">{consult}</Button></div>
+      <details class="mobile-menu">
+        <summary aria-label={copy.mobileNav}><span class="ui-symbol"><Icon name="menu" /></span></summary>
+        <nav aria-label={copy.navLabel}>
+          {links.map(({ href, text, current }) => <a href={href} aria-current={current}>{text}</a>)}
+          <a href="#contact" class="mobile-consult">{consult} <span class="ui-symbol"><Icon name="arrow-up-right" /></span></a>
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>
+<script>
+  document.querySelectorAll<HTMLDetailsElement>('.mobile-menu, .language-menu').forEach(menu => {
+    menu.addEventListener('click', event => {
+      if ((event.target as HTMLElement).closest('a')) menu.open = false;
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && menu.open) {
+        menu.open = false;
+        menu.querySelector('summary')?.focus();
+      }
+    });
+    document.addEventListener('click', event => {
+      if (!menu.contains(event.target as Node)) menu.open = false;
+    });
+  });
+</script>

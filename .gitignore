@@ -3,6 +3,7 @@
 .env.*
 !.env.example
 node_modules/
+/dist/
 .vercel/
 npm-debug.log*
 assets/images/*.heic

@@ -1,0 +1,40 @@
+---
+import EngineeringPage from '../../../layouts/EngineeringPage.astro';
+import EngineeringSections from '../../../components/EngineeringSections.astro';
+import SolutionExample from '../../../components/SolutionExample.astro';
+import { solutionIds } from '../../../content/company';
+import { detailLabels, solutionDetail, type SolutionId } from '../../../content/solution-detail';
+import { pilotCopy } from '../../../content/solution-pilots';
+import { exampleCopy } from '../../../content/solution-examples';
+import { locales, type Locale } from '../../../content/home';
+import type { EngineeringSection } from '../../../content/engineering/types';
+import { solutionPath } from '../../../content/routes';
+
+export function getStaticPaths() {
+  return locales.flatMap(locale => solutionIds.map(solution => ({ params: { locale, solution } })));
+}
+
+const locale = Astro.params.locale as Locale;
+const solution = Astro.params.solution as SolutionId;
+const copy = solutionDetail[locale][solution];
+const labels = detailLabels[locale];
+const pilot = pilotCopy[locale];
+const sections: EngineeringSection[] = [
+  ...(copy.applications ? [{ id: 'applications', layout: 'cards' as const, ...copy.applications }] : []),
+  { id: 'use-cases', title: labels.useCases, layout: 'cards', items: copy.useCases },
+  { id: 'workflow', title: labels.workflow, layout: 'steps', items: copy.workflow },
+  { id: 'scope', title: labels.scope, layout: 'checklist', items: copy.scope },
+  { id: 'acceptance', title: labels.tests, layout: 'checklist', items: copy.tests },
+];
+---
+<EngineeringPage
+  locale={locale}
+  page={solutionPath(solution)}
+  intro={{ title: copy.title, description: copy.intro, eyebrow: labels.eyebrow }}
+  sections={[{ id: 'example', title: exampleCopy[locale].title }, ...sections]}
+  contactCopy={{ title: labels.contact, text: pilot.solutions[solution][0] }}
+  consultationLabel={labels.consult}
+>
+  <SolutionExample locale={locale} solution={solution} />
+  <EngineeringSections sections={sections} />
+</EngineeringPage>
