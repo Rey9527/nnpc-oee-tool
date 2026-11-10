@@ -1,4 +1,5 @@
 ---
+import { getImage } from 'astro:assets';
 import EngineeringPage from '../../../layouts/EngineeringPage.astro';
 import EngineeringSections from '../../../components/EngineeringSections.astro';
 import IntagApplications from '../../../components/IntagApplications.astro';
@@ -9,6 +10,7 @@ import { detailLabels, solutionDetail, type SolutionId } from '../../../content/
 import { pilotCopy } from '../../../content/solution-pilots';
 import { exampleCopy } from '../../../content/solution-examples';
 import { intagDeploymentCopy } from '../../../content/intag-deployment';
+import { solutionPhotoCopy, solutionPhotos } from '../../../content/solution-photos';
 import { locales, type Locale } from '../../../content/home';
 import type { EngineeringSection } from '../../../content/engineering/types';
 import { solutionPath } from '../../../content/routes';
@@ -23,6 +25,13 @@ const copy = solutionDetail[locale][solution];
 const labels = detailLabels[locale];
 const pilot = pilotCopy[locale];
 const deployment = solution === 'intag' ? intagDeploymentCopy[locale] : undefined;
+const photo = await getImage({ src: solutionPhotos[solution], width: 1120, format: 'webp', quality: 78 });
+const illustration = {
+  ...solutionPhotoCopy(locale, solution),
+  src: photo.src,
+  width: photo.attributes.width,
+  height: photo.attributes.height,
+};
 const applications = copy.applications && { id: 'applications', layout: 'cards' as const, ...copy.applications };
 const sections: EngineeringSection[] = [
   { id: 'use-cases', title: labels.useCases, text: copy.definition, layout: 'cards', items: copy.useCases },
@@ -35,6 +44,7 @@ const sections: EngineeringSection[] = [
   locale={locale}
   page={solutionPath(solution)}
   intro={{ title: copy.title, description: copy.intro, eyebrow: labels.eyebrow }}
+  illustration={illustration}
   sections={[
     ...(deployment ? [{ id: 'deployment', title: deployment.title }] : []),
     { id: 'example', title: exampleCopy[locale].title },

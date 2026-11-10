@@ -1,4 +1,7 @@
 # Change record
+## Smart Operations — detail page photos
+- Added five localized hero illustrations using the existing engineering detail layout. Moved the INTAG walk-test photo into the hero and retained its explanatory note by the interactive map.
+
 ## Homepage — industries, delivery, and contact
 - Added four illustrated operating environments, three delivery capabilities, and clearer enquiry guidance in English, Traditional Chinese, and Thai.
 - Reused the factory image from Engineering and generated the office, school, and hotel settings as unbranded architectural documentary illustrations. Astro serves responsive WebP versions.
