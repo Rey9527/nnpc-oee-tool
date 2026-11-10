@@ -15,6 +15,13 @@
 .hero h1 { max-width: 14em; font-size: clamp(38px, 4.1vw, 61px); text-wrap: balance; }
 .hero-description { max-width: 440px; margin-block: 18px 22px; }
 
+.solution-list .solution-number,
+.solution-list .ui-symbol { flex-shrink: 0; }
+.solution-label { min-width: 0; }
+.solution-label p { margin: 4px 0 0; color: #cbd0d2; font-size: 14px; line-height: 1.5; }
+.solutions-all { margin-top: 20px; padding-block: 12px; color: var(--yellow); font-size: 14px; }
+.solutions-section a:focus-visible { outline-color: var(--yellow); }
+
 .services-coverage { grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); }
 .services-coverage .section-heading .muted { font-size: 14px; margin-block: 12px 0; }
 .services-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }

@@ -1,4 +1,11 @@
 # Change record
+## INTAG — deployment comparison
+- Added a three-language comparison of existing-signal INTAG deployments and BLE deployments that require new fixed equipment, with a site pilot enquiry.
+
+## Homepage — Smart Operations navigation
+- Added localized solution descriptions and direct detail links, with a separate entry to the full Solutions overview.
+- Distinguished MES and MOM on the three localized detail pages.
+
 ## INTAG — operating applications
 - Added localized dispatch, geofencing and ESG analytics pilot applications alongside the three interactive map views.
 

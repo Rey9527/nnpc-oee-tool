@@ -7,6 +7,7 @@ interface SolutionDetail {
   title: string;
   intro: string;
   useCases: readonly Entry[];
+  definition?: string;
   workflow: readonly Entry[];
   scope: readonly Entry[];
   tests: readonly Entry[];
@@ -49,6 +50,7 @@ export const solutionDetail: Record<Locale, Record<SolutionId, SolutionDetail>> 
     'mes-mom': {
       title: 'MES / MOM for production execution',
       intro: 'Give supervisors a traceable view of what was scheduled, what operators ran and what was produced. Begin with one line or operation and agree where ERP and shop-floor records meet.',
+      definition: 'A Manufacturing Execution System (MES) manages and records production on the shop floor. Manufacturing Operations Management (MOM) covers a broader scope that can include production, quality, maintenance and material movement.',
       useCases: [
         ['Work orders tracked on paper and spreadsheets', 'Make released orders, current instructions and actual quantities visible to the line. Identify which steps still require operator confirmation.'],
         ['Quality and rework are hard to reconcile', 'Connect agreed defects, holds or rework records to the relevant order and lot so supervisors can explain the difference between input and accepted output.'],
@@ -89,8 +91,8 @@ export const solutionDetail: Record<Locale, Record<SolutionId, SolutionDetail>> 
       ],
     },
     intag: {
-      title: 'INTAG | From indoor location to shop-floor operations',
-      intro: 'Use the floor plan to find forklifts and assets, then use movement and dwell data to support dispatch decisions, zone monitoring and shift reviews. Start by testing coverage and location updates along the routes your team uses.',
+      title: 'INTAG | Indoor positioning using existing site signals',
+      intro: 'Where existing signals and compatible devices meet the site’s requirements, INTAG can support asset tracking and dispatch without adding dedicated positioning equipment. Verify coverage and positioning performance along the routes your team uses.',
       applications: {
         title: 'Applications to evaluate in a pilot',
         text: 'Define the modules, rules, user roles and acceptance checks in the project scope.',
@@ -165,6 +167,7 @@ export const solutionDetail: Record<Locale, Record<SolutionId, SolutionDetail>> 
     'mes-mom': {
       title: 'MES / MOM 生產執行與營運管理',
       intro: '讓現場主管查到計畫、執行和實際產出的關聯。從一條產線或一個工序開始，先劃清 ERP 與現場紀錄的分工。',
+      definition: 'MES（Manufacturing Execution System，製造執行系統）管理與記錄產線作業。MOM（Manufacturing Operations Management，製造營運管理）的範圍更廣，可涵蓋生產、品質、維護與物料移動。',
       useCases: [
         ['工單分散在紙本和試算表', '讓產線看到已發工單、有效作業指示及實際數量，明確保留需由操作人員確認的步驟。'],
         ['品質和重工數量對不上', '把約定的缺陷、待判或重工紀錄連回工單和批次，解釋投入與良品的差異。'],
@@ -205,8 +208,8 @@ export const solutionDetail: Record<Locale, Record<SolutionId, SolutionDetail>> 
       ],
     },
     intag: {
-      title: 'INTAG｜從室內定位到現場營運應用',
-      intro: '在平面圖上查找堆高機與資產，並用移動與停留資料輔助派工、區域監控與班別檢討。先沿實際作業路線測試定位覆蓋與回報情況。',
+      title: 'INTAG｜用既有訊號做室內定位',
+      intro: '現場訊號與終端條件符合需求時，INTAG 可沿用既有訊號，免增設專用定位設備，支援資產追蹤與派工輔助。沿實際作業路線確認訊號覆蓋與定位表現。',
       applications: {
         title: '試點可評估的應用模組',
         text: '依專案約定模組、作業規則、使用角色與驗收方式。',
@@ -281,6 +284,7 @@ export const solutionDetail: Record<Locale, Record<SolutionId, SolutionDetail>> 
     'mes-mom': {
       title: 'MES / MOM สำหรับการดำเนินงานผลิต',
       intro: 'ให้หัวหน้างานตรวจสอบความเชื่อมโยงระหว่างแผน งานที่ทำ และผลผลิตจริง เริ่มจากสายการผลิตหรือขั้นตอนเดียวและแบ่งหน้าที่ระหว่าง ERP กับหน้างานให้ชัด',
+      definition: 'MES (Manufacturing Execution System) ใช้จัดการและบันทึกงานผลิตที่หน้างาน ส่วน MOM (Manufacturing Operations Management) มีขอบเขตกว้างกว่า ครอบคลุมได้ทั้งการผลิต คุณภาพ การบำรุงรักษา และการเคลื่อนย้ายวัสดุ',
       useCases: [
         ['ใบสั่งผลิตกระจายในกระดาษและสเปรดชีต', 'แสดงใบสั่งที่อนุมัติ วิธีปฏิบัติงานฉบับปัจจุบัน และจำนวนจริง ระบุขั้นตอนที่ผู้ปฏิบัติงานต้องยืนยันเอง'],
         ['กระทบยอดของเสียและงานแก้ไขไม่ได้', 'เชื่อมของเสีย งานพักรอตรวจ และงานแก้ไขกับใบสั่งและล็อตเพื่ออธิบายส่วนต่างจากวัตถุดิบถึงผลผลิตที่ผ่าน'],
@@ -321,8 +325,8 @@ export const solutionDetail: Record<Locale, Record<SolutionId, SolutionDetail>> 
       ],
     },
     intag: {
-      title: 'INTAG | จากการระบุตำแหน่งในอาคารสู่การจัดการหน้างาน',
-      intro: 'ดูตำแหน่งรถยกและทรัพย์สินบนแผนผัง แล้วใช้ข้อมูลการเคลื่อนที่และเวลาที่อยู่ในแต่ละโซนประกอบการจัดงาน เฝ้าระวังพื้นที่ และทบทวนการทำงานรายกะ เริ่มจากทดสอบพื้นที่ครอบคลุมและการอัปเดตตำแหน่งตามเส้นทางที่ใช้จริง',
+      title: 'INTAG | ระบุตำแหน่งในอาคารด้วยสัญญาณเดิม',
+      intro: 'หากสัญญาณเดิมและอุปกรณ์ที่รองรับตรงตามความต้องการของพื้นที่ INTAG สามารถติดตามทรัพย์สินและช่วยมอบหมายงานได้โดยไม่ต้องติดตั้งอุปกรณ์ระบุตำแหน่งเฉพาะทางเพิ่ม ตรวจสอบพื้นที่ครอบคลุมและผลการระบุตำแหน่งตามเส้นทางทำงานจริง',
       applications: {
         title: 'โมดูลที่ประเมินได้ในโครงการนำร่อง',
         text: 'ตกลงโมดูล กติกาการทำงาน บทบาทผู้ใช้ และเกณฑ์ตรวจรับตามขอบเขตโครงการ',

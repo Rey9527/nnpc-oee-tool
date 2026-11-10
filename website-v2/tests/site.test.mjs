@@ -20,6 +20,10 @@ for(const [route,lang,serviceHeading,imageLabel,siteLabels] of locales) {
   assert.equal((html.match(/class="service-card"/g)||[]).length,8);
   assert.ok(html.includes(`href="/${route}/engineering/"`));
   assert.ok(html.includes(`href="/${route}/engineering/cctv-surveillance/"`));
+  const solutionList = html.match(/<div class="solution-list">([\s\S]*?)<a class="text-link solutions-all"/)?.[1] ?? '';
+  assert.deepEqual([...solutionList.matchAll(/<a href="([^"]+)"/g)].map(([,href]) => href),
+   ['iiot', 'mes-mom', 'wms', 'intag', 'enterprise-ai'].map(slug => `/${route}/solutions/${slug}/`));
+  assert.ok(html.includes(`class="text-link solutions-all" href="/${route}/solutions/"`));
   assert.ok(html.includes(`<h2>${serviceHeading}</h2>`));
   assert.equal((html.match(new RegExp(imageLabel, 'g')) || []).length, 3);
   assert.doesNotMatch(html, /<main[^>]+lang="en"/);
