@@ -11,11 +11,13 @@ export interface IntagDeploymentCopy {
     title: string;
     label: string;
     baseline: string;
+    recommended: string;
     racks: string;
     aisle: string;
     loading: string;
     intag: string;
     ble: string;
+    work: Record<'ble' | 'intag', readonly [string, string, string]>;
     note: string;
   };
   walkTest: { alt: string; caption: string };
@@ -35,16 +37,21 @@ export const intagDeploymentCopy: Record<Locale, IntagDeploymentCopy> = {
       title: 'One warehouse, two deployment approaches',
       label: 'Deployment illustration',
       baseline: 'Comparison baseline',
+      recommended: 'Recommended by NNPC',
       racks: 'Storage racks',
       aisle: 'Aisles',
       loading: 'Loading area',
       intag: 'A technician uses a handheld device to survey the operating route.',
       ble: 'Square markers show example locations for new fixed receivers.',
+      work: {
+        ble: ['Plan receiver locations and mount new equipment', 'Arrange power and connectivity as needed', 'Maintain the added receivers and connections'],
+        intag: ['Check site conditions and walk the operating route', 'Validate positioning on that route', 'Recheck coverage when the site changes'],
+      },
       note: 'Hardware requirements and positioning performance are subject to site assessment and validation.',
     },
     walkTest: {
-      alt: 'Over the shoulder of a warehouse technician holding a device that shows a yellow survey point on a simple floor plan.',
-      caption: 'Walk-test illustration. The yellow dot marks the current survey point along the signal collection route.',
+      alt: 'A warehouse technician holds a tablet showing rack rows, a survey route and a yellow survey point.',
+      caption: 'Site walk-test illustration. The tablet shows an example interface, not an INTAG product screenshot. The yellow dot marks the survey point.',
     },
     items: [
       ['Installation', 'Suitable sites may need less fixed equipment and installation work.', 'Survey the site and check device compatibility. Where conditions allow, deployment can proceed without new dedicated positioning equipment.', 'Plan receiver locations, mounting and any power or network connections the design requires.'],
@@ -67,16 +74,21 @@ export const intagDeploymentCopy: Record<Locale, IntagDeploymentCopy> = {
       title: '同一座倉庫，兩種部署方式',
       label: '部署方式示意',
       baseline: '比較基準',
+      recommended: 'NNPC 推薦',
       racks: '貨架',
       aisle: '走道',
       loading: '裝卸區',
       intag: '現場人員使用手持裝置，沿作業路線走測。',
       ble: '方形標記表示新增固定 BLE 接收器的示意點位。',
+      work: {
+        ble: ['規劃點位、安裝固定接收器', '依配置安排供電與連線', '維護新增的接收器與連線'],
+        intag: ['確認場域條件，沿實際路線走測', '驗證作業路線的定位表現', '場域變更時複核覆蓋範圍'],
+      },
       note: '符合現場訊號及裝置條件時，可免增設專用定位設備。實際配置與定位表現依現場驗證確認。',
     },
     walkTest: {
-      alt: '從倉庫技術人員肩後看手持裝置，螢幕上的簡化平面圖有一個黃色走測點。',
-      caption: '走測流程示意。黃色圓點標出目前的訊號採集位置。',
+      alt: '倉庫人員手持平板，螢幕顯示貨架、走測路線及黃色走測點。',
+      caption: '現場走測示意。平板為介面示例，非 INTAG 實際產品畫面；黃點標示走測位置。',
     },
     items: [
       ['建置', '符合條件時，可減少新增固定設備及相關安裝工作。', '先走測並確認裝置相容性，條件合適時可免增設專用定位設備。', '規劃固定接收器的點位和安裝，依配置確認供電及網路需求。'],
@@ -99,16 +111,21 @@ export const intagDeploymentCopy: Record<Locale, IntagDeploymentCopy> = {
       title: 'คลังสินค้าเดียวกัน การติดตั้งสองรูปแบบ',
       label: 'ภาพประกอบรูปแบบการติดตั้ง',
       baseline: 'รูปแบบอ้างอิงสำหรับการเปรียบเทียบ',
+      recommended: 'แนวทางที่ NNPC แนะนำ',
       racks: 'ชั้นวางสินค้า',
       aisle: 'ทางเดิน',
       loading: 'พื้นที่ขนถ่ายสินค้า',
       intag: 'เจ้าหน้าที่ใช้อุปกรณ์พกพาเดินสำรวจตามเส้นทางทำงาน',
       ble: 'สัญลักษณ์สี่เหลี่ยมแสดงตัวอย่างจุดติดตั้งเครื่องรับ BLE เพิ่มเติม',
+      work: {
+        ble: ['กำหนดจุดและติดตั้งเครื่องรับประจำจุด', 'จัดเตรียมไฟเลี้ยงและการเชื่อมต่อตามรูปแบบที่ใช้', 'ดูแลเครื่องรับและการเชื่อมต่อที่เพิ่มเข้ามา'],
+        intag: ['ตรวจสอบสภาพพื้นที่และเดินสำรวจตามเส้นทางทำงาน', 'ทดสอบการระบุตำแหน่งบนเส้นทางนั้น', 'ตรวจสอบพื้นที่ครอบคลุมอีกครั้งเมื่อหน้างานเปลี่ยน'],
+      },
       note: 'ทั้งนี้ขึ้นอยู่กับสภาพสัญญาณและอุปกรณ์ในพื้นที่ โดยต้องประเมินและทดสอบก่อนใช้งานจริง',
     },
     walkTest: {
-      alt: 'มุมมองข้ามไหล่ช่างในคลังสินค้าเห็นจุดสำรวจสีเหลืองบนผังพื้นที่ในอุปกรณ์พกพา',
-      caption: 'ภาพประกอบการเดินสำรวจ จุดสีเหลืองแสดงจุดสำรวจปัจจุบันบนเส้นทางเก็บสัญญาณ',
+      alt: 'เจ้าหน้าที่คลังสินค้าถือแท็บเล็ตที่แสดงชั้นวาง เส้นทางเดินสำรวจ และจุดสำรวจสีเหลือง',
+      caption: 'ภาพประกอบการเดินสำรวจหน้างาน หน้าจอแท็บเล็ตเป็นตัวอย่างประกอบ ไม่ใช่หน้าจอจริงของ INTAG จุดสีเหลืองแสดงตำแหน่งที่กำลังสำรวจ',
     },
     items: [
       ['การติดตั้ง', 'เมื่อสภาพพื้นที่เหมาะสม อาจลดจำนวนอุปกรณ์ประจำจุดและงานติดตั้งได้', 'เดินสำรวจและตรวจสอบความเข้ากันได้ของอุปกรณ์ หากสภาพพื้นที่เหมาะสม อาจใช้งานได้โดยไม่ต้องติดตั้งอุปกรณ์ระบุตำแหน่งเฉพาะทางเพิ่ม', 'วางแผนจุดติดตั้งเครื่องรับ รวมถึงไฟเลี้ยงและการเชื่อมต่อเครือข่ายตามรูปแบบที่ใช้'],

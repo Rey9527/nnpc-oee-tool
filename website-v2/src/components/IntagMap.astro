@@ -6,6 +6,7 @@ interface Props { locale: Locale }
 const { locale } = Astro.props;
 const copy = exampleCopy[locale].intag;
 const modes = ['plan', 'heat', 'fence'];
+const rackRows = [82, 105, 235, 286];
 ---
 <fieldset class="intag-demo">
   <legend>{copy.controls}</legend>
@@ -21,6 +22,12 @@ const modes = ['plan', 'heat', 'fence'];
     <svg viewBox="0 0 600 344" role="img" aria-labelledby="map-title">
       <title id="map-title">{copy.modes.join(' / ')}</title>
       <defs>
+        <pattern id="intag-floor-grid" width="24" height="24" patternUnits="userSpaceOnUse">
+          <path d="M24 0H0v24" fill="none" stroke="#bac2c0" stroke-opacity=".4" />
+        </pattern>
+        <pattern id="intag-dock-bay" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+          <path d="M0 0v6" stroke="#9d8650" stroke-opacity=".36" stroke-width="2" />
+        </pattern>
         <radialGradient id="intag-heat">
           <stop offset="0" stop-color="#c7421a" stop-opacity=".92" />
           <stop offset=".53" stop-color="#f5a300" stop-opacity=".58" />
@@ -29,28 +36,56 @@ const modes = ['plan', 'heat', 'fence'];
         <clipPath id="intag-bounds"><rect x="20" y="36" width="560" height="285" rx="3" /></clipPath>
       </defs>
       <text x="24" y="25" class="floor-level">L1</text>
-      <rect x="20" y="36" width="560" height="285" rx="3" fill="#f7f7f4" stroke="#737e86" stroke-width="2" />
-      <g fill="none" stroke="#a1aab0" stroke-width="2">
-        <path d="M20 139h560M20 212h560M176 36v103m0 73v109M390 36v103m0 73v109" />
+      <g clip-path="url(#intag-bounds)">
+        <rect x="20" y="36" width="560" height="285" fill="#e5e9e7" />
+        <path d="M24 40h150v96H24zm368 0h184v96H392z" fill="#edf0ed" />
+        <path d="M178 40h210v96H178zm0 176h210v101H178z" fill="#dce3e0" />
+        <path d="M392 216h184v101H392z" fill="#ede9dc" />
+        <rect x="20" y="36" width="560" height="285" fill="url(#intag-floor-grid)" />
+        <path d="M20 139h560v73H20z" fill="#f6f6ef" />
+        <path d="M28 148h544m0 55H28" fill="none" stroke="#b5a166" stroke-dasharray="11 5" />
+        <path d="M176 36v103m0 73v109M390 36v103m0 73v109M20 139h560m0 73H20" fill="none" stroke="#9ca8a6" stroke-width="2" />
+        <g fill="#bac3bf" stroke="#909e98" stroke-width="1.3">
+          <rect x="38" y="102" width="26" height="22" rx="2" />
+          <rect x="69" y="102" width="26" height="22" rx="2" />
+          <rect x="116" y="43" width="31" height="20" rx="2" />
+          <rect x="150" y="43" width="18" height="20" rx="2" />
+          <rect x="407" y="47" width="104" height="29" rx="2" />
+          <rect x="407" y="87" width="104" height="29" rx="2" />
+          <rect x="46" y="242" width="52" height="22" rx="2" />
+          <rect x="46" y="278" width="82" height="23" rx="2" />
+        </g>
+        <g fill="none" stroke="#a6b0ac">
+          <path d="M433 47v29m26-29v29m26-29v29m-52 11v29m26-29v29m26-29v29M72 242v22m1 14v23m27-23v23" />
+          <path d="M532 47v73m9-73v73m9-73v73m9-73v73" stroke-dasharray="4 4" />
+        </g>
+        {rackRows.map(y => (
+          <g transform={`translate(0 ${y})`}>
+            <rect x="198" width="170" height="14" rx="2" fill="#798c8c" />
+            <path d="M201 7h164" stroke="#50666a" />
+            {Array.from({ length: 7 }, (_, index) => (
+              <g transform={`translate(${202 + index * 23} 2)`} fill="#d1c3a3">
+                <rect width="19" height="4" rx="1" />
+                <rect y="6" width="19" height="4" rx="1" />
+              </g>
+            ))}
+          </g>
+        ))}
+        <g fill="url(#intag-dock-bay)" stroke="#a39b83">
+          <rect x="542" y="227" width="26" height="24" />
+          <rect x="542" y="256" width="26" height="24" />
+          <rect x="542" y="285" width="26" height="24" />
+        </g>
       </g>
-      <g class="floor-labels" text-anchor="middle">
-        <text x="95" y="86">{copy.zones[0]}</text>
-        <text x="282" y="77">{copy.zones[1]}</text>
-        <text x="282" y="270">{copy.zones[2]}</text>
-        <text x="484" y="274">{copy.zones[3]}</text>
-        <text x="95" y="182">{copy.zones[4]}</text>
-      </g>
-      <g fill="#d8dee0">
-        <rect x="200" y="96" width="45" height="23" rx="2" />
-        <rect x="261" y="96" width="45" height="23" rx="2" />
-        <rect x="322" y="96" width="45" height="23" rx="2" />
-      </g>
+      <rect x="20" y="36" width="560" height="285" rx="3" fill="none" stroke="#56686b" stroke-width="4" />
+      <path d="M580 229v20m0 9v20m0 9v20M20 81v38" stroke="#f3f5f2" stroke-width="5" />
       <g class="map-layer layer-plan">
         <path d="M120 116v62h344" fill="none" stroke="#376d91" stroke-width="4" stroke-dasharray="8 7" />
-        <circle cx="464" cy="178" r="12" fill="#183f5b" stroke="#fff" stroke-width="4" />
+        <circle cx="464" cy="178" r="13" fill="#183f5b" stroke="#fff" stroke-width="4" />
+        <circle cx="464" cy="178" r="4" fill="#ffcc00" />
         <text x="464" y="159" text-anchor="middle" class="floor-level">F-07</text>
       </g>
-      <g class="map-layer layer-heat" clip-path="url(#intag-bounds)" opacity=".78">
+      <g class="map-layer layer-heat" clip-path="url(#intag-bounds)" opacity=".84">
         <circle cx="102" cy="126" r="65" fill="url(#intag-heat)" />
         <circle cx="342" cy="213" r="48" fill="url(#intag-heat)" />
         <circle cx="483" cy="251" r="82" fill="url(#intag-heat)" />
@@ -59,7 +94,14 @@ const modes = ['plan', 'heat', 'fence'];
       <g class="map-layer layer-fence">
         <rect x="402" y="221" width="166" height="88" rx="4" fill="#ffcc0038" stroke="#886800" stroke-width="3" stroke-dasharray="8 6" />
         <path d="M470 192v39m-9-9 9 9 9-9" fill="none" stroke="#886800" stroke-width="4" />
-        <text x="484" y="298" text-anchor="middle" class="floor-level">{copy.fence}</text>
+        <text x="470" y="298" text-anchor="middle" class="floor-level">{copy.fence}</text>
+      </g>
+      <g class="floor-labels" text-anchor="middle">
+        <text x="95" y="82">{copy.zones[0]}</text>
+        <text x="282" y="68">{copy.zones[1]}</text>
+        <text x="282" y="271">{copy.zones[2]}</text>
+        <text x="470" y="267">{copy.zones[3]}</text>
+        <text x="88" y="176">{copy.zones[4]}</text>
       </g>
     </svg>
     <div class="map-meta layer-plan">
@@ -93,8 +135,9 @@ const modes = ['plan', 'heat', 'fence'];
   input:focus-visible + span { outline: 2px solid #634e00; outline-offset: 3px; }
   .map-demo { background: #f0f2f2; border: 1px solid var(--line); padding: 8px; }
   svg { width: 100%; height: auto; }
-  .floor-labels { fill: #35434d; font-size: 21px; }
-  .floor-level { fill: #243641; font-size: 17px; font-weight: 700; }
+  .floor-labels { fill: #26373a; font-size: 21px; font-weight: 600; }
+  .floor-level { fill: #243641; font-size: 18px; font-weight: 700; }
+  .floor-labels, .floor-level { paint-order: stroke fill; stroke: #f6f7f3; stroke-width: 4px; stroke-linejoin: round; }
   .map-meta { min-height: 34px; padding: 4px 10px; font-size: 13px; gap: 8px 18px; align-items: center; flex-wrap: wrap; }
   .map-meta span { color: var(--muted); }
   .map-meta .data-status { padding: 2px 7px; background: #ffe8af; color: #583f00; }

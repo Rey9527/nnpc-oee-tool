@@ -95,7 +95,7 @@ export const solutionDetail: Record<Locale, Record<SolutionId, SolutionDetail>> 
       intro: 'Where existing signals and compatible devices meet the site’s requirements, INTAG can support asset tracking and dispatch without adding dedicated positioning equipment. Verify coverage and positioning performance along the routes your team uses.',
       applications: {
         title: 'Applications to evaluate in a pilot',
-        text: 'Define the modules, rules, user roles and acceptance checks in the project scope.',
+        text: 'These diagrams illustrate pilot scenarios. Define the modules, rules, user roles and acceptance checks in the project scope.',
         items: [
           ['Dynamic Dispatch', 'Example: A loading request arrives. The supervisor checks the forklift’s last reported zone and update time, confirms availability with the operator, assigns the move and follows up at the loading point. Agree how the team records assignments and completion during the pilot.'],
           ['GEO Fencing', 'Define a zone on the floor plan and test when an entry, exit or dwell event should be recorded. Agree who receives the notification and how to handle uncertain positions near a boundary.'],
@@ -212,7 +212,7 @@ export const solutionDetail: Record<Locale, Record<SolutionId, SolutionDetail>> 
       intro: '現場訊號與終端條件符合需求時，INTAG 可沿用既有訊號，免增設專用定位設備，支援資產追蹤與派工輔助。沿實際作業路線確認訊號覆蓋與定位表現。',
       applications: {
         title: '試點可評估的應用模組',
-        text: '依專案約定模組、作業規則、使用角色與驗收方式。',
+        text: '圖解為試點情境示意。模組、作業規則、使用角色與驗收方式依專案約定。',
         items: [
           ['動態派工（Dynamic Dispatch）', '情境示意：收到裝卸需求後，主管先查堆高機最後回報的區域與時間，向操作員確認車輛是否可調度，再指派搬運並追蹤裝卸點的進度。試點時約定如何記錄指派及完工。'],
           ['電子圍籬（GEO Fencing）', '在平面圖上劃定區域，測試何時應記錄進入、離開或停留事件。確認通知對象，以及位置在區界附近不確定時的處理方式。'],
@@ -329,7 +329,7 @@ export const solutionDetail: Record<Locale, Record<SolutionId, SolutionDetail>> 
       intro: 'หากสัญญาณเดิมและอุปกรณ์ที่รองรับตรงตามความต้องการของพื้นที่ INTAG สามารถติดตามทรัพย์สินและช่วยมอบหมายงานได้โดยไม่ต้องติดตั้งอุปกรณ์ระบุตำแหน่งเฉพาะทางเพิ่ม ตรวจสอบพื้นที่ครอบคลุมและผลการระบุตำแหน่งตามเส้นทางทำงานจริง',
       applications: {
         title: 'โมดูลที่ประเมินได้ในโครงการนำร่อง',
-        text: 'ตกลงโมดูล กติกาการทำงาน บทบาทผู้ใช้ และเกณฑ์ตรวจรับตามขอบเขตโครงการ',
+        text: 'ภาพแสดงตัวอย่างการใช้งานในโครงการนำร่อง ตกลงโมดูล กติกาการทำงาน บทบาทผู้ใช้ และเกณฑ์ตรวจรับตามขอบเขตโครงการ',
         items: [
           ['การจัดงานตามสถานการณ์ (Dynamic Dispatch)', 'ตัวอย่าง: เมื่อมีงานขนถ่าย หัวหน้างานดูโซนและเวลาที่รถยกรายงานล่าสุด สอบถามผู้ขับว่ารถพร้อมใช้งานหรือไม่ แล้วจึงมอบหมายงานและติดตามความคืบหน้าที่จุดขนถ่าย ในโครงการนำร่องให้ตกลงวิธีบันทึกการมอบหมายและการเสร็จงาน'],
           ['รั้วเสมือน (GEO Fencing)', 'กำหนดโซนบนแผนผังและทดสอบว่าควรบันทึกเหตุการณ์เข้า ออก หรืออยู่ในโซนนานเมื่อใด ระบุผู้รับแจ้งเตือนและวิธีจัดการเมื่อข้อมูลตำแหน่งใกล้ขอบโซนไม่ชัดเจน'],

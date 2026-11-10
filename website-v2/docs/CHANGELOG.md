@@ -1,4 +1,7 @@
 # Change record
+## INTAG — comparison and pilot visuals
+- Added side-by-side deployment work lists, refreshed the illustrative tablet screen and warehouse map, and illustrated the three pilot modules. Retained the map modes, example timestamps and event rules.
+
 ## INTAG — deployment and walk-test visuals
 - Added a localized deployment diagram, expandable comparison details, and an illustrative walk-test photo with a visible survey point.
 

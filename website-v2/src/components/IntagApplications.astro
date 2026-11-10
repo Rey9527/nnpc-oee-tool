@@ -1,0 +1,65 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import type { EngineeringSection } from '../content/engineering/types';
+
+interface Props {
+  copy: Required<Pick<EngineeringSection, 'title' | 'text' | 'items'>>;
+}
+const { copy } = Astro.props;
+---
+<section id="applications" class="container engineering-block">
+  <SectionHeading title={copy.title} text={copy.text} />
+  <ul class="engineering-items engineering-cards" role="list">
+    {copy.items.map(([heading, description], index) => (
+      <li>
+        <div class="application-visual" aria-hidden="true">
+          <svg viewBox="0 0 192 64" fill="none" focusable="false">
+            {index === 0 && (
+              <g stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M42 32h39m-5-4 5 4-5 4m36-4h39m-5-4 5 4-5 4" stroke="#839093" />
+                <circle cx="26" cy="32" r="15" fill="#fff0b8" />
+                <path d="M26 43s-7-7-7-12a7 7 0 1 1 14 0c0 5-7 12-7 12Z" stroke="#594300" />
+                <circle cx="26" cy="30" r="2.4" fill="#594300" />
+                <circle cx="96" cy="27" r="4" stroke="#35474a" />
+                <path d="M87 41v-2c0-4 3-7 7-7h4c4 0 7 3 7 7v2Z" stroke="#35474a" />
+                <rect x="156" y="20" width="22" height="26" rx="2" fill="#fff" stroke="#35474a" />
+                <path d="M162 32l3 3 6-7m-9 12h10" stroke="#35474a" />
+              </g>
+            )}
+            {index === 1 && (
+              <g stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 13h154v38H19zM48 13v38m95-38v38" stroke="#aab4b2" />
+                <rect x="69" y="17" width="57" height="30" rx="3" fill="#ffedaa" stroke="#8b6900" stroke-width="1.6" stroke-dasharray="4 3" />
+                <path d="M39 32h61m-5-5 5 5-5 5" stroke="#35474a" stroke-width="2" />
+                <circle cx="39" cy="32" r="4" fill="#35474a" />
+              </g>
+            )}
+            {index === 2 && (
+              <g stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 44h43V20h35" stroke="#557373" stroke-width="2" stroke-dasharray="4 4" />
+                <circle cx="19" cy="44" r="3" fill="#557373" />
+                <circle cx="62" cy="34" r="10" fill="#ffcc00" opacity=".4" />
+                <circle cx="97" cy="20" r="8" fill="#ffcc00" opacity=".7" />
+                <path d="M116 15v34h55" stroke="#839093" />
+                <rect x="123" y="34" width="8" height="14" fill="#9cafad" />
+                <rect x="136" y="22" width="8" height="26" fill="#d2a200" />
+                <rect x="149" y="29" width="8" height="19" fill="#9cafad" />
+                <rect x="162" y="38" width="8" height="10" fill="#9cafad" />
+              </g>
+            )}
+          </svg>
+        </div>
+        <h3>{heading}</h3>
+        <p>{description}</p>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .application-visual {
+    display: grid; place-items: center; min-height: 70px; margin-bottom: 14px;
+    background: #edf0ee; border-bottom: 1px solid #dce1de;
+  }
+  svg { display: block; width: min(100%, 192px); height: auto; }
+</style>

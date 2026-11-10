@@ -19,13 +19,14 @@ const receiverPoints = [[91, 25], [175, 25], [290, 25], [91, 152], [175, 152], [
       {variants.map(variant => (
         <div class:list={['diagram-variant', { 'diagram-intag': variant === 'intag' }]}>
           <header class="diagram-header">
-            <p>{variant === 'ble' && `${copy.diagram.baseline} · `}{copy.diagram.label}</p>
+            <p>{variant === 'ble' ? copy.diagram.baseline : copy.diagram.recommended}</p>
             <h3>{copy[variant]}</h3>
           </header>
           <svg viewBox="0 0 360 184" aria-hidden="true" focusable="false">
-            <rect x="12" y="12" width="336" height="160" rx="4" fill="#fff" stroke="#6d777b" stroke-width="2" />
+            <rect x="12" y="12" width="336" height="160" rx="4" fill="#fdfdfb" stroke="#657276" stroke-width="2" />
             <rect x="15" y="15" width="56" height="154" fill="#f1f2f2" />
             <path d="M72 15v154M80 67h260M80 111h260" fill="none" stroke="#aeb7b9" stroke-dasharray="4 4" />
+            <path d="M31 27h25v28H31zm0 51h25v28H31zm0 51h25v28H31z" fill="none" stroke="#b8c1c1" />
             <g fill="#c8ced0" stroke="#899497">
               <rect x="12" y="31" width="13" height="20" rx="1" />
               <rect x="12" y="82" width="13" height="20" rx="1" />
@@ -34,7 +35,8 @@ const receiverPoints = [[91, 25], [175, 25], [290, 25], [91, 152], [175, 152], [
             {rackRows.map(y => (
               <g transform={`translate(0 ${y})`}>
                 <rect x="105" y="0" width="160" height="20" rx="2" fill="#d9dedf" stroke="#899497" />
-                <path d="M137 0v20m32-20v20m32-20v20m32-20v20" stroke="#aeb7b9" />
+                <path d="M105 10h160m-128-10v20m32-20v20m32-20v20m32-20v20" stroke="#aeb7b9" />
+                <path d="M110 5h22m10 0h22m10 0h22m10 0h22m10 0h22M110 15h22m10 0h22m10 0h22m10 0h22m10 0h22" stroke="#bfc7c7" stroke-width="3" />
               </g>
             ))}
             {variant === 'intag' ? (
@@ -51,13 +53,17 @@ const receiverPoints = [[91, 25], [175, 25], [290, 25], [91, 152], [175, 152], [
             ) : (
               receiverPoints.map(([x, y]) => (
                 <g transform={`translate(${x} ${y})`}>
-                  <rect x="-6" y="-6" width="12" height="12" rx="2" fill="#485256" stroke="#fff" stroke-width="1.5" />
-                  <circle r="1.6" fill="#fff" />
+                  <circle r="12" fill="#e4e8e9" stroke="#7f8a8c" stroke-width="1" />
+                  <rect x="-7" y="-7" width="14" height="14" rx="2" fill="#394549" />
+                  <circle r="1.8" fill="#fff" />
                 </g>
               ))
             )}
           </svg>
-          <p class="diagram-description">{copy.diagram[variant]}</p>
+          <p class="diagram-description"><strong>{copy.diagram.label}:</strong> {copy.diagram[variant]}</p>
+          <ol class="diagram-work" role="list">
+            {copy.diagram.work[variant].map(task => <li>{task}</li>)}
+          </ol>
         </div>
       ))}
     </div>
@@ -76,7 +82,7 @@ const receiverPoints = [[91, 25], [175, 25], [290, 25], [91, 152], [175, 152], [
         </summary>
         <dl>
           <div><dt>{copy.ble}</dt><dd>{ble}</dd></div>
-          <div class="detail-intag"><dt>{copy.intag}</dt><dd>{intag}</dd></div>
+          <div class="detail-intag"><dt>INTAG</dt><dd>{intag}</dd></div>
         </dl>
       </details>
     ))}
@@ -91,13 +97,26 @@ const receiverPoints = [[91, 25], [175, 25], [290, 25], [91, 152], [175, 152], [
   h3 { margin: 0; font-size: 16px; letter-spacing: 0; }
   .diagram-variants { display: grid; gap: 12px; margin-top: 12px; }
   .diagram-variant { display: flex; flex-direction: column; min-width: 0; background: var(--paper); border: 1px solid var(--line); }
-  .diagram-intag { border-color: #ac8600; }
+  .diagram-intag { background: #fffaf0; border-color: #ac8600; }
   .diagram-header { padding: 12px 14px; background: #e4e7e8; }
   .diagram-intag .diagram-header { background: var(--yellow); }
   .diagram-header p { margin: 0 0 4px; color: #394347; font-size: 12px; line-height: 1.4; }
   .diagram-variant svg { display: block; width: 100%; height: auto; margin-top: auto; padding: 8px 14px 0; }
   .diagram-description, .summary-text { color: var(--muted); font-size: 14px; line-height: 1.55; }
   .diagram-description { margin: 0; padding: 8px 14px 14px; }
+  .diagram-description strong { font-weight: 600; }
+  .diagram-work { display: grid; gap: 0; margin: 0 14px 14px; padding: 0; list-style: none; counter-reset: task; }
+  .diagram-work li {
+    display: grid; grid-template-columns: 21px minmax(0, 1fr); gap: 8px; align-items: start;
+    padding: 8px 0; border-top: 1px solid #d5d9da; counter-increment: task;
+    font-size: 14px; line-height: 1.5;
+  }
+  .diagram-work li::before {
+    content: counter(task); display: grid; place-items: center; min-height: 21px;
+    color: #2d3638; background: #e1e5e6; font-size: 12px; font-weight: 700;
+  }
+  .diagram-intag .diagram-work li { border-color: #ead9a1; }
+  .diagram-intag .diagram-work li::before { background: #ffe58a; color: #594100; }
   .diagram-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 12px 0 0; padding: 0; list-style: none; color: var(--muted); font-size: 13px; }
   .diagram-legend li { display: flex; align-items: center; gap: 6px; }
   .diagram-legend li::before { content: ''; width: 15px; height: 9px; border: 1px solid #899497; }
@@ -123,7 +142,7 @@ const receiverPoints = [[91, 25], [175, 25], [290, 25], [91, 152], [175, 152], [
   dl { display: grid; gap: 12px; margin: 0; }
   details dl { padding-bottom: 14px; }
   dl > div { min-width: 0; padding: 14px; background: var(--paper); }
-  .detail-intag { border-inline-start: 3px solid var(--yellow); }
+  .detail-intag { border-inline-start: 3px solid var(--yellow); background: #fff7dc; }
   dt { font-size: 14px; font-weight: 700; }
   dd { margin: 6px 0 0; color: var(--muted); font-size: 14px; line-height: 1.65; }
   @media (min-width: 768px) {
