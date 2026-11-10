@@ -1,0 +1,165 @@
+---
+import { Image } from 'astro:assets';
+import Button from './Button.astro';
+import Icon from './Icon.astro';
+import SectionHeading from './SectionHeading.astro';
+import manufacturing from '../assets/industries/manufacturing.jpg';
+import office from '../assets/industries/office.jpg';
+import school from '../assets/industries/school.jpg';
+import hotel from '../assets/industries/hotel.jpg';
+import type { Locale } from '../content/home';
+import { homeClosingCopy } from '../content/home-closing';
+import { contact, homeCopy } from '../content/home-copy';
+import { localizedPath } from '../content/routes';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const copy = homeClosingCopy[locale];
+const labels = homeCopy[locale];
+const scenes = [
+  { id: 'manufacturing', image: manufacturing },
+  { id: 'office', image: office },
+  { id: 'school', image: school },
+  { id: 'hotel', image: hotel },
+] as const;
+---
+
+<section id="industries" class="closing-section container" aria-label={copy.industries.title}>
+  <SectionHeading eyebrow={labels.industries.eyebrow} title={copy.industries.title} text={copy.industries.text} />
+  <figure class="industry-scenes">
+    <figcaption>{copy.industries.illustration}</figcaption>
+    <ul class="industry-grid" role="list">
+      {scenes.map(({ id, image }) => {
+        const setting = copy.industries.settings[id];
+        return (
+          <li class="industry-card">
+            <Image
+              src={image}
+              alt={setting.alt}
+              widths={[360, 540, 720, 960]}
+              sizes="(min-width: 1440px) 315px, (min-width: 1024px) 25vw, (min-width: 601px) 50vw, 42vw"
+              format="webp"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="industry-card-copy">
+              <h3>{setting.title}</h3>
+              <p>{setting.text}</p>
+            </div>
+          </li>
+        );
+      })}
+    </ul>
+  </figure>
+</section>
+
+<section id="about" class="closing-section delivery-overview" aria-label={copy.about.title}>
+  <div class="container">
+    <SectionHeading eyebrow={labels.about.eyebrow} title={copy.about.title} text={copy.about.text} />
+    <ol class="delivery-capabilities" role="list">
+      {copy.about.steps.map(([title, description], index) => (
+        <li>
+          <span class="step-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+          <div>
+            <h3>{title}</h3>
+            <p>{description}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+    <a class="text-link about-link" href={localizedPath(locale, 'about/')}>
+      {copy.about.link} <span class="ui-symbol" aria-hidden="true"><Icon name="arrow-right" /></span>
+    </a>
+  </div>
+</section>
+
+<section id="contact" class="closing-section container enquiry" aria-label={copy.contact.title}>
+  <SectionHeading eyebrow={labels.contact.eyebrow} title={copy.contact.title} text={copy.contact.text} />
+  <div class="enquiry-actions">
+    <p>{copy.contact.prompt}</p>
+    <div class="enquiry-links">
+      <Button href={`mailto:${contact.email}`}>{labels.contact.email} · {contact.email}</Button>
+      <Button href={contact.lineUrl} secondary>{`${labels.contact.line} ${contact.lineId}`}</Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .closing-section { padding-block: clamp(38px, 5vw, 66px); }
+  .closing-section :global(.section-heading .muted) { margin-block: 14px 0; }
+  .industry-scenes { margin: 20px 0 0; }
+  .industry-scenes figcaption {
+    margin-bottom: 12px;
+    padding-inline-start: 9px;
+    border-inline-start: 2px solid var(--yellow);
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.55;
+  }
+  .industry-grid, .delivery-capabilities {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    padding: 0;
+    list-style: none;
+  }
+  .industry-grid { gap: clamp(12px, 1.6vw, 24px); margin: 0; }
+  .industry-card { border: 1px solid var(--line); }
+  .industry-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    background: var(--paper);
+  }
+  .industry-card-copy { padding: clamp(12px, 1.6vw, 20px); }
+  .industry-card h3, .delivery-capabilities h3 {
+    font-size: clamp(16px, 1.35vw, 20px);
+    letter-spacing: 0;
+  }
+  .industry-card p, .delivery-capabilities p {
+    margin: 7px 0 0;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  .delivery-overview { background: var(--paper); }
+  .delivery-capabilities { gap: 0 24px; margin: 22px 0 8px; }
+  .delivery-capabilities li {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+    gap: 12px;
+    padding-block: 15px;
+    border-top: 1px solid var(--line);
+  }
+  .about-link { padding-block: 6px; }
+  .enquiry {
+    display: grid;
+    align-items: center;
+    gap: 22px clamp(28px, 5vw, 80px);
+  }
+  .enquiry-actions { padding-top: 14px; border-top: 3px solid var(--yellow); }
+  .enquiry-actions p { margin-bottom: 12px; color: var(--muted); font-size: 14px; }
+  .enquiry-links { display: flex; flex-wrap: wrap; gap: 10px; }
+  .enquiry-links :global(.button) { min-width: 0; max-width: 100%; gap: 12px; overflow-wrap: anywhere; }
+
+  @media (min-width: 601px) {
+    .industry-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 768px) {
+    .delivery-capabilities { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .enquiry { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
+  }
+  @media (min-width: 1024px) {
+    .industry-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+  @media (max-width: 600px) {
+    .industry-card {
+      display: grid;
+      grid-template-columns: 42% minmax(0, 1fr);
+      align-items: center;
+    }
+    .enquiry-links :global(.button) { width: 100%; }
+  }
+</style>
