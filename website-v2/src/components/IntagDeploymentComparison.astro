@@ -6,6 +6,7 @@ interface Props {
   copy: IntagDeploymentCopy;
 }
 const { copy } = Astro.props;
+const { comparison } = copy;
 const variants = ['ble', 'intag'] as const;
 const rackRows = [34, 78, 122];
 const receiverPoints = [[91, 25], [175, 25], [290, 25], [91, 152], [175, 152], [290, 152]];
@@ -73,20 +74,38 @@ const receiverPoints = [[91, 25], [175, 25], [290, 25], [91, 152], [175, 152], [
       <li class="legend-loading">{copy.diagram.loading}</li>
     </ul>
   </figure>
-  <div class="comparison">
-    {copy.items.map(([topic, summary, intag, ble], index) => (
-      <details open={index === 0}>
-        <summary>
-          <span><strong>{topic}</strong><span class="summary-text">{summary}</span></span>
-          <span class="chevron" aria-hidden="true"></span>
-        </summary>
-        <dl>
-          <div><dt>{copy.ble}</dt><dd>{ble}</dd></div>
-          <div class="detail-intag"><dt>INTAG</dt><dd>{intag}</dd></div>
-        </dl>
-      </details>
-    ))}
-  </div>
+  <section class="comparison" aria-labelledby="deployment-comparison-title">
+    <h3 id="deployment-comparison-title">{copy.title}</h3>
+    <table aria-labelledby="deployment-comparison-title" aria-describedby="deployment-comparison-note">
+      <colgroup><col class="comparison-topic-col" /><col /><col /></colgroup>
+      <thead>
+        <tr>
+          <th scope="col">{comparison.topicHeading}</th>
+          <th scope="col" class="comparison-ble">{comparison.bleHeading}</th>
+          <th scope="col" class="comparison-intag">INTAG</th>
+        </tr>
+      </thead>
+      <tbody>
+        {comparison.rows.map(({ topic, ble, intag }) => (
+          <tr>
+            <th scope="row">{topic}</th>
+            <td class="comparison-ble">{ble}</td>
+            <td class="comparison-intag">{intag}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    <div class="comparison-mobile">
+      {comparison.rows.map(({ topic, mobile }) => (
+        <div class="comparison-row">
+          <h4>{topic}</h4>
+          <p class="comparison-ble"><strong>BLE:</strong> {mobile.ble}</p>
+          <p class="comparison-intag"><strong>INTAG:</strong> {mobile.intag}</p>
+        </div>
+      ))}
+    </div>
+    <p class="comparison-note" id="deployment-comparison-note">{comparison.note}</p>
+  </section>
 </section>
 
 <style>
@@ -102,8 +121,7 @@ const receiverPoints = [[91, 25], [175, 25], [290, 25], [91, 152], [175, 152], [
   .diagram-intag .diagram-header { background: var(--yellow); }
   .diagram-header p { margin: 0 0 4px; color: #394347; font-size: 12px; line-height: 1.4; }
   .diagram-variant svg { display: block; width: 100%; height: auto; margin-top: auto; padding: 8px 14px 0; }
-  .diagram-description, .summary-text { color: var(--muted); font-size: 14px; line-height: 1.55; }
-  .diagram-description { margin: 0; padding: 8px 14px 14px; }
+  .diagram-description { margin: 0; padding: 8px 14px 14px; color: var(--muted); font-size: 14px; line-height: 1.55; }
   .diagram-description strong { font-weight: 600; }
   .diagram-work { display: grid; gap: 0; margin: 0 14px 14px; padding: 0; list-style: none; counter-reset: task; }
   .diagram-work li {
@@ -123,29 +141,29 @@ const receiverPoints = [[91, 25], [175, 25], [290, 25], [91, 152], [175, 152], [
   .legend-racks::before { background: #d9dedf; }
   .diagram-legend .legend-aisle::before { background: #fff; border-style: dashed; }
   .legend-loading::before { background: #f1f2f2; }
-  .comparison { margin-top: 20px; border-top: 1px solid var(--line); }
-  details { border-bottom: 1px solid var(--line); }
-  summary {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 14px 4px;
-    cursor: pointer;
-    list-style: none;
+  .comparison { margin-top: 28px; font-size: 14px; line-height: 1.6; }
+  .comparison h3 { margin-bottom: 12px; font-size: 18px; }
+  table { display: none; width: 100%; table-layout: fixed; border-collapse: collapse; }
+  .comparison-topic-col { width: 21%; }
+  th, td {
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    text-align: start;
+    vertical-align: top;
+    overflow-wrap: anywhere;
   }
-  summary::-webkit-details-marker { display: none; }
-  summary:focus-visible { outline: 2px solid #725800; outline-offset: 2px; }
-  .summary-text { display: block; margin-top: 3px; }
-  .chevron { flex: 0 0 8px; height: 8px; border: solid currentColor; border-width: 0 2px 2px 0; transform: rotate(45deg); margin-right: 5px; }
-  details[open] .chevron { transform: rotate(225deg); }
-  dl { display: grid; gap: 12px; margin: 0; }
-  details dl { padding-bottom: 14px; }
-  dl > div { min-width: 0; padding: 14px; background: var(--paper); }
-  dl > .detail-intag { border-inline-start: 3px solid var(--yellow); background: #fff7dc; }
-  dt { font-size: 14px; font-weight: 700; }
-  dd { margin: 6px 0 0; color: var(--muted); font-size: 14px; line-height: 1.65; }
+  thead th:first-child { background: var(--paper); }
+  .comparison-ble { background: var(--paper); }
+  .comparison-intag { background: #fff7dc; }
+  .comparison-row { padding: 10px 0 12px; border-top: 1px solid var(--line); }
+  .comparison-row:last-child { border-bottom: 1px solid var(--line); }
+  .comparison-row h4 { margin: 0 0 6px; font-size: 15px; }
+  .comparison-row p { margin: 0; padding: 6px 10px; overflow-wrap: anywhere; }
+  .comparison-row .comparison-intag { border-inline-start: 2px solid var(--yellow); padding-inline-start: 8px; }
+  .comparison-note { margin: 10px 0 0; color: var(--muted); font-size: 13px; overflow-wrap: anywhere; }
   @media (min-width: 768px) {
-    .diagram-variants, dl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .diagram-variants { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    table { display: table; }
+    .comparison-mobile { display: none; }
   }
 </style>

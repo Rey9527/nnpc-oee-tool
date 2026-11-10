@@ -21,7 +21,17 @@ export interface IntagDeploymentCopy {
     note: string;
   };
   walkTest: { alt: string; caption: string };
-  items: readonly (readonly [topic: string, summary: string, intag: string, ble: string])[];
+  comparison: {
+    topicHeading: string;
+    bleHeading: string;
+    note: string;
+    rows: readonly {
+      topic: string;
+      ble: string;
+      intag: string;
+      mobile: { ble: string; intag: string };
+    }[];
+  };
   consultation: string;
   contact: EngineeringContact;
 }
@@ -53,11 +63,40 @@ export const intagDeploymentCopy: Record<Locale, IntagDeploymentCopy> = {
       alt: 'A warehouse technician holds a tablet showing rack rows, a survey route and a yellow survey point.',
       caption: 'Site walk-test illustration. The tablet shows an example interface, not an INTAG product screenshot. The yellow dot marks the survey point.',
     },
-    items: [
-      ['Installation', 'Suitable sites may need less fixed equipment and installation work.', 'Survey the site and check device compatibility. Where conditions allow, deployment can proceed without new dedicated positioning equipment.', 'Plan receiver locations, mounting and any power or network connections the design requires.'],
-      ['Maintenance', 'Less fixed equipment can mean fewer devices to maintain.', 'Continue to manage the system, devices and changes to the site environment.', 'Maintain the receivers and their power and network connections as required.'],
-      ['Management', 'Site changes or expansion may call for a new walk-through and validation.', 'Review the changed or expanded area and repeat the walk-through and validation as needed.', 'Review receiver locations and check whether existing devices need to be moved or new ones installed.'],
-    ],
+    comparison: {
+      topicHeading: 'Aspect',
+      bleHeading: 'BLE Architecture Requiring New Fixed Receivers',
+      note: 'This comparison applies only to BLE architectures requiring additional fixed receivers. INTAG hardware requirements and positioning performance depend on site conditions and validation.',
+      rows: [
+        {
+          topic: 'Deployment',
+          ble: 'Plan fixed receiver locations, install the equipment and make the required connections.',
+          intag: 'Assess the site, walk the operating route and validate positioning. Where conditions allow, no new dedicated positioning equipment is needed.',
+          mobile: {
+            ble: 'Plan receiver locations, install fixed equipment and connect it.',
+            intag: 'Assess the site, walk the route and validate positioning. Where conditions allow, no new dedicated positioning equipment is needed.',
+          },
+        },
+        {
+          topic: 'Maintenance',
+          ble: 'Maintain fixed receivers, power and network connections as required by the design.',
+          intag: 'Continue to manage the system, end devices and changes to the site environment.',
+          mobile: {
+            ble: 'Maintain fixed receivers, power and connections.',
+            intag: 'Manage the system, end devices and site conditions.',
+          },
+        },
+        {
+          topic: 'Management & Expansion',
+          ble: 'Assess whether expansion requires moving or adding fixed receivers.',
+          intag: 'Repeat the walk survey, validate positioning and make any necessary improvements based on site conditions.',
+          mobile: {
+            ble: 'Assess whether to move or add fixed receiver locations.',
+            intag: 'Repeat the walk survey, validate and make improvements as needed.',
+          },
+        },
+      ],
+    },
     consultation: 'Discuss an on-site pilot',
     contact: {
       title: 'Assess the site for a positioning pilot',
@@ -90,11 +129,40 @@ export const intagDeploymentCopy: Record<Locale, IntagDeploymentCopy> = {
       alt: '倉庫人員手持平板，螢幕顯示貨架、走測路線及黃色走測點。',
       caption: '現場走測示意。平板為介面示例，非 INTAG 實際產品畫面；黃點標示走測位置。',
     },
-    items: [
-      ['建置', '符合條件時，可減少新增固定設備及相關安裝工作。', '先走測並確認裝置相容性，條件合適時可免增設專用定位設備。', '規劃固定接收器的點位和安裝，依配置確認供電及網路需求。'],
-      ['維護', '可能減少固定設備的維護負擔。', '仍需管理系統、裝置與環境變更。', '依配置維護固定接收器及其供電和網路連線。'],
-      ['管理', '場域擴充或調整時，依條件重新走測及驗證。', '先檢視變更或擴充範圍，再依現場條件安排走測和驗證。', '重新確認接收器點位，評估既有設備是否需要移動或增設。'],
-    ],
+    comparison: {
+      topicHeading: '比較面向',
+      bleHeading: '需新增固定接收器的 BLE 架構',
+      note: '本比較僅針對需新增固定接收器的 BLE 架構。INTAG 實際設備需求與定位表現，依現場條件及驗證結果確認。',
+      rows: [
+        {
+          topic: '建置',
+          ble: '規劃固定接收器點位、安裝設備及相關連線',
+          intag: '場勘、走測與驗證；符合條件可免新增專用定位設備',
+          mobile: {
+            ble: '規劃點位、安裝固定設備與相關連線',
+            intag: '場勘、走測與驗證；符合條件可免新增專用設備',
+          },
+        },
+        {
+          topic: '維護',
+          ble: '依配置維護固定接收器、供電及網路連線',
+          intag: '仍需管理系統、終端裝置及環境變更',
+          mobile: {
+            ble: '固定接收器、供電及連線維護',
+            intag: '系統、終端裝置與環境管理',
+          },
+        },
+        {
+          topic: '管理與擴充',
+          ble: '擴充時評估調整或新增固定接收器點位',
+          intag: '依現場條件重新走測、驗證及必要補強',
+          mobile: {
+            ble: '評估調整或新增固定點位',
+            intag: '重新走測、驗證及必要補強',
+          },
+        },
+      ],
+    },
     consultation: '洽詢現場定位試點',
     contact: {
       title: '評估場域是否需要新增定位設備',
@@ -127,11 +195,40 @@ export const intagDeploymentCopy: Record<Locale, IntagDeploymentCopy> = {
       alt: 'เจ้าหน้าที่คลังสินค้าถือแท็บเล็ตที่แสดงชั้นวาง เส้นทางเดินสำรวจ และจุดสำรวจสีเหลือง',
       caption: 'ภาพประกอบการเดินสำรวจหน้างาน หน้าจอแท็บเล็ตเป็นตัวอย่างประกอบ ไม่ใช่หน้าจอจริงของ INTAG จุดสีเหลืองแสดงตำแหน่งที่กำลังสำรวจ',
     },
-    items: [
-      ['การติดตั้ง', 'เมื่อสภาพพื้นที่เหมาะสม อาจลดจำนวนอุปกรณ์ประจำจุดและงานติดตั้งได้', 'เดินสำรวจและตรวจสอบความเข้ากันได้ของอุปกรณ์ หากสภาพพื้นที่เหมาะสม อาจใช้งานได้โดยไม่ต้องติดตั้งอุปกรณ์ระบุตำแหน่งเฉพาะทางเพิ่ม', 'วางแผนจุดติดตั้งเครื่องรับ รวมถึงไฟเลี้ยงและการเชื่อมต่อเครือข่ายตามรูปแบบที่ใช้'],
-      ['การบำรุงรักษา', 'อุปกรณ์ประจำจุดที่น้อยลงอาจช่วยลดภาระการดูแลอุปกรณ์', 'ยังต้องดูแลระบบ อุปกรณ์ และการเปลี่ยนแปลงของสภาพแวดล้อม', 'ดูแลเครื่องรับประจำจุด รวมถึงไฟเลี้ยงและการเชื่อมต่อเครือข่ายตามรูปแบบที่ใช้'],
-      ['การจัดการ', 'เมื่อขยายหรือปรับพื้นที่ อาจต้องเดินสำรวจและทดสอบอีกครั้ง', 'ตรวจสอบขอบเขตที่เปลี่ยนแปลงหรือขยาย แล้วเดินสำรวจและทดสอบตามความเหมาะสม', 'ทบทวนตำแหน่งเครื่องรับและประเมินว่าต้องย้ายอุปกรณ์เดิมหรือติดตั้งเพิ่มหรือไม่'],
-    ],
+    comparison: {
+      topicHeading: 'หัวข้อเปรียบเทียบ',
+      bleHeading: 'ระบบ BLE ที่ต้องติดตั้งตัวรับสัญญาณประจำที่เพิ่มเติม',
+      note: 'การเปรียบเทียบนี้ใช้กับระบบ BLE ที่ต้องติดตั้งตัวรับสัญญาณประจำที่เพิ่มเติมเท่านั้น ส่วนอุปกรณ์ที่จำเป็นและประสิทธิภาพการระบุตำแหน่งของ INTAG ขึ้นอยู่กับสภาพพื้นที่และผลการทดสอบยืนยัน',
+      rows: [
+        {
+          topic: 'การติดตั้งระบบ',
+          ble: 'กำหนดตำแหน่งตัวรับสัญญาณประจำที่ ติดตั้งอุปกรณ์และจัดการการเชื่อมต่อที่จำเป็น',
+          intag: 'ประเมินพื้นที่ เดินสำรวจ และทดสอบการระบุตำแหน่ง หากสภาพพื้นที่เหมาะสม อาจไม่ต้องติดตั้งอุปกรณ์ระบุตำแหน่งเฉพาะทางเพิ่ม',
+          mobile: {
+            ble: 'กำหนดจุด ติดตั้งตัวรับสัญญาณประจำที่ และเชื่อมต่ออุปกรณ์',
+            intag: 'ประเมินพื้นที่ เดินสำรวจ และทดสอบ หากสภาพพื้นที่เหมาะสม อาจไม่ต้องเพิ่มอุปกรณ์ระบุตำแหน่งเฉพาะทาง',
+          },
+        },
+        {
+          topic: 'การบำรุงรักษา',
+          ble: 'ดูแลตัวรับสัญญาณประจำที่ ระบบจ่ายไฟ และการเชื่อมต่อเครือข่ายตามรูปแบบที่ติดตั้ง',
+          intag: 'ยังต้องดูแลระบบและอุปกรณ์ปลายทาง รวมถึงจัดการเมื่อสภาพหน้างานเปลี่ยนแปลง',
+          mobile: {
+            ble: 'ดูแลตัวรับสัญญาณประจำที่ ระบบจ่ายไฟ และการเชื่อมต่อ',
+            intag: 'ดูแลระบบ อุปกรณ์ปลายทาง และสภาพหน้างาน',
+          },
+        },
+        {
+          topic: 'การบริหารจัดการและการขยายพื้นที่',
+          ble: 'เมื่อขยายพื้นที่ ให้ประเมินว่าต้องย้ายหรือเพิ่มจุดติดตั้งตัวรับสัญญาณประจำที่หรือไม่',
+          intag: 'เดินสำรวจและทดสอบการระบุตำแหน่งอีกครั้ง พร้อมปรับปรุงตามความจำเป็นและสภาพพื้นที่',
+          mobile: {
+            ble: 'ประเมินว่าต้องย้ายหรือเพิ่มจุดติดตั้งตัวรับสัญญาณหรือไม่',
+            intag: 'เดินสำรวจและทดสอบซ้ำ พร้อมปรับปรุงตามความจำเป็น',
+          },
+        },
+      ],
+    },
     consultation: 'ปรึกษาการทดสอบหน้างาน',
     contact: {
       title: 'ประเมินว่าต้องเพิ่มอุปกรณ์ระบุตำแหน่งหรือไม่',

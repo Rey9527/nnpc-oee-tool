@@ -1,4 +1,7 @@
 # Change record
+## INTAG — comparison layout
+- Replaced deployment accordions with a comparison table on desktop and stacked comparisons on phones. Added the localized scope and site validation note.
+
 ## INTAG — comparison and pilot visuals
 - Added side-by-side deployment work lists, refreshed the illustrative tablet screen and warehouse map, and illustrated the three pilot modules. Retained the map modes, example timestamps and event rules.
 
