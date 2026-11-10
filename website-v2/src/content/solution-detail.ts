@@ -91,8 +91,8 @@ export const solutionDetail: Record<Locale, Record<SolutionId, SolutionDetail>> 
       ],
     },
     intag: {
-      title: 'INTAG | From indoor location to shop-floor operations',
-      intro: 'Use the floor plan to find forklifts and assets, then use movement and dwell data to support dispatch decisions, zone monitoring and shift reviews. Start by testing coverage and location updates along the routes your team uses.',
+      title: 'INTAG | Indoor positioning using existing site signals',
+      intro: 'Where existing signals and compatible devices meet the site’s requirements, INTAG can support asset tracking and dispatch without adding dedicated positioning equipment. Verify coverage and positioning performance along the routes your team uses.',
       applications: {
         title: 'Applications to evaluate in a pilot',
         text: 'Define the modules, rules, user roles and acceptance checks in the project scope.',
@@ -208,8 +208,8 @@ export const solutionDetail: Record<Locale, Record<SolutionId, SolutionDetail>> 
       ],
     },
     intag: {
-      title: 'INTAG｜從室內定位到現場營運應用',
-      intro: '在平面圖上查找堆高機與資產，並用移動與停留資料輔助派工、區域監控與班別檢討。先沿實際作業路線測試定位覆蓋與回報情況。',
+      title: 'INTAG｜用既有訊號做室內定位',
+      intro: '現場訊號與終端條件符合需求時，INTAG 可沿用既有訊號，免增設專用定位設備，支援資產追蹤與派工輔助。沿實際作業路線確認訊號覆蓋與定位表現。',
       applications: {
         title: '試點可評估的應用模組',
         text: '依專案約定模組、作業規則、使用角色與驗收方式。',
@@ -325,8 +325,8 @@ export const solutionDetail: Record<Locale, Record<SolutionId, SolutionDetail>> 
       ],
     },
     intag: {
-      title: 'INTAG | จากการระบุตำแหน่งในอาคารสู่การจัดการหน้างาน',
-      intro: 'ดูตำแหน่งรถยกและทรัพย์สินบนแผนผัง แล้วใช้ข้อมูลการเคลื่อนที่และเวลาที่อยู่ในแต่ละโซนประกอบการจัดงาน เฝ้าระวังพื้นที่ และทบทวนการทำงานรายกะ เริ่มจากทดสอบพื้นที่ครอบคลุมและการอัปเดตตำแหน่งตามเส้นทางที่ใช้จริง',
+      title: 'INTAG | ระบุตำแหน่งในอาคารด้วยสัญญาณเดิม',
+      intro: 'หากสัญญาณเดิมและอุปกรณ์ที่รองรับตรงตามความต้องการของพื้นที่ INTAG สามารถติดตามทรัพย์สินและช่วยมอบหมายงานได้โดยไม่ต้องติดตั้งอุปกรณ์ระบุตำแหน่งเฉพาะทางเพิ่ม ตรวจสอบพื้นที่ครอบคลุมและผลการระบุตำแหน่งตามเส้นทางทำงานจริง',
       applications: {
         title: 'โมดูลที่ประเมินได้ในโครงการนำร่อง',
         text: 'ตกลงโมดูล กติกาการทำงาน บทบาทผู้ใช้ และเกณฑ์ตรวจรับตามขอบเขตโครงการ',

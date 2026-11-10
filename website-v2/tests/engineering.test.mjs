@@ -16,7 +16,9 @@ const routes = [
   [cctv, ['coverage', 'system', 'scope', 'installation', 'acceptance', 'maintenance']],
   ...serviceSlugs.map(slug => [`engineering/${slug}/`, ['scope', 'acceptance', 'maintenance', 'quotation']]),
   ['solutions/', solutions],
-  ...solutions.map(slug => [`solutions/${slug}/`, ['example', ...(slug === 'intag' ? ['applications'] : []), 'use-cases', 'workflow', 'scope', 'acceptance']]),
+  ...solutions.map(slug => [`solutions/${slug}/`, [
+    ...(slug === 'intag' ? ['deployment', 'applications'] : []), 'example', 'use-cases', 'workflow', 'scope', 'acceptance',
+  ]]),
   ['industries/', ['facilities']],
   ['work/', ['scenarios', 'review-points']],
   ['about/', ['responsibilities']],
@@ -59,6 +61,8 @@ for (const [locale, lang] of Object.entries(languages)) {
       }
       if (page === 'solutions/intag/') {
         for (const module of ['Dynamic Dispatch', 'GEO Fencing', 'ESG Enhance Analytics']) assert.ok(html.includes(module));
+        assert.ok(html.includes('href="#deployment"'));
+        assert.doesNotMatch(html, /\b(?:1|3\.35)\s*(?:m\b|met(?:er|re)s?\b|公尺|米|เมตร)/i);
       }
       if (page === overview) {
         assert.equal((html.match(/class="service-card"/g) ?? []).length, 8);
