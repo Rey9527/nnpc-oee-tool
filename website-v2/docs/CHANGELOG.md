@@ -1,4 +1,7 @@
 # Change record
+## INTAG — deployment and walk-test visuals
+- Added a localized deployment diagram, expandable comparison details, and an illustrative walk-test photo with a visible survey point.
+
 ## INTAG — deployment comparison
 - Added a three-language comparison of existing-signal INTAG deployments and BLE deployments that require new fixed equipment, with a site pilot enquiry.
 

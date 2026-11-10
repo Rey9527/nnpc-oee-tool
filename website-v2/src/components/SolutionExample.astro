@@ -1,6 +1,9 @@
 ---
+import { Image } from 'astro:assets';
 import SectionHeading from './SectionHeading.astro';
 import IntagMap from './IntagMap.astro';
+import intagWalkTest from '../assets/intag-walk-test.jpg';
+import { intagDeploymentCopy } from '../content/intag-deployment';
 import { exampleCopy } from '../content/solution-examples';
 import type { Locale } from '../content/home';
 import type { SolutionId } from '../content/solution-detail';
@@ -8,6 +11,7 @@ import type { SolutionId } from '../content/solution-detail';
 interface Props { locale: Locale; solution: SolutionId }
 const { locale, solution } = Astro.props;
 const copy = exampleCopy[locale];
+const walkTest = intagDeploymentCopy[locale].walkTest;
 const chart = copy.iiot;
 const record = solution === 'mes-mom' || solution === 'wms' ? copy[solution] : undefined;
 const ai = copy['enterprise-ai'];
@@ -15,7 +19,15 @@ const notes = solution === 'intag' ? [] : copy[solution].points;
 ---
 <section id="example" class="container engineering-block solution-example">
   <SectionHeading title={copy.title} text={copy.note} />
-  {solution === 'intag' ? <IntagMap locale={locale} /> : (
+  {solution === 'intag' ? (
+    <>
+      <figure class="walk-test">
+        <Image src={intagWalkTest} alt={walkTest.alt} widths={[480, 840, 1260]} sizes="(max-width: 768px) calc(100vw - 40px), 840px" />
+        <figcaption>{walkTest.caption}</figcaption>
+      </figure>
+      <IntagMap locale={locale} />
+    </>
+  ) : (
     <div class="example-body">
       {solution === 'iiot' && (
         <figure class="example-panel">
@@ -68,6 +80,12 @@ const notes = solution === 'intag' ? [] : copy[solution].points;
 </section>
 
 <style>
+  .walk-test { max-width: 840px; margin: 20px 0 0; }
+  .walk-test img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; object-position: center; }
+  .walk-test figcaption { margin-top: 8px; color: var(--muted); font-size: 14px; }
+  @media (max-width: 480px) {
+    .walk-test img { aspect-ratio: 4 / 5; object-position: 68% center; }
+  }
   .example-body { display: grid; gap: 18px; margin-top: 24px; }
   .example-panel { margin: 0; min-width: 0; padding: clamp(12px, 2.5vw, 24px); background: #f1f3f2; border: 1px solid var(--line); border-top: 3px solid var(--yellow); }
   figcaption { display: grid; gap: 4px; }
