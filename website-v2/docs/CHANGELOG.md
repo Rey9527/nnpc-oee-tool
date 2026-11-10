@@ -1,4 +1,8 @@
 # Change record
+## Homepage — industries, delivery, and contact
+- Added four illustrated operating environments, three delivery capabilities, and clearer enquiry guidance in English, Traditional Chinese, and Thai.
+- Reused the factory image from Engineering and generated the office, school, and hotel settings as unbranded architectural documentary illustrations. Astro serves responsive WebP versions.
+
 ## INTAG — comparison layout
 - Replaced deployment accordions with a comparison table on desktop and stacked comparisons on phones. Added the localized scope and site validation note.
 
