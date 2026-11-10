@@ -1,6 +1,7 @@
 ---
 import EngineeringPage from '../../../layouts/EngineeringPage.astro';
 import EngineeringSections from '../../../components/EngineeringSections.astro';
+import IntagApplications from '../../../components/IntagApplications.astro';
 import IntagDeploymentComparison from '../../../components/IntagDeploymentComparison.astro';
 import SolutionExample from '../../../components/SolutionExample.astro';
 import { solutionIds } from '../../../content/company';
@@ -22,8 +23,8 @@ const copy = solutionDetail[locale][solution];
 const labels = detailLabels[locale];
 const pilot = pilotCopy[locale];
 const deployment = solution === 'intag' ? intagDeploymentCopy[locale] : undefined;
+const applications = copy.applications && { id: 'applications', layout: 'cards' as const, ...copy.applications };
 const sections: EngineeringSection[] = [
-  ...(copy.applications ? [{ id: 'applications', layout: 'cards' as const, ...copy.applications }] : []),
   { id: 'use-cases', title: labels.useCases, text: copy.definition, layout: 'cards', items: copy.useCases },
   { id: 'workflow', title: labels.workflow, layout: 'steps', items: copy.workflow },
   { id: 'scope', title: labels.scope, layout: 'checklist', items: copy.scope },
@@ -37,6 +38,7 @@ const sections: EngineeringSection[] = [
   sections={[
     ...(deployment ? [{ id: 'deployment', title: deployment.title }] : []),
     { id: 'example', title: exampleCopy[locale].title },
+    ...(applications ? [applications] : []),
     ...sections,
   ]}
   contactCopy={deployment?.contact ?? { title: labels.contact, text: pilot.solutions[solution][0] }}
@@ -44,5 +46,6 @@ const sections: EngineeringSection[] = [
 >
   {deployment && <IntagDeploymentComparison copy={deployment} />}
   <SolutionExample locale={locale} solution={solution} />
+  {applications && (solution === 'intag' ? <IntagApplications copy={applications} /> : <EngineeringSections sections={[applications]} />)}
   <EngineeringSections sections={sections} />
 </EngineeringPage>

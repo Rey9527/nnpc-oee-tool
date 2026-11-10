@@ -1,44 +1,169 @@
 ---
 import SectionHeading from './SectionHeading.astro';
-import type { intagDeploymentCopy } from '../content/intag-deployment';
-import type { Locale } from '../content/home';
+import type { IntagDeploymentCopy } from '../content/intag-deployment';
 
 interface Props {
-  copy: (typeof intagDeploymentCopy)[Locale];
+  copy: IntagDeploymentCopy;
 }
 const { copy } = Astro.props;
+const { comparison } = copy;
+const variants = ['ble', 'intag'] as const;
+const rackRows = [34, 78, 122];
+const receiverPoints = [[91, 25], [175, 25], [290, 25], [91, 152], [175, 152], [290, 152]];
 ---
 <section id="deployment" class="container engineering-block">
-  <SectionHeading title={copy.title} text={copy.intro} />
-  <div class="comparison">
-    {copy.items.map(([topic, intag, ble]) => (
-      <div class="comparison-row">
-        <h3>{topic}</h3>
-        <dl>
-          <div><dt>{copy.intag}</dt><dd>{intag}</dd></div>
-          <div><dt>{copy.ble}</dt><dd>{ble}</dd></div>
-        </dl>
-      </div>
-    ))}
-  </div>
+  <SectionHeading title={copy.heading} text={copy.intro} />
+  <p class="deployment-note">{copy.diagram.note}</p>
+  <figure class="deployment-diagram">
+    <figcaption>{copy.diagram.title}</figcaption>
+    <div class="diagram-variants">
+      {variants.map(variant => (
+        <div class:list={['diagram-variant', { 'diagram-intag': variant === 'intag' }]}>
+          <header class="diagram-header">
+            <p>{variant === 'ble' ? copy.diagram.baseline : copy.diagram.recommended}</p>
+            <h3>{copy[variant]}</h3>
+          </header>
+          <svg viewBox="0 0 360 184" aria-hidden="true" focusable="false">
+            <rect x="12" y="12" width="336" height="160" rx="4" fill="#fdfdfb" stroke="#657276" stroke-width="2" />
+            <rect x="15" y="15" width="56" height="154" fill="#f1f2f2" />
+            <path d="M72 15v154M80 67h260M80 111h260" fill="none" stroke="#aeb7b9" stroke-dasharray="4 4" />
+            <path d="M31 27h25v28H31zm0 51h25v28H31zm0 51h25v28H31z" fill="none" stroke="#b8c1c1" />
+            <g fill="#c8ced0" stroke="#899497">
+              <rect x="12" y="31" width="13" height="20" rx="1" />
+              <rect x="12" y="82" width="13" height="20" rx="1" />
+              <rect x="12" y="133" width="13" height="20" rx="1" />
+            </g>
+            {rackRows.map(y => (
+              <g transform={`translate(0 ${y})`}>
+                <rect x="105" y="0" width="160" height="20" rx="2" fill="#d9dedf" stroke="#899497" />
+                <path d="M105 10h160m-128-10v20m32-20v20m32-20v20m32-20v20" stroke="#aeb7b9" />
+                <path d="M110 5h22m10 0h22m10 0h22m10 0h22m10 0h22M110 15h22m10 0h22m10 0h22m10 0h22m10 0h22" stroke="#bfc7c7" stroke-width="3" />
+              </g>
+            ))}
+            {variant === 'intag' ? (
+              <g>
+                <path d="M46 111h43V67h199" fill="none" stroke="#987200" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 5" />
+                <g transform="translate(291 66)" stroke="#2c3437" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="0" cy="0" r="22" fill="var(--yellow)" stroke="none" />
+                  <path d="M-7 9l-3 8m9-8 5 8m-8-19 9 5 4-3" fill="none" />
+                  <path d="M-10 9l2-10h8l3 10z" fill="#fff" />
+                  <circle cx="-4" cy="-8" r="4" fill="#fff" />
+                  <rect x="8" y="-6" width="8" height="11" rx="1" fill="#fff" transform="rotate(17 12 0)" />
+                </g>
+              </g>
+            ) : (
+              receiverPoints.map(([x, y]) => (
+                <g transform={`translate(${x} ${y})`}>
+                  <circle r="12" fill="#e4e8e9" stroke="#7f8a8c" stroke-width="1" />
+                  <rect x="-7" y="-7" width="14" height="14" rx="2" fill="#394549" />
+                  <circle r="1.8" fill="#fff" />
+                </g>
+              ))
+            )}
+          </svg>
+          <p class="diagram-description"><strong>{copy.diagram.label}:</strong> {copy.diagram[variant]}</p>
+          <ol class="diagram-work" role="list">
+            {copy.diagram.work[variant].map(task => <li>{task}</li>)}
+          </ol>
+        </div>
+      ))}
+    </div>
+    <ul class="diagram-legend">
+      <li class="legend-racks">{copy.diagram.racks}</li>
+      <li class="legend-aisle">{copy.diagram.aisle}</li>
+      <li class="legend-loading">{copy.diagram.loading}</li>
+    </ul>
+  </figure>
+  <section class="comparison" aria-labelledby="deployment-comparison-title">
+    <h3 id="deployment-comparison-title">{copy.title}</h3>
+    <table aria-labelledby="deployment-comparison-title" aria-describedby="deployment-comparison-note">
+      <colgroup><col class="comparison-topic-col" /><col /><col /></colgroup>
+      <thead>
+        <tr>
+          <th scope="col">{comparison.topicHeading}</th>
+          <th scope="col" class="comparison-ble">{comparison.bleHeading}</th>
+          <th scope="col" class="comparison-intag">INTAG</th>
+        </tr>
+      </thead>
+      <tbody>
+        {comparison.rows.map(({ topic, ble, intag }) => (
+          <tr>
+            <th scope="row">{topic}</th>
+            <td class="comparison-ble">{ble}</td>
+            <td class="comparison-intag">{intag}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    <div class="comparison-mobile">
+      {comparison.rows.map(({ topic, mobile }) => (
+        <div class="comparison-row">
+          <h4>{topic}</h4>
+          <p class="comparison-ble"><strong>BLE:</strong> {mobile.ble}</p>
+          <p class="comparison-intag"><strong>INTAG:</strong> {mobile.intag}</p>
+        </div>
+      ))}
+    </div>
+    <p class="comparison-note" id="deployment-comparison-note">{comparison.note}</p>
+  </section>
 </section>
 
 <style>
-  .comparison { margin-top: 24px; border-top: 3px solid var(--yellow); }
-  .comparison-row { padding-block: 20px; border-bottom: 1px solid var(--line); }
-  h3 { margin-bottom: 12px; font-size: 18px; letter-spacing: 0; }
-  dl { display: grid; gap: 12px; margin: 0; }
-  dl > div { min-width: 0; padding: 14px; background: var(--paper); }
-  dt { font-size: 14px; font-weight: 700; }
-  dd { margin: 6px 0 0; color: var(--muted); font-size: 14px; line-height: 1.65; }
+  #deployment :global(.section-heading h2) { text-wrap: balance; }
+  .deployment-note { margin: 14px 0 0; padding: 8px 0 8px 12px; border-inline-start: 3px solid var(--yellow); font-size: 14px; }
+  .deployment-diagram { margin: 24px 0 0; }
+  figcaption { font-size: 18px; font-weight: 700; }
+  h3 { margin: 0; font-size: 16px; letter-spacing: 0; }
+  .diagram-variants { display: grid; gap: 12px; margin-top: 12px; }
+  .diagram-variant { display: flex; flex-direction: column; min-width: 0; background: var(--paper); border: 1px solid var(--line); }
+  .diagram-intag { background: #fffaf0; border-color: #ac8600; }
+  .diagram-header { padding: 12px 14px; background: #e4e7e8; }
+  .diagram-intag .diagram-header { background: var(--yellow); }
+  .diagram-header p { margin: 0 0 4px; color: #394347; font-size: 12px; line-height: 1.4; }
+  .diagram-variant svg { display: block; width: 100%; height: auto; margin-top: auto; padding: 8px 14px 0; }
+  .diagram-description { margin: 0; padding: 8px 14px 14px; color: var(--muted); font-size: 14px; line-height: 1.55; }
+  .diagram-description strong { font-weight: 600; }
+  .diagram-work { display: grid; gap: 0; margin: 0 14px 14px; padding: 0; list-style: none; counter-reset: task; }
+  .diagram-work li {
+    display: grid; grid-template-columns: 21px minmax(0, 1fr); gap: 8px; align-items: start;
+    padding: 8px 0; border-top: 1px solid #d5d9da; counter-increment: task;
+    font-size: 14px; line-height: 1.5;
+  }
+  .diagram-work li::before {
+    content: counter(task); display: grid; place-items: center; min-height: 21px;
+    color: #2d3638; background: #e1e5e6; font-size: 12px; font-weight: 700;
+  }
+  .diagram-intag .diagram-work li { border-color: #ead9a1; }
+  .diagram-intag .diagram-work li::before { background: #ffe58a; color: #594100; }
+  .diagram-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 12px 0 0; padding: 0; list-style: none; color: var(--muted); font-size: 13px; }
+  .diagram-legend li { display: flex; align-items: center; gap: 6px; }
+  .diagram-legend li::before { content: ''; width: 15px; height: 9px; border: 1px solid #899497; }
+  .legend-racks::before { background: #d9dedf; }
+  .diagram-legend .legend-aisle::before { background: #fff; border-style: dashed; }
+  .legend-loading::before { background: #f1f2f2; }
+  .comparison { margin-top: 28px; font-size: 14px; line-height: 1.6; }
+  .comparison h3 { margin-bottom: 12px; font-size: 18px; }
+  table { display: none; width: 100%; table-layout: fixed; border-collapse: collapse; }
+  .comparison-topic-col { width: 21%; }
+  th, td {
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    text-align: start;
+    vertical-align: top;
+    overflow-wrap: anywhere;
+  }
+  thead th:first-child { background: var(--paper); }
+  .comparison-ble { background: var(--paper); }
+  .comparison-intag { background: #fff7dc; }
+  .comparison-row { padding: 10px 0 12px; border-top: 1px solid var(--line); }
+  .comparison-row:last-child { border-bottom: 1px solid var(--line); }
+  .comparison-row h4 { margin: 0 0 6px; font-size: 15px; }
+  .comparison-row p { margin: 0; padding: 6px 10px; overflow-wrap: anywhere; }
+  .comparison-row .comparison-intag { border-inline-start: 2px solid var(--yellow); padding-inline-start: 8px; }
+  .comparison-note { margin: 10px 0 0; color: var(--muted); font-size: 13px; overflow-wrap: anywhere; }
   @media (min-width: 768px) {
-    .comparison-row {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 4fr);
-      gap: 16px;
-      align-items: start;
-    }
-    h3 { margin-top: 12px; }
-    dl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .diagram-variants { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    table { display: table; }
+    .comparison-mobile { display: none; }
   }
 </style>

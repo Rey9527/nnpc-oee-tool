@@ -1,4 +1,13 @@
 # Change record
+## INTAG — comparison layout
+- Replaced deployment accordions with a comparison table on desktop and stacked comparisons on phones. Added the localized scope and site validation note.
+
+## INTAG — comparison and pilot visuals
+- Added side-by-side deployment work lists, refreshed the illustrative tablet screen and warehouse map, and illustrated the three pilot modules. Retained the map modes, example timestamps and event rules.
+
+## INTAG — deployment and walk-test visuals
+- Added a localized deployment diagram, expandable comparison details, and an illustrative walk-test photo with a visible survey point.
+
 ## INTAG — deployment comparison
 - Added a three-language comparison of existing-signal INTAG deployments and BLE deployments that require new fixed equipment, with a site pilot enquiry.
 

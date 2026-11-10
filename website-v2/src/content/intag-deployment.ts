@@ -1,12 +1,37 @@
 import type { EngineeringContact } from './engineering/types';
 import type { Locale } from './home';
 
-interface IntagDeploymentCopy {
+export interface IntagDeploymentCopy {
   title: string;
+  heading: string;
   intro: string;
   intag: string;
   ble: string;
-  items: readonly (readonly [topic: string, intag: string, ble: string])[];
+  diagram: {
+    title: string;
+    label: string;
+    baseline: string;
+    recommended: string;
+    racks: string;
+    aisle: string;
+    loading: string;
+    intag: string;
+    ble: string;
+    work: Record<'ble' | 'intag', readonly [string, string, string]>;
+    note: string;
+  };
+  walkTest: { alt: string; caption: string };
+  comparison: {
+    topicHeading: string;
+    bleHeading: string;
+    note: string;
+    rows: readonly {
+      topic: string;
+      ble: string;
+      intag: string;
+      mobile: { ble: string; intag: string };
+    }[];
+  };
   consultation: string;
   contact: EngineeringContact;
 }
@@ -14,14 +39,64 @@ interface IntagDeploymentCopy {
 export const intagDeploymentCopy: Record<Locale, IntagDeploymentCopy> = {
   en: {
     title: 'Deployment, maintenance and expansion',
-    intro: 'INTAG can combine signals already present on site, such as Wi-Fi and Bluetooth. Compare the two configurations using the same area, tracked assets, update rate and acceptance criteria. Some BLE designs can also use existing access points.',
-    intag: 'INTAG with existing site signals',
-    ble: 'BLE with new fixed equipment',
-    items: [
-      ['Deployment cost', 'Survey the site and walk the working routes to build a signal map. Budget for compatible devices, software and integration. Suitable sites can avoid buying and installing dedicated positioning equipment.', 'Budget for fixed beacons or receivers, mounting and any power, cabling or network backhaul the design requires.'],
-      ['Maintenance', 'Maintain the devices, software and signal map. Recheck coverage after changes to the layout or wireless environment and update the map when needed.', 'Also maintain the fixed equipment. Depending on the design, this can include battery replacement, power and network checks, and checks after equipment is moved.'],
-      ['Management and expansion', 'Keep track of compatible devices and mapped areas. Survey, map and validate each new area before expanding coverage.', 'Also keep an inventory of fixed equipment, including its location and maintenance owner. Plan the placement and installation of equipment needed for a new area.'],
-    ],
+    heading: 'Indoor Positioning Without Additional Dedicated Anchors — Where Conditions Allow',
+    intro: 'INTAG can leverage existing site conditions to reduce the need for additional dedicated positioning equipment.',
+    intag: 'INTAG | Less fixed equipment to install',
+    ble: 'BLE architecture requiring new fixed receivers',
+    diagram: {
+      title: 'One warehouse, two deployment approaches',
+      label: 'Deployment illustration',
+      baseline: 'Comparison baseline',
+      recommended: 'Recommended by NNPC',
+      racks: 'Storage racks',
+      aisle: 'Aisles',
+      loading: 'Loading area',
+      intag: 'A technician uses a handheld device to survey the operating route.',
+      ble: 'Square markers show example locations for new fixed receivers.',
+      work: {
+        ble: ['Plan receiver locations and mount new equipment', 'Arrange power and connectivity as needed', 'Maintain the added receivers and connections'],
+        intag: ['Check site conditions and walk the operating route', 'Validate positioning on that route', 'Recheck coverage when the site changes'],
+      },
+      note: 'Hardware requirements and positioning performance are subject to site assessment and validation.',
+    },
+    walkTest: {
+      alt: 'A warehouse technician holds a tablet showing rack rows, a survey route and a yellow survey point.',
+      caption: 'Site walk-test illustration. The tablet shows an example interface, not an INTAG product screenshot. The yellow dot marks the survey point.',
+    },
+    comparison: {
+      topicHeading: 'Aspect',
+      bleHeading: 'BLE Architecture Requiring New Fixed Receivers',
+      note: 'This comparison applies only to BLE architectures requiring additional fixed receivers. INTAG hardware requirements and positioning performance depend on site conditions and validation.',
+      rows: [
+        {
+          topic: 'Deployment',
+          ble: 'Plan fixed receiver locations, install the equipment and make the required connections.',
+          intag: 'Assess the site, walk the operating route and validate positioning. Where conditions allow, no new dedicated positioning equipment is needed.',
+          mobile: {
+            ble: 'Plan receiver locations, install fixed equipment and connect it.',
+            intag: 'Assess the site, walk the route and validate positioning. Where conditions allow, no new dedicated positioning equipment is needed.',
+          },
+        },
+        {
+          topic: 'Maintenance',
+          ble: 'Maintain fixed receivers, power and network connections as required by the design.',
+          intag: 'Continue to manage the system, end devices and changes to the site environment.',
+          mobile: {
+            ble: 'Maintain fixed receivers, power and connections.',
+            intag: 'Manage the system, end devices and site conditions.',
+          },
+        },
+        {
+          topic: 'Management & Expansion',
+          ble: 'Assess whether expansion requires moving or adding fixed receivers.',
+          intag: 'Repeat the walk survey, validate positioning and make any necessary improvements based on site conditions.',
+          mobile: {
+            ble: 'Assess whether to move or add fixed receiver locations.',
+            intag: 'Repeat the walk survey, validate and make improvements as needed.',
+          },
+        },
+      ],
+    },
     consultation: 'Discuss an on-site pilot',
     contact: {
       title: 'Assess the site for a positioning pilot',
@@ -30,14 +105,64 @@ export const intagDeploymentCopy: Record<Locale, IntagDeploymentCopy> = {
   },
   'zh-tw': {
     title: '建置、維護與擴區比較',
-    intro: 'INTAG 可融合現場既有的 Wi-Fi、藍牙等訊號。比較兩種配置時，採用相同覆蓋範圍、追蹤物件數量、更新頻率及驗收條件。部分 BLE 架構也能沿用既有基地台。',
-    intag: 'INTAG 沿用既有訊號',
-    ble: 'BLE 新設固定定位設備',
-    items: [
-      ['建置開銷', '場勘後沿作業路線走測建圖，估列相容終端、軟體與整合費用。現場條件合適時，可省去專用定位設備的採購與安裝。', '另估固定 Beacon 或接收器的採購、安裝，以及依配置所需的供電、配線或網路回傳。'],
-      ['維護成本', '維護終端、軟體及訊號地圖。場地配置或無線環境變動時，重新確認覆蓋，必要時更新地圖。', '另需維護固定設備，依配置處理換電池、供電與網路檢查，以及設備移位後的覆蓋確認。'],
-      ['管理與擴區', '管理相容終端與已建圖的區域。擴區前先勘查訊號、建圖並驗收。', '另需管理固定設備台帳、位置與維護責任。擴區時規劃新區所需的設備點位與安裝。'],
-    ],
+    heading: '室內定位，不一定需要新增定位基站',
+    intro: 'INTAG 可利用現場既有環境，減少專用定位設備的部署需求。',
+    intag: 'INTAG｜減少固定設備部署',
+    ble: '需新增固定接收器的 BLE 架構',
+    diagram: {
+      title: '同一座倉庫，兩種部署方式',
+      label: '部署方式示意',
+      baseline: '比較基準',
+      recommended: 'NNPC 推薦',
+      racks: '貨架',
+      aisle: '走道',
+      loading: '裝卸區',
+      intag: '現場人員使用手持裝置，沿作業路線走測。',
+      ble: '方形標記表示新增固定 BLE 接收器的示意點位。',
+      work: {
+        ble: ['規劃點位、安裝固定接收器', '依配置安排供電與連線', '維護新增的接收器與連線'],
+        intag: ['確認場域條件，沿實際路線走測', '驗證作業路線的定位表現', '場域變更時複核覆蓋範圍'],
+      },
+      note: '符合現場訊號及裝置條件時，可免增設專用定位設備。實際配置與定位表現依現場驗證確認。',
+    },
+    walkTest: {
+      alt: '倉庫人員手持平板，螢幕顯示貨架、走測路線及黃色走測點。',
+      caption: '現場走測示意。平板為介面示例，非 INTAG 實際產品畫面；黃點標示走測位置。',
+    },
+    comparison: {
+      topicHeading: '比較面向',
+      bleHeading: '需新增固定接收器的 BLE 架構',
+      note: '本比較僅針對需新增固定接收器的 BLE 架構。INTAG 實際設備需求與定位表現，依現場條件及驗證結果確認。',
+      rows: [
+        {
+          topic: '建置',
+          ble: '規劃固定接收器點位、安裝設備及相關連線',
+          intag: '場勘、走測與驗證；符合條件可免新增專用定位設備',
+          mobile: {
+            ble: '規劃點位、安裝固定設備與相關連線',
+            intag: '場勘、走測與驗證；符合條件可免新增專用設備',
+          },
+        },
+        {
+          topic: '維護',
+          ble: '依配置維護固定接收器、供電及網路連線',
+          intag: '仍需管理系統、終端裝置及環境變更',
+          mobile: {
+            ble: '固定接收器、供電及連線維護',
+            intag: '系統、終端裝置與環境管理',
+          },
+        },
+        {
+          topic: '管理與擴充',
+          ble: '擴充時評估調整或新增固定接收器點位',
+          intag: '依現場條件重新走測、驗證及必要補強',
+          mobile: {
+            ble: '評估調整或新增固定點位',
+            intag: '重新走測、驗證及必要補強',
+          },
+        },
+      ],
+    },
     consultation: '洽詢現場定位試點',
     contact: {
       title: '評估場域是否需要新增定位設備',
@@ -46,14 +171,64 @@ export const intagDeploymentCopy: Record<Locale, IntagDeploymentCopy> = {
   },
   th: {
     title: 'เปรียบเทียบการติดตั้ง การดูแล และการขยายพื้นที่',
-    intro: 'INTAG ใช้สัญญาณเดิมหลายชนิดร่วมกันได้ เช่น Wi-Fi และบลูทูธ การเปรียบเทียบใช้พื้นที่ครอบคลุม จำนวนทรัพย์สินที่ติดตาม ความถี่ในการอัปเดต และเกณฑ์ตรวจรับเดียวกัน ระบบ BLE บางรูปแบบใช้จุดกระจายสัญญาณเดิมได้เช่นกัน',
-    intag: 'INTAG ที่ใช้สัญญาณเดิมในพื้นที่',
-    ble: 'BLE ที่ติดตั้งอุปกรณ์ประจำจุดเพิ่ม',
-    items: [
-      ['ค่าใช้จ่ายในการติดตั้ง', 'สำรวจพื้นที่และเดินเก็บสัญญาณตามเส้นทางทำงานเพื่อสร้างแผนที่สัญญาณ ประเมินค่าอุปกรณ์ที่รองรับ ซอฟต์แวร์ และงานเชื่อมระบบ หากสภาพหน้างานเหมาะสม สามารถลดค่าจัดซื้อและติดตั้งอุปกรณ์ระบุตำแหน่งเฉพาะทางได้', 'ประเมินค่า Beacon หรือเครื่องรับสัญญาณประจำจุดและค่าติดตั้งเพิ่มเติม รวมถึงไฟเลี้ยง การเดินสาย หรือเครือข่ายสำหรับส่งข้อมูลตามรูปแบบที่เลือก'],
-      ['การบำรุงรักษา', 'ดูแลอุปกรณ์ ซอฟต์แวร์ และแผนที่สัญญาณ เมื่อผังพื้นที่หรือสภาพสัญญาณเปลี่ยน ให้ตรวจสอบพื้นที่ครอบคลุมและอัปเดตแผนที่ตามความจำเป็น', 'ดูแลอุปกรณ์ประจำจุดเพิ่มเติม เช่น เปลี่ยนแบตเตอรี่ ตรวจไฟเลี้ยงหรือเครือข่าย และตรวจพื้นที่ครอบคลุมอีกครั้งเมื่อย้ายอุปกรณ์ ทั้งนี้ขึ้นอยู่กับรูปแบบที่ใช้'],
-      ['การจัดการและขยายพื้นที่', 'จัดการอุปกรณ์ที่รองรับและพื้นที่ที่ทำแผนที่แล้ว ก่อนขยายพื้นที่ให้สำรวจสัญญาณ จัดทำแผนที่ และตรวจรับในพื้นที่ใหม่', 'จัดทำทะเบียนอุปกรณ์ประจำจุด ระบุตำแหน่งและผู้รับผิดชอบการดูแล เมื่อขยายพื้นที่ให้วางแผนจุดติดตั้งและอุปกรณ์ที่ต้องใช้เพิ่ม'],
-    ],
+    heading: 'ระบบระบุตำแหน่งภายในอาคาร โดยอาจไม่ต้องติดตั้งอุปกรณ์ระบุตำแหน่งเฉพาะทางเพิ่มเติม',
+    intro: 'INTAG สามารถใช้ประโยชน์จากสภาพแวดล้อมเดิมของพื้นที่ เพื่อลดความจำเป็นในการติดตั้งอุปกรณ์ระบุตำแหน่งเพิ่มเติม',
+    intag: 'INTAG | ลดการติดตั้งอุปกรณ์ประจำจุด',
+    ble: 'สถาปัตยกรรม BLE ที่ต้องติดตั้งเครื่องรับประจำจุดเพิ่ม',
+    diagram: {
+      title: 'คลังสินค้าเดียวกัน การติดตั้งสองรูปแบบ',
+      label: 'ภาพประกอบรูปแบบการติดตั้ง',
+      baseline: 'รูปแบบอ้างอิงสำหรับการเปรียบเทียบ',
+      recommended: 'แนวทางที่ NNPC แนะนำ',
+      racks: 'ชั้นวางสินค้า',
+      aisle: 'ทางเดิน',
+      loading: 'พื้นที่ขนถ่ายสินค้า',
+      intag: 'เจ้าหน้าที่ใช้อุปกรณ์พกพาเดินสำรวจตามเส้นทางทำงาน',
+      ble: 'สัญลักษณ์สี่เหลี่ยมแสดงตัวอย่างจุดติดตั้งเครื่องรับ BLE เพิ่มเติม',
+      work: {
+        ble: ['กำหนดจุดและติดตั้งเครื่องรับประจำจุด', 'จัดเตรียมไฟเลี้ยงและการเชื่อมต่อตามรูปแบบที่ใช้', 'ดูแลเครื่องรับและการเชื่อมต่อที่เพิ่มเข้ามา'],
+        intag: ['ตรวจสอบสภาพพื้นที่และเดินสำรวจตามเส้นทางทำงาน', 'ทดสอบการระบุตำแหน่งบนเส้นทางนั้น', 'ตรวจสอบพื้นที่ครอบคลุมอีกครั้งเมื่อหน้างานเปลี่ยน'],
+      },
+      note: 'ทั้งนี้ขึ้นอยู่กับสภาพสัญญาณและอุปกรณ์ในพื้นที่ โดยต้องประเมินและทดสอบก่อนใช้งานจริง',
+    },
+    walkTest: {
+      alt: 'เจ้าหน้าที่คลังสินค้าถือแท็บเล็ตที่แสดงชั้นวาง เส้นทางเดินสำรวจ และจุดสำรวจสีเหลือง',
+      caption: 'ภาพประกอบการเดินสำรวจหน้างาน หน้าจอแท็บเล็ตเป็นตัวอย่างประกอบ ไม่ใช่หน้าจอจริงของ INTAG จุดสีเหลืองแสดงตำแหน่งที่กำลังสำรวจ',
+    },
+    comparison: {
+      topicHeading: 'หัวข้อเปรียบเทียบ',
+      bleHeading: 'ระบบ BLE ที่ต้องติดตั้งตัวรับสัญญาณประจำที่เพิ่มเติม',
+      note: 'การเปรียบเทียบนี้ใช้กับระบบ BLE ที่ต้องติดตั้งตัวรับสัญญาณประจำที่เพิ่มเติมเท่านั้น ส่วนอุปกรณ์ที่จำเป็นและประสิทธิภาพการระบุตำแหน่งของ INTAG ขึ้นอยู่กับสภาพพื้นที่และผลการทดสอบยืนยัน',
+      rows: [
+        {
+          topic: 'การติดตั้งระบบ',
+          ble: 'กำหนดตำแหน่งตัวรับสัญญาณประจำที่ ติดตั้งอุปกรณ์และจัดการการเชื่อมต่อที่จำเป็น',
+          intag: 'ประเมินพื้นที่ เดินสำรวจ และทดสอบการระบุตำแหน่ง หากสภาพพื้นที่เหมาะสม อาจไม่ต้องติดตั้งอุปกรณ์ระบุตำแหน่งเฉพาะทางเพิ่ม',
+          mobile: {
+            ble: 'กำหนดจุด ติดตั้งตัวรับสัญญาณประจำที่ และเชื่อมต่ออุปกรณ์',
+            intag: 'ประเมินพื้นที่ เดินสำรวจ และทดสอบ หากสภาพพื้นที่เหมาะสม อาจไม่ต้องเพิ่มอุปกรณ์ระบุตำแหน่งเฉพาะทาง',
+          },
+        },
+        {
+          topic: 'การบำรุงรักษา',
+          ble: 'ดูแลตัวรับสัญญาณประจำที่ ระบบจ่ายไฟ และการเชื่อมต่อเครือข่ายตามรูปแบบที่ติดตั้ง',
+          intag: 'ยังต้องดูแลระบบและอุปกรณ์ปลายทาง รวมถึงจัดการเมื่อสภาพหน้างานเปลี่ยนแปลง',
+          mobile: {
+            ble: 'ดูแลตัวรับสัญญาณประจำที่ ระบบจ่ายไฟ และการเชื่อมต่อ',
+            intag: 'ดูแลระบบ อุปกรณ์ปลายทาง และสภาพหน้างาน',
+          },
+        },
+        {
+          topic: 'การบริหารจัดการและการขยายพื้นที่',
+          ble: 'เมื่อขยายพื้นที่ ให้ประเมินว่าต้องย้ายหรือเพิ่มจุดติดตั้งตัวรับสัญญาณประจำที่หรือไม่',
+          intag: 'เดินสำรวจและทดสอบการระบุตำแหน่งอีกครั้ง พร้อมปรับปรุงตามความจำเป็นและสภาพพื้นที่',
+          mobile: {
+            ble: 'ประเมินว่าต้องย้ายหรือเพิ่มจุดติดตั้งตัวรับสัญญาณหรือไม่',
+            intag: 'เดินสำรวจและทดสอบซ้ำ พร้อมปรับปรุงตามความจำเป็น',
+          },
+        },
+      ],
+    },
     consultation: 'ปรึกษาการทดสอบหน้างาน',
     contact: {
       title: 'ประเมินว่าต้องเพิ่มอุปกรณ์ระบุตำแหน่งหรือไม่',
