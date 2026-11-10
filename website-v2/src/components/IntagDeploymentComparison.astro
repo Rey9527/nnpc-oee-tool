@@ -6,48 +6,66 @@ interface Props {
   copy: IntagDeploymentCopy;
 }
 const { copy } = Astro.props;
-const variants = ['intag', 'ble'] as const;
+const variants = ['ble', 'intag'] as const;
+const rackRows = [34, 78, 122];
+const receiverPoints = [[91, 25], [175, 25], [290, 25], [91, 152], [175, 152], [290, 152]];
 ---
 <section id="deployment" class="container engineering-block">
-  <SectionHeading title={copy.title} text={copy.intro} />
+  <SectionHeading title={copy.heading} text={copy.intro} />
+  <p class="deployment-note">{copy.diagram.note}</p>
   <figure class="deployment-diagram">
-    <h3>{copy.diagram.title}</h3>
+    <figcaption>{copy.diagram.title}</figcaption>
     <div class="diagram-variants">
       {variants.map(variant => (
-        <div class="diagram-variant">
-          <h4>{copy[variant]}</h4>
-          <svg viewBox="0 0 320 152" aria-hidden="true" focusable="false">
-            <rect x="10" y="10" width="300" height="132" rx="4" fill="#fff" stroke="#8d9aa3" stroke-width="2" />
-            <path d="M22 61h276M22 93h276" stroke="#d7dfe2" stroke-dasharray="4 4" />
-            <g fill="#dae1e4" stroke="#afbbc1">
-              <rect x="44" y="25" width="62" height="27" rx="2" />
-              <rect x="127" y="25" width="62" height="27" rx="2" />
-              <rect x="210" y="25" width="62" height="27" rx="2" />
-              <rect x="44" y="103" width="62" height="25" rx="2" />
-              <rect x="127" y="103" width="62" height="25" rx="2" />
-              <rect x="210" y="103" width="62" height="25" rx="2" />
+        <div class:list={['diagram-variant', { 'diagram-intag': variant === 'intag' }]}>
+          <header class="diagram-header">
+            <p>{variant === 'ble' && `${copy.diagram.baseline} · `}{copy.diagram.label}</p>
+            <h3>{copy[variant]}</h3>
+          </header>
+          <svg viewBox="0 0 360 184" aria-hidden="true" focusable="false">
+            <rect x="12" y="12" width="336" height="160" rx="4" fill="#fff" stroke="#6d777b" stroke-width="2" />
+            <rect x="15" y="15" width="56" height="154" fill="#f1f2f2" />
+            <path d="M72 15v154M80 67h260M80 111h260" fill="none" stroke="#aeb7b9" stroke-dasharray="4 4" />
+            <g fill="#c8ced0" stroke="#899497">
+              <rect x="12" y="31" width="13" height="20" rx="1" />
+              <rect x="12" y="82" width="13" height="20" rx="1" />
+              <rect x="12" y="133" width="13" height="20" rx="1" />
             </g>
+            {rackRows.map(y => (
+              <g transform={`translate(0 ${y})`}>
+                <rect x="105" y="0" width="160" height="20" rx="2" fill="#d9dedf" stroke="#899497" />
+                <path d="M137 0v20m32-20v20m32-20v20m32-20v20" stroke="#aeb7b9" />
+              </g>
+            ))}
             {variant === 'intag' ? (
               <g>
-                <path d="M32 78h255V45" fill="none" stroke="#275f84" stroke-width="3" stroke-linecap="round" stroke-dasharray="7 5" />
-                <circle cx="287" cy="45" r="8" fill="#ffcc00" stroke="#634e00" stroke-width="2" />
+                <path d="M46 111h43V67h199" fill="none" stroke="#987200" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 5" />
+                <g transform="translate(291 66)" stroke="#2c3437" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="0" cy="0" r="22" fill="var(--yellow)" stroke="none" />
+                  <path d="M-7 9l-3 8m9-8 5 8m-8-19 9 5 4-3" fill="none" />
+                  <path d="M-10 9l2-10h8l3 10z" fill="#fff" />
+                  <circle cx="-4" cy="-8" r="4" fill="#fff" />
+                  <rect x="8" y="-6" width="8" height="11" rx="1" fill="#fff" transform="rotate(17 12 0)" />
+                </g>
               </g>
             ) : (
-              <g fill="#275f84" stroke="#fff" stroke-width="2">
-                <rect x="30" y="54" width="12" height="12" rx="2" />
-                <rect x="154" y="54" width="12" height="12" rx="2" />
-                <rect x="278" y="54" width="12" height="12" rx="2" />
-                <rect x="30" y="88" width="12" height="12" rx="2" />
-                <rect x="154" y="88" width="12" height="12" rx="2" />
-                <rect x="278" y="88" width="12" height="12" rx="2" />
-              </g>
+              receiverPoints.map(([x, y]) => (
+                <g transform={`translate(${x} ${y})`}>
+                  <rect x="-6" y="-6" width="12" height="12" rx="2" fill="#485256" stroke="#fff" stroke-width="1.5" />
+                  <circle r="1.6" fill="#fff" />
+                </g>
+              ))
             )}
           </svg>
-          <p>{copy.diagram[variant]}</p>
+          <p class="diagram-description">{copy.diagram[variant]}</p>
         </div>
       ))}
     </div>
-    <figcaption>{copy.diagram.note}</figcaption>
+    <ul class="diagram-legend">
+      <li class="legend-racks">{copy.diagram.racks}</li>
+      <li class="legend-aisle">{copy.diagram.aisle}</li>
+      <li class="legend-loading">{copy.diagram.loading}</li>
+    </ul>
   </figure>
   <div class="comparison">
     {copy.items.map(([topic, summary, intag, ble], index) => (
@@ -57,8 +75,8 @@ const variants = ['intag', 'ble'] as const;
           <span class="chevron" aria-hidden="true"></span>
         </summary>
         <dl>
-          <div><dt>{copy.intag}</dt><dd>{intag}</dd></div>
           <div><dt>{copy.ble}</dt><dd>{ble}</dd></div>
+          <div class="detail-intag"><dt>{copy.intag}</dt><dd>{intag}</dd></div>
         </dl>
       </details>
     ))}
@@ -66,16 +84,26 @@ const variants = ['intag', 'ble'] as const;
 </section>
 
 <style>
-  .deployment-diagram { margin: 24px 0 0; border-top: 3px solid var(--yellow); padding-top: 16px; }
-  h3, h4 { margin: 0; letter-spacing: 0; }
-  h3 { font-size: 18px; }
-  h4 { font-size: 14px; }
+  #deployment :global(.section-heading h2) { text-wrap: balance; }
+  .deployment-note { margin: 14px 0 0; padding: 8px 0 8px 12px; border-inline-start: 3px solid var(--yellow); font-size: 14px; }
+  .deployment-diagram { margin: 24px 0 0; }
+  figcaption { font-size: 18px; font-weight: 700; }
+  h3 { margin: 0; font-size: 16px; letter-spacing: 0; }
   .diagram-variants { display: grid; gap: 12px; margin-top: 12px; }
-  .diagram-variant { min-width: 0; padding: 14px; background: var(--paper); border: 1px solid var(--line); }
-  .diagram-variant svg { display: block; width: 100%; height: auto; margin-block: 8px; }
-  .diagram-variant p, figcaption, .summary-text { color: var(--muted); font-size: 14px; line-height: 1.55; }
-  .diagram-variant p { margin: 0; }
-  figcaption { margin-top: 10px; }
+  .diagram-variant { display: flex; flex-direction: column; min-width: 0; background: var(--paper); border: 1px solid var(--line); }
+  .diagram-intag { border-color: #ac8600; }
+  .diagram-header { padding: 12px 14px; background: #e4e7e8; }
+  .diagram-intag .diagram-header { background: var(--yellow); }
+  .diagram-header p { margin: 0 0 4px; color: #394347; font-size: 12px; line-height: 1.4; }
+  .diagram-variant svg { display: block; width: 100%; height: auto; margin-top: auto; padding: 8px 14px 0; }
+  .diagram-description, .summary-text { color: var(--muted); font-size: 14px; line-height: 1.55; }
+  .diagram-description { margin: 0; padding: 8px 14px 14px; }
+  .diagram-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 12px 0 0; padding: 0; list-style: none; color: var(--muted); font-size: 13px; }
+  .diagram-legend li { display: flex; align-items: center; gap: 6px; }
+  .diagram-legend li::before { content: ''; width: 15px; height: 9px; border: 1px solid #899497; }
+  .legend-racks::before { background: #d9dedf; }
+  .diagram-legend .legend-aisle::before { background: #fff; border-style: dashed; }
+  .legend-loading::before { background: #f1f2f2; }
   .comparison { margin-top: 20px; border-top: 1px solid var(--line); }
   details { border-bottom: 1px solid var(--line); }
   summary {
@@ -95,6 +123,7 @@ const variants = ['intag', 'ble'] as const;
   dl { display: grid; gap: 12px; margin: 0; }
   details dl { padding-bottom: 14px; }
   dl > div { min-width: 0; padding: 14px; background: var(--paper); }
+  .detail-intag { border-inline-start: 3px solid var(--yellow); }
   dt { font-size: 14px; font-weight: 700; }
   dd { margin: 6px 0 0; color: var(--muted); font-size: 14px; line-height: 1.65; }
   @media (min-width: 768px) {
