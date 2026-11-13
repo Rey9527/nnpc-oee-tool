@@ -1,0 +1,99 @@
+---
+import Button from './Button.astro';
+import SectionHeading from './SectionHeading.astro';
+import ServiceCard from './ServiceCard.astro';
+import type { Locale } from '../content/home';
+import { engineeringScenarios, homeCopy } from '../content/home-copy';
+import { localizedPath } from '../content/routes';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const { eyebrow, needs } = homeCopy[locale].work;
+const workPath = localizedPath(locale, 'work/');
+---
+<div class="scenario-needs">
+  <SectionHeading eyebrow={eyebrow} title={needs.title} text={needs.text} />
+  <ul class="scenario-grid">
+    {engineeringScenarios.map(({ id, icon, label }, index) => {
+      const [title, description] = needs.entries[id];
+      return (
+        <li>
+          <ServiceCard
+            title={title}
+            description={description}
+            icon={icon}
+            subtitle={label}
+            number={String(index + 1).padStart(2, '0')}
+            href={`${workPath}?scenario=${id}`}
+          />
+        </li>
+      );
+    })}
+  </ul>
+  <Button href={workPath} secondary>{needs.link}</Button>
+</div>
+
+<style>
+  .scenario-needs {
+    padding-bottom: clamp(26px, 4vw, 48px);
+    margin-bottom: clamp(26px, 4vw, 48px);
+    border-bottom: 1px solid var(--line);
+  }
+  .scenario-needs :global(.section-heading) { max-width: 740px; }
+  .scenario-needs :global(.section-heading .muted) { margin-block: 12px 0; }
+  .scenario-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(12px, 1.6vw, 24px);
+    margin: 20px 0;
+    padding: 0;
+    list-style: none;
+  }
+  .scenario-grid :global(.service-card) {
+    height: 100%;
+    gap: 5px;
+    padding: clamp(16px, 1.7vw, 24px);
+    background: #fff;
+  }
+  .scenario-grid :global(.service-card h3) {
+    margin-top: 5px;
+    font-size: 19px;
+  }
+  .scenario-grid :global(.service-card p) {
+    margin-top: 2px;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  .scenario-grid :global(.card-subtitle),
+  .scenario-grid :global(.card-number) {
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+  .scenario-grid :global(.card-number) {
+    position: absolute;
+    top: 16px;
+    right: 17px;
+    font-variant-numeric: tabular-nums;
+  }
+  .scenario-grid :global(.service-arrow) {
+    position: static;
+    align-self: end;
+    margin-top: auto;
+    color: var(--ink);
+    font-size: 18px;
+  }
+  .scenario-grid :global(.service-card:hover),
+  .scenario-grid :global(.service-card:focus-visible) { border-color: #b38a00; }
+  .scenario-grid :global(.service-card:hover .service-arrow),
+  .scenario-grid :global(.service-card:focus-visible .service-arrow) { color: #946f00; }
+  .scenario-needs :global(.button) { max-width: 100%; gap: 12px; }
+
+  @media (min-width: 768px) {
+    .scenario-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 1024px) {
+    .scenario-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+</style>

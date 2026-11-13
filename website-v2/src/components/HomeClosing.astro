@@ -81,6 +81,9 @@ const scenes = [
       <Button href={`mailto:${contact.email}`}>{labels.contact.email} · {contact.email}</Button>
       <Button href={contact.lineUrl} secondary>{`${labels.contact.line} ${contact.lineId}`}</Button>
     </div>
+    <a class="text-link assessment-link" href={localizedPath(locale, 'work/')}>
+      {copy.contact.assessment} <span class="ui-symbol" aria-hidden="true"><Icon name="arrow-right" /></span>
+    </a>
   </div>
 </section>
 
@@ -141,6 +144,15 @@ const scenes = [
   }
   .enquiry-actions { padding-top: 14px; border-top: 3px solid var(--yellow); }
   .enquiry-actions p { margin-bottom: 12px; color: var(--muted); font-size: 14px; }
+  .assessment-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 44px;
+    min-height: 44px;
+    margin-top: 6px;
+    font-size: 14px;
+  }
   .enquiry-links { display: flex; flex-wrap: wrap; gap: 10px; }
   .enquiry-links :global(.button) { min-width: 0; max-width: 100%; gap: 12px; overflow-wrap: anywhere; }
 
