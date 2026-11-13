@@ -8,6 +8,7 @@ import ServiceCard from './ServiceCard.astro';
 import ProjectCard from './ProjectCard.astro';
 import CoverageMap from './CoverageMap.astro';
 import HomeClosing from './HomeClosing.astro';
+import HomeScenarios from './HomeScenarios.astro';
 import Icon from './Icon.astro';
 import type { Locale } from '../content/home';
 import { capabilityIcons, homeCopy, serviceIcons, solutionNames } from '../content/home-copy';
@@ -81,8 +82,9 @@ const sceneImages = ['cctv-inspection', 'network-room', 'ahu-monitoring'];
 
     <section id="work" class="section projects-section">
       <div class="container">
+        <HomeScenarios locale={locale} />
         <div class="section-top">
-          <SectionHeading eyebrow={copy.work.eyebrow} title={copy.work.title} text={copy.work.text} />
+          <SectionHeading title={copy.work.title} text={copy.work.text} />
         </div>
         <div class="project-grid">
           {copy.work.scenes.map(([title, description], index) => (

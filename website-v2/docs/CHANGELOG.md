@@ -1,4 +1,8 @@
 # Change record
+## Homepage — engineering project needs
+- Added six localized scenario links before the existing engineering examples and an assessment link beside the homepage contact options.
+- Scenario URLs retain the selected ID. Opening specific scenarios and the assessment form are follow-up work.
+
 ## Smart Operations — detail page photos
 - Added five localized hero illustrations using the existing engineering detail layout. Moved the INTAG walk-test photo into the hero and retained its explanatory note by the interactive map.
 
