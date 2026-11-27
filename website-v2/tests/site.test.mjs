@@ -17,7 +17,13 @@ for(const [route,lang,serviceHeading,imageLabel,siteLabels] of locales) {
   assert.equal((html.match(/<h1[ >]/g)||[]).length,1);
   const ids=new Set([...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]));
   for(const [,anchor] of html.matchAll(/href="#([^"]+)"/g)) assert.ok(ids.has(anchor),'missing anchor: '+anchor);
-  assert.equal((html.match(/class="service-card"/g)||[]).length,8);
+  const servicesGrid = html.match(/<div class="services-grid">([\s\S]*?)<\/div>/)?.[1] ?? '';
+  assert.equal((servicesGrid.match(/class="service-card"/g)||[]).length,8);
+  const scenarioGrid = html.match(/<ul class="scenario-grid"[^>]*>([\s\S]*?)<\/ul>/)?.[1] ?? '';
+  assert.deepEqual([...scenarioGrid.matchAll(/href="([^"]+)"/g)].map(([,href]) => href),
+   ['new-construction', 'factory-expansion', 'renovation', 'modernization', 'energy-smart', 'maintenance']
+    .map(id => `/${route}/work/?scenario=${id}`));
+  assert.match(html, new RegExp(`class="text-link assessment-link" href="/${route}/work/"`));
   assert.ok(html.includes(`href="/${route}/engineering/"`));
   assert.ok(html.includes(`href="/${route}/engineering/cctv-surveillance/"`));
   const solutionList = html.match(/<div class="solution-list">([\s\S]*?)<a class="text-link solutions-all"/)?.[1] ?? '';

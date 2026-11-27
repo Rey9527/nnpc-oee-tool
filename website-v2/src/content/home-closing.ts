@@ -15,7 +15,7 @@ interface HomeClosingCopy {
     steps: readonly (readonly [title: string, text: string])[];
     link: string;
   };
-  contact: { title: string; text: string; prompt: string };
+  contact: { title: string; text: string; prompt: string; assessment: string };
 }
 
 export const homeClosingCopy: Record<Locale, HomeClosingCopy> = {
@@ -61,6 +61,7 @@ export const homeClosingCopy: Record<Locale, HomeClosingCopy> = {
       title: 'Plan the next step for your site',
       text: 'Planning a new build, upgrading an existing facility or introducing a smart operations system? Tell us what you need and how your site operates so we can discuss a suitable approach.',
       prompt: 'We can start with a rough brief. Share the facility type, what you want to improve and your target timeline.',
+      assessment: 'Assess My Project Needs',
     },
   },
   'zh-tw': {
@@ -105,6 +106,7 @@ export const homeClosingCopy: Record<Locale, HomeClosingCopy> = {
       title: '從現場需求，開始規劃下一步',
       text: '無論是新建工程、既有設施改善，或智慧營運系統導入，都歡迎提供場域條件與需求，讓我們一起討論適合的方向。',
       prompt: '規格還沒定，也可以先討論。建議提供場域類型、希望改善的項目及預計時程。',
+      assessment: '評估我的工程需求',
     },
   },
   th: {
@@ -149,6 +151,7 @@ export const homeClosingCopy: Record<Locale, HomeClosingCopy> = {
       title: 'เริ่มวางแผนจากความต้องการหน้างาน',
       text: 'ไม่ว่าจะเป็นงานก่อสร้างใหม่ การปรับปรุงพื้นที่เดิม หรือการนำระบบอัจฉริยะมาใช้ในการดำเนินงาน แจ้งสภาพพื้นที่และสิ่งที่ต้องการ เพื่อหารือแนวทางที่เหมาะสมร่วมกัน',
       prompt: 'เริ่มคุยกันได้แม้ยังไม่ได้สรุปข้อกำหนด เพียงแจ้งประเภทพื้นที่ สิ่งที่ต้องการปรับปรุง และช่วงเวลาที่วางแผนไว้',
+      assessment: 'ประเมินความต้องการของโครงการ',
     },
   },
 };

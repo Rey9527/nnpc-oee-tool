@@ -1,5 +1,22 @@
 export const navigationIds = ['engineering', 'solutions', 'industries', 'work', 'about', 'contact'] as const;
 export const serviceIcons = ['camera', 'access', 'network', 'wifi', 'server', 'sensor', 'ahu', 'wrench'] as const;
+export const engineeringScenarios = [
+  { id: 'new-construction', icon: 'helmet', label: 'New Construction' },
+  { id: 'factory-expansion', icon: 'factory', label: 'Factory Expansion' },
+  { id: 'renovation', icon: 'layers', label: 'Relocation & Renovation' },
+  { id: 'modernization', icon: 'network', label: 'System Modernization' },
+  { id: 'energy-smart', icon: 'sensor', label: 'Energy & Smart Control' },
+  { id: 'maintenance', icon: 'wrench', label: 'Maintenance & Improvement' },
+] as const;
+
+type ScenarioId = typeof engineeringScenarios[number]['id'];
+type ScenarioCopy = {
+  title: string;
+  text: string;
+  link: string;
+  entries: Record<ScenarioId, [title: string, description: string]>;
+};
+
 export const capabilityIcons = ['helmet', 'layers', 'people', 'headset'] as const;
 export const solutionNames = ['IIoT', 'MES / MOM', 'WMS', 'INTAG', 'Enterprise AI'];
 export const contact = { email: 'rey@nnpc.ai', lineId: '@nnpc', lineUrl: 'https://line.me/R/ti/p/%40nnpc' };
@@ -67,6 +84,19 @@ export const homeCopy = {
       eyebrow: '02 / ENGINEERING SCENARIOS', title: 'Engineering scenarios',
       text: 'Typical tasks that help define the scope of a factory project.',
       label: 'Illustrative engineering scene · not a client site',
+      needs: {
+        title: 'When do you need ELV engineering?',
+        text: 'From building a new factory or expanding a production line to upgrading existing facilities, see what infrastructure and systems to plan at each stage.',
+        link: 'Explore project needs and when to involve an ELV team',
+        entries: {
+          'new-construction': ['New factory or office', 'Plan networks, equipment and monitoring during building and M&E design.'],
+          'factory-expansion': ['Factory or production line expansion', 'Extend networks, fiber links and environmental monitoring for new lines and equipment.'],
+          renovation: ['Relocation or renovation', 'Review equipment locations and cable routes before work on the new layout begins.'],
+          modernization: ['Aging or unreliable systems', 'Address aging cabling, incompatible equipment and recurring system faults.'],
+          'energy-smart': ['Energy and smart controls upgrade', 'Put in place the infrastructure for environmental monitoring, equipment controls and smart operations.'],
+          maintenance: ['Maintenance and system improvement', 'Improve reliability with regular inspections, testing and targeted upgrades.'],
+        },
+      } satisfies ScenarioCopy,
       scenes: [
         ['CCTV inspection', 'Check camera angles, cable routes and access for maintenance.'],
         ['Factory network room', 'Plan rack space, patching and cable identification before changes.'],
@@ -160,6 +190,19 @@ export const homeCopy = {
       eyebrow: '02 / 工程情境', title: '工廠工程應用情境',
       text: '以下常見任務可作為討論工程範圍的起點。',
       label: '工程情境示意・非客戶案場',
+      needs: {
+        title: '什麼時候需要弱電工程？',
+        text: '從新建廠房、擴建產線，到既有設施改善與智慧化升級，了解不同工程階段所需的基礎設施與系統規劃。',
+        link: '了解工程需求與介入時機',
+        entries: {
+          'new-construction': ['新建工廠／辦公室', '在建築與機電設計階段，提前規劃網路、設備與監測系統。'],
+          'factory-expansion': ['擴廠／新增產線', '配合新產線與設備導入，擴充網路、光纖與環境監測設施。'],
+          renovation: ['搬遷／裝修', '在空間調整與裝修施工前，重新規劃設備位置及線路。'],
+          modernization: ['系統老舊／故障', '改善老舊線路、設備不相容及系統不穩定問題。'],
+          'energy-smart': ['節能／智慧化升級', '建立環境監測、設備控制與智慧營運所需的基礎設施。'],
+          maintenance: ['維護／系統改善', '透過定期檢查、測試與改善，提升既有系統的可靠性。'],
+        },
+      } satisfies ScenarioCopy,
       scenes: [
         ['CCTV 現場巡檢', '確認攝影機角度、線路走向及維修動線。'],
         ['工廠網路機房', '施工前盤點機櫃空間、配線與標示。'],
@@ -253,6 +296,19 @@ export const homeCopy = {
       eyebrow: '02 / ตัวอย่างงานวิศวกรรม', title: 'ตัวอย่างลักษณะงานวิศวกรรมในโรงงาน',
       text: 'ตัวอย่างงานทั่วไปสำหรับใช้หารือขอบเขตของโครงการ',
       label: 'ภาพประกอบงานวิศวกรรม · ไม่ใช่สถานที่ของลูกค้า',
+      needs: {
+        title: 'ควรเริ่มวางแผนงานระบบ ELV เมื่อไร?',
+        text: 'ตั้งแต่สร้างโรงงานใหม่ เพิ่มสายการผลิต ไปจนถึงปรับปรุงอาคารหรืออัปเกรดระบบควบคุม ดูว่าแต่ละช่วงควรเตรียมโครงสร้างพื้นฐานและวางแผนระบบอะไรบ้าง',
+        link: 'ดูความต้องการของโครงการและช่วงที่ควรเริ่มวางแผน',
+        entries: {
+          'new-construction': ['สร้างโรงงานหรือสำนักงานใหม่', 'วางแผนเครือข่าย อุปกรณ์ และระบบตรวจวัดตั้งแต่ขั้นออกแบบอาคารและงานระบบประกอบอาคาร'],
+          'factory-expansion': ['ขยายโรงงานหรือเพิ่มสายการผลิต', 'ขยายเครือข่าย สายใยแก้วนำแสง และระบบตรวจวัดสภาพแวดล้อมให้รองรับสายการผลิตและอุปกรณ์ใหม่'],
+          renovation: ['ย้ายหรือปรับปรุงพื้นที่', 'ทบทวนตำแหน่งอุปกรณ์และแนวเดินสายก่อนเริ่มปรับผังหรือตกแต่งพื้นที่'],
+          modernization: ['ระบบเก่าหรือขัดข้องบ่อย', 'แก้ปัญหาสายสัญญาณเสื่อมสภาพ อุปกรณ์ทำงานร่วมกันไม่ได้ และระบบทำงานไม่เสถียร'],
+          'energy-smart': ['ประหยัดพลังงานและอัปเกรดระบบควบคุม', 'เตรียมโครงสร้างพื้นฐานสำหรับตรวจวัดสภาพแวดล้อม ควบคุมอุปกรณ์ และบริหารการทำงานด้วยข้อมูล'],
+          maintenance: ['บำรุงรักษาและปรับปรุงระบบ', 'ตรวจสอบ ทดสอบ และปรับปรุงตามรอบเพื่อให้ระบบเดิมทำงานได้อย่างน่าเชื่อถือ'],
+        },
+      } satisfies ScenarioCopy,
       scenes: [
         ['ตรวจสอบกล้องวงจรปิด', 'ตรวจมุมกล้อง แนวเดินสาย และการเข้าถึงเพื่อซ่อมบำรุง'],
         ['ห้องเครือข่ายโรงงาน', 'วางแผนพื้นที่ตู้แร็ก การต่อสาย และการติดป้ายสายก่อนปรับปรุง'],

@@ -1,13 +1,22 @@
 ---
 import Icon from './Icon.astro';
 
-interface Props { title: string; description: string; icon: string; href?: string }
-const { title, description, icon, href } = Astro.props;
+interface Props {
+  title: string;
+  description: string;
+  icon: string;
+  href?: string;
+  subtitle?: string;
+  number?: string;
+}
+const { title, description, icon, href, subtitle, number } = Astro.props;
 const Element = href ? 'a' : 'article';
 ---
 <Element class="service-card" href={href}>
   <Icon name={icon} />
+  {number && <span class="card-number" aria-hidden="true">{number}</span>}
   <h3>{title}</h3>
+  {subtitle && <small class="card-subtitle" lang="en">{subtitle}</small>}
   <p>{description}</p>
   {href && <span class="ui-symbol service-arrow" aria-hidden="true"><Icon name="arrow-up-right" /></span>}
 </Element>
